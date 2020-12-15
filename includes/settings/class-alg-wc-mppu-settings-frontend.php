@@ -30,11 +30,12 @@ class Alg_WC_MPPU_Settings_Frontend extends Alg_WC_MPPU_Settings_Section {
 	 *
 	 * @version 3.4.0
 	 * @since   2.4.0
+	 * @todo    [next] My Account: move to a new section?
 	 * @todo    [next] My Account: Tab icon: add Font Awesome icon selector (i.e. instead of requiring to enter the code directly)
 	 * @todo    [next] (desc) Cart notice: better desc?
 	 * @todo    [next] (desc) Cart notice type: better desc?
-	 * @todo    [later] add more info about "Customer message" (i.e. when and where is it displayed) and maybe extend description for the "Single product page" notice
-	 * @todo    [maybe] My Account: add link to the tab (affected by "Tab id" option value)
+	 * @todo    [later] (desc) add more info about "Customer message" (i.e. when and where is it displayed) and maybe extend description for the "Single product page" notice
+	 * @todo    [maybe] (desc) My Account: add link to the tab (affected by "Tab id" option value)
 	 */
 	function get_settings() {
 
@@ -60,6 +61,7 @@ class Alg_WC_MPPU_Settings_Frontend extends Alg_WC_MPPU_Settings_Section {
 						'%first_order_date%',
 						'%first_order_date_exp%',
 						'%first_order_date_exp_timeleft%',
+						'%payment_method_title%',
 					), __( 'Available message placeholders: %s.', 'maximum-products-per-user-for-woocommerce' ) ),
 			),
 			array(

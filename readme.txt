@@ -2,8 +2,8 @@
 Contributors: wpcodefactory
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
-Tested up to: 5.5
-Stable tag: 3.4.0
+Tested up to: 5.6
+Stable tag: 3.5.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -16,8 +16,8 @@ Limit number of items your WooCommerce customers can buy (lifetime or in selecte
 = Main Features =
 
 * Set **maximum products** number **per user**.
-* Select plugin mode: product **quantities**, product **prices** or product **weights**.
-* Set **date range** (for example: lifetime, this month, this year, last 30 days, last 365 days or custom date range).
+* Select plugin mode: product **quantities**, product **orders**, product **prices** (including or excluding taxes), product **weights**, or product **volumes**.
+* Set **date range** (for example: lifetime, this month, this year, last 30 days, last 365 days, or custom date range).
 * Set on which **order statuses** product data should be updated.
 * Set different maximum product limits for different **user roles**.
 * Enable variable products **variations** usage.
@@ -26,19 +26,20 @@ Limit number of items your WooCommerce customers can buy (lifetime or in selecte
 * **Exclude products** from plugin scope.
 * **Edit** and **export** each user's **sales data**.
 * Choose which **payment gateways** should update product data.
-* **Display** remaining, maximum limits etc. to the users via "Permanent notice" on single product page, "Product limits" tab on "My account" page or with `[alg_wc_mppu_user_product_limits]` shortcode anywhere on your site.
+* **Display** remaining amount, maximum limits, etc. to the users in cart, checkout, single product page, "My account", or with shortcode anywhere on your site.
 * **Identify guests by IP address** or **block guests** from buying products in your shop.
 * **Hide products** with exceeded limits for the current user.
+* Enable **multi-language** support (WPML, Polylang).
 * And more...
 
 = Premium Version =
 
 With [Maximum Products per User for WooCommerce Pro](https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/) plugin you can set maximum products per user:
 
-* Per **product category**.
-* Per **product tag**.
-* Per **individual product**.
-* By **formula**, for example: per **user ID**, per **membership** plan, etc.
+* Per product **category**.
+* Per product **tag**.
+* Per **individual** product.
+* By **formula**, for example: per **user ID**, per **membership** plan, per **payment method**, etc.
 
 = More =
 
@@ -52,6 +53,30 @@ With [Maximum Products per User for WooCommerce Pro](https://wpfactory.com/item/
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 3.5.0 - 15/12/2020 =
+* Fix - Mode - Product prices (incl. tax) - Validate on add to cart - Always including taxes in product price now.
+* Dev - General - "Multi-language" option added ("WPML", "Polylang").
+* Dev - General - Mode - "Product prices (excl. tax)" option added (and "Product prices" option renamed to "Product prices (incl. tax)").
+* Dev - General - Mode - "Product orders" option added.
+* Dev - General - Mode - "Product volumes" option added.
+* Dev - General - User roles - "Enabled user roles" option added.
+* Dev - General - "Count by current payment method" option added.
+* Dev - Placeholders - `%payment_method_title%` placeholder added.
+* Dev - Data - Saving order payment method in product in product/term sales data now.
+* Dev - Formula - `payment_method` shortcode attribute added.
+* Dev - Advanced - "Lifetime from totals" option added (defaults to `no`). This changes the previous behaviour in plugin, where lifetime data was always retrieved from totals.
+* Dev - Developers - `alg_wc_mppu_data_product_or_term_id` filter added.
+* Dev - Developers - `alg_wc_mppu_get_cart_item_amount_by_term` filter added.
+* Dev - Developers - `alg_wc_mppu_get_cart_item_amount_by_parent` filter added.
+* Dev - Developers - `alg_wc_mppu_cart_item_amount` filter added.
+* Dev - Developers - `alg_wc_mppu_user_already_bought_do_count_order` filter added.
+* Dev - Developers - `alg_wc_mppu_user_already_bought` filter added.
+* Dev - Developers - `alg_wc_mppu_get_max_qty` - Filter applied to empty (i.e. zero) result as well now.
+* Dev - Admin settings descriptions updated.
+* Dev - Code refactoring.
+* WC tested up to: 4.8.
+* Tested up to: 5.6.
 
 = 3.4.0 - 01/12/2020 =
 * Fix - Formula - `product_sku` attribute - Product variable is now correctly reset for each new product check.

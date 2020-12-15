@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Advanced Section Settings
  *
- * @version 3.4.0
+ * @version 3.5.0
  * @since   2.3.1
  * @author  WPFactory
  */
@@ -61,7 +61,7 @@ class Alg_WC_MPPU_Settings_Advanced extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.0
 	 * @since   2.3.1
 	 * @todo    [maybe] `alg_wc_mppu_time_func`: remove option (i.e. always use local time)?
 	 */
@@ -99,6 +99,20 @@ class Alg_WC_MPPU_Settings_Advanced extends Alg_WC_MPPU_Settings_Section {
 				'desc'     => __( 'Enable', 'maximum-products-per-user-for-woocommerce' ),
 				'desc_tip' => __( 'Enable this if you want to copy plugin\'s product meta data on product "Duplicate".', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'alg_wc_mppu_duplicate_product',
+				'default'  => 'no',
+				'type'     => 'checkbox',
+			),
+			array(
+				'title'    => __( 'Lifetime from totals', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Enable', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'Ignored unless "%s" is set to "%s" in "%s" section.', 'maximum-products-per-user-for-woocommerce' ),
+						__( 'Date range', 'maximum-products-per-user-for-woocommerce' ),
+						__( 'Lifetime', 'maximum-products-per-user-for-woocommerce' ),
+						$this->get_section_link( 'general' ) ) . '<br>' .
+					sprintf( __( 'Enabling this may make "user already bought" data calculations faster, however, it will also disable some functionality, like "%s" option in "%s" section.', 'maximum-products-per-user-for-woocommerce' ),
+						__( 'Count by current payment method', 'maximum-products-per-user-for-woocommerce' ),
+						$this->get_section_link( 'general' ) ),
+				'id'       => 'alg_wc_mppu_get_lifetime_from_totals',
 				'default'  => 'no',
 				'type'     => 'checkbox',
 			),

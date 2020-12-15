@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Per Product Settings
  *
- * @version 3.4.0
+ * @version 3.5.0
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -113,7 +113,7 @@ class Alg_WC_MPPU_Settings_Per_product {
 	/**
 	 * get_meta_box_options.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.0
 	 * @since   1.0.0
 	 * @todo    [maybe] (desc) Limits: better tooltips?
 	 * @todo    [maybe] (desc) Use variations: better title/desc/tooltip?
@@ -141,7 +141,7 @@ class Alg_WC_MPPU_Settings_Per_product {
 			);
 			// User roles
 			if ( 'yes' === get_option( 'alg_wc_mppu_use_user_roles', 'no' ) ) {
-				foreach ( alg_wc_mppu_get_all_user_roles() as $role => $role_name ) {
+				foreach ( alg_wc_mppu()->core->get_user_roles() as $role => $role_name ) {
 					$result[] = array(
 						'title'             => __( 'Limit per user', 'maximum-products-per-user-for-woocommerce' ) . ( $use_variations ? ' (#' . $_product_id . ')' : '' ) . ': ' . $role_name,
 						'name'              => 'alg_wc_mppu_user_roles_max_qty' . ( $use_variations ? '_' . $_product_id : '' ),

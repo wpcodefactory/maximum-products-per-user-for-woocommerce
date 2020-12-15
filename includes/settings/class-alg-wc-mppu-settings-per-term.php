@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Per Term Settings
  *
- * @version 3.3.0
+ * @version 3.5.0
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -33,7 +33,7 @@ class Alg_WC_MPPU_Settings_Per_Term {
 	/**
 	 * product_terms_add_fields.
 	 *
-	 * @version 3.3.0
+	 * @version 3.5.0
 	 * @since   2.0.0
 	 * @todo    [next] (desc) descriptions (maybe use `wc_help_tip()`)
 	 */
@@ -52,7 +52,7 @@ class Alg_WC_MPPU_Settings_Per_Term {
 		if ( 'yes' === get_option( 'alg_wc_mppu_use_user_roles', 'no' ) ) {
 			$values = get_term_meta( $term->term_id, '_alg_wc_mppu_user_roles_max_qty', true );
 			$i      = 0;
-			foreach ( alg_wc_mppu_get_all_user_roles() as $role => $role_name ) {
+			foreach ( alg_wc_mppu()->core->get_user_roles() as $role => $role_name ) {
 				$value  = ( isset( $values[ $role ] ) ? $values[ $role ] : 0 );
 				$hidden = ( 0 == $i ? '<input type="hidden" name="alg_wc_mppu_edit_terms_user_roles" value="1">' : '' );
 				$i++;

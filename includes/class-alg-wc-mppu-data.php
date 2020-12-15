@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Data
  *
- * @version 3.4.0
+ * @version 3.5.0
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -238,7 +238,7 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * get_order_data.
 	 *
-	 * @version 2.0.0
+	 * @version 3.5.0
 	 * @since   2.0.0
 	 */
 	function get_order_data( $order, $product_qty ) {
@@ -247,6 +247,7 @@ class Alg_WC_MPPU_Data {
 			'date_modified'  => ( ( $date = $order->get_date_modified() )  && is_callable( array( $date, 'getTimestamp' ) ) ? $date->getTimestamp() : null ),
 			'date_completed' => ( ( $date = $order->get_date_completed() ) && is_callable( array( $date, 'getTimestamp' ) ) ? $date->getTimestamp() : null ),
 			'date_paid'      => ( ( $date = $order->get_date_paid() )      && is_callable( array( $date, 'getTimestamp' ) ) ? $date->getTimestamp() : null ),
+			'payment_method' => $order->get_payment_method(),
 			'qty'            => $product_qty,
 		);
 	}
@@ -288,7 +289,7 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * update_quantities.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.0
 	 * @since   1.0.0
 	 * @todo    [next] mysql transaction: lock before `get_post_meta` / `get_term_meta`?
 	 * @todo    [next] `alg_wc_mppu_payment_gateways`: on `$do_save` only?
@@ -334,6 +335,7 @@ class Alg_WC_MPPU_Data {
 							}
 							// Loop thorough all products and terms
 							foreach ( $products_and_terms as $product_or_term_id => $is_product ) {
+								$product_or_term_id = apply_filters( 'alg_wc_mppu_data_product_or_term_id', $product_or_term_id, $is_product );
 								$get_meta_func = ( $is_product ? 'get_post_meta' : 'get_term_meta' );
 								// Lifetime
 								if ( '' == ( $users_quantities = $get_meta_func( $product_or_term_id, '_alg_wc_mppu_totals_data', true ) ) ) {

@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class
  *
- * @version 3.4.0
+ * @version 3.5.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,8 +16,9 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.0
 	 * @since   1.0.0
+	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
 	 * @todo    [later] product terms (back-end): add fields to "*add* category/tag" pages also (i.e. not only to "edit" pages)
 	 * @todo    [later] (feature) correct qty on add to cart
@@ -29,8 +30,9 @@ class Alg_WC_MPPU_Core {
 		$this->is_wc_version_below_3_0_0 = version_compare( get_option( 'woocommerce_version', null ), '3.0.0', '<' );
 		if ( 'yes' === get_option( 'wpjup_wc_maximum_products_per_user_plugin_enabled', 'yes' ) ) {
 			// Properties
-			$this->do_use_user_roles        = ( 'yes' === get_option( 'alg_wc_mppu_use_user_roles', 'no' ) );
-			$this->do_identify_guests_by_ip = ( 'identify_by_ip' === get_option( 'alg_wc_mppu_block_guests', 'no' ) );
+			$this->do_use_user_roles           = ( 'yes' === get_option( 'alg_wc_mppu_use_user_roles', 'no' ) );
+			$this->do_identify_guests_by_ip    = ( 'identify_by_ip' === get_option( 'alg_wc_mppu_block_guests', 'no' ) );
+			$this->do_get_lifetime_from_totals = ( 'yes' === get_option( 'alg_wc_mppu_get_lifetime_from_totals', 'no' ) );
 			// Check quantities - Checkout
 			add_action( 'woocommerce_checkout_process', array( $this, 'check_cart_quantities' ), PHP_INT_MAX );
 			// Check quantities - Cart
@@ -64,6 +66,10 @@ class Alg_WC_MPPU_Core {
 					add_filter( 'the_content', array( $this, 'permanent_notice_text_content' ) );
 					break;
 			}
+			// Count by current payment method
+			if ( 'yes' === get_option( 'alg_wc_mppu_count_by_current_payment_method', 'no' ) ) {
+				add_filter( 'alg_wc_mppu_user_already_bought_do_count_order', array( $this, 'count_by_current_payment_method' ), 10, 3 );
+			}
 			// Shortcodes
 			require_once( 'class-alg-wc-mppu-shortcodes.php' );
 			// Per product options
@@ -80,6 +86,8 @@ class Alg_WC_MPPU_Core {
 			require_once( 'class-alg-wc-mppu-my-account.php' );
 			// Modes
 			require_once( 'class-alg-wc-mppu-modes.php' );
+			// Multi-language
+			require_once( 'class-alg-wc-mppu-multi-language.php' );
 		}
 		do_action( 'alg_wc_mppu_core_loaded', $this );
 	}
@@ -94,6 +102,26 @@ class Alg_WC_MPPU_Core {
 		if ( function_exists( 'wc_get_logger' ) && ( $log = wc_get_logger() ) ) {
 			$log->log( 'info', $message, array( 'source' => 'alg-wc-mppu' ) );
 		}
+	}
+
+	/**
+	 * count_by_current_payment_method.
+	 *
+	 * @version 3.5.0
+	 * @since   3.5.0
+	 * @todo    [maybe] customizable `return false;` (i.e. optional `return true;` on `empty( $chosen_payment_method )`)?
+	 */
+	function count_by_current_payment_method( $do_count, $order_id, $order_data ) {
+		$chosen_payment_method = $this->get_chosen_payment_method();
+		if ( ! empty( $chosen_payment_method ) ) {
+			if ( isset( $order_data['payment_method'] ) ) {
+				return ( $order_data['payment_method'] === $chosen_payment_method );
+			} else { // fallback for < MPPU v3.5.0
+				$order = wc_get_order( $order_id );
+				return ( $order && $order->get_payment_method() === $chosen_payment_method );
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -209,7 +237,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_max_qty_for_user_role.
 	 *
-	 * @version 3.2.5
+	 * @version 3.5.0
 	 * @since   2.2.0
 	 * @todo    [maybe] (feature) per user (currently can be done via "Formula" section)
 	 */
@@ -236,7 +264,7 @@ class Alg_WC_MPPU_Core {
 		$current_user->roles = array_map( array( $this, 'handle_user_roles' ), $current_user->roles );
 		// Return result
 		foreach ( $current_user->roles as $role ) {
-			if ( ! empty( $user_roles_data[ $role ] ) ) {
+			if ( ! empty( $user_roles_data[ $role ] ) && $this->is_user_role_enabled( $role ) ) {
 				return $user_roles_data[ $role ];
 			}
 		}
@@ -247,7 +275,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_max_qty.
 	 *
-	 * @version 3.2.5
+	 * @version 3.5.0
 	 * @since   1.0.0
 	 * @todo    [later] (feature) `per_product`: add "enabled/disabled" option
 	 * @todo    [later] (feature) `all_products`: apply only to selected products (i.e. include/exclude products, cats, tags)
@@ -268,7 +296,7 @@ class Alg_WC_MPPU_Core {
 			case 'per_term':
 				return apply_filters( 'alg_wc_mppu_get_max_qty', ( ( $qty = get_term_meta( $product_or_term_id, '_alg_wc_mppu_qty', true ) ) ? $qty : 0 ), $product_or_term_id, $type );
 		}
-		return 0; // 'formula'
+		return apply_filters( 'alg_wc_mppu_get_max_qty', 0, $product_or_term_id, $type ); // 'formula'
 	}
 
 	/**
@@ -410,7 +438,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_date_to_check.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.0
 	 * @since   2.4.0
 	 * @todo    [maybe] add `alg_wc_mppu_date_to_check_custom` filter
 	 * @todo    [maybe] add more predefined ranges, e.g. `last_14_days`, `last_45_days`, `last_60_days`, `MINUTE_IN_SECONDS`
@@ -419,6 +447,9 @@ class Alg_WC_MPPU_Core {
 		$date_to_check = 0;
 		$current_time  = $this->get_current_time();
 		switch ( $date_range ) {
+			case 'lifetime':
+				$date_to_check = 0;
+				break;
 			case 'this_hour':
 				$date_to_check = strtotime( date( 'Y-m-d H:00:00' ), $current_time );
 				break;
@@ -480,9 +511,7 @@ class Alg_WC_MPPU_Core {
 		 * Date range per product / term ID.
 		 *
 		 * if ( 'yes' === get_option( 'alg_wc_mppu_date_range_per_product_or_term_id', 'no' ) ) {
-		 *     $date_range_per_product_or_term = ( $is_product ?
-		 *         get_post_meta( $product_or_term_id, '_alg_wc_mppu_date_range', true ) :
-		 *         get_term_meta( $product_or_term_id, '_alg_wc_mppu_date_range', true ) );
+		 *     $date_range_per_product_or_term = $this->get_post_or_term_meta( ( $is_product ? 'product' : 'term' ), $product_or_term_id, '_alg_wc_mppu_date_range' );
 		 *     if ( ! empty( $date_range_per_product_or_term ) && 'default' != $date_range_per_product_or_term ) {
 		 *         $date_range = $date_range_per_product_or_term;
 		 *     }
@@ -515,30 +544,31 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_user_already_bought_qty.
 	 *
-	 * @version 3.3.0
+	 * @version 3.5.0
 	 * @since   2.0.0
+	 * @todo    [next] completely remove separate `lifetime` calculation (i.e. `$this->do_get_lifetime_from_totals` always `false`)
 	 * @todo    [maybe] add option to use e.g. order date completed (instead of `date_created`)
 	 */
 	function get_user_already_bought_qty( $product_or_term_id, $current_user_id, $is_product, $date_range = false ) {
+		$product_or_term_id  = apply_filters( 'alg_wc_mppu_data_product_or_term_id', $product_or_term_id, $is_product );
 		$user_already_bought = 0;
 		$first_order_date    = false;
 		$first_order_amount  = false;
 		$date_range          = ( false === $date_range ? $this->get_date_range( $product_or_term_id, $is_product ) : $date_range );
-		if ( 'lifetime' === $date_range ) {
-			$users_quantities = ( $is_product ?
-				get_post_meta( $product_or_term_id, '_alg_wc_mppu_totals_data', true ) :
-				get_term_meta( $product_or_term_id, '_alg_wc_mppu_totals_data', true ) );
+		if ( $this->do_get_lifetime_from_totals && 'lifetime' === $date_range ) {
+			$users_quantities = $this->get_post_or_term_meta( ( $is_product ? 'product' : 'term' ), $product_or_term_id, '_alg_wc_mppu_totals_data' );
 			if ( $users_quantities && isset( $users_quantities[ $current_user_id ] ) ) {
 				$user_already_bought = $users_quantities[ $current_user_id ];
 			}
 		} else {
-			$users_quantities = ( $is_product ?
-				get_post_meta( $product_or_term_id, '_alg_wc_mppu_orders_data', true ) :
-				get_term_meta( $product_or_term_id, '_alg_wc_mppu_orders_data', true ) );
+			$users_quantities = $this->get_post_or_term_meta( ( $is_product ? 'product' : 'term' ), $product_or_term_id, '_alg_wc_mppu_orders_data' );
 			if ( $users_quantities && isset( $users_quantities[ $current_user_id ] ) ) {
 				foreach ( $users_quantities[ $current_user_id ] as $order_id => $order_data ) {
 					$order_date = $this->get_order_date( $order_data['date_created'] );
-					if ( $this->check_order_date_range( $order_date, $date_range, $product_or_term_id, $current_user_id, $is_product ) ) {
+					if (
+						$this->check_order_date_range( $order_date, $date_range, $product_or_term_id, $current_user_id, $is_product ) &&
+						apply_filters( 'alg_wc_mppu_user_already_bought_do_count_order', true, $order_id, $order_data )
+					) {
 						$user_already_bought += $order_data['qty'];
 						if ( false === $first_order_date || $order_date < $first_order_date ) {
 							$first_order_date   = $order_date;
@@ -548,12 +578,12 @@ class Alg_WC_MPPU_Core {
 				}
 			}
 		}
-		return array(
+		return apply_filters( 'alg_wc_mppu_user_already_bought', array(
 			'bought'              => ( $user_already_bought ? $user_already_bought : 0 ),
 			'first_order_date'    => $first_order_date,
 			'first_order_amount'  => $first_order_amount,
 			'date_range'          => $date_range,
-		);
+		) );
 	}
 
 	/**
@@ -628,7 +658,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_notice_placeholders.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.0
 	 * @since   3.1.1
 	 * @todo    [next] `%product_title%`: `get_the_title( $product_id )`?
 	 */
@@ -656,6 +686,7 @@ class Alg_WC_MPPU_Core {
 			'%first_order_amount%'                   => ( false !== $bought_data['first_order_amount'] ? $bought_data['first_order_amount'] : '' ),
 			'%first_order_date_exp%'                 => $this->get_first_order_date_exp( $bought_data['first_order_date'], $bought_data['date_range'] ),
 			'%first_order_date_exp_timeleft%'        => $this->get_first_order_date_exp( $bought_data['first_order_date'], $bought_data['date_range'], true ),
+			'%payment_method_title%'                 => $this->get_chosen_payment_method_title(),
 		), $product_id, $limit, $bought_data, $in_cart_plus_adding, $adding, $term );
 	}
 
@@ -697,7 +728,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_cart_item_quantity_by_term.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.0
 	 * @since   2.0.0
 	 */
 	function get_cart_item_quantity_by_term( $current_product_id, $current_cart_item_quantity, $cart_item_quantities, $current_term_id, $taxonomy ) {
@@ -720,13 +751,13 @@ class Alg_WC_MPPU_Core {
 				}
 			}
 		}
-		return $result;
+		return apply_filters( 'alg_wc_mppu_get_cart_item_amount_by_term', $result );
 	}
 
 	/**
 	 * get_cart_item_quantity_by_parent.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.0
 	 * @since   3.3.0
 	 */
 	function get_cart_item_quantity_by_parent( $current_product_id, $current_cart_item_quantity, $cart_item_quantities, $parent_product_id ) {
@@ -738,7 +769,7 @@ class Alg_WC_MPPU_Core {
 				}
 			}
 		}
-		return $result;
+		return apply_filters( 'alg_wc_mppu_get_cart_item_amount_by_parent', $result );
 	}
 
 	/**
@@ -746,7 +777,7 @@ class Alg_WC_MPPU_Core {
 	 *
 	 * @version 3.2.5
 	 * @since   2.5.0
-	 * @todo    [next] use this in `check_quantities_for_product()`
+	 * @todo    [next] use this inside the `check_quantities_for_product()` function
 	 */
 	function get_max_qty_for_product( $product_id, $parent_product_id = false ) {
 		// Maybe exclude products
@@ -805,7 +836,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * check_quantities_for_product.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.0
 	 * @since   2.0.0
 	 * @todo    [maybe] add `alg_wc_mppu_check_quantities_for_product_product_id` filter?
 	 */
@@ -815,6 +846,7 @@ class Alg_WC_MPPU_Core {
 		$use_parent         = ( $parent_product_id != $_product_id && ! $this->do_use_variations( $parent_product_id ) );
 		$product_id         = ( ! $use_parent ? $_product_id         : $parent_product_id );
 		$cart_item_quantity = ( ! $use_parent ? $_cart_item_quantity : $this->get_cart_item_quantity_by_parent( $_product_id, $_cart_item_quantity, $cart_item_quantities, $parent_product_id ) );
+		$cart_item_quantity = apply_filters( 'alg_wc_mppu_cart_item_amount', $cart_item_quantity );
 		// Saving for later use (i.e. for the `alg_wc_mppu_check_quantities_for_product` filter)
 		$args = array(
 			'_product_id'          => $_product_id,
@@ -890,7 +922,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * check_quantities.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.0
 	 * @since   1.0.0
 	 */
 	function check_quantities( $do_add_notices ) {
@@ -909,13 +941,7 @@ class Alg_WC_MPPU_Core {
 			}
 		}
 		if ( ( $gateways = get_option( 'alg_wc_mppu_payment_gateways', array() ) ) && ! empty( $gateways ) ) {
-			$chosen_payment_method = false;
-			if ( ! empty( $_REQUEST['payment_method'] ) ) {
-				$chosen_payment_method = $_REQUEST['payment_method'];
-			} elseif ( isset( WC()->session->chosen_payment_method ) ) {
-				$chosen_payment_method = WC()->session->chosen_payment_method;
-			}
-			if ( $chosen_payment_method && ! in_array( $chosen_payment_method, $gateways ) ) {
+			if ( ( $chosen_payment_method = $this->get_chosen_payment_method() ) && ! in_array( $chosen_payment_method, $gateways ) ) {
 				return true;
 			}
 		}
@@ -934,6 +960,39 @@ class Alg_WC_MPPU_Core {
 			}
 		}
 		return $result;
+	}
+
+	/**
+	 * get_chosen_payment_method.
+	 *
+	 * @version 3.5.0
+	 * @since   3.5.0
+	 */
+	function get_chosen_payment_method() {
+		if ( ! empty( $_REQUEST['payment_method'] ) ) {
+			return $_REQUEST['payment_method'];
+		}
+		if ( isset( WC()->session->chosen_payment_method ) ) {
+			return WC()->session->chosen_payment_method;
+		}
+		return false;
+	}
+
+	/**
+	 * get_chosen_payment_method_title.
+	 *
+	 * @version 3.5.0
+	 * @since   3.5.0
+	 */
+	function get_chosen_payment_method_title() {
+		if ( $chosen_payment_method = $this->get_chosen_payment_method() ) {
+			$available_payment_gateways = WC()->payment_gateways->get_available_payment_gateways();
+			if ( ! empty( $available_payment_gateways[ $chosen_payment_method ] ) ) {
+				$payment_gateway = $available_payment_gateways[ $chosen_payment_method ];
+				return $payment_gateway->get_title();
+			}
+		}
+		return '';
 	}
 
 	/**
@@ -958,7 +1017,6 @@ class Alg_WC_MPPU_Core {
 	 *
 	 * @version 2.0.0
 	 * @since   2.0.0
-	 * @todo    [maybe] WPML - parent product ID? (same in `get_product_id_or_variation_parent_id()`)
 	 */
 	function get_product_id( $_product ) {
 		if ( ! $_product || ! is_object( $_product ) ) {
@@ -969,6 +1027,61 @@ class Alg_WC_MPPU_Core {
 		} else {
 			return $_product->get_id();
 		}
+	}
+
+	/**
+	 * get_user_roles.
+	 *
+	 * @version 3.5.0
+	 * @since   2.2.0
+	 * @todo    [maybe] `$role = ( 'super_admin' == $role ? 'administrator' : $role );`
+	 */
+	function get_user_roles( $is_enabled_roles_only = true ) {
+		global $wp_roles;
+		$all_roles = apply_filters( 'editable_roles', ( isset( $wp_roles ) && is_object( $wp_roles ) ? $wp_roles->roles : array() ) );
+		$roles     = ( ! empty( $all_roles ) ? wp_list_pluck( $all_roles, 'name' ) : array() );
+		if ( $is_enabled_roles_only ) {
+			$enabled_roles = get_option( 'alg_wc_mppu_enabled_user_roles', array() );
+			if ( ! empty( $enabled_roles ) ) {
+				$roles = array_intersect_key( $roles, array_flip( $enabled_roles ) );
+			}
+		}
+		return $roles;
+	}
+
+	/**
+	 * is_user_role_enabled.
+	 *
+	 * @version 3.5.0
+	 * @since   3.5.0
+	 */
+	function is_user_role_enabled( $role ) {
+		if ( ! isset( $this->enabled_user_roles ) ) {
+			$this->enabled_user_roles = get_option( 'alg_wc_mppu_enabled_user_roles', array() );
+		}
+		return ( empty( $this->enabled_user_roles ) || in_array( $role, $this->enabled_user_roles ) );
+	}
+
+	/**
+	 * get_post_or_term_meta.
+	 *
+	 * @version 3.5.0
+	 * @since   3.5.0
+	 */
+	function get_post_or_term_meta( $product_or_term, $product_or_term_id, $key, $single = true ) {
+		$func = ( 'product' === $product_or_term ? 'get_post_meta' : 'get_term_meta' );
+		return $func( $product_or_term_id, $key, $single );
+	}
+
+	/**
+	 * update_post_or_term_meta.
+	 *
+	 * @version 3.5.0
+	 * @since   3.5.0
+	 */
+	function update_post_or_term_meta( $product_or_term, $product_or_term_id, $key, $value ) {
+		$func = ( 'product' === $product_or_term ? 'update_post_meta' : 'update_term_meta' );
+		return $func( $product_or_term_id, $key, $value );
 	}
 
 }

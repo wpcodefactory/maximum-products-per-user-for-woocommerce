@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Users
  *
- * @version 3.4.0
+ * @version 3.5.0
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -199,7 +199,7 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * update_profile_fields.
 	 *
-	 * @version 2.2.0
+	 * @version 3.5.0
 	 * @since   2.2.0
 	 * @todo    [maybe] nonce?
 	 * @todo    [maybe] maybe `floatval` (instead `intval`?)
@@ -212,16 +212,9 @@ class Alg_WC_MPPU_Users {
 		if ( isset( $_POST['alg_wc_mppu_totals_data'] ) ) {
 			foreach ( $_POST['alg_wc_mppu_totals_data'] as $product_or_term => $data ) {
 				foreach ( $data as $product_or_term_id => $qty ) {
-					$totals_data = ( 'product' === $product_or_term ?
-						get_post_meta( $product_or_term_id, '_alg_wc_mppu_totals_data', true ) :
-						get_term_meta( $product_or_term_id, '_alg_wc_mppu_totals_data', true )
-					);
+					$totals_data = alg_wc_mppu()->core->get_post_or_term_meta( $product_or_term, $product_or_term_id, '_alg_wc_mppu_totals_data' );
 					$totals_data[ $user_id ] = intval( $qty );
-					if ( 'product' === $product_or_term ) {
-						update_post_meta( $product_or_term_id, '_alg_wc_mppu_totals_data', $totals_data );
-					} else {
-						update_term_meta( $product_or_term_id, '_alg_wc_mppu_totals_data', $totals_data );
-					}
+					alg_wc_mppu()->core->update_post_or_term_meta( $product_or_term, $product_or_term_id, '_alg_wc_mppu_totals_data', $totals_data );
 				}
 			}
 		}
@@ -229,18 +222,11 @@ class Alg_WC_MPPU_Users {
 		if ( isset( $_POST['alg_wc_mppu_orders_data'] ) ) {
 			foreach ( $_POST['alg_wc_mppu_orders_data'] as $product_or_term => $data ) {
 				foreach ( $data as $product_or_term_id => $order_data ) {
-					$orders_data = ( 'product' === $product_or_term ?
-						get_post_meta( $product_or_term_id, '_alg_wc_mppu_orders_data', true ) :
-						get_term_meta( $product_or_term_id, '_alg_wc_mppu_orders_data', true )
-					);
+					$orders_data = alg_wc_mppu()->core->get_post_or_term_meta( $product_or_term, $product_or_term_id, '_alg_wc_mppu_orders_data' );
 					foreach ( $order_data as $order_id => $qty ) {
 						$orders_data[ $user_id ][ $order_id ]['qty'] = intval( $qty );
 					}
-					if ( 'product' === $product_or_term  ) {
-						update_post_meta( $product_or_term_id, '_alg_wc_mppu_orders_data', $orders_data );
-					} else {
-						update_term_meta( $product_or_term_id, '_alg_wc_mppu_orders_data', $orders_data );
-					}
+					alg_wc_mppu()->core->update_post_or_term_meta( $product_or_term, $product_or_term_id, '_alg_wc_mppu_orders_data', $orders_data );
 				}
 			}
 		}
@@ -334,20 +320,14 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * get_item_data.
 	 *
-	 * @version 3.2.3
+	 * @version 3.5.0
 	 * @since   2.2.0
 	 * @todo    [next] use `alg_wc_mppu()->core->get_date_format()`
 	 */
 	function get_item_data( $user, $product_or_term_id, $product_or_term, $product_or_term_title ) {
 		$output = '';
-		$totals_data = ( 'product' === $product_or_term ?
-			get_post_meta( $product_or_term_id, '_alg_wc_mppu_totals_data', true ) :
-			get_term_meta( $product_or_term_id, '_alg_wc_mppu_totals_data', true )
-		);
-		$orders_data = ( 'product' === $product_or_term ?
-			get_post_meta( $product_or_term_id, '_alg_wc_mppu_orders_data', true ) :
-			get_term_meta( $product_or_term_id, '_alg_wc_mppu_orders_data', true )
-		);
+		$totals_data = alg_wc_mppu()->core->get_post_or_term_meta( $product_or_term, $product_or_term_id, '_alg_wc_mppu_totals_data' );
+		$orders_data = alg_wc_mppu()->core->get_post_or_term_meta( $product_or_term, $product_or_term_id, '_alg_wc_mppu_orders_data' );
 		if ( $this->do_add_empty_totals || isset( $totals_data[ $user->ID ] ) || isset( $orders_data[ $user->ID ] ) ) {
 			$output .= '<tr>';
 			$output .= '<th>' . $product_or_term_title . ' (#' . $product_or_term_id . ')' . '</th>';

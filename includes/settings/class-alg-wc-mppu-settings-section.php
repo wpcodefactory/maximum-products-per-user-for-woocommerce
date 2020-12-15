@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Section Settings
  *
- * @version 3.3.0
+ * @version 3.5.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -36,6 +36,30 @@ class Alg_WC_MPPU_Settings_Section {
 	}
 
 	/**
+	 * get_section_link.
+	 *
+	 * @version 3.5.0
+	 * @since   3.5.0
+	 * @todo    [later] get `$sections` automatically
+	 */
+	function get_section_link( $section, $title = '' ) {
+		$section_id = ( 'general' === $section ? '' : $section );
+		if ( '' === $title ) {
+			$sections = array(
+				''           => __( 'General', 'maximum-products-per-user-for-woocommerce' ),
+				'limits'     => __( 'Limits', 'maximum-products-per-user-for-woocommerce' ),
+				'formula'    => __( 'Formula', 'maximum-products-per-user-for-woocommerce' ),
+				'frontend'   => __( 'Frontend', 'maximum-products-per-user-for-woocommerce' ),
+				'admin'      => __( 'Admin', 'maximum-products-per-user-for-woocommerce' ),
+				'tools'      => __( 'Tools', 'maximum-products-per-user-for-woocommerce' ),
+				'advanced'   => __( 'Advanced', 'maximum-products-per-user-for-woocommerce' ),
+			);
+			$title = $sections[ $section_id ];
+		}
+		return '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_mppu&section=' . $section_id ) . '">' . $title . '</a>';
+	}
+
+	/**
 	 * get_placeholders_desc.
 	 *
 	 * @version 3.3.0
@@ -49,14 +73,13 @@ class Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_recalculate_sales_data_desc.
 	 *
-	 * @version 3.0.0
+	 * @version 3.5.0
 	 * @since   3.0.0
 	 * @todo    [maybe] add "... for older orders..."?
 	 */
 	function get_recalculate_sales_data_desc( $option ) {
 		return sprintf( __( 'You will need to %s after changing "%s" option.', 'maximum-products-per-user-for-woocommerce' ),
-			'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_mppu&section=tools' ) . '">' .
-				__( 'Recalculate sales data', 'maximum-products-per-user-for-woocommerce' ) . '</a>',
+			$this->get_section_link( 'tools', __( 'Recalculate sales data', 'maximum-products-per-user-for-woocommerce' ) ),
 			$option
 		);
 	}

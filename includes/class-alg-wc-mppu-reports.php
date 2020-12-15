@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Reports
  *
- * @version 3.4.0
+ * @version 3.5.0
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -93,7 +93,7 @@ class Alg_WC_MPPU_Reports {
 	/**
 	 * get_report_data_table.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.0
 	 * @since   2.0.0
 	 * @todo    [next] use `alg_wc_mppu()->core->get_date_format()`
 	 */
@@ -102,9 +102,7 @@ class Alg_WC_MPPU_Reports {
 			echo sprintf( '<h3>' . __( 'Product #%d', 'maximum-products-per-user-for-woocommerce' ) . '</h3>', $product_or_term_id );
 		}
 		// Lifetime
-		$users_quantities = ( $is_product ?
-			get_post_meta( $product_or_term_id, '_alg_wc_mppu_totals_data', true ) :
-			get_term_meta( $product_or_term_id, '_alg_wc_mppu_totals_data', true ) );
+		$users_quantities = alg_wc_mppu()->core->get_post_or_term_meta( ( $is_product ? 'product' : 'term' ), $product_or_term_id, '_alg_wc_mppu_totals_data' );
 		if ( $users_quantities ) {
 			$table_data = array();
 			$table_data[] = array(
@@ -124,9 +122,7 @@ class Alg_WC_MPPU_Reports {
 			echo '<em>' . __( 'No data.', 'maximum-products-per-user-for-woocommerce' ) . '</em>';
 		}
 		// Orders
-		$users_orders_quantities = ( $is_product ?
-			get_post_meta( $product_or_term_id, '_alg_wc_mppu_orders_data', true ) :
-			get_term_meta( $product_or_term_id, '_alg_wc_mppu_orders_data', true ) );
+		$users_orders_quantities = alg_wc_mppu()->core->get_post_or_term_meta( ( $is_product ? 'product' : 'term' ), $product_or_term_id, '_alg_wc_mppu_orders_data' );
 		if ( $users_orders_quantities ) {
 			$table_data = array();
 			$table_data[] = array(
@@ -138,7 +134,13 @@ class Alg_WC_MPPU_Reports {
 			);
 			foreach ( $users_orders_quantities as $user_id => $orders ) {
 				foreach ( $orders as $order_id => $order_data ) {
-					$table_data[] = array( $user_id, $this->get_user_name( $user_id ), $order_id, date_i18n( 'Y-m-d H:i:s', alg_wc_mppu()->core->get_order_date( $order_data['date_created'] ) ), $order_data['qty'] );
+					$table_data[] = array(
+						$user_id,
+						$this->get_user_name( $user_id ),
+						$order_id,
+						date_i18n( 'Y-m-d H:i:s', alg_wc_mppu()->core->get_order_date( $order_data['date_created'] ) ),
+						$order_data['qty'],
+					);
 				}
 			}
 			echo '<h4>' . __( 'Orders Data', 'maximum-products-per-user-for-woocommerce' ) . '</h4>';

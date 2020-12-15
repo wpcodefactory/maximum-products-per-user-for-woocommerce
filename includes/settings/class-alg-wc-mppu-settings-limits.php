@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Limits Section Settings
  *
- * @version 3.3.0
+ * @version 3.5.0
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_Limits extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.3.0
+	 * @version 3.5.0
 	 * @since   2.2.0
 	 * @todo    [maybe] rethink `wpjup_wc_maximum_products_per_user_global_max_qty`: default: `1` or `0`?
 	 */
@@ -57,7 +57,7 @@ class Alg_WC_MPPU_Settings_Limits extends Alg_WC_MPPU_Settings_Section {
 			),
 		);
 		if ( 'yes' === get_option( 'alg_wc_mppu_use_user_roles', 'no' ) ) {
-			foreach ( alg_wc_mppu_get_all_user_roles() as $role => $role_name ) {
+			foreach ( alg_wc_mppu()->core->get_user_roles() as $role => $role_name ) {
 				$all_products_settings = array_merge( $all_products_settings, array(
 					array(
 						'title'    => __( 'Limit per user', 'maximum-products-per-user-for-woocommerce' ) . ': ' . $role_name,

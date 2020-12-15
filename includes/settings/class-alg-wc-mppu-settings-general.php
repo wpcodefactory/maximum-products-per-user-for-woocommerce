@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - General Section Settings
  *
- * @version 3.4.0
+ * @version 3.5.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,13 +28,16 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.0
 	 * @since   1.0.0
 	 * @todo    [next] exclude unnecessary statuses from `alg_wc_mppu_order_status` (e.g. "Cancelled", "Refunded", "Failed") and `alg_wc_mppu_order_status_delete` (e.g. "Completed" etc.)?
-	 * @todo    [next] `alg_wc_mppu_order_status_delete`: `$this->get_recalculate_sales_data_desc( __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ) )`?
-	 * @todo    [maybe] `alg_wc_mppu_block_guests`: default to `yes`?
+	 * @todo    [next] (desc) `alg_wc_mppu_order_status_delete`: `$this->get_recalculate_sales_data_desc( __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ) )`?
+	 * @todo    [maybe] `alg_wc_mppu_block_guests`: default to `yes` or `identify_by_ip`?
 	 * @todo    [maybe] (desc) Use variations: better desc?
 	 * @todo    [maybe] (desc) Hide products: better desc?
+	 * @todo    [maybe] (desc) Enabled user roles: better desc?
+	 * @todo    [maybe] (desc) Multi-language: better desc?
+	 * @todo    [maybe] (desc) Count by current payment method: better desc?
 	 */
 	function get_settings() {
 
@@ -43,8 +46,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'title'    => __( 'Maximum Products per User Options', 'maximum-products-per-user-for-woocommerce' ),
 				'type'     => 'title',
 				'desc'     => '<p>' . '* ' . sprintf( __( 'While data is recalculated automatically (but only after the plugin was enabled), you can also force manual recalculation by running %s tool.', 'maximum-products-per-user-for-woocommerce' ),
-						'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_mppu&section=tools' ) . '">' .
-							__( 'Recalculate sales data', 'maximum-products-per-user-for-woocommerce' ) . '</a>' ) . ' ' .
+						$this->get_section_link( 'tools', __( 'Recalculate sales data', 'maximum-products-per-user-for-woocommerce' ) ) ) . ' ' .
 						__( 'This is useful on initial plugin install (i.e. to calculate sales data from before the plugin was enabled).', 'maximum-products-per-user-for-woocommerce' ) .
 					'</p>',
 				'id'       => 'alg_wc_mppu_plugin_options',
@@ -77,9 +79,12 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'type'     => 'select',
 				'class'    => 'chosen_select',
 				'options'  => array(
-					'qty'    => __( 'Product quantities', 'maximum-products-per-user-for-woocommerce' ),
-					'price'  => __( 'Product prices', 'maximum-products-per-user-for-woocommerce' ),
-					'weight' => __( 'Product weights', 'maximum-products-per-user-for-woocommerce' ),
+					'qty'             => __( 'Product quantities', 'maximum-products-per-user-for-woocommerce' ),
+					'orders'          => __( 'Product orders', 'maximum-products-per-user-for-woocommerce' ),
+					'price'           => __( 'Product prices (incl. tax)', 'maximum-products-per-user-for-woocommerce' ),
+					'price_excl_tax'  => __( 'Product prices (excl. tax)', 'maximum-products-per-user-for-woocommerce' ),
+					'weight'          => __( 'Product weights', 'maximum-products-per-user-for-woocommerce' ),
+					'volume'          => __( 'Product volumes', 'maximum-products-per-user-for-woocommerce' ),
 				),
 			),
 			array(
@@ -176,6 +181,15 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'type'     => 'checkbox',
 			),
 			array(
+				'desc'     => __( 'Enabled user roles', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => __( 'Select user roles for which you want to set different limits. If empty, then all user roles will be added to the settings.', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_enabled_user_roles',
+				'default'  => array(),
+				'type'     => 'multiselect',
+				'class'    => 'chosen_select',
+				'options'  => alg_wc_mppu()->core->get_user_roles( false ),
+			),
+			array(
 				'title'    => __( 'Hide products', 'maximum-products-per-user-for-woocommerce' ),
 				'desc_tip' => __( 'Hides products with exceeded limits for the current user from the catalog and search results. Products will still be accessible via the direct links.', 'maximum-products-per-user-for-woocommerce' ),
 				'desc'     => __( 'Enable', 'maximum-products-per-user-for-woocommerce' ),
@@ -190,7 +204,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'default'  => 'no',
 				'type'     => 'radio',
 				'options'  => array(
-					'no'             => __( 'Do nothing', 'maximum-products-per-user-for-woocommerce' ),
+					'no'             => __( 'Do nothing (i.e. do not track guests sales)', 'maximum-products-per-user-for-woocommerce' ),
 					'yes'            => __( 'Block guests from buying products in your shop', 'maximum-products-per-user-for-woocommerce' ),
 					'identify_by_ip' => __( 'Identify guests by IP address', 'maximum-products-per-user-for-woocommerce' ),
 				),
@@ -204,6 +218,32 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'default'  => __( 'You need to register to buy products.', 'maximum-products-per-user-for-woocommerce' ),
 				'type'     => 'textarea',
 				'css'      => 'width:100%;height:100px;',
+			),
+			array(
+				'title'    => __( 'Multi-language', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => __( 'Use the default language product/term ID instead of the translated one.', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => $this->get_recalculate_sales_data_desc( __( 'Multi-language', 'maximum-products-per-user-for-woocommerce' ) ),
+				'id'       => 'alg_wc_mppu_multi_language',
+				'default'  => 'no',
+				'type'     => 'select',
+				'class'    => 'chosen_select',
+				'options'  => array(
+					'no'       => __( 'Disabled', 'maximum-products-per-user-for-woocommerce' ),
+					'wpml'     => __( 'WPML', 'maximum-products-per-user-for-woocommerce' ),
+					'polylang' => __( 'Polylang', 'maximum-products-per-user-for-woocommerce' ),
+				),
+			),
+			array(
+				'title'    => __( 'Count by current payment method', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Enable', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => __( 'Count "user already bought" data for current (i.e. chosen) payment method only.', 'maximum-products-per-user-for-woocommerce' ) . '<br>' .
+					sprintf( __( 'You may also want to disable "%s" and "%s" options in the "%s" section, so your customer could change the payment method on exceeded limits.', 'maximum-products-per-user-for-woocommerce' ),
+						__( 'Validate on add to cart', 'maximum-products-per-user-for-woocommerce' ),
+						__( 'Block checkout page', 'maximum-products-per-user-for-woocommerce' ),
+						$this->get_section_link( 'frontend' ) ),
+				'id'       => 'alg_wc_mppu_count_by_current_payment_method',
+				'default'  => 'no',
+				'type'     => 'checkbox',
 			),
 			array(
 				'type'     => 'sectionend',
