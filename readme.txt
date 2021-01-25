@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
 Tested up to: 5.6
-Stable tag: 3.5.0
+Stable tag: 3.5.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -46,6 +46,10 @@ With [Maximum Products per User for WooCommerce Pro](https://wpfactory.com/item/
 * We are open to your suggestions and feedback. Thank you for using or trying out one of our plugins!
 * [Visit plugin site](https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/).
 
+== Frequently Asked Questions ==
+= Is it possible that the limits could work for different products at the same time instead of the same ones?
+Yes, it's possible, but it's a bit of a workaround. You'll need to assign all your products to some category or tag. After that you need to enable "**Limits > Per product category**" (or "**Limits > Per product tag**"), and then set "**Limit per user**" option for that category (or tag) in "**Products > Categories > Your category > Edit**".
+
 == Installation ==
 
 1. Upload the entire plugin folder to the `/wp-content/plugins/` directory.
@@ -53,6 +57,15 @@ With [Maximum Products per User for WooCommerce Pro](https://wpfactory.com/item/
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 3.5.1 - 25/01/2021 =
+* Fix - Frontend - "Block checkout page" option allows to place an order with a 100% coupon and shows an error at the same time.
+* Dev - Frontend - Add - "Validation actions" option allowing to validate the limits using any WordPress action.
+* Dev - General - Guests - Add "Block method" option.
+* Dev - General - Guests - Add "Block guests" option related to "Limits > Per product", "Limits > Per product category", and "Limits > Per product tag".
+* Dev - Developers - Add `alg_wc_mppu_is_product_blocked_for_guests` hook.
+* Add FAQ question about the possibility of limiting different products at the same time.
+* WC tested up to: 4.9
 
 = 3.5.0 - 15/12/2020 =
 * Fix - Mode - Product prices (incl. tax) - Validate on add to cart - Always including taxes in product price now.

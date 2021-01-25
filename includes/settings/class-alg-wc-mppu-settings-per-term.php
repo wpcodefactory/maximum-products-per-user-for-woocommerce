@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Per Term Settings
  *
- * @version 3.5.0
+ * @version 3.5.1
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -33,7 +33,7 @@ class Alg_WC_MPPU_Settings_Per_Term {
 	/**
 	 * product_terms_add_fields.
 	 *
-	 * @version 3.5.0
+	 * @version 3.5.1
 	 * @since   2.0.0
 	 * @todo    [next] (desc) descriptions (maybe use `wc_help_tip()`)
 	 */
@@ -42,12 +42,27 @@ class Alg_WC_MPPU_Settings_Per_Term {
 		if ( empty( $value ) ) {
 			$value = 0;
 		}
+		$block_guests_value = get_term_meta( $term->term_id, '_wpjup_wc_mppu_block_guests', true );
 		echo '<tr class="form-field">' .
 			'<th scope="row" valign="top"><label for="alg_wc_mppu_qty">' .
 				__( 'Limit per user', 'maximum-products-per-user-for-woocommerce' ) . '</label></th>' .
 			'<td>' . '<input type="number" min="-1" name="alg_wc_mppu_qty" id="alg_wc_mppu_qty" value="' . $value . '">' .
 				'<span class="description">' . '</span>' . '<input type="hidden" name="alg_wc_mppu_edit_terms" value="1">' . '</td>' .
 		'</tr>';
+		echo '<tr class="form-field">' .
+		     '<th scope="row" valign="top"><label for="wpjup_wc_mppu_block_guests">' .
+		     __( 'Block guests', 'maximum-products-per-user-for-woocommerce' ) .' '.wc_help_tip( sprintf( __( 'It\'s necessary to set %s option as %s', 'maximum-products-per-user-for-woocommerce' ), '"' . __( 'General > Block method', 'maximum-products-per-user-for-woocommerce' ) . '"', '"' . __( 'According to limit options', 'maximum-products-per-user-for-woocommerce' ) . '"' ), true ). '</label> </th>' .
+		     '<td>' . '
+						<input
+							name="wpjup_wc_mppu_block_guests"
+							id="wpjup_wc_mppu_block_guests"
+							type="checkbox"
+							value="1"
+							' . checked( $block_guests_value, 'yes', false ) . '
+						/>
+						' .
+		     '<span class="description"><label for="wpjup_wc_mppu_block_guests">' . __( 'Block guests from purchasing', 'maximum-products-per-user-for-woocommerce' ) . '</label></span>' . '</td>' .
+		     '</tr>';
 		// User roles
 		if ( 'yes' === get_option( 'alg_wc_mppu_use_user_roles', 'no' ) ) {
 			$values = get_term_meta( $term->term_id, '_alg_wc_mppu_user_roles_max_qty', true );
@@ -69,10 +84,15 @@ class Alg_WC_MPPU_Settings_Per_Term {
 	/**
 	 * product_terms_save_fields.
 	 *
-	 * @version 2.2.0
+	 * @version 3.5.1
 	 * @since   2.0.0
 	 */
 	function product_terms_save_fields( $term_id ) {
+		if ( isset( $_POST['wpjup_wc_mppu_block_guests'] ) ) {
+			update_term_meta( $term_id, '_wpjup_wc_mppu_block_guests', 'yes' );
+		} else {
+			delete_term_meta( $term_id, '_wpjup_wc_mppu_block_guests' );
+		}
 		if ( isset( $_POST['alg_wc_mppu_edit_terms'] ) ) {
 			update_term_meta( $term_id, '_alg_wc_mppu_qty',
 				( isset( $_POST['alg_wc_mppu_qty'] ) ? sanitize_text_field( $_POST['alg_wc_mppu_qty'] ) : 0 ) );

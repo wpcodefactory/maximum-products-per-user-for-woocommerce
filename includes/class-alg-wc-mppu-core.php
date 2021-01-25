@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class
  *
- * @version 3.5.0
+ * @version 3.5.1
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.5.0
+	 * @version 3.5.1
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -49,6 +49,11 @@ class Alg_WC_MPPU_Core {
 				if ( 'yes' === get_option( 'alg_wc_mppu_block_guests', 'no' ) ) {
 					add_action( 'woocommerce_init', array( $this, 'block_guest_add_to_cart_ajax_error' ), PHP_INT_MAX );
 				}
+			}
+			// Validation actions
+			$actions = array_map( 'trim', array_values( array_filter( explode( PHP_EOL, get_option( 'alg_wc_mppu_validation_actions', '' ) ) ) ) );
+			foreach ( $actions as $action ) {
+				add_action( $action, array( $this, 'block_checkout' ), PHP_INT_MAX );
 			}
 			// Hide products
 			if ( 'yes' === get_option( 'alg_wc_mppu_hide_products', 'no' ) ) {
@@ -300,16 +305,65 @@ class Alg_WC_MPPU_Core {
 	}
 
 	/**
+	 * is_product_blocked_for_guests.
+	 *
+	 * @version 3.5.1
+	 * @since   3.5.1
+	 *
+	 * @param $product_id
+	 * @param null $args
+	 *
+	 * @return boolean
+	 */
+	function is_product_blocked_for_guests( $product_id, $args = null ) {
+		if ( 'all_products' === $block_method = get_option( 'alg_wc_mppu_block_guests_method', 'all_products' ) ) {
+			return apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', true, $product_id, $args );
+		}
+		$is_blocked = false;
+			// By product
+		if ( 'yes' === apply_filters( 'alg_wc_mppu_local_enabled', 'no') && apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', 'yes' === get_post_meta( $product_id, '_wpjup_wc_mppu_block_guests', true ), $product_id, $args ) ) {
+			$is_blocked = true;
+			return apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', true, $product_id, $args );
+		} else {
+			// By term
+			$parent_product_id = $this->get_product_id_or_variation_parent_id( wc_get_product( $product_id ) );
+			foreach ( array( 'product_cat', 'product_tag' ) as $taxonomy ) {
+				if ( 'yes' === apply_filters( 'alg_wc_mppu_' . $taxonomy . '_enabled', 'no' ) ) {
+					$terms = get_the_terms( $parent_product_id, $taxonomy );
+					if ( $terms && ! is_wp_error( $terms ) ) {
+						foreach ( $terms as $term ) {
+							$is_blocked = 'yes' === get_term_meta( $term->term_id, '_wpjup_wc_mppu_block_guests', true );
+							if ( $is_blocked ) {
+								return apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', true, $product_id, $args );
+							}
+						}
+					}
+				}
+			}
+		}
+		return apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', $is_blocked, $product_id, $args );
+	}
+
+	/**
 	 * block_checkout.
 	 *
-	 * @version 2.2.0
+	 * @version 3.5.1
 	 * @since   1.0.0
 	 */
 	function block_checkout() {
-		if ( ! function_exists( 'is_checkout' ) || ! is_checkout() ) {
+		if (
+			! function_exists( 'is_checkout' )
+			|| ! is_checkout()
+			|| WC()->cart->get_cart_contents_count() == 0
+			|| isset( $_POST['woocommerce_checkout_place_order'] )
+			|| defined( 'WOOCOMMERCE_CHECKOUT' )
+		) {
 			return;
 		}
-		if ( ! $this->check_quantities( false ) ) {
+		if (
+			! is_order_received_page()
+			&& ! $this->check_quantities( false )
+		) {
 			wp_safe_redirect( wc_get_cart_url() );
 			exit;
 		}
@@ -318,33 +372,36 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * validate_on_add_to_cart.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.1
 	 * @since   2.0.0
 	 * @todo    [later] `alg_wc_mppu_block_guests`: add "Block products with max qty" option (`yes_max_qty`), i.e. check for `0 != $this->get_max_qty_for_product( $_product_id, $product_id )`
 	 * @todo    [maybe] different message (i.e. different from "cart" message)?
 	 * @todo    [maybe] perform check only `$passed` is `true`?
 	 */
 	function validate_on_add_to_cart( $passed, $product_id, $quantity, $variation_id = 0 ) {
+		$cart_item_quantities = $this->get_cart_item_quantities();
+		if ( 0 != $variation_id ) {
+			$product_id = $variation_id;
+		}
+		$quantity = apply_filters( 'alg_wc_mppu_validate_on_add_to_cart_quantity', $quantity, $product_id );
+		$adding   = $quantity;
+		if ( ! empty( $cart_item_quantities[ $product_id ] ) ) {
+			$quantity += $cart_item_quantities[ $product_id ];
+		}
 		if ( $current_user_id = $this->get_current_user_id() ) {
-			$cart_item_quantities = $this->get_cart_item_quantities();
-			if ( 0 != $variation_id ) {
-				$product_id = $variation_id;
-			}
-			$quantity = apply_filters( 'alg_wc_mppu_validate_on_add_to_cart_quantity', $quantity, $product_id );
-			$adding   = $quantity;
-			if ( ! empty( $cart_item_quantities[ $product_id ] ) ) {
-				$quantity += $cart_item_quantities[ $product_id ];
-			}
 			if ( ! $this->check_quantities_for_product( $product_id, $quantity, false, true, $current_user_id, $cart_item_quantities, $adding ) ) {
 				return false;
 			}
 		} elseif ( 'yes' === get_option( 'alg_wc_mppu_block_guests', 'no' ) ) {
-			if ( ! wp_doing_ajax() ) {
-				$this->output_guest_notice( false );
-			} else {
-				add_filter( 'woocommerce_cart_redirect_after_error', array( $this, 'block_guest_add_to_cart_ajax_redirect' ), PHP_INT_MAX, 2 );
+			$block_method = get_option( 'alg_wc_mppu_block_guests_method', 'all_products' );
+			if ( 'all_products' == $block_method || ! $this->check_quantities_for_product( $product_id, $quantity, false, true, $current_user_id, $cart_item_quantities, $adding ) ) {
+				if ( ! wp_doing_ajax() ) {
+					$this->output_guest_notice( false );
+				} else {
+					add_filter( 'woocommerce_cart_redirect_after_error', array( $this, 'block_guest_add_to_cart_ajax_redirect' ), PHP_INT_MAX, 2 );
+				}
+				return false;
 			}
-			return false;
 		}
 		return $passed;
 	}
@@ -836,7 +893,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * check_quantities_for_product.
 	 *
-	 * @version 3.5.0
+	 * @version 3.5.1
 	 * @since   2.0.0
 	 * @todo    [maybe] add `alg_wc_mppu_check_quantities_for_product_product_id` filter?
 	 */
@@ -864,6 +921,11 @@ class Alg_WC_MPPU_Core {
 		if ( ! empty( $exclude_products ) && in_array( $product_id, $exclude_products ) ) {
 			return apply_filters( 'alg_wc_mppu_check_quantities_for_product', true, $this, $args );
 		}
+		// Block guest by limit
+		if ( empty( $current_user_id ) && $this->is_product_blocked_for_guests( $product_id ) ) {
+			return apply_filters( 'alg_wc_mppu_check_quantities_for_product', false, $this, $args );
+		}
+		// Block - default mechanism
 		if ( 'yes' === apply_filters( 'alg_wc_mppu_local_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( 'per_product', $product_id ) ) ) {
 			// Per product
 			$bought_data         = $this->get_user_already_bought_qty( $product_id, $current_user_id, true );

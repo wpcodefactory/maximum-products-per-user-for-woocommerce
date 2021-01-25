@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Frontend Section Settings
  *
- * @version 3.4.0
+ * @version 3.5.1
  * @since   2.4.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_Frontend extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.1
 	 * @since   2.4.0
 	 * @todo    [next] My Account: move to a new section?
 	 * @todo    [next] My Account: Tab icon: add Font Awesome icon selector (i.e. instead of requiring to enter the code directly)
@@ -71,6 +71,16 @@ class Alg_WC_MPPU_Settings_Frontend extends Alg_WC_MPPU_Settings_Section {
 				'id'       => 'alg_wc_mppu_validate_on_add_to_cart',
 				'default'  => 'yes',
 				'type'     => 'checkbox',
+			),
+			array(
+				'title'    => __( 'Validation actions', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => sprintf(__( 'e.g.: Use %s to validate the limits on checkout update.', 'maximum-products-per-user-for-woocommerce' ),'<code>'.'woocommerce_review_order_before_submit'.'</code>'),
+				'desc_tip' => __( 'WordPress action hooks used to validate the limits.', 'maximum-products-per-user-for-woocommerce' ) . '<br />' .
+				              __( 'Use one per line.', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_validation_actions',
+				'default'  => '',
+				'type'     => 'textarea',
+				'css'      => 'width:100%;height:100px;',
 			),
 			array(
 				'title'    => __( 'Cart notice', 'maximum-products-per-user-for-woocommerce' ),

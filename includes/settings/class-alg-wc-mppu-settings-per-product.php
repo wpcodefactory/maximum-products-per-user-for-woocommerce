@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Per Product Settings
  *
- * @version 3.5.0
+ * @version 3.5.1
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -46,7 +46,7 @@ class Alg_WC_MPPU_Settings_Per_product {
 	/**
 	 * create_meta_box.
 	 *
-	 * @version 3.3.0
+	 * @version 3.5.1
 	 * @since   1.0.0
 	 */
 	function create_meta_box() {
@@ -60,11 +60,16 @@ class Alg_WC_MPPU_Settings_Per_product {
 			if ( '' === $value ) {
 				$value = $option['default'];
 			}
+			$tooltip_str = '';
+			if ( isset( $option['tooltip'] ) ) {
+				$tooltip_str = wc_help_tip( $option['tooltip'], true );
+			}
 			$custom_attributes = ( isset( $option['custom_attributes'] ) ? ' ' . $option['custom_attributes'] : '' );
 			$id                = $option['name'] . ( isset( $option['key'] ) ? '_' . $option['key']       : '' );
 			$name              = $option['name'] . ( isset( $option['key'] ) ? '[' . $option['key'] . ']' : '' );
 			$html .= '<tr>';
-			$html .= '<td><label for="' . $id . '">' . $option['title'] . '</label></td>' . ' ' . '<td>';
+			$html .= '<td style="width:85px"><label for="' . $id . '">' . $option['title'] . '</label></td><td style="width:5px">'.$tooltip_str.'</td>' . ' ' . '<td>';
+
 			switch ( $option['type'] ) {
 				case 'select':
 					$options = '';
@@ -73,25 +78,44 @@ class Alg_WC_MPPU_Settings_Per_product {
 					}
 					$html .= '<select class="chosen_select" id="' . $id . '" name="' . $name . '"' . $custom_attributes . '>' . $options . '</select>';
 					break;
+				case 'checkbox':
+					$html .= '
+						<input
+							name="' . esc_attr( $id ) . '"
+							id="' . esc_attr( $id ) . '"
+							type="checkbox"
+							value="1"
+							' . checked( $value, 'yes', false ) . '							
+						/>
+						';
+					$html .= isset( $option['desc'] ) ? '<label for="' . $id . '">' . $option['desc'] . '</label>' : '';
+					break;
 				default:
 					$html .= '<input type="' . $option['type'] . '" id="' . $id . '" name="' . $name . '" value="' . $value . '"' . $custom_attributes . '>';
 			}
-			if ( isset( $option['tooltip'] ) ) {
-				$html .= wc_help_tip( $option['tooltip'], true );
-			}
 			$html .= '</td></tr>';
 		}
-		echo ( ! empty( $html ) ? '<table>' . $html . '</table>' : $html );
+		echo ( ! empty( $html ) ? '<table class="widefat striped" style="margin-top:13px">' . $html . '</table>' : $html );
 	}
 
 	/**
 	 * save_meta_box.
 	 *
-	 * @version 2.2.0
+	 * @version 3.5.1
 	 * @since   1.0.0
 	 */
 	function save_meta_box( $product_id, $__post ) {
 		$data = array();
+		foreach ( $this->get_meta_box_options( $product_id ) as $option ) {
+			if ( 'checkbox' === $option['type'] ) {
+				if ( isset( $_POST[ $option['name'] ] ) ) {
+					$raw_value                = wp_unslash( $_POST[ $option['name'] ] );
+					$_POST[ $option['name'] ] = '1' === $raw_value || 'yes' === $raw_value ? 'yes' : 'no';
+				} else {
+					$_POST[ $option['name'] ] = 'no';
+				}
+			}
+		}
 		foreach ( $this->get_meta_box_options( $product_id ) as $option ) {
 			if ( isset( $_POST[ $option['name'] ] ) ) {
 				if ( ! isset( $option['key'] ) ) {
@@ -137,6 +161,16 @@ class Alg_WC_MPPU_Settings_Per_product {
 				'type'              => 'number',
 				'tooltip'           => __( 'If set to zero, and "All Products" section is enabled - global limit will be used; in case if "All Products" section is disabled - no limit will be used.', 'maximum-products-per-user-for-woocommerce' ),
 				'custom_attributes' => 'min="-1"',
+				'product_id'        => $_product_id,
+			);
+			$result[] = array(
+				'title'             => __( 'Block guests', 'maximum-products-per-user-for-woocommerce' ) . ( $use_variations ? ' (#' . $_product_id . ')' : '' ),
+				'name'              => 'wpjup_wc_mppu_block_guests' . ( $use_variations ? '_' . $_product_id : '' ),
+				'meta'              => '_wpjup_wc_mppu_block_guests',
+				'default'           => 'no',
+				'type'              => 'checkbox',
+				'desc'              => __( 'Block guests from purchasing', 'maximum-products-per-user-for-woocommerce' ),
+				'tooltip'           => sprintf( __( 'It\'s necessary to set %s option as %s', 'maximum-products-per-user-for-woocommerce' ), '"' . __( 'General > Block method', 'maximum-products-per-user-for-woocommerce' ) . '"', '"' . __( 'According to limit options', 'maximum-products-per-user-for-woocommerce' ) . '"' ),
 				'product_id'        => $_product_id,
 			);
 			// User roles
