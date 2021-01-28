@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - General Section Settings
  *
- * @version 3.5.1
+ * @version 3.5.2
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.5.1
+	 * @version 3.5.2
 	 * @since   1.0.0
 	 * @todo    [next] exclude unnecessary statuses from `alg_wc_mppu_order_status` (e.g. "Cancelled", "Refunded", "Failed") and `alg_wc_mppu_order_status_delete` (e.g. "Completed" etc.)?
 	 * @todo    [next] (desc) `alg_wc_mppu_order_status_delete`: `$this->get_recalculate_sales_data_desc( __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ) )`?
@@ -190,12 +190,12 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'options'  => alg_wc_mppu()->core->get_user_roles( false ),
 			),
 			array(
-				'title'    => __( 'Hide products', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip' => __( 'Hides products with exceeded limits for the current user from the catalog and search results. Products will still be accessible via the direct links.', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => __( 'Enable', 'maximum-products-per-user-for-woocommerce' ),
-				'id'       => 'alg_wc_mppu_hide_products',
-				'default'  => 'no',
-				'type'     => 'checkbox',
+				'title'         => __( 'Hide products', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip'      => __( 'Hides products with exceeded limits for the current user from the catalog and search results. Products will still be accessible via the direct links.', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'          => __( 'Hide products with exceeded limits', 'maximum-products-per-user-for-woocommerce' ),
+				'id'            => 'alg_wc_mppu_hide_products',
+				'default'       => 'no',
+				'type'          => 'checkbox',
 			),
 			array(
 				'title'    => __( 'Multi-language', 'maximum-products-per-user-for-woocommerce' ),
@@ -264,15 +264,40 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 					'<a target="_blank" href="https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/">' . 'Maximum Products per User for WooCommerce Pro' . '</a>' ) )
 			),
 			array(
-				'title'     => __( 'Block message', 'maximum-products-per-user-for-woocommerce' ),
+				'title'    => __( 'Block message', 'maximum-products-per-user-for-woocommerce' ),
 				'desc'     => sprintf( __( 'For the "%s" option.', 'maximum-products-per-user-for-woocommerce' ),
 					__( 'Block guests from buying products in your shop', 'maximum-products-per-user-for-woocommerce' ) ),
 				'desc_tip' => __( 'You can use HTML and/or shortcodes here.', 'maximum-products-per-user-for-woocommerce' ) . ' ' .
 				              sprintf( __( 'E.g.: %s.', 'maximum-products-per-user-for-woocommerce' ), '<em>[alg_wc_mppu_translate]</em>' ),
 				'id'       => 'alg_wc_mppu_block_guests_message',
-				'default'  => __( 'You need to register to buy products.', 'maximum-products-per-user-for-woocommerce' ),
+				'default'  => sprintf( '<a href="%s" class="button wc-forward">' . __( 'Login', 'woocommerce' ) . '</a>', esc_url( wc_get_page_permalink( 'myaccount' ) ) ) . ' ' .
+				              __( 'You need to register to buy products.', 'maximum-products-per-user-for-woocommerce' ),
 				'type'     => 'textarea',
 				'css'      => 'width:100%;height:100px;',
+			),
+			array(
+				'title'             => __( 'Add to cart button', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'              => __( 'Change add to cart button text from blocked products', 'maximum-products-per-user-for-woocommerce' ),
+				'id'                => 'alg_wc_mppu_block_guests_custom_add_to_cart_btn_txt_enable',
+				'custom_attributes' => apply_filters( 'alg_wc_mppu_settings', array( 'disabled' => 'disabled' ) ),
+				'desc_tip'          => apply_filters( 'alg_wc_mppu_settings', sprintf( 'You will need %s plugin to choose other values besides "All Products".', '<a target="_blank" href="https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/">' . 'Maximum Products per User for WooCommerce Pro' . '</a>' ) ),
+				'default'           => 'no',
+				'type'              => 'checkbox',
+			),
+			array(
+				'desc'     => __( 'Custom add to cart button text', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_block_guests_custom_add_to_cart_btn_txt',
+				'default'  => __( 'Login to purchase', 'maximum-products-per-user-for-woocommerce' ),
+				'type'     => 'text',
+			),
+			array(
+				'title'    => __( 'Hide products', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'Hides only if %s option is set as %s', 'maximum-products-per-user-for-woocommerce' ), '<strong>' . __( 'Block method', 'maximum-products-per-user-for-woocommerce' ) . '</strong>', '<strong>' . __( 'According to limit options', 'maximum-products-per-user-for-woocommerce' ) . '</strong>' ) . '<br />' .
+				              __( 'Hides products from the catalog and search results. Products will still be accessible via the direct links.', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Hide products blocked from guest users', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_hide_guest_blocked_products',
+				'default'  => 'no',
+				'type'     => 'checkbox',
 			),
 			array(
 				'type' => 'sectionend',

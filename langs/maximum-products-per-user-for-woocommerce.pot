@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Maximum Products per User for WooCommerce 3.5.1\n"
+"Project-Id-Version: Maximum Products per User for WooCommerce 3.5.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-01-25T14:50:36+01:00\n"
+"POT-Creation-Date: 2021-01-28T20:31:52+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -35,12 +35,17 @@ msgstr ""
 msgid "https://wpfactory.com"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:440
-#: includes/settings/class-alg-wc-mppu-settings-general.php:273
+#: includes/class-alg-wc-mppu-core.php:119
+#: includes/settings/class-alg-wc-mppu-settings-general.php:290
+msgid "Login to purchase"
+msgstr ""
+
+#: includes/class-alg-wc-mppu-core.php:476
+#: includes/settings/class-alg-wc-mppu-settings-general.php:274
 msgid "You need to register to buy products."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:772
+#: includes/class-alg-wc-mppu-core.php:809
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:117
 msgid "You can only buy maximum %limit% of %product_title% (you've already bought %bought%)."
 msgstr ""
@@ -242,7 +247,6 @@ msgstr ""
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:163
 #: includes/settings/class-alg-wc-mppu-settings-general.php:168
 #: includes/settings/class-alg-wc-mppu-settings-general.php:178
-#: includes/settings/class-alg-wc-mppu-settings-general.php:195
 #: includes/settings/class-alg-wc-mppu-settings-general.php:216
 #: includes/settings/class-alg-wc-mppu-settings-limits.php:45
 #: includes/settings/class-alg-wc-mppu-settings-limits.php:88
@@ -833,11 +837,16 @@ msgid "Select user roles for which you want to set different limits. If empty, t
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-general.php:193
+#: includes/settings/class-alg-wc-mppu-settings-general.php:294
 msgid "Hide products"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-general.php:194
 msgid "Hides products with exceeded limits for the current user from the catalog and search results. Products will still be accessible via the direct links."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:195
+msgid "Hide products with exceeded limits"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-general.php:201
@@ -891,6 +900,7 @@ msgid "Identify guests by IP address"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-general.php:251
+#: includes/settings/class-alg-wc-mppu-settings-general.php:295
 msgid "Block method"
 msgstr ""
 
@@ -900,6 +910,7 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-general.php:252
 #: includes/settings/class-alg-wc-mppu-settings-general.php:260
+#: includes/settings/class-alg-wc-mppu-settings-general.php:295
 #: includes/settings/class-alg-wc-mppu-settings-per-product.php:173
 #: includes/settings/class-alg-wc-mppu-settings-per-term.php:54
 msgid "According to limit options"
@@ -924,6 +935,30 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-general.php:268
 msgid "For the \"%s\" option."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:279
+msgid "Add to cart button"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:280
+msgid "Change add to cart button text from blocked products"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:288
+msgid "Custom add to cart button text"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:295
+msgid "Hides only if %s option is set as %s"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:296
+msgid "Hides products from the catalog and search results. Products will still be accessible via the direct links."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:297
+msgid "Hide products blocked from guest users"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-limits.php:24

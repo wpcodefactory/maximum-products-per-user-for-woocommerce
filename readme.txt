@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
 Tested up to: 5.6
-Stable tag: 3.5.1
+Stable tag: 3.5.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -57,6 +57,13 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 3.5.2 - 28/01/2021 =
+* Dev - Allow My account tab id to run a shortcode.
+* Dev - General - Add "Hide products blocked from guest users" option.
+* Dev - General - Add "Change add to cart button text from blocked products" option.
+* Dev - General - Add "Custom add to cart button text" option.
+* Dev - General - Add my account link to block message by default.
 
 = 3.5.1 - 25/01/2021 =
 * Fix - Frontend - "Block checkout page" option allows to place an order with a 100% coupon and shows an error at the same time.

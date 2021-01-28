@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class
  *
- * @version 3.5.1
+ * @version 3.5.2
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.5.1
+	 * @version 3.5.2
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -56,9 +56,7 @@ class Alg_WC_MPPU_Core {
 				add_action( $action, array( $this, 'block_checkout' ), PHP_INT_MAX );
 			}
 			// Hide products
-			if ( 'yes' === get_option( 'alg_wc_mppu_hide_products', 'no' ) ) {
-				add_filter( 'woocommerce_product_is_visible', array( $this, 'product_visibility' ), PHP_INT_MAX, 2 );
-			}
+			add_filter( 'woocommerce_product_is_visible', array( $this, 'product_visibility' ), PHP_INT_MAX, 2 );
 			// Single product page
 			switch ( get_option( 'alg_wc_mppu_permanent_notice', 'no' ) ) {
 				case 'yes':
@@ -94,7 +92,33 @@ class Alg_WC_MPPU_Core {
 			// Multi-language
 			require_once( 'class-alg-wc-mppu-multi-language.php' );
 		}
+		// Change add to cart button for blocked products from guest users
+		add_filter( 'woocommerce_product_single_add_to_cart_text', array( $this, 'change_add_to_cart_btn_text' ), 10, 2 );
+		add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'change_add_to_cart_btn_text' ), 10, 2 );
+		// Core loaded
 		do_action( 'alg_wc_mppu_core_loaded', $this );
+	}
+
+	/**
+	 * change_add_to_cart_btn_text.
+	 *
+	 * @version 3.5.2
+	 * @since   3.5.2
+	 *
+	 * @param $text
+	 * @param $product
+	 *
+	 * @return string
+	 */
+	function change_add_to_cart_btn_text( $text, $product ) {
+		if (
+			! is_user_logged_in()
+			&& 'yes' === get_option( 'alg_wc_mppu_block_guests_custom_add_to_cart_btn_txt_enable', 'no' )
+			&& $this->is_product_blocked_for_guests( $product->get_id() )
+		) {
+			$text = get_option( 'alg_wc_mppu_block_guests_custom_add_to_cart_btn_txt', __( 'Login to purchase', 'maximum-products-per-user-for-woocommerce' ) );
+		}
+		return $text;
 	}
 
 	/**
@@ -154,7 +178,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * product_visibility.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.2
 	 * @since   3.4.0
 	 * @todo    [next] (fix) `Showing all X results` (try filtering `product_visibility` taxonomy) (already tried `woocommerce_product_get_catalog_visibility` filter (returning `hidden`) - didn't help)
 	 * @todo    [next] add option to count current `$cart_item_quantities` as well (i.e. pass `$cart_item_quantities` as 6th param in `check_quantities_for_product()`, and `$cart_item_quantities[ $product_id ] + 1` instead of `1`)
@@ -163,10 +187,21 @@ class Alg_WC_MPPU_Core {
 	 * @todo    [later] (feature) option to hide everything for guests?
 	 */
 	function product_visibility( $visible, $product_id ) {
-		if ( ( $current_user_id = $this->get_current_user_id() ) ) {
-			if ( ! $this->check_quantities_for_product( $product_id, 1, false, false, $current_user_id, array() ) ) {
-				return false;
-			}
+		if (
+			'yes' === get_option( 'alg_wc_mppu_hide_products', 'no' )
+			&& is_user_logged_in()
+			&& ( $current_user_id = $this->get_current_user_id() )
+			&& ! $this->check_quantities_for_product( $product_id, 1, false, false, $current_user_id, array() )
+		) {
+			return false;
+		}
+		if (
+			'yes' === get_option( 'alg_wc_mppu_hide_guest_blocked_products', 'no' )
+			&& 'by_limit_options' === get_option( 'alg_wc_mppu_block_guests_method', 'all_products' )
+			&& ! is_user_logged_in()
+			&& $this->is_product_blocked_for_guests( $product_id )
+		) {
+			return false;
 		}
 		return $visible;
 	}
@@ -431,13 +466,15 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * output_guest_notice.
 	 *
-	 * @version 2.6.0
+	 * @version 3.5.2
 	 * @since   2.6.0
 	 * @todo    [next] (fix) AJAX add to cart
 	 * @todo    [later] customizable notice type
 	 */
 	function output_guest_notice( $is_cart ) {
-		$message = get_option( 'alg_wc_mppu_block_guests_message', __( 'You need to register to buy products.', 'maximum-products-per-user-for-woocommerce' ) );
+		$default_msg = sprintf( '<a href="%s" class="button wc-forward">' . __( 'Login', 'woocommerce' ) . '</a>', esc_url( wc_get_page_permalink( 'myaccount' ) ) ) .' '.
+		               __( 'You need to register to buy products.', 'maximum-products-per-user-for-woocommerce' );
+		$message = get_option( 'alg_wc_mppu_block_guests_message', $default_msg );
 		$message = do_shortcode( $message );
 		if ( $is_cart ) {
 			wc_print_notice( $message, 'notice' );

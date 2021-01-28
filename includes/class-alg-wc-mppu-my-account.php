@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - My Account
  *
- * @version 3.4.0
+ * @version 3.5.2
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -16,12 +16,12 @@ class Alg_WC_MPPU_My_Account {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.3.2
+	 * @version 3.5.2
 	 * @since   2.5.0
 	 */
 	function __construct() {
 		if ( 'yes' === get_option( 'alg_wc_mppu_my_account_enabled', 'no' ) ) {
-			$this->my_account_tab_id = get_option( 'alg_wc_mppu_my_account_tab_id', 'product-limits' );
+			$this->my_account_tab_id = do_shortcode( get_option( 'alg_wc_mppu_my_account_tab_id', 'product-limits' ) );
 			add_filter( 'the_title',                                                     array( $this, 'endpoint_title' ) );
 			add_action( 'alg_wc_mppu_after_save_settings',                               array( $this, 'flush_rewrite_rules' ) );
 			add_action( 'init',                                                          array( $this, 'add_endpoint' ) );
