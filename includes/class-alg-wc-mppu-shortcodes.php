@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes
  *
- * @version 3.4.0
+ * @version 3.5.3
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -27,6 +27,32 @@ class Alg_WC_MPPU_Shortcodes {
 		add_shortcode( 'alg_wc_mppu_current_product_quantity', array( $this, 'current_product_limit_shortcode' ) ); // deprecated
 		add_shortcode( 'alg_wc_mppu_term_limit',               array( $this, 'term_limit_shortcode' ) );
 		add_shortcode( 'alg_wc_mppu_placeholder',              array( $this, 'placeholder' ) );
+		add_shortcode( 'alg_wc_mppu_customer_msg',             array( $this, 'customer_msg_shortcode' ) );
+	}
+
+	/**
+	 * customer_msg_shortcode.
+	 *
+	 * @version 3.5.3
+	 * @since   3.5.3
+	 *
+	 * @param $atts
+	 *
+	 * @return string
+	 */
+	function customer_msg_shortcode( $atts ) {
+		$atts = shortcode_atts( array(
+			'bought_msg'     => __( 'You can only buy maximum %limit% of %product_title% (you\'ve already bought %bought%).', 'maximum-products-per-user-for-woocommerce' ),
+			'not_bought_msg' => __( 'You can only buy maximum %limit% of %product_title%.', 'maximum-products-per-user-for-woocommerce' ),
+			'bought'         => null,
+			'bought_msg_min' => 1
+		), $atts, 'alg_wc_mppu_customer_msg' );
+		if ( 0 === $atts['bought'] ) {
+			return $atts['not_bought_msg'];
+		} elseif ( $atts['bought'] >= $atts['bought_msg_min'] ) {
+			return $atts['bought_msg'];
+		}
+		return '';
 	}
 
 	/**

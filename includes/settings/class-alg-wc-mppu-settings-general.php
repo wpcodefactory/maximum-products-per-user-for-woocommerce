@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - General Section Settings
  *
- * @version 3.5.2
+ * @version 3.5.3
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.5.2
+	 * @version 3.5.3
 	 * @since   1.0.0
 	 * @todo    [next] exclude unnecessary statuses from `alg_wc_mppu_order_status` (e.g. "Cancelled", "Refunded", "Failed") and `alg_wc_mppu_order_status_delete` (e.g. "Completed" etc.)?
 	 * @todo    [next] (desc) `alg_wc_mppu_order_status_delete`: `$this->get_recalculate_sales_data_desc( __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ) )`?
@@ -224,6 +224,19 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'type'     => 'checkbox',
 			),
 			array(
+				'title'    => __( 'Guests', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => __( 'Sets how non-logged users (i.e. guests) should be handled by the plugin.', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_block_guests', // mislabeled, should be `alg_wc_mppu_guests`
+				'default'  => 'no',
+				'type'     => 'radio',
+				'options'  => array(
+					'no'                 => __( 'Do nothing (i.e. do not track guests sales)', 'maximum-products-per-user-for-woocommerce' ),
+					'block_beyond_limit' => __( 'Do nothing but block guests from purchasing products beyond the limits', 'maximum-products-per-user-for-woocommerce' ),
+					'yes'                => __( 'Block guests from buying products', 'maximum-products-per-user-for-woocommerce' ),
+					'identify_by_ip'     => __( 'Identify guests by IP address', 'maximum-products-per-user-for-woocommerce' ),
+				),
+			),
+			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_mppu_general_options',
 			),
@@ -231,42 +244,29 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 
 		$guest_options = array(
 			array(
-				'type'     => 'title',
-				'title' => __( 'Guest options', 'maximum-products-per-user-for-woocommerce' ),
-				'id'    => 'alg_wc_mppu_guest_options',
+				'title' => __( 'Block guests from buying products', 'maximum-products-per-user-for-woocommerce' ),
+				'type'  => 'title',
+				'desc'  => sprintf( __( 'This whole section will only make sense if %s option is set as %s.', 'maximum-products-per-user-for-woocommerce' ), '<strong>' . __( 'Guests', 'maximum-products-per-user-for-woocommerce' ) . '</strong>','<strong>' . __( 'Block guests from buying products', 'maximum-products-per-user-for-woocommerce' ) . '</strong>' ),
+				'id'    => 'alg_wc_mppu_block_guests_from_buying_options',
 			),
 			array(
-				'title'    => __( 'Guests', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip' => __( 'Sets how non-logged users (i.e. guests) should be handled by the plugin.', 'maximum-products-per-user-for-woocommerce' ),
-				'id'       => 'alg_wc_mppu_block_guests', // mislabeled, should be `alg_wc_mppu_guests`
-				'default'  => 'no',
-				'type'     => 'radio',
-				'options'  => array(
-					'no'             => __( 'Do nothing (i.e. do not track guests sales)', 'maximum-products-per-user-for-woocommerce' ),
-					'yes'            => __( 'Block guests from buying products in your shop', 'maximum-products-per-user-for-woocommerce' ),
-					'identify_by_ip' => __( 'Identify guests by IP address', 'maximum-products-per-user-for-woocommerce' ),
-				),
-			),
-			array(
-				'title'    => __( 'Block method', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip' => sprintf( __( 'Choose "%s" if you want to block guests from buying specific products.', 'maximum-products-per-user-for-woocommerce' ), __( 'According to limit options', 'maximum-products-per-user-for-woocommerce' ) ) . '<br />' .
-				              sprintf( __( 'You\'ll be able to use %s and %s options', 'maximum-products-per-user-for-woocommerce' ), '"' . __( 'Per product taxonomy', 'maximum-products-per-user-for-woocommerce' ) . '"', '"' . __( 'Per product', 'maximum-products-per-user-for-woocommerce' ) . '"' ),
-				'id'       => 'alg_wc_mppu_block_guests_method',
-				'default'  => array( 'all_products' ),
-				'type'     => 'select',
-				'class'    => 'chosen_select',
-				'options'  => array(
+				'title'             => __( 'Block method', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip'          => sprintf( __( 'Choose "%s" if you want to block guests from buying specific products.', 'maximum-products-per-user-for-woocommerce' ), __( 'According to limit options', 'maximum-products-per-user-for-woocommerce' ) ) . '<br />' .
+				                       sprintf( __( 'You\'ll be able to use %s and %s options', 'maximum-products-per-user-for-woocommerce' ), '"' . __( 'Per product taxonomy', 'maximum-products-per-user-for-woocommerce' ) . '"', '"' . __( 'Per product', 'maximum-products-per-user-for-woocommerce' ) . '"' ),
+				'id'                => 'alg_wc_mppu_block_guests_method',
+				'default'           => array( 'all_products' ),
+				'type'              => 'select',
+				'class'             => 'chosen_select',
+				'options'           => array(
 					'all_products'     => __( 'All Products', 'maximum-products-per-user-for-woocommerce' ),
 					'by_limit_options' => __( 'According to limit options', 'maximum-products-per-user-for-woocommerce' )
 				),
 				'custom_attributes' => apply_filters( 'alg_wc_mppu_settings', array( 'disabled' => 'disabled' ) ),
-				'desc' => apply_filters( 'alg_wc_mppu_settings', sprintf( 'You will need %s plugin to choose other values besides "All Products".',
-					'<a target="_blank" href="https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/">' . 'Maximum Products per User for WooCommerce Pro' . '</a>' ) )
+				'desc'              => empty( $pro_msg = apply_filters( 'alg_wc_mppu_settings', sprintf( 'You will need %s plugin to choose other values besides "All Products".',
+					'<a target="_blank" href="https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/">' . 'Maximum Products per User for WooCommerce Pro' . '</a>' ) ) ) ? '' : $pro_msg,
 			),
 			array(
 				'title'    => __( 'Block message', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => sprintf( __( 'For the "%s" option.', 'maximum-products-per-user-for-woocommerce' ),
-					__( 'Block guests from buying products in your shop', 'maximum-products-per-user-for-woocommerce' ) ),
 				'desc_tip' => __( 'You can use HTML and/or shortcodes here.', 'maximum-products-per-user-for-woocommerce' ) . ' ' .
 				              sprintf( __( 'E.g.: %s.', 'maximum-products-per-user-for-woocommerce' ), '<em>[alg_wc_mppu_translate]</em>' ),
 				'id'       => 'alg_wc_mppu_block_guests_message',
@@ -301,7 +301,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 			),
 			array(
 				'type' => 'sectionend',
-				'id'   => 'alg_wc_mppu_guest_options',
+				'id'   => 'alg_wc_mppu_block_guests_from_buying_options',
 			),
 		);
 

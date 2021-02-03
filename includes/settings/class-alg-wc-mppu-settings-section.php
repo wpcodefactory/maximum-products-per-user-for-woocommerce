@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Section Settings
  *
- * @version 3.5.0
+ * @version 3.5.3
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -57,6 +57,29 @@ class Alg_WC_MPPU_Settings_Section {
 			$title = $sections[ $section_id ];
 		}
 		return '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_mppu&section=' . $section_id ) . '">' . $title . '</a>';
+	}
+
+	/**
+	 * convert_array_to_string.
+	 *
+	 * @version 3.5.3
+	 * @since   3.5.3
+	 *
+	 * @param $arr
+	 * @param array $args
+	 *
+	 * @return string
+	 */
+	function convert_array_to_string( $arr, $args = array() ) {
+		$args            = wp_parse_args( $args, array(
+			'glue'          => ', ',
+			'item_template' => '{value}' //  {key} and {value} allowed
+		) );
+		$transformed_arr = array_map( function ( $key, $value ) use ( $args ) {
+			$item = str_replace( array( '{key}', '{value}' ), array( $key, $value ), $args['item_template'] );
+			return $item;
+		}, array_keys( $arr ), $arr );
+		return implode( $args['glue'], $transformed_arr );
 	}
 
 	/**

@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class
  *
- * @version 3.5.2
+ * @version 3.5.3
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.5.2
+	 * @version 3.5.3
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -95,14 +95,58 @@ class Alg_WC_MPPU_Core {
 		// Change add to cart button for blocked products from guest users
 		add_filter( 'woocommerce_product_single_add_to_cart_text', array( $this, 'change_add_to_cart_btn_text' ), 10, 2 );
 		add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'change_add_to_cart_btn_text' ), 10, 2 );
+		// Hook msg shortcode
+		add_filter( 'shortcode_atts_' . 'alg_wc_mppu_customer_msg', array( $this, 'filter_customer_message_shortcode' ) );
+		// Set bought data to zero if guest option is set as "Do nothing and block guests from purchasing products beyond the limits"
+		add_filter( 'alg_wc_mppu_user_already_bought', array( $this, 'set_guest_user_bought_to_zero' ) );
 		// Core loaded
 		do_action( 'alg_wc_mppu_core_loaded', $this );
 	}
 
 	/**
+	 * set_guest_user_bought_to_zero
+	 *
+	 * @version 3.5.3
+	 * @since   3.5.3
+	 *
+	 * @param $data
+	 *
+	 * @return mixed
+	 */
+	function set_guest_user_bought_to_zero( $data ) {
+		if (
+			! is_user_logged_in()
+			&& 'block_beyond_limit' == get_option( 'alg_wc_mppu_block_guests' )
+		) {
+			$data['bought'] = 0;
+		}
+		return $data;
+	}
+
+	/**
+	 * filter_customer_message_shortcode.
+	 *
+	 * @version 3.5.3
+	 * @since   3.5.3
+	 *
+	 * @param $atts
+	 *
+	 * @return mixed
+	 */
+	function filter_customer_message_shortcode( $atts ) {
+		if (
+			is_null( $atts['bought'] )
+			&& isset( $this->placeholders['%bought%'] )
+		) {
+			$atts['bought'] = $this->placeholders['%bought%'];
+		}
+		return $atts;
+	}
+
+	/**
 	 * change_add_to_cart_btn_text.
 	 *
-	 * @version 3.5.2
+	 * @version 3.5.3
 	 * @since   3.5.2
 	 *
 	 * @param $text
@@ -113,6 +157,7 @@ class Alg_WC_MPPU_Core {
 	function change_add_to_cart_btn_text( $text, $product ) {
 		if (
 			! is_user_logged_in()
+			&& 'yes' == get_option( 'alg_wc_mppu_block_guests' )
 			&& 'yes' === get_option( 'alg_wc_mppu_block_guests_custom_add_to_cart_btn_txt_enable', 'no' )
 			&& $this->is_product_blocked_for_guests( $product->get_id() )
 		) {
@@ -178,7 +223,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * product_visibility.
 	 *
-	 * @version 3.5.2
+	 * @version 3.5.3
 	 * @since   3.4.0
 	 * @todo    [next] (fix) `Showing all X results` (try filtering `product_visibility` taxonomy) (already tried `woocommerce_product_get_catalog_visibility` filter (returning `hidden`) - didn't help)
 	 * @todo    [next] add option to count current `$cart_item_quantities` as well (i.e. pass `$cart_item_quantities` as 6th param in `check_quantities_for_product()`, and `$cart_item_quantities[ $product_id ] + 1` instead of `1`)
@@ -191,7 +236,11 @@ class Alg_WC_MPPU_Core {
 			'yes' === get_option( 'alg_wc_mppu_hide_products', 'no' )
 			&& is_user_logged_in()
 			&& ( $current_user_id = $this->get_current_user_id() )
-			&& ! $this->check_quantities_for_product( $product_id, 1, false, false, $current_user_id, array() )
+			&& ! $this->check_quantities_for_product( $product_id, array(
+				'_cart_item_quantity' => 1,
+				'do_add_notices'      => false,
+				'current_user_id'     => $current_user_id
+			) )
 		) {
 			return false;
 		}
@@ -342,7 +391,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * is_product_blocked_for_guests.
 	 *
-	 * @version 3.5.1
+	 * @version 3.5.3
 	 * @since   3.5.1
 	 *
 	 * @param $product_id
@@ -351,12 +400,15 @@ class Alg_WC_MPPU_Core {
 	 * @return boolean
 	 */
 	function is_product_blocked_for_guests( $product_id, $args = null ) {
+		if ( 'yes' !== get_option( 'alg_wc_mppu_block_guests', 'no' ) ) {
+			return apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', false, $product_id, $args );
+		}
 		if ( 'all_products' === $block_method = get_option( 'alg_wc_mppu_block_guests_method', 'all_products' ) ) {
 			return apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', true, $product_id, $args );
 		}
 		$is_blocked = false;
-			// By product
-		if ( 'yes' === apply_filters( 'alg_wc_mppu_local_enabled', 'no') && apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', 'yes' === get_post_meta( $product_id, '_wpjup_wc_mppu_block_guests', true ), $product_id, $args ) ) {
+		// By product
+		if ( 'yes' === apply_filters( 'alg_wc_mppu_local_enabled', 'no' ) && apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', 'yes' === get_post_meta( $product_id, '_wpjup_wc_mppu_block_guests', true ), $product_id, $args ) ) {
 			$is_blocked = true;
 			return apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', true, $product_id, $args );
 		} else {
@@ -407,7 +459,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * validate_on_add_to_cart.
 	 *
-	 * @version 3.5.1
+	 * @version 3.5.3
 	 * @since   2.0.0
 	 * @todo    [later] `alg_wc_mppu_block_guests`: add "Block products with max qty" option (`yes_max_qty`), i.e. check for `0 != $this->get_max_qty_for_product( $_product_id, $product_id )`
 	 * @todo    [maybe] different message (i.e. different from "cart" message)?
@@ -424,17 +476,31 @@ class Alg_WC_MPPU_Core {
 			$quantity += $cart_item_quantities[ $product_id ];
 		}
 		if ( $current_user_id = $this->get_current_user_id() ) {
-			if ( ! $this->check_quantities_for_product( $product_id, $quantity, false, true, $current_user_id, $cart_item_quantities, $adding ) ) {
+			if ( ! $this->check_quantities_for_product( $product_id, array(
+				'_cart_item_quantity'  => $quantity,
+				'current_user_id'      => $current_user_id,
+				'cart_item_quantities' => $cart_item_quantities,
+				'adding'               => $adding
+			) ) ) {
 				return false;
 			}
 		} elseif ( 'yes' === get_option( 'alg_wc_mppu_block_guests', 'no' ) ) {
-			$block_method = get_option( 'alg_wc_mppu_block_guests_method', 'all_products' );
-			if ( 'all_products' == $block_method || ! $this->check_quantities_for_product( $product_id, $quantity, false, true, $current_user_id, $cart_item_quantities, $adding ) ) {
+			if ( $this->is_product_blocked_for_guests( $product_id ) ) {
 				if ( ! wp_doing_ajax() ) {
 					$this->output_guest_notice( false );
 				} else {
 					add_filter( 'woocommerce_cart_redirect_after_error', array( $this, 'block_guest_add_to_cart_ajax_redirect' ), PHP_INT_MAX, 2 );
 				}
+				return false;
+			}
+		} elseif ( 'block_beyond_limit' == get_option( 'alg_wc_mppu_block_guests' ) ) {
+			if ( ! $this->check_quantities_for_product( $product_id, array(
+				'_cart_item_quantity'  => $quantity,
+				'check_guest_blocking' => false,
+				'current_user_id'      => $current_user_id,
+				'cart_item_quantities' => $cart_item_quantities,
+				'adding'               => $adding
+			) ) ) {
 				return false;
 			}
 		}
@@ -799,15 +865,19 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * output_notice.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.3
 	 * @since   2.0.0
 	 * @todo    [maybe] customizable notice type in `wc_add_notice()`?
 	 */
 	function output_notice( $product_id, $limit, $bought_data, $is_cart, $in_cart_plus_adding, $adding, $term = false, $msg = false ) {
 		$this->get_notice_placeholders( $product_id, $limit, $bought_data, $in_cart_plus_adding, $adding, $term );
 		$message = ( $msg ? $msg : get_option( 'wpjup_wc_maximum_products_per_user_message',
-			__( "You can only buy maximum %limit% of %product_title% (you've already bought %bought%).", 'maximum-products-per-user-for-woocommerce' ) ) );
-		$message = $this->apply_placeholders( $message );
+			sprintf(
+				__( '[alg_wc_mppu_customer_msg bought_msg="%s" not_bought_msg="%s"]' ),
+				__( "You can only buy maximum %limit% of %product_title% (you've already bought %bought%).", 'maximum-products-per-user-for-woocommerce' ),
+				__( "You can only buy maximum %limit% of %product_title%.", 'maximum-products-per-user-for-woocommerce' )
+			) ) );
+		$message = $this->apply_placeholders( do_shortcode( $message ) );
 		if ( $is_cart ) {
 			if ( 'yes' === $this->cart_notice ) {
 				wc_print_notice( $message, get_option( 'alg_wc_mppu_cart_notice_type', 'notice' ) );
@@ -930,36 +1000,49 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * check_quantities_for_product.
 	 *
-	 * @version 3.5.1
+	 * @version 3.5.3
 	 * @since   2.0.0
 	 * @todo    [maybe] add `alg_wc_mppu_check_quantities_for_product_product_id` filter?
 	 */
-	function check_quantities_for_product( $_product_id, $_cart_item_quantity, $is_cart, $do_add_notices, $current_user_id, $cart_item_quantities, $adding = 0 ) {
-		// Get product IDs and cart item qty
+	function check_quantities_for_product( $_product_id, $args ) {
+		$args = wp_parse_args( $args, array(
+			'_cart_item_quantity'  => '',
+			'cart_item_quantities' => array(),
+			'is_cart'              => false,
+			'do_add_notices'       => true,
+			'current_user_id'      => 0,
+			'check_guest_blocking' => true,
+			'adding'               => 0
+		) );
+		// Variables from $args
+		$_cart_item_quantity  = $args['_cart_item_quantity'];
+		$cart_item_quantities = $args['cart_item_quantities'];
+		$is_cart              = $args['is_cart'];
+		$do_add_notices       = $args['do_add_notices'];
+		$current_user_id      = $args['current_user_id'];
+		$adding               = $args['adding'];
+		// Dynamic values
 		$parent_product_id  = $this->get_product_id_or_variation_parent_id( wc_get_product( $_product_id ) );
 		$use_parent         = ( $parent_product_id != $_product_id && ! $this->do_use_variations( $parent_product_id ) );
-		$product_id         = ( ! $use_parent ? $_product_id         : $parent_product_id );
+		$product_id         = ( ! $use_parent ? $_product_id : $parent_product_id );
 		$cart_item_quantity = ( ! $use_parent ? $_cart_item_quantity : $this->get_cart_item_quantity_by_parent( $_product_id, $_cart_item_quantity, $cart_item_quantities, $parent_product_id ) );
 		$cart_item_quantity = apply_filters( 'alg_wc_mppu_cart_item_amount', $cart_item_quantity );
-		// Saving for later use (i.e. for the `alg_wc_mppu_check_quantities_for_product` filter)
-		$args = array(
-			'_product_id'          => $_product_id,
-			'_cart_item_quantity'  => $_cart_item_quantity,
-			'is_cart'              => $is_cart,
-			'do_add_notices'       => $do_add_notices,
-			'current_user_id'      => $current_user_id,
-			'cart_item_quantities' => $cart_item_quantities,
-			'parent_product_id'    => $parent_product_id,    // can be the same as product ID (for non-variable products)
-			'product_id'           => $product_id,           // product or (maybe) parent ID
-			'cart_item_quantity'   => $cart_item_quantity,   // product or (maybe) parent cart qty
-		);
+		$args               = array_merge( $args, array(
+			'parent_product_id'  => $parent_product_id,    // can be the same as product ID (for non-variable products)
+			'product_id'         => $product_id,           // product or (maybe) parent ID
+			'cart_item_quantity' => $cart_item_quantity,   // product or (maybe) parent cart qty
+		) );
 		// Maybe exclude products
 		$exclude_products = get_option( 'alg_wc_mppu_exclude_products', array() );
 		if ( ! empty( $exclude_products ) && in_array( $product_id, $exclude_products ) ) {
 			return apply_filters( 'alg_wc_mppu_check_quantities_for_product', true, $this, $args );
 		}
 		// Block guest by limit
-		if ( empty( $current_user_id ) && $this->is_product_blocked_for_guests( $product_id ) ) {
+		if (
+			$args['check_guest_blocking']
+			&& empty( $current_user_id )
+			&& $this->is_product_blocked_for_guests( $product_id )
+		) {
 			return apply_filters( 'alg_wc_mppu_check_quantities_for_product', false, $this, $args );
 		}
 		// Block - default mechanism
@@ -1021,7 +1104,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * check_quantities.
 	 *
-	 * @version 3.5.0
+	 * @version 3.5.3
 	 * @since   1.0.0
 	 */
 	function check_quantities( $do_add_notices ) {
@@ -1030,12 +1113,12 @@ class Alg_WC_MPPU_Core {
 		}
 		$is_cart = ( function_exists( 'is_cart' ) && is_cart() );
 		if ( ! ( $current_user_id = $this->get_current_user_id() ) ) {
-			if ( 'yes' === get_option( 'alg_wc_mppu_block_guests', 'no' ) ) {
+			if ( 'yes' === $block_guests_opt = get_option( 'alg_wc_mppu_block_guests', 'no' ) ) {
 				if ( $do_add_notices ) {
 					$this->output_guest_notice( $is_cart );
 				}
 				return false;
-			} else {
+			} elseif ( 'block_beyond_limit' !== $block_guests_opt ) {
 				return true;
 			}
 		}
@@ -1050,7 +1133,13 @@ class Alg_WC_MPPU_Core {
 		}
 		$result = true;
 		foreach ( $cart_item_quantities as $_product_id => $cart_item_quantity ) {
-			if ( ! $this->check_quantities_for_product( $_product_id, $cart_item_quantity, $is_cart, $do_add_notices, $current_user_id, $cart_item_quantities ) ) {
+			if ( ! $this->check_quantities_for_product( $_product_id, array(
+				'_cart_item_quantity'  => $cart_item_quantity,
+				'is_cart'              => $is_cart,
+				'do_add_notices'       => $do_add_notices,
+				'current_user_id'      => $current_user_id,
+				'cart_item_quantities' => $cart_item_quantities
+			) ) ) {
 				if ( $do_add_notices && 'yes' === get_option( 'alg_wc_mppu_multiple_notices', 'yes' ) ) {
 					$result = false;
 				} else {

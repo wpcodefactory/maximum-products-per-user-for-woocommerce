@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Frontend Section Settings
  *
- * @version 3.5.1
+ * @version 3.5.3
  * @since   2.4.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_Frontend extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.5.1
+	 * @version 3.5.3
 	 * @since   2.4.0
 	 * @todo    [next] My Account: move to a new section?
 	 * @todo    [next] My Account: Tab icon: add Font Awesome icon selector (i.e. instead of requiring to enter the code directly)
@@ -110,13 +110,25 @@ class Alg_WC_MPPU_Settings_Frontend extends Alg_WC_MPPU_Settings_Section {
 				),
 			),
 			array(
-				'title'    => __( 'Customer message', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip' => __( 'You can use HTML and/or shortcodes here.', 'maximum-products-per-user-for-woocommerce' ) . ' ' .
-					sprintf( __( 'E.g.: %s.', 'maximum-products-per-user-for-woocommerce' ), '<em>[alg_wc_mppu_translate]</em>' ),
-				'id'       => 'wpjup_wc_maximum_products_per_user_message',
-				'default'  => __( "You can only buy maximum %limit% of %product_title% (you've already bought %bought%).", 'maximum-products-per-user-for-woocommerce' ),
-				'type'     => 'textarea',
-				'css'      => 'width:100%;height:100px;',
+				'title'           => __( 'Customer message', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip'        => __( 'You can use HTML and/or shortcodes here.', 'maximum-products-per-user-for-woocommerce' ) . ' ' .
+				                     sprintf( __( 'E.g.: %s.', 'maximum-products-per-user-for-woocommerce' ), '<em>[alg_wc_mppu_translate]</em>' ),
+				'id'              => 'wpjup_wc_maximum_products_per_user_message',
+				'default'         => sprintf(
+					__( '[alg_wc_mppu_customer_msg bought_msg="%s" not_bought_msg="%s"]' ),
+					__( "You can only buy maximum %limit% of %product_title% (you've already bought %bought%).", 'maximum-products-per-user-for-woocommerce' ),
+					__( "You can only buy maximum %limit% of %product_title%.", 'maximum-products-per-user-for-woocommerce' )
+				),
+				'type'            => 'textarea',
+				'css'             => 'width:100%;height:100px;',
+				'desc'            => sprintf( __( 'Available %s shortcode params:', 'maximum-products-per-user-for-woocommerce' ), '<code>[alg_wc_mppu_customer_msg]</code>' ) .
+				                     $this->convert_array_to_string( array(
+					                     'bought_msg',
+					                     'not_bought_msg',
+					                     'bought_msg_min',
+				                     ), array(
+					                     'item_template' => '<code>{value}</code>'
+				                     ) ),
 				'alg_wc_mppu_raw' => true,
 			),
 			array(
