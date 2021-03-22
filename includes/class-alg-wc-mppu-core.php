@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class
  *
- * @version 3.5.3
+ * @version 3.5.4
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -1104,7 +1104,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * check_quantities.
 	 *
-	 * @version 3.5.3
+	 * @version 3.5.4
 	 * @since   1.0.0
 	 */
 	function check_quantities( $do_add_notices ) {
@@ -1113,7 +1113,10 @@ class Alg_WC_MPPU_Core {
 		}
 		$is_cart = ( function_exists( 'is_cart' ) && is_cart() );
 		if ( ! ( $current_user_id = $this->get_current_user_id() ) ) {
-			if ( 'yes' === $block_guests_opt = get_option( 'alg_wc_mppu_block_guests', 'no' ) ) {
+			if (
+				'yes' === ( $block_guests_opt = get_option( 'alg_wc_mppu_block_guests', 'no' ) )
+				&& 'all_products' === get_option( 'alg_wc_mppu_block_guests_method', 'all_products' )
+			) {
 				if ( $do_add_notices ) {
 					$this->output_guest_notice( $is_cart );
 				}

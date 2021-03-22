@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - General Section Settings
  *
- * @version 3.5.3
+ * @version 3.5.4
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.5.3
+	 * @version 3.5.4
 	 * @since   1.0.0
 	 * @todo    [next] exclude unnecessary statuses from `alg_wc_mppu_order_status` (e.g. "Cancelled", "Refunded", "Failed") and `alg_wc_mppu_order_status_delete` (e.g. "Completed" etc.)?
 	 * @todo    [next] (desc) `alg_wc_mppu_order_status_delete`: `$this->get_recalculate_sales_data_desc( __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ) )`?
@@ -165,9 +165,8 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 			),
 			array(
 				'title'    => __( 'Use variations', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => __( 'Enable', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip' => __( 'Use variations in "All products" and "Per product" calculations.', 'maximum-products-per-user-for-woocommerce' ) . '<br>' .
-					__( 'If "Limits > Per Product" section is enabled, you will be able to (optionally) override this option for each individual product.', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Use variations in "All products" and "Per product" calculations.', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => __( 'If "Limits > Per Product" section is enabled, you will be able to (optionally) override this option for each individual product.', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'alg_wc_mppu_use_variations',
 				'default'  => 'no',
 				'type'     => 'checkbox',
@@ -252,7 +251,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 			array(
 				'title'             => __( 'Block method', 'maximum-products-per-user-for-woocommerce' ),
 				'desc_tip'          => sprintf( __( 'Choose "%s" if you want to block guests from buying specific products.', 'maximum-products-per-user-for-woocommerce' ), __( 'According to limit options', 'maximum-products-per-user-for-woocommerce' ) ) . '<br />' .
-				                       sprintf( __( 'You\'ll be able to use %s and %s options', 'maximum-products-per-user-for-woocommerce' ), '"' . __( 'Per product taxonomy', 'maximum-products-per-user-for-woocommerce' ) . '"', '"' . __( 'Per product', 'maximum-products-per-user-for-woocommerce' ) . '"' ),
+				                       sprintf( __( 'In that case it will be necessary to enable the %s option on the product or taxonomy page after activating %s or %s options.', 'maximum-products-per-user-for-woocommerce' ), '"' . __( 'Block guests', 'maximum-products-per-user-for-woocommerce' ) . '"', '"' . __( 'Per product', 'maximum-products-per-user-for-woocommerce' ) . '"', '"' . __( 'Per product taxonomy', 'maximum-products-per-user-for-woocommerce' ) . '"' ),
 				'id'                => 'alg_wc_mppu_block_guests_method',
 				'default'           => array( 'all_products' ),
 				'type'              => 'select',

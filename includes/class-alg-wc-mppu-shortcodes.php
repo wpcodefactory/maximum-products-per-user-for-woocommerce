@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes
  *
- * @version 3.5.3
+ * @version 3.5.4
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -126,13 +126,18 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * current_product_limit_shortcode.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.4
 	 * @since   2.5.1
 	 * @todo    [later] different (customizable) message depending on `$remaining`
 	 */
 	function current_product_limit_shortcode( $atts, $content = '' ) {
-		$product_id = ( isset( $atts['product_id'] ) ? $atts['product_id'] : get_the_ID() );
+		$atts = shortcode_atts( array(
+			'product_id' => get_the_ID(),
+			'output_template' => '<span class="alg-wc-mppu-current-product-limit">{output_msg}</span>'
+		), $atts, 'alg_wc_mppu_current_product_limit' );
+		$product_id = $atts['product_id'];
 		$user_id    = $this->get_user_id( $atts );
+		$output_msg='';
 		if ( $product_id && $user_id ) {
 			$limit = alg_wc_mppu()->core->get_max_qty_for_product( $product_id );
 			if ( $limit ) {
@@ -181,10 +186,10 @@ class Alg_WC_MPPU_Shortcodes {
 				$template = ( isset( $atts['template'] ) ? $atts['template'] : get_option( 'alg_wc_mppu_permanent_notice_message',
 					__( "The remaining amount for %product_title% is %remaining% (you've already bought %bought% out of %limit%).", 'maximum-products-per-user-for-woocommerce' ) ) );
 				$message = alg_wc_mppu()->core->apply_placeholders( $template );
-				return $message;
+				$output_msg = $message;
 			}
 		}
-		return '';
+		return str_replace( '{output_msg}', $output_msg, $atts['output_template'] );
 	}
 
 	/**

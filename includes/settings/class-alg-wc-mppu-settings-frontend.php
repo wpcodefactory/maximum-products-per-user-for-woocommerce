@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Frontend Section Settings
  *
- * @version 3.5.3
+ * @version 3.5.4
  * @since   2.4.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_Frontend extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.5.3
+	 * @version 3.5.4
 	 * @since   2.4.0
 	 * @todo    [next] My Account: move to a new section?
 	 * @todo    [next] My Account: Tab icon: add Font Awesome icon selector (i.e. instead of requiring to enter the code directly)
@@ -148,7 +148,18 @@ class Alg_WC_MPPU_Settings_Frontend extends Alg_WC_MPPU_Settings_Section {
 				'type'     => 'checkbox',
 			),
 			array(
-				'title'    => __( 'Single product page', 'maximum-products-per-user-for-woocommerce' ),
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_mppu_frontend_options',
+			),
+			// Product limit message
+			array(
+				'title'    => __( 'Product limit message', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Adds current product limit info to the single product page.', 'maximum-products-per-user-for-woocommerce' ),
+				'type'     => 'title',
+				'id'       => 'alg_wc_mppu_product_page_options',
+			),
+			array(
+				'title'    => __( 'Product limit message', 'maximum-products-per-user-for-woocommerce' ),
 				'desc_tip' => __( 'Adds current product limit info to the single product pages.', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'alg_wc_mppu_permanent_notice',
 				'default'  => 'no',
@@ -162,8 +173,9 @@ class Alg_WC_MPPU_Settings_Frontend extends Alg_WC_MPPU_Settings_Section {
 				),
 			),
 			array(
+				'title'    => __( 'Message content', 'maximum-products-per-user-for-woocommerce' ),
 				'desc_tip' => __( 'You can use HTML and/or shortcodes here.', 'maximum-products-per-user-for-woocommerce' ) . ' ' .
-					sprintf( __( 'E.g.: %s.', 'maximum-products-per-user-for-woocommerce' ), '<em>[alg_wc_mppu_translate]</em>' ),
+				              sprintf( __( 'E.g.: %s.', 'maximum-products-per-user-for-woocommerce' ), '<em>[alg_wc_mppu_translate]</em>' ),
 				'id'       => 'alg_wc_mppu_permanent_notice_message',
 				'default'  => __( "The remaining amount for %product_title% is %remaining% (you've already bought %bought% out of %limit%).", 'maximum-products-per-user-for-woocommerce' ),
 				'type'     => 'textarea',
@@ -171,42 +183,61 @@ class Alg_WC_MPPU_Settings_Frontend extends Alg_WC_MPPU_Settings_Section {
 				'alg_wc_mppu_raw' => true,
 			),
 			array(
-				'title'    => __( 'My Account', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => __( 'Enable', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip' => __( 'Adds tab to the "My Account" page.', 'maximum-products-per-user-for-woocommerce' ),
+				'title'    => __( 'Variations', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Show limit message for variations', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'Probably you\'d like to have %s option enabled.', 'maximum-products-per-user-for-woocommerce' ), '"' . __( 'General > Use variations', 'maximum-products-per-user-for-woocommerce' ). '"' )  . apply_filters( 'alg_wc_mppu_settings', '<br />' . sprintf( 'You will need %s plugin to enable "per product" option.',
+						              '<a target="_blank" href="https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/">' . 'Maximum Products per User for WooCommerce Pro' . '</a>' ) ),
+				'id'       => 'alg_wc_mppu_permanent_notice_handle_variations',
+				'default'  => 'no',
+				'type'     => 'checkbox',
+				'custom_attributes' => apply_filters( 'alg_wc_mppu_settings', array( 'disabled' => 'disabled' ) ),
+			),
+			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_mppu_product_page_options',
+			),
+			// My account
+			array(
+				'title'    => __( 'My account tab', 'maximum-products-per-user-for-woocommerce' ),
+				'type'     => 'title',
+				'id'       => 'alg_wc_mppu_my_account_options',
+			),
+			array(
+				'title'    => __( 'Enable tab', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Add tab to "My Account" page', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'alg_wc_mppu_my_account_enabled',
 				'default'  => 'no',
 				'type'     => 'checkbox',
 			),
 			array(
-				'desc'     => __( 'Tab id', 'maximum-products-per-user-for-woocommerce' ),
+				'title'     => __( 'Tab id', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'alg_wc_mppu_my_account_tab_id',
 				'default'  => 'product-limits',
 				'type'     => 'text',
 			),
 			array(
-				'desc'     => __( 'Tab title', 'maximum-products-per-user-for-woocommerce' ),
+				'title'     => __( 'Tab title', 'maximum-products-per-user-for-woocommerce' ),
 				'desc_tip' => __( 'You can use shortcodes here.', 'maximum-products-per-user-for-woocommerce' ) . ' ' .
-					sprintf( __( 'E.g.: %s.', 'maximum-products-per-user-for-woocommerce' ), '<em>[alg_wc_mppu_translate]</em>' ),
+				              sprintf( __( 'E.g.: %s.', 'maximum-products-per-user-for-woocommerce' ), '<em>[alg_wc_mppu_translate]</em>' ),
 				'id'       => 'alg_wc_mppu_my_account_tab_title',
 				'default'  => __( 'Product limits', 'maximum-products-per-user-for-woocommerce' ),
 				'type'     => 'text',
 				'css'      => 'width:100%;',
 			),
 			array(
-				'desc'     => __( 'Tab icon', 'maximum-products-per-user-for-woocommerce' ) . '<br>' .
-					sprintf( __( 'You need to enter icon code here, e.g. %s. Icon codes are available on %s site.', 'maximum-products-per-user-for-woocommerce' ),
-						'<code>f2b9</code>',
-						'<a href="https://fontawesome.com/icons?d=gallery&s=regular&m=free" target="_blank">Font Awesome</a>' ),
+				'title'    => __( 'Tab icon', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => sprintf( __( 'You need to enter icon code here, e.g. %s. Icon codes are available on %s site.', 'maximum-products-per-user-for-woocommerce' ),
+					              '<code>f2b9</code>',
+					              '<a href="https://fontawesome.com/icons?d=gallery&s=regular&m=free" target="_blank">Font Awesome</a>' ),
 				'desc_tip' => __( 'Will use the default icon if empty.', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'alg_wc_mppu_my_account_tab_icon',
 				'default'  => '',
 				'type'     => 'text',
 			),
 			array(
-				'desc'     => __( 'Tab content', 'maximum-products-per-user-for-woocommerce' ),
+				'title'    => __( 'Tab content', 'maximum-products-per-user-for-woocommerce' ),
 				'desc_tip' => __( 'You can use HTML and/or shortcodes here.', 'maximum-products-per-user-for-woocommerce' ) . ' ' .
-					sprintf( __( 'E.g.: %s.', 'maximum-products-per-user-for-woocommerce' ), '<em>[alg_wc_mppu_translate]</em>' ),
+				              sprintf( __( 'E.g.: %s.', 'maximum-products-per-user-for-woocommerce' ), '<em>[alg_wc_mppu_translate]</em>' ),
 				'id'       => 'alg_wc_mppu_my_account_tab_content',
 				'default'  => '[alg_wc_mppu_user_product_limits]',
 				'type'     => 'textarea',
@@ -215,8 +246,10 @@ class Alg_WC_MPPU_Settings_Frontend extends Alg_WC_MPPU_Settings_Section {
 			),
 			array(
 				'type'     => 'sectionend',
-				'id'       => 'alg_wc_mppu_frontend_options',
+				'id'       => 'alg_wc_mppu_my_account_options',
 			),
+
+
 		);
 
 		return $frontend_settings;

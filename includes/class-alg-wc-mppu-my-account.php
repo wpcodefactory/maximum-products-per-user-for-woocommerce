@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - My Account
  *
- * @version 3.5.2
+ * @version 3.5.4
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -16,20 +16,30 @@ class Alg_WC_MPPU_My_Account {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.5.2
+	 * @version 3.5.4
 	 * @since   2.5.0
 	 */
 	function __construct() {
 		if ( 'yes' === get_option( 'alg_wc_mppu_my_account_enabled', 'no' ) ) {
-			$this->my_account_tab_id = do_shortcode( get_option( 'alg_wc_mppu_my_account_tab_id', 'product-limits' ) );
-			add_filter( 'the_title',                                                     array( $this, 'endpoint_title' ) );
-			add_action( 'alg_wc_mppu_after_save_settings',                               array( $this, 'flush_rewrite_rules' ) );
-			add_action( 'init',                                                          array( $this, 'add_endpoint' ) );
-			add_filter( 'query_vars',                                                    array( $this, 'query_vars' ), 0 );
-			add_filter( 'woocommerce_account_menu_items',                                array( $this, 'add_link' ) );
-			add_action( 'woocommerce_account_' . $this->my_account_tab_id . '_endpoint', array( $this, 'content' ) );
-			add_action( 'wp_head',                                                       array( $this, 'icon' ) );
+			add_action( 'init', array( $this, 'init' ) );
 		}
+	}
+
+	/**
+	 * init.
+	 *
+	 * @version 3.5.4
+	 * @since   2.5.0
+	 */
+	function init() {
+		$this->my_account_tab_id = do_shortcode( get_option( 'alg_wc_mppu_my_account_tab_id', 'product-limits' ) );
+		add_filter( 'the_title', array( $this, 'endpoint_title' ) );
+		add_action( 'alg_wc_mppu_after_save_settings', array( $this, 'flush_rewrite_rules' ) );
+		add_filter( 'query_vars', array( $this, 'query_vars' ), 0 );
+		add_filter( 'woocommerce_account_menu_items', array( $this, 'add_link' ) );
+		add_action( 'woocommerce_account_' . $this->my_account_tab_id . '_endpoint', array( $this, 'content' ) );
+		add_action( 'wp_head', array( $this, 'icon' ) );
+		$this->add_endpoint();
 	}
 
 	/**

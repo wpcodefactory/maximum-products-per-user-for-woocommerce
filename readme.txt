@@ -2,8 +2,8 @@
 Contributors: wpcodefactory
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
-Tested up to: 5.6
-Stable tag: 3.5.3
+Tested up to: 5.7
+Stable tag: 3.5.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -58,11 +58,19 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 
 == Changelog ==
 
+= 3.5.4 - 22/03/2021 =
+* Fix - Block guest message gets displayed for unblocked products.
+* Fix - Frontend - My account tab - Tab ID - Shortcode always return english version.
+* Dev - Frontend - Product limit message > Add "Variations" option allowing to show limit message for variations.
+* Dev - Shortcodes - Add `output_template` param to `alg_wc_mppu_current_product_limit` shortcode having `<span class="alg-wc-mppu-current-product-limit">{output_msg}</span>` as default value.
+* WC tested up to: 5.0.
+* Tested up to: 5.7.
+
 = 3.5.3 - 03/02/2021 =
+* Fix - Check "Guests" option on `is_product_blocked_for_guests()` function.
 * Dev - Frontend - Create `[alg_wc_mppu_customer_msg]` shortcode with `bought_msg`, `not_bought_msg`, and `bought_msg_min` params.
 * Dev - Frontend - Change "Customer message" option default value to `[alg_wc_mppu_customer_msg]` shortcode and allow its use there.
 * Dev - General - Create "Do nothing but block guests from purchasing products beyond the limits" option.
-* Fix - Check "Guests" option on `is_product_blocked_for_guests()` function.
 
 = 3.5.2 - 28/01/2021 =
 * Dev - Allow My account tab id to run a shortcode.
