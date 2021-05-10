@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class
  *
- * @version 3.5.4
+ * @version 3.5.5
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.5.3
+	 * @version 3.5.5
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -42,6 +42,11 @@ class Alg_WC_MPPU_Core {
 			// Block checkout page
 			if ( 'yes' === get_option( 'wpjup_wc_maximum_products_per_user_stop_from_seeing_checkout', 'no' ) ) {
 				add_action( 'wp', array( $this, 'block_checkout' ), PHP_INT_MAX );
+				// Validation actions
+				$actions = array_map( 'trim', array_values( array_filter( explode( PHP_EOL, get_option( 'alg_wc_mppu_validation_actions', '' ) ) ) ) );
+				foreach ( $actions as $action ) {
+					add_action( $action, array( $this, 'block_checkout' ), PHP_INT_MAX );
+				}
 			}
 			// Validate on add to cart
 			if ( 'yes' === get_option( 'alg_wc_mppu_validate_on_add_to_cart', 'yes' ) ) {
@@ -49,11 +54,6 @@ class Alg_WC_MPPU_Core {
 				if ( 'yes' === get_option( 'alg_wc_mppu_block_guests', 'no' ) ) {
 					add_action( 'woocommerce_init', array( $this, 'block_guest_add_to_cart_ajax_error' ), PHP_INT_MAX );
 				}
-			}
-			// Validation actions
-			$actions = array_map( 'trim', array_values( array_filter( explode( PHP_EOL, get_option( 'alg_wc_mppu_validation_actions', '' ) ) ) ) );
-			foreach ( $actions as $action ) {
-				add_action( $action, array( $this, 'block_checkout' ), PHP_INT_MAX );
 			}
 			// Hide products
 			add_filter( 'woocommerce_product_is_visible', array( $this, 'product_visibility' ), PHP_INT_MAX, 2 );
@@ -92,9 +92,6 @@ class Alg_WC_MPPU_Core {
 			// Multi-language
 			require_once( 'class-alg-wc-mppu-multi-language.php' );
 		}
-		// Change add to cart button for blocked products from guest users
-		add_filter( 'woocommerce_product_single_add_to_cart_text', array( $this, 'change_add_to_cart_btn_text' ), 10, 2 );
-		add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'change_add_to_cart_btn_text' ), 10, 2 );
 		// Hook msg shortcode
 		add_filter( 'shortcode_atts_' . 'alg_wc_mppu_customer_msg', array( $this, 'filter_customer_message_shortcode' ) );
 		// Set bought data to zero if guest option is set as "Do nothing and block guests from purchasing products beyond the limits"
@@ -141,29 +138,6 @@ class Alg_WC_MPPU_Core {
 			$atts['bought'] = $this->placeholders['%bought%'];
 		}
 		return $atts;
-	}
-
-	/**
-	 * change_add_to_cart_btn_text.
-	 *
-	 * @version 3.5.3
-	 * @since   3.5.2
-	 *
-	 * @param $text
-	 * @param $product
-	 *
-	 * @return string
-	 */
-	function change_add_to_cart_btn_text( $text, $product ) {
-		if (
-			! is_user_logged_in()
-			&& 'yes' == get_option( 'alg_wc_mppu_block_guests' )
-			&& 'yes' === get_option( 'alg_wc_mppu_block_guests_custom_add_to_cart_btn_txt_enable', 'no' )
-			&& $this->is_product_blocked_for_guests( $product->get_id() )
-		) {
-			$text = get_option( 'alg_wc_mppu_block_guests_custom_add_to_cart_btn_txt', __( 'Login to purchase', 'maximum-products-per-user-for-woocommerce' ) );
-		}
-		return $text;
 	}
 
 	/**
@@ -391,7 +365,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * is_product_blocked_for_guests.
 	 *
-	 * @version 3.5.3
+	 * @version 3.5.5
 	 * @since   3.5.1
 	 *
 	 * @param $product_id
@@ -400,20 +374,39 @@ class Alg_WC_MPPU_Core {
 	 * @return boolean
 	 */
 	function is_product_blocked_for_guests( $product_id, $args = null ) {
+		$is_blocked = false;
+		if ( isset( $this->product_blocked_for_guests[ $product_id ] ) ) {
+			$is_blocked = apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', $this->product_blocked_for_guests[ $product_id ], $product_id, $args );
+			return $is_blocked;
+		}
 		if ( 'yes' !== get_option( 'alg_wc_mppu_block_guests', 'no' ) ) {
-			return apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', false, $product_id, $args );
+			$is_blocked = $this->product_blocked_for_guests[ $product_id ] = apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', false, $product_id, $args );
+			return $is_blocked;
 		}
 		if ( 'all_products' === $block_method = get_option( 'alg_wc_mppu_block_guests_method', 'all_products' ) ) {
-			return apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', true, $product_id, $args );
+			$is_blocked = $this->product_blocked_for_guests[ $product_id ] = apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', true, $product_id, $args );
+			return $is_blocked;
 		}
-		$is_blocked = false;
+
+		$smart_product_id = $this->get_parent_or_product_id( $product_id );
+		$use_variations = $this->do_use_variations( ( $parent_id = $this->get_parent_product_id( wc_get_product( $product_id ) ) ) );
 		// By product
-		if ( 'yes' === apply_filters( 'alg_wc_mppu_local_enabled', 'no' ) && apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', 'yes' === get_post_meta( $product_id, '_wpjup_wc_mppu_block_guests', true ), $product_id, $args ) ) {
-			$is_blocked = true;
-			return apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', true, $product_id, $args );
+		if ( 'yes' === apply_filters( 'alg_wc_mppu_local_enabled', 'no' ) ) {
+			$is_blocked = 'yes' === get_post_meta( $smart_product_id, '_wpjup_wc_mppu_block_guests', true );
+			if ( $use_variations && 'variable' == WC_Product_Factory::get_product_type( $smart_product_id ) ) {
+				$variable_product = wc_get_product( $product_id );
+				$is_blocked       = true;
+				foreach ( wp_list_pluck( $variable_product->get_available_variations(), 'variation_id' ) as $variation_id ) {
+					if ( 'yes' !== get_post_meta( $variation_id, '_wpjup_wc_mppu_block_guests', true ) ) {
+						$is_blocked = false;
+						break;
+					}
+				}
+			}
+			return $this->product_blocked_for_guests[ $product_id ] = $is_blocked = apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', $is_blocked, $product_id, $args );
 		} else {
 			// By term
-			$parent_product_id = $this->get_product_id_or_variation_parent_id( wc_get_product( $product_id ) );
+			$parent_product_id = $parent_product_id = $this->get_parent_product_id( $product_id );
 			foreach ( array( 'product_cat', 'product_tag' ) as $taxonomy ) {
 				if ( 'yes' === apply_filters( 'alg_wc_mppu_' . $taxonomy . '_enabled', 'no' ) ) {
 					$terms = get_the_terms( $parent_product_id, $taxonomy );
@@ -421,6 +414,7 @@ class Alg_WC_MPPU_Core {
 						foreach ( $terms as $term ) {
 							$is_blocked = 'yes' === get_term_meta( $term->term_id, '_wpjup_wc_mppu_block_guests', true );
 							if ( $is_blocked ) {
+								$this->product_blocked_for_guests[ $product_id ] = true;
 								return apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', true, $product_id, $args );
 							}
 						}
@@ -428,7 +422,7 @@ class Alg_WC_MPPU_Core {
 				}
 			}
 		}
-		return apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', $is_blocked, $product_id, $args );
+		return $this->product_blocked_for_guests[ $product_id ] = apply_filters( 'alg_wc_mppu_is_product_blocked_for_guests', $is_blocked, $product_id, $args );
 	}
 
 	/**
@@ -459,7 +453,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * validate_on_add_to_cart.
 	 *
-	 * @version 3.5.3
+	 * @version 3.5.5
 	 * @since   2.0.0
 	 * @todo    [later] `alg_wc_mppu_block_guests`: add "Block products with max qty" option (`yes_max_qty`), i.e. check for `0 != $this->get_max_qty_for_product( $_product_id, $product_id )`
 	 * @todo    [maybe] different message (i.e. different from "cart" message)?
@@ -487,6 +481,7 @@ class Alg_WC_MPPU_Core {
 		} elseif ( 'yes' === get_option( 'alg_wc_mppu_block_guests', 'no' ) ) {
 			if ( $this->is_product_blocked_for_guests( $product_id ) ) {
 				if ( ! wp_doing_ajax() ) {
+					do_action( 'alg_wc_mppu_before_block_guest_on_add_to_cart' );
 					$this->output_guest_notice( false );
 				} else {
 					add_filter( 'woocommerce_cart_redirect_after_error', array( $this, 'block_guest_add_to_cart_ajax_redirect' ), PHP_INT_MAX, 2 );
@@ -510,11 +505,12 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * block_guest_add_to_cart_ajax_redirect.
 	 *
-	 * @version 3.1.1
+	 * @version 3.5.5
 	 * @since   3.1.1
 	 */
 	function block_guest_add_to_cart_ajax_redirect( $url, $product_id ) {
-		return add_query_arg( 'alg_wc_mppu_guest', true, $url );
+		$url = apply_filters( 'woocommerce_cart_redirect_after_block_guest_error', add_query_arg( 'alg_wc_mppu_guest', true, $url ), $product_id );
+		return $url;
 	}
 
 	/**
@@ -1000,7 +996,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * check_quantities_for_product.
 	 *
-	 * @version 3.5.3
+	 * @version 3.5.5
 	 * @since   2.0.0
 	 * @todo    [maybe] add `alg_wc_mppu_check_quantities_for_product_product_id` filter?
 	 */
@@ -1022,7 +1018,7 @@ class Alg_WC_MPPU_Core {
 		$current_user_id      = $args['current_user_id'];
 		$adding               = $args['adding'];
 		// Dynamic values
-		$parent_product_id  = $this->get_product_id_or_variation_parent_id( wc_get_product( $_product_id ) );
+		$parent_product_id  = $this->get_parent_product_id( wc_get_product( $_product_id ) );
 		$use_parent         = ( $parent_product_id != $_product_id && ! $this->do_use_variations( $parent_product_id ) );
 		$product_id         = ( ! $use_parent ? $_product_id : $parent_product_id );
 		$cart_item_quantity = ( ! $use_parent ? $_cart_item_quantity : $this->get_cart_item_quantity_by_parent( $_product_id, $_cart_item_quantity, $cart_item_quantities, $parent_product_id ) );
@@ -1187,12 +1183,45 @@ class Alg_WC_MPPU_Core {
 	}
 
 	/**
-	 * get_product_id_or_variation_parent_id.
+	 * Gets parent product id based on `$this->do_use_variations()`.
 	 *
-	 * @version 1.0.0
+	 * If it's a variation and `false === $this->do_use_variations()`, gets the parent id.
+	 * In all other circumstances, gets id from current product, regardless if it's a variation or not.
+	 *
+	 * @version 3.5.5
+	 * @since   3.5.5
+	 *
+	 * @param $_product
+	 *
+	 * @return int
+	 */
+	function get_parent_or_product_id( $_product ) {
+		if ( is_numeric( $_product ) ) {
+			$_product = wc_get_product( $_product );
+		}
+		if ( ! $_product || ! is_object( $_product ) ) {
+			return 0;
+		}
+		$final_product_id = $_product->get_id();
+		if (
+			! $this->do_use_variations( ( $parent_id = $this->get_parent_product_id( $_product ) ) )
+			&& $_product->is_type( 'variation' )
+		) {
+			$final_product_id = $_product->get_parent_id();
+		}
+		return $final_product_id;
+	}
+
+	/**
+	 * Gets parent product id from a variation or the current product id from a not variation product.
+	 *
+	 * @version 3.5.5
 	 * @since   1.0.0
 	 */
-	function get_product_id_or_variation_parent_id( $_product ) {
+	function get_parent_product_id( $_product ) {
+		if ( is_numeric( $_product ) ) {
+			$_product = wc_get_product( $_product );
+		}
 		if ( ! $_product || ! is_object( $_product ) ) {
 			return 0;
 		}

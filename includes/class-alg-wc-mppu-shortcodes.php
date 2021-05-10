@@ -126,7 +126,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * current_product_limit_shortcode.
 	 *
-	 * @version 3.5.4
+	 * @version 3.5.5
 	 * @since   2.5.1
 	 * @todo    [later] different (customizable) message depending on `$remaining`
 	 */
@@ -174,7 +174,7 @@ class Alg_WC_MPPU_Shortcodes {
 					// Products
 					if ( ! $is_cart_empty ) {
 						// Cart item quantity
-						$parent_product_id  = alg_wc_mppu()->core->get_product_id_or_variation_parent_id( wc_get_product( $product_id ) );
+						$parent_product_id  = alg_wc_mppu()->core->get_parent_product_id( wc_get_product( $product_id ) );
 						$use_parent         = ( $parent_product_id != $product_id && ! alg_wc_mppu()->core->do_use_variations( $parent_product_id ) );
 						$cart_item_quantity = ( ! $use_parent ? $_cart_item_quantity : alg_wc_mppu()->core->get_cart_item_quantity_by_parent( $product_id,
 							$_cart_item_quantity, $cart_item_quantities, $parent_product_id ) );

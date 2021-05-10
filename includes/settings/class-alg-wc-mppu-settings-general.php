@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - General Section Settings
  *
- * @version 3.5.4
+ * @version 3.5.5
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.5.4
+	 * @version 3.5.5
 	 * @since   1.0.0
 	 * @todo    [next] exclude unnecessary statuses from `alg_wc_mppu_order_status` (e.g. "Cancelled", "Refunded", "Failed") and `alg_wc_mppu_order_status_delete` (e.g. "Completed" etc.)?
 	 * @todo    [next] (desc) `alg_wc_mppu_order_status_delete`: `$this->get_recalculate_sales_data_desc( __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ) )`?
@@ -275,18 +275,41 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'css'      => 'width:100%;height:100px;',
 			),
 			array(
-				'title'             => __( 'Add to cart button', 'maximum-products-per-user-for-woocommerce' ),
+				'title'             => __( 'Add to cart text', 'maximum-products-per-user-for-woocommerce' ),
 				'desc'              => __( 'Change add to cart button text from blocked products', 'maximum-products-per-user-for-woocommerce' ),
 				'id'                => 'alg_wc_mppu_block_guests_custom_add_to_cart_btn_txt_enable',
+				'custom_attributes' => apply_filters( 'alg_wc_mppu_settings', array( 'disabled' => 'disabled' ) ),
+				'desc_tip'          => apply_filters( 'alg_wc_mppu_settings', sprintf( 'You will need %s plugin to choose other values besides "All Products".', '<a target="_blank" href="https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/">' . 'Maximum Products per User for WooCommerce Pro' . '</a>' ) ),
+				'default'           => 'no',
+				'checkboxgroup'    => 'start',
+				'type'              => 'checkbox',
+			),
+			array(
+				'desc'             => __( 'Change add to cart button text from blocked variations', 'maximum-products-per-user-for-woocommerce' ),
+				'id'               => 'alg_wc_mppu_block_guests_custom_add_to_cart_btn_txt_variations',
+				'default'          => 'no',
+				'checkboxgroup'    => 'end',
+				'type'             => 'checkbox',
+			),
+			array(
+				'desc'     => __( 'Custom add to cart button text', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_block_guests_custom_add_to_cart_btn_txt',
+				'default'  => __( 'Login to purchase', 'maximum-products-per-user-for-woocommerce' ),
+				'type'     => 'text',
+			),
+			array(
+				'title'             => __( 'Add to cart redirect', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'              => __( 'Redirect after clicking on an add to cart button from a blocked product', 'maximum-products-per-user-for-woocommerce' ),
+				'id'                => 'alg_wc_mppu_block_guests_add_to_cart_redirect',
 				'custom_attributes' => apply_filters( 'alg_wc_mppu_settings', array( 'disabled' => 'disabled' ) ),
 				'desc_tip'          => apply_filters( 'alg_wc_mppu_settings', sprintf( 'You will need %s plugin to choose other values besides "All Products".', '<a target="_blank" href="https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/">' . 'Maximum Products per User for WooCommerce Pro' . '</a>' ) ),
 				'default'           => 'no',
 				'type'              => 'checkbox',
 			),
 			array(
-				'desc'     => __( 'Custom add to cart button text', 'maximum-products-per-user-for-woocommerce' ),
-				'id'       => 'alg_wc_mppu_block_guests_custom_add_to_cart_btn_txt',
-				'default'  => __( 'Login to purchase', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Redirect URL', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_block_guests_add_to_cart_redirect_url',
+				'default'  => wc_get_page_permalink( 'myaccount' ),
 				'type'     => 'text',
 			),
 			array(

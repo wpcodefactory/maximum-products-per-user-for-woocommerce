@@ -66,21 +66,10 @@ class Alg_WC_MPPU_Settings_Frontend extends Alg_WC_MPPU_Settings_Section {
 			),
 			array(
 				'title'    => __( 'Validate on add to cart', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip' => __( 'Validate limits immediately when "add to cart" button is pressed.', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => __( 'Enable', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Validate limits immediately when "add to cart" button is pressed', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'alg_wc_mppu_validate_on_add_to_cart',
 				'default'  => 'yes',
 				'type'     => 'checkbox',
-			),
-			array(
-				'title'    => __( 'Validation actions', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => sprintf(__( 'e.g.: Use %s to validate the limits on checkout update.', 'maximum-products-per-user-for-woocommerce' ),'<code>'.'woocommerce_review_order_before_submit'.'</code>'),
-				'desc_tip' => __( 'WordPress action hooks used to validate the limits.', 'maximum-products-per-user-for-woocommerce' ) . '<br />' .
-				              __( 'Use one per line.', 'maximum-products-per-user-for-woocommerce' ),
-				'id'       => 'alg_wc_mppu_validation_actions',
-				'default'  => '',
-				'type'     => 'textarea',
-				'css'      => 'width:100%;height:100px;',
 			),
 			array(
 				'title'    => __( 'Cart notice', 'maximum-products-per-user-for-woocommerce' ),
@@ -133,19 +122,28 @@ class Alg_WC_MPPU_Settings_Frontend extends Alg_WC_MPPU_Settings_Section {
 			),
 			array(
 				'title'    => __( 'Multiple notices', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => __( 'Enable', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip' => __( 'Choose if you want to display cart & checkout notices for each product, or only for the first product.', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Display cart & checkout notices for each product', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => __( 'If disabled, only one message will be displayed for the first product.', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'alg_wc_mppu_multiple_notices',
 				'default'  => 'yes',
 				'type'     => 'checkbox',
 			),
 			array(
 				'title'    => __( 'Block checkout page', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => __( 'Enable', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip' => __( 'This will stop customer from accessing the checkout page on exceeded limits. Customer will be redirected to the cart page.', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Stop customer from accessing the checkout page on exceeded limits', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => __( 'Customer will be redirected to the cart page.', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'wpjup_wc_maximum_products_per_user_stop_from_seeing_checkout',
 				'default'  => 'no',
 				'type'     => 'checkbox',
+			),
+			array(
+				'desc'     => __( 'Additional validation actions.', 'maximum-products-per-user-for-woocommerce' ) . ' ' . sprintf( __( 'For example, use %s to validate the limits on checkout update.', 'maximum-products-per-user-for-woocommerce' ), '<code>' . 'woocommerce_review_order_before_submit' . '</code>' ),
+				'desc_tip' => __( 'WordPress action hooks used to validate the limits.', 'maximum-products-per-user-for-woocommerce' ) . '<br />' .
+				              __( 'Use one per line.', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_validation_actions',
+				'default'  => '',
+				'type'     => 'textarea',
+				'css'      => 'width:100%;height:100px;',
 			),
 			array(
 				'type'     => 'sectionend',
@@ -185,7 +183,7 @@ class Alg_WC_MPPU_Settings_Frontend extends Alg_WC_MPPU_Settings_Section {
 			array(
 				'title'    => __( 'Variations', 'maximum-products-per-user-for-woocommerce' ),
 				'desc'     => __( 'Show limit message for variations', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip' => sprintf( __( 'Probably you\'d like to have %s option enabled.', 'maximum-products-per-user-for-woocommerce' ), '"' . __( 'General > Use variations', 'maximum-products-per-user-for-woocommerce' ). '"' )  . apply_filters( 'alg_wc_mppu_settings', '<br />' . sprintf( 'You will need %s plugin to enable "per product" option.',
+				'desc_tip' => sprintf( __( 'Probably you\'d like to have %s option enabled.', 'maximum-products-per-user-for-woocommerce' ), '"' . __( 'General > Use variations', 'maximum-products-per-user-for-woocommerce' ). '"' )  . apply_filters( 'alg_wc_mppu_settings', '<br />' . sprintf( 'You will need %s plugin to enable this option.',
 						              '<a target="_blank" href="https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/">' . 'Maximum Products per User for WooCommerce Pro' . '</a>' ) ),
 				'id'       => 'alg_wc_mppu_permanent_notice_handle_variations',
 				'default'  => 'no',

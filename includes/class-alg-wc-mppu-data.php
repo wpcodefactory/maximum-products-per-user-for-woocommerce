@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Data
  *
- * @version 3.5.0
+ * @version 3.5.5
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -289,7 +289,7 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * update_quantities.
 	 *
-	 * @version 3.5.0
+	 * @version 3.5.5
 	 * @since   1.0.0
 	 * @todo    [next] mysql transaction: lock before `get_post_meta` / `get_term_meta`?
 	 * @todo    [next] `alg_wc_mppu_payment_gateways`: on `$do_save` only?
@@ -310,7 +310,7 @@ class Alg_WC_MPPU_Data {
 					$user_id = $this->get_user_id_from_order( $order );
 					foreach ( $order->get_items() as $item ) {
 						if ( $item->is_type( 'line_item' ) && ( $product = $item->get_product() ) ) {
-							$parent_product_id = alg_wc_mppu()->core->get_product_id_or_variation_parent_id( $product );
+							$parent_product_id = alg_wc_mppu()->core->get_parent_product_id( $product );
 							$product_id        = alg_wc_mppu()->core->get_product_id( $product );
 							$product_qty       = apply_filters( 'alg_wc_mppu_save_quantities_item_qty', $item->get_quantity(), $item );
 							// Maybe exclude products
