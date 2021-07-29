@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Settings
  *
- * @version 3.0.0
+ * @version 3.5.6
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_MPPU_Settings extends WC_Settings_Page {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.0.0
+	 * @version 3.5.6
 	 * @since   1.0.0
 	 */
 	function __construct() {
@@ -33,6 +33,35 @@ class Alg_WC_MPPU_Settings extends WC_Settings_Page {
 		require_once( 'class-alg-wc-mppu-settings-admin.php' );
 		require_once( 'class-alg-wc-mppu-settings-tools.php' );
 		require_once( 'class-alg-wc-mppu-settings-advanced.php' );
+		// Create notice about pro
+		add_action( 'admin_init', array( $this, 'add_promoting_notice' ) );
+	}
+
+	/**
+	 * add_promoting_notice.
+	 *
+	 * @version 3.5.6
+	 * @since   3.5.6
+	 */
+	function add_promoting_notice() {
+		$promoting_notice = wpfactory_promoting_notice();
+		$promoting_notice->set_args( array(
+			'url_requirements'              => array(
+				'page_filename' => 'admin.php',
+				'params'        => array( 'page' => 'wc-settings', 'tab' => $this->id ),
+			),
+			'enable'                        => true === apply_filters( 'alg_wc_mppu_settings', true ),
+			'optimize_plugin_icon_contrast' => false,
+			'template_variables'            => array(
+				'%pro_version_url%'    => 'https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/',
+				'%plugin_icon_url%'    => 'https://ps.w.org/maximum-products-per-user-for-woocommerce/assets/icon-128x128.png',
+				'%pro_version_title%'  => __( 'Maximum Products per User for WooCommerce Pro', 'maximum-products-per-user-for-woocommerce' ),
+				'%main_text%'          => __( 'Disabled options can be unlocked using <a href="%pro_version_url%" target="_blank"><strong>%pro_version_title%</strong></a>', 'maximum-products-per-user-for-woocommerce' ),
+				'%btn_call_to_action%' => __( 'Upgrade to Pro version', 'maximum-products-per-user-for-woocommerce' ),
+				'%plugin_icon_style%' => 'width:41px;margin-right:10px;vertical-align:middle'
+			),
+		) );
+		$promoting_notice->init();
 	}
 
 	/**

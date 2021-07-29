@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class
  *
- * @version 3.5.5
+ * @version 3.5.6
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -996,7 +996,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * check_quantities_for_product.
 	 *
-	 * @version 3.5.5
+	 * @version 3.5.6
 	 * @since   2.0.0
 	 * @todo    [maybe] add `alg_wc_mppu_check_quantities_for_product_product_id` filter?
 	 */
@@ -1023,6 +1023,9 @@ class Alg_WC_MPPU_Core {
 		$product_id         = ( ! $use_parent ? $_product_id : $parent_product_id );
 		$cart_item_quantity = ( ! $use_parent ? $_cart_item_quantity : $this->get_cart_item_quantity_by_parent( $_product_id, $_cart_item_quantity, $cart_item_quantities, $parent_product_id ) );
 		$cart_item_quantity = apply_filters( 'alg_wc_mppu_cart_item_amount', $cart_item_quantity );
+		if ( 'yes' === get_option( 'alg_wc_mppu_multi_language_use_main_prod_id_on_checking_limits', 'no' ) ) {
+			$product_id = apply_filters( 'alg_wc_mppu_data_product_or_term_id', $product_id, true );
+		}
 		$args               = array_merge( $args, array(
 			'parent_product_id'  => $parent_product_id,    // can be the same as product ID (for non-variable products)
 			'product_id'         => $product_id,           // product or (maybe) parent ID

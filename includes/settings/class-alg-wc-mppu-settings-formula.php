@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Formula Section Settings
  *
- * @version 3.5.0
+ * @version 3.5.6
  * @since   2.3.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_Formula extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.5.0
+	 * @version 3.5.6
 	 * @since   2.3.0
 	 * @todo    [next] (desc) Examples: add more examples
 	 * @todo    [later] (desc) Examples: add link to site ("Check plugin site for more examples")
@@ -45,8 +45,6 @@ class Alg_WC_MPPU_Settings_Formula extends Alg_WC_MPPU_Settings_Section {
 			array(
 				'title'    => __( 'Limits by formula', 'maximum-products-per-user-for-woocommerce' ),
 				'desc'     => '<strong>' . __( 'Enable', 'maximum-products-per-user-for-woocommerce' ) . '</strong>',
-				'desc_tip' => apply_filters( 'alg_wc_mppu_settings', sprintf( 'You will need %s plugin to enable "max quantity by formula" option.',
-					'<a target="_blank" href="https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/">' . 'Maximum Products per User for WooCommerce Pro' . '</a>' ) ),
 				'id'       => 'alg_wc_mppu_formula_enabled',
 				'default'  => 'no',
 				'type'     => 'checkbox',

@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - General Section Settings
  *
- * @version 3.5.5
+ * @version 3.5.6
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.5.5
+	 * @version 3.5.6
 	 * @since   1.0.0
 	 * @todo    [next] exclude unnecessary statuses from `alg_wc_mppu_order_status` (e.g. "Cancelled", "Refunded", "Failed") and `alg_wc_mppu_order_status_delete` (e.g. "Completed" etc.)?
 	 * @todo    [next] (desc) `alg_wc_mppu_order_status_delete`: `$this->get_recalculate_sales_data_desc( __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ) )`?
@@ -197,20 +197,6 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'type'          => 'checkbox',
 			),
 			array(
-				'title'    => __( 'Multi-language', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip' => __( 'Use the default language product/term ID instead of the translated one.', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => $this->get_recalculate_sales_data_desc( __( 'Multi-language', 'maximum-products-per-user-for-woocommerce' ) ),
-				'id'       => 'alg_wc_mppu_multi_language',
-				'default'  => 'no',
-				'type'     => 'select',
-				'class'    => 'chosen_select',
-				'options'  => array(
-					'no'       => __( 'Disabled', 'maximum-products-per-user-for-woocommerce' ),
-					'wpml'     => __( 'WPML', 'maximum-products-per-user-for-woocommerce' ),
-					'polylang' => __( 'Polylang', 'maximum-products-per-user-for-woocommerce' ),
-				),
-			),
-			array(
 				'title'    => __( 'Count by current payment method', 'maximum-products-per-user-for-woocommerce' ),
 				'desc'     => __( 'Enable', 'maximum-products-per-user-for-woocommerce' ),
 				'desc_tip' => __( 'Count "user already bought" data for current (i.e. chosen) payment method only.', 'maximum-products-per-user-for-woocommerce' ) . '<br>' .
@@ -261,8 +247,6 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 					'by_limit_options' => __( 'According to limit options', 'maximum-products-per-user-for-woocommerce' )
 				),
 				'custom_attributes' => apply_filters( 'alg_wc_mppu_settings', array( 'disabled' => 'disabled' ) ),
-				'desc'              => empty( $pro_msg = apply_filters( 'alg_wc_mppu_settings', sprintf( 'You will need %s plugin to choose other values besides "All Products".',
-					'<a target="_blank" href="https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/">' . 'Maximum Products per User for WooCommerce Pro' . '</a>' ) ) ) ? '' : $pro_msg,
 			),
 			array(
 				'title'    => __( 'Block message', 'maximum-products-per-user-for-woocommerce' ),
@@ -279,7 +263,6 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'desc'              => __( 'Change add to cart button text from blocked products', 'maximum-products-per-user-for-woocommerce' ),
 				'id'                => 'alg_wc_mppu_block_guests_custom_add_to_cart_btn_txt_enable',
 				'custom_attributes' => apply_filters( 'alg_wc_mppu_settings', array( 'disabled' => 'disabled' ) ),
-				'desc_tip'          => apply_filters( 'alg_wc_mppu_settings', sprintf( 'You will need %s plugin to choose other values besides "All Products".', '<a target="_blank" href="https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/">' . 'Maximum Products per User for WooCommerce Pro' . '</a>' ) ),
 				'default'           => 'no',
 				'checkboxgroup'    => 'start',
 				'type'              => 'checkbox',
@@ -302,7 +285,6 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'desc'              => __( 'Redirect after clicking on an add to cart button from a blocked product', 'maximum-products-per-user-for-woocommerce' ),
 				'id'                => 'alg_wc_mppu_block_guests_add_to_cart_redirect',
 				'custom_attributes' => apply_filters( 'alg_wc_mppu_settings', array( 'disabled' => 'disabled' ) ),
-				'desc_tip'          => apply_filters( 'alg_wc_mppu_settings', sprintf( 'You will need %s plugin to choose other values besides "All Products".', '<a target="_blank" href="https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/">' . 'Maximum Products per User for WooCommerce Pro' . '</a>' ) ),
 				'default'           => 'no',
 				'type'              => 'checkbox',
 			),
@@ -327,7 +309,40 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 			),
 		);
 
-		return array_merge( $plugin_settings, $general_settings, $guest_options );
+		$multi_lang_options = array(
+			array(
+				'title' => __( 'Multi-language', 'maximum-products-per-user-for-woocommerce' ),
+				'type'  => 'title',
+				'id'    => 'alg_wc_mppu_multilang_options',
+			),
+			array(
+				'title'    => __( 'Multi-language', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => __( 'Use the default language product/term ID instead of the translated one.', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => $this->get_recalculate_sales_data_desc( __( 'Multi-language', 'maximum-products-per-user-for-woocommerce' ) ),
+				'id'       => 'alg_wc_mppu_multi_language',
+				'default'  => 'no',
+				'type'     => 'select',
+				'class'    => 'chosen_select',
+				'options'  => array(
+					'no'       => __( 'Disabled', 'maximum-products-per-user-for-woocommerce' ),
+					'wpml'     => __( 'WPML', 'maximum-products-per-user-for-woocommerce' ),
+					'polylang' => __( 'Polylang', 'maximum-products-per-user-for-woocommerce' ),
+				),
+			),
+			array(
+				'title'    => __( 'Limit checking', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Use product ID from default language when checking product limits', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_multi_language_use_main_prod_id_on_checking_limits',
+				'default'  => 'no',
+				'type'     => 'checkbox',
+			),
+			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_mppu_multilang_options',
+			),
+		);
+
+		return array_merge( $plugin_settings, $general_settings, $guest_options, $multi_lang_options );
 	}
 
 }

@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Limits Section Settings
  *
- * @version 3.5.0
+ * @version 3.5.6
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_Limits extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.5.0
+	 * @version 3.5.6
 	 * @since   2.2.0
 	 * @todo    [maybe] rethink `wpjup_wc_maximum_products_per_user_global_max_qty`: default: `1` or `0`?
 	 */
@@ -79,24 +79,22 @@ class Alg_WC_MPPU_Settings_Limits extends Alg_WC_MPPU_Settings_Section {
 
 		$per_product_settings = array(
 			array(
-				'title'    => __( 'Per Product', 'maximum-products-per-user-for-woocommerce' ),
-				'type'     => 'title',
-				'id'       => 'alg_wc_mppu_local_options',
+				'title' => __( 'Per Product', 'maximum-products-per-user-for-woocommerce' ),
+				'type'  => 'title',
+				'id'    => 'alg_wc_mppu_local_options',
 			),
 			array(
-				'title'    => __( 'Per product', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => '<strong>' . __( 'Enable', 'maximum-products-per-user-for-woocommerce' ) . '</strong>',
-				'desc_tip' => __( 'This will add new meta box to each product\'s edit page.', 'maximum-products-per-user-for-woocommerce' ) . ' ' .
-					apply_filters( 'alg_wc_mppu_settings', '<br>' . sprintf( 'You will need %s plugin to enable "per product" option.',
-						'<a target="_blank" href="https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/">' . 'Maximum Products per User for WooCommerce Pro' . '</a>' ) ),
-				'id'       => 'wpjup_wc_maximum_products_per_user_local_enabled',
-				'default'  => 'no',
-				'type'     => 'checkbox',
+				'title'             => __( 'Per product', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'              => '<strong>' . __( 'Enable', 'maximum-products-per-user-for-woocommerce' ) . '</strong>',
+				'desc_tip'          => __( 'This will add new meta box to each product\'s edit page.', 'maximum-products-per-user-for-woocommerce' ),
+				'id'                => 'wpjup_wc_maximum_products_per_user_local_enabled',
+				'default'           => 'no',
+				'type'              => 'checkbox',
 				'custom_attributes' => apply_filters( 'alg_wc_mppu_settings', array( 'disabled' => 'disabled' ) ),
 			),
 			array(
-				'type'     => 'sectionend',
-				'id'       => 'alg_wc_mppu_local_options',
+				'type' => 'sectionend',
+				'id'   => 'alg_wc_mppu_local_options',
 			),
 		);
 
@@ -107,25 +105,21 @@ class Alg_WC_MPPU_Settings_Limits extends Alg_WC_MPPU_Settings_Section {
 				'id'       => 'alg_wc_mppu_taxonomy_options',
 			),
 			array(
-				'title'    => __( 'Per product tag', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => '<strong>' . __( 'Enable', 'maximum-products-per-user-for-woocommerce' ) . '</strong>',
-				'desc_tip' => __( 'This will add new meta box to each product tag term\'s edit page.', 'maximum-products-per-user-for-woocommerce' ) . ' ' .
-					apply_filters( 'alg_wc_mppu_settings', '<br>' . sprintf( 'You will need %s plugin to enable "per product tag" option.',
-						'<a target="_blank" href="https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/">' . 'Maximum Products per User for WooCommerce Pro' . '</a>' ) ),
-				'id'       => 'alg_wc_mppu_product_tag_enabled',
-				'default'  => 'no',
-				'type'     => 'checkbox',
+				'title'             => __( 'Per product tag', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'              => '<strong>' . __( 'Enable', 'maximum-products-per-user-for-woocommerce' ) . '</strong>',
+				'desc_tip'          => __( 'This will add new meta box to each product tag term\'s edit page.', 'maximum-products-per-user-for-woocommerce' ),
+				'id'                => 'alg_wc_mppu_product_tag_enabled',
+				'default'           => 'no',
+				'type'              => 'checkbox',
 				'custom_attributes' => apply_filters( 'alg_wc_mppu_settings', array( 'disabled' => 'disabled' ) ),
 			),
 			array(
-				'title'    => __( 'Per product category', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => '<strong>' . __( 'Enable', 'maximum-products-per-user-for-woocommerce' ) . '</strong>',
-				'desc_tip' => __( 'This will add new meta box to each product category term\'s edit page.', 'maximum-products-per-user-for-woocommerce' ) . ' ' .
-					apply_filters( 'alg_wc_mppu_settings', '<br>' . sprintf( 'You will need %s plugin to enable "per product category" option.',
-						'<a target="_blank" href="https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/">' . 'Maximum Products per User for WooCommerce Pro' . '</a>' ) ),
-				'id'       => 'alg_wc_mppu_product_cat_enabled',
-				'default'  => 'no',
-				'type'     => 'checkbox',
+				'title'             => __( 'Per product category', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'              => '<strong>' . __( 'Enable', 'maximum-products-per-user-for-woocommerce' ) . '</strong>',
+				'desc_tip'          => __( 'This will add new meta box to each product category term\'s edit page.', 'maximum-products-per-user-for-woocommerce' ),
+				'id'                => 'alg_wc_mppu_product_cat_enabled',
+				'default'           => 'no',
+				'type'              => 'checkbox',
 				'custom_attributes' => apply_filters( 'alg_wc_mppu_settings', array( 'disabled' => 'disabled' ) ),
 			),
 			array(
