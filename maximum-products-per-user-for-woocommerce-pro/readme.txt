@@ -3,7 +3,7 @@ Contributors: wpcodefactory
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
 Tested up to: 5.8
-Stable tag: 3.5.7
+Stable tag: 3.5.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -34,17 +34,12 @@ Limit number of items your WooCommerce customers can buy (lifetime or in selecte
 
 ### &#127942; Premium Version ###
 
-Some [Maximum Products per User for WooCommerce Pro](https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/) plugin features:
+With [Maximum Products per User for WooCommerce Pro](https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/) plugin you can set maximum products per user:
 
-* Display the limit message on variations.
-* Set maximum products per user:
-  * Per product **category**.
-  * Per product **tag**.
-  * Per **individual** product.
-  * By **formula**, for example: per **user ID**, per **membership** plan, per **payment method**, etc.
-* More options oriented to guest users:
-  * Block specific products from guests.
-  * Change add to cart button text from blocked products.
+* Per product **category**.
+* Per product **tag**.
+* Per **individual** product.
+* By **formula**, for example: per **user ID**, per **membership** plan, per **payment method**, etc.
 
 = More =
 
@@ -63,9 +58,8 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 
 == Changelog ==
 
-= 3.5.7 - 04/10/2021 =
+= 3.5.7 - 03/10/2021 =
 * Dev - Create `alg_wc_mppu_user_terms_limits` shortcode with `taxonomy` parameter that can be set as `product_cat` or `product_tag`.
-* Dev - Improve `is_plugin_active()` function.
 * Fix - Frontend - `%first_order_date_exp_timeleft%` is not returning the correct time left for expiring.
 * Improve readme.
 * WC tested up to: 5.7.

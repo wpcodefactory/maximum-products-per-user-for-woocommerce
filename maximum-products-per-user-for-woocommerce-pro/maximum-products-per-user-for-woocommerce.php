@@ -3,7 +3,7 @@
 Plugin Name: Maximum Products per User for WooCommerce
 Plugin URI: https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/
 Description: Limit number of items your WooCommerce customers can buy (lifetime or in selected date range).
-Version: 3.5.7
+Version: 3.5.7-dev
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: maximum-products-per-user-for-woocommerce
@@ -17,27 +17,14 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 // Handle is_plugin_active function
-if ( ! function_exists( 'alg_wc_mppu_is_plugin_active' ) ) {
-	/**
-	 * alg_wc_cog_is_plugin_active.
-	 *
-	 * @version 3.5.7
-	 * @since   3.5.7
-	 */
-	function alg_wc_mppu_is_plugin_active( $plugin ) {
-		return ( function_exists( 'is_plugin_active' ) ? is_plugin_active( $plugin ) :
-			(
-				in_array( $plugin, apply_filters( 'active_plugins', ( array ) get_option( 'active_plugins', array() ) ) ) ||
-				( is_multisite() && array_key_exists( $plugin, ( array ) get_site_option( 'active_sitewide_plugins', array() ) ) )
-			)
-		);
-	}
+if ( ! function_exists( 'is_plugin_active' ) ) {
+	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 }
 
 // Check for active plugins
 if (
-	! alg_wc_mppu_is_plugin_active( 'woocommerce/woocommerce.php' ) ||
-	( 'maximum-products-per-user-for-woocommerce.php' === basename( __FILE__ ) && alg_wc_mppu_is_plugin_active( 'maximum-products-per-user-for-woocommerce-pro/maximum-products-per-user-for-woocommerce-pro.php' ) )
+	! is_plugin_active( 'woocommerce/woocommerce.php' ) ||
+	( 'maximum-products-per-user-for-woocommerce.php' === basename( __FILE__ ) && is_plugin_active( 'maximum-products-per-user-for-woocommerce-pro/maximum-products-per-user-for-woocommerce-pro.php' ) )
 ) {
 	return;
 }
@@ -63,7 +50,7 @@ final class Alg_WC_MPPU {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '3.5.7';
+	public $version = '3.5.7-dev-20211003-1913';
 
 	/**
 	 * @var   Alg_WC_MPPU The single instance of the class

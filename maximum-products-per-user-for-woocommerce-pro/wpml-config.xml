@@ -1,0 +1,8 @@
+<wpml-config>
+	<admin-texts>
+		<key name="alg_wc_mppu_block_guests_message" />
+		<key name="wpjup_wc_maximum_products_per_user_message" />
+		<key name="alg_wc_mppu_permanent_notice_message" />
+		<key name="alg_wc_mppu_block_guests_custom_add_to_cart_btn_txt" />
+	</admin-texts>
+</wpml-config>
