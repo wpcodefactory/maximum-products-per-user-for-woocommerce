@@ -1,9 +1,9 @@
 === Maximum Products per User for WooCommerce ===
-Contributors: wpcodefactory
+Contributors: wpcodefactory, Karzin
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
 Tested up to: 5.8
-Stable tag: 3.5.7
+Stable tag: 3.5.8
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,9 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 3.5.8 - 07/10/2021 =
+* Fix - Remove unnecessary folder.
 
 = 3.5.7 - 04/10/2021 =
 * Dev - Create `alg_wc_mppu_user_terms_limits` shortcode with `taxonomy` parameter that can be set as `product_cat` or `product_tag`.
