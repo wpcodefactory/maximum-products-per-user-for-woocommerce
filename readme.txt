@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
 Tested up to: 5.8
-Stable tag: 3.5.8
+Stable tag: 3.5.9
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,11 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 3.5.9 - 10/11/2021 =
+* Dev - Get product id from default language on `max_qty_by_formula()` function.
+* Dev - Create `hide_products_by_id` param for the `[alg_wc_mppu_user_product_limits]` shortcode allowing to hide the products from the list.
+* WC tested up to: 5.9.
 
 = 3.5.8 - 07/10/2021 =
 * Fix - Remove unnecessary folder.

@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Multi-language
  *
- * @version 3.5.0
+ * @version 3.5.9
  * @since   3.5.0
  * @author  WPFactory
  */
@@ -12,6 +12,16 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( ! class_exists( 'Alg_WC_MPPU_Multi_Language' ) ) :
 
 class Alg_WC_MPPU_Multi_Language {
+
+	/**
+	 * get_product_id_from_main_language.
+	 *
+	 * @version 3.5.9
+	 * @since   3.5.9
+	 *
+	 * @var bool
+	 */
+	protected $get_product_id_from_main_language = null;
 
 	/**
 	 * Constructor.
@@ -87,6 +97,21 @@ class Alg_WC_MPPU_Multi_Language {
 		}
 		// Return original ID
 		return $product_or_term_id;
+	}
+
+	/**
+	 * get_product_id_from_main_language.
+	 *
+	 * @version 3.5.9
+	 * @since   3.5.9
+	 *
+	 * @return bool
+	 */
+	function get_product_id_from_main_language() {
+		if ( null === $this->get_product_id_from_main_language ) {
+			$this->get_product_id_from_main_language = 'yes' === get_option( 'alg_wc_mppu_multi_language_use_main_prod_id_on_checking_limits', 'no' );
+		}
+		return $this->get_product_id_from_main_language;
 	}
 
 }

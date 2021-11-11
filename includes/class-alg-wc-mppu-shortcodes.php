@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes
  *
- * @version 3.5.7
+ * @version 3.5.9
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -196,16 +196,17 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * user_product_limits_shortcode.
 	 *
-	 * @version 3.4.0
+	 * @version 3.5.9
 	 * @since   2.5.0
 	 * @todo    [later] customizable content: use `alg_wc_mppu()->core->get_notice_placeholders()`
 	 * @todo    [later] customizable: columns, column order, column titles, table styling, "No data" text, (maybe) sorting
 	 * @todo    [maybe] add `core::get_products()` function?
 	 */
 	function user_product_limits_shortcode( $atts, $content = '' ) {
-		if ( ! $atts ) {
-			$atts = array();
-		}
+		$atts = shortcode_atts( array(
+			'user_id'             => alg_wc_mppu()->core->get_current_user_id(),
+			'hide_products_by_id' => ''
+		), $atts, 'alg_wc_mppu_user_product_limits' );
 		// Get user ID
 		$user_id = $this->get_user_id( $atts );
 		if ( ! $user_id ) {
@@ -222,6 +223,7 @@ class Alg_WC_MPPU_Shortcodes {
 				'posts_per_page' => $block_size,
 				'offset'         => $offset,
 				'orderby'        => 'title',
+				'post__not_in'   => isset( $atts['hide_products_by_id'] ) && ! empty( $hidden_products_ids_str = $atts['hide_products_by_id'] ) ? array_map( 'trim', explode( ",", $hidden_products_ids_str ) ) : '',
 				'order'          => 'ASC',
 				'fields'         => 'ids',
 			);

@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class
  *
- * @version 3.5.7
+ * @version 3.5.9
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.5.5
+	 * @version 3.5.9
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -90,7 +90,7 @@ class Alg_WC_MPPU_Core {
 			// Modes
 			require_once( 'class-alg-wc-mppu-modes.php' );
 			// Multi-language
-			require_once( 'class-alg-wc-mppu-multi-language.php' );
+			$this->multilanguage = require_once( 'class-alg-wc-mppu-multi-language.php' );
 		}
 		// Hook msg shortcode
 		add_filter( 'shortcode_atts_' . 'alg_wc_mppu_customer_msg', array( $this, 'filter_customer_message_shortcode' ) );
@@ -996,34 +996,36 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * check_quantities_for_product.
 	 *
-	 * @version 3.5.6
+	 * @version 3.5.9
 	 * @since   2.0.0
 	 * @todo    [maybe] add `alg_wc_mppu_check_quantities_for_product_product_id` filter?
 	 */
 	function check_quantities_for_product( $_product_id, $args ) {
 		$args = wp_parse_args( $args, array(
-			'_cart_item_quantity'  => '',
-			'cart_item_quantities' => array(),
-			'is_cart'              => false,
-			'do_add_notices'       => true,
-			'current_user_id'      => 0,
-			'check_guest_blocking' => true,
-			'adding'               => 0
+			'_cart_item_quantity'               => '',
+			'cart_item_quantities'              => array(),
+			'is_cart'                           => false,
+			'do_add_notices'                    => true,
+			'current_user_id'                   => 0,
+			'check_guest_blocking'              => true,
+			'adding'                            => 0,
+			'get_product_id_from_main_language' => $this->multilanguage->get_product_id_from_main_language()
 		) );
 		// Variables from $args
-		$_cart_item_quantity  = $args['_cart_item_quantity'];
-		$cart_item_quantities = $args['cart_item_quantities'];
-		$is_cart              = $args['is_cart'];
-		$do_add_notices       = $args['do_add_notices'];
-		$current_user_id      = $args['current_user_id'];
-		$adding               = $args['adding'];
+		$_cart_item_quantity               = $args['_cart_item_quantity'];
+		$cart_item_quantities              = $args['cart_item_quantities'];
+		$is_cart                           = $args['is_cart'];
+		$do_add_notices                    = $args['do_add_notices'];
+		$current_user_id                   = $args['current_user_id'];
+		$adding                            = $args['adding'];
+		$get_product_id_from_main_language = $args['get_product_id_from_main_language'];
 		// Dynamic values
 		$parent_product_id  = $this->get_parent_product_id( wc_get_product( $_product_id ) );
 		$use_parent         = ( $parent_product_id != $_product_id && ! $this->do_use_variations( $parent_product_id ) );
 		$product_id         = ( ! $use_parent ? $_product_id : $parent_product_id );
 		$cart_item_quantity = ( ! $use_parent ? $_cart_item_quantity : $this->get_cart_item_quantity_by_parent( $_product_id, $_cart_item_quantity, $cart_item_quantities, $parent_product_id ) );
 		$cart_item_quantity = apply_filters( 'alg_wc_mppu_cart_item_amount', $cart_item_quantity );
-		if ( 'yes' === get_option( 'alg_wc_mppu_multi_language_use_main_prod_id_on_checking_limits', 'no' ) ) {
+		if ( $get_product_id_from_main_language ) {
 			$product_id = apply_filters( 'alg_wc_mppu_data_product_or_term_id', $product_id, true );
 		}
 		$args               = array_merge( $args, array(
