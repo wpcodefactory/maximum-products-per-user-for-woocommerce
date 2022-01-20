@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Settings
  *
- * @version 3.5.6
+ * @version 3.6.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_MPPU_Settings extends WC_Settings_Page {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.5.6
+	 * @version 3.6.0
 	 * @since   1.0.0
 	 */
 	function __construct() {
@@ -33,6 +33,7 @@ class Alg_WC_MPPU_Settings extends WC_Settings_Page {
 		require_once( 'class-alg-wc-mppu-settings-admin.php' );
 		require_once( 'class-alg-wc-mppu-settings-tools.php' );
 		require_once( 'class-alg-wc-mppu-settings-advanced.php' );
+		require_once( 'class-alg-wc-mppu-settings-compatibility.php' );
 		// Create notice about pro
 		add_action( 'admin_init', array( $this, 'add_promoting_notice' ) );
 	}

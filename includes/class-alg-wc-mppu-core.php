@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class
  *
- * @version 3.5.9
+ * @version 3.6.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -12,6 +12,15 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( ! class_exists( 'Alg_WC_MPPU_Core' ) ) :
 
 class Alg_WC_MPPU_Core {
+
+	/**
+	 * $error_messages.
+	 *
+	 * @since 3.6.0
+	 *
+	 * @var array
+	 */
+	protected $error_messages = array();
 
 	/**
 	 * Constructor.
@@ -288,6 +297,26 @@ class Alg_WC_MPPU_Core {
 	}
 
 	/**
+	 * get_order_item_quantities.
+	 *
+	 * @version 3.6.0
+	 * @since   3.6.0
+	 *
+	 * @param WC_Order $order
+	 *
+	 * @return array
+	 */
+	function get_order_item_quantities( $order ) {
+		$quantities = array();
+		foreach ( $order->get_items() as $item_id => $item ) {
+			$product                = $item->get_product();
+			$prod_id                = $product->get_id();
+			$quantities[ $prod_id ] = $item->get_quantity();
+		}
+		return $quantities;
+	}
+
+	/**
 	 * handle_user_roles.
 	 *
 	 * @version 2.2.0
@@ -300,11 +329,20 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_max_qty_for_user_role.
 	 *
-	 * @version 3.5.0
+	 * @version 3.6.0
 	 * @since   2.2.0
 	 * @todo    [maybe] (feature) per user (currently can be done via "Formula" section)
 	 */
-	function get_max_qty_for_user_role( $type, $product_or_term_id = 0 ) {
+	function get_max_qty_for_user_role( $args = null ) {
+		$args = wp_parse_args( $args, array(
+			'type'               => '',
+			'product_or_term_id' => 0,
+			'user_id'            => 0,
+		) );
+		$type = $args['type'];
+		$product_or_term_id = $args['product_or_term_id'];
+		$user_id = $args['user_id'];
+		$current_user = empty( $user_id ) ? wp_get_current_user() : get_user_by( 'ID', $user_id );
 		// Get qty data
 		switch ( $type ) {
 			case 'per_product':
@@ -320,7 +358,6 @@ class Alg_WC_MPPU_Core {
 				return 0;
 		}
 		// Get current user roles
-		$current_user = wp_get_current_user();
 		if ( ! isset( $current_user->roles ) || empty( $current_user->roles ) ) {
 			$current_user->roles = array( 'guest' );
 		}
@@ -338,17 +375,26 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_max_qty.
 	 *
-	 * @version 3.5.0
+	 * @version 3.6.0
 	 * @since   1.0.0
 	 * @todo    [later] (feature) `per_product`: add "enabled/disabled" option
 	 * @todo    [later] (feature) `all_products`: apply only to selected products (i.e. include/exclude products, cats, tags)
 	 * @todo    [maybe] rename filters, e.g. `alg_wc_mppu_max_qty_by_formula` to `alg_wc_mppu_limits_by_formula` etc.
 	 */
-	function get_max_qty( $type, $product_or_term_id = 0 ) {
+	function get_max_qty( $args = null ) {
+		$args = wp_parse_args( $args, array(
+			'type'               => '',
+			'product_or_term_id' => '',
+			'user_id'            => 0
+		) );
+		$type = $args['type'];
+		$product_or_term_id = $args['product_or_term_id'];
+		$user_id = $args['user_id'];
 		if ( 0 != ( $max_qty_by_formula = apply_filters( 'alg_wc_mppu_max_qty_by_formula', 0, $type, $product_or_term_id ) ) ) {
 			return apply_filters( 'alg_wc_mppu_get_max_qty', $max_qty_by_formula, $product_or_term_id, $type );
 		}
-		if ( $this->do_use_user_roles && 0 != ( $max_qty_for_user_role = $this->get_max_qty_for_user_role( $type, $product_or_term_id ) ) ) {
+
+		if ( $this->do_use_user_roles && 0 != ( $max_qty_for_user_role = $this->get_max_qty_for_user_role( array( 'type' => $type, 'product_or_term_id' => $product_or_term_id, 'user_id' => $user_id ) ) ) ) {
 			return apply_filters( 'alg_wc_mppu_get_max_qty', $max_qty_for_user_role, $product_or_term_id, $type );
 		}
 		switch ( $type ) {
@@ -861,11 +907,31 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * output_notice.
 	 *
-	 * @version 3.5.3
+	 * @version 3.6.0
 	 * @since   2.0.0
 	 * @todo    [maybe] customizable notice type in `wc_add_notice()`?
 	 */
-	function output_notice( $product_id, $limit, $bought_data, $is_cart, $in_cart_plus_adding, $adding, $term = false, $msg = false ) {
+	function output_notice( $args = null ) {
+		$args                = wp_parse_args( $args, array(
+			'product_id'          => '',
+			'limit'               => '',
+			'bought_data'         => '',
+			'is_cart'             => false,
+			'in_cart_plus_adding' => false,
+			'adding'              => '',
+			'return'              => false,
+			'term'                => false,
+			'msg'                 => false
+		) );
+		$product_id          = $args['product_id'];
+		$limit               = $args['limit'];
+		$bought_data         = $args['bought_data'];
+		$is_cart             = $args['is_cart'];
+		$in_cart_plus_adding = $args['in_cart_plus_adding'];
+		$adding              = $args['adding'];
+		$term                = $args['term'];
+		$msg                 = $args['msg'];
+		$return              = $args['return'];
 		$this->get_notice_placeholders( $product_id, $limit, $bought_data, $in_cart_plus_adding, $adding, $term );
 		$message = ( $msg ? $msg : get_option( 'wpjup_wc_maximum_products_per_user_message',
 			sprintf(
@@ -874,14 +940,19 @@ class Alg_WC_MPPU_Core {
 				__( "You can only buy maximum %limit% of %product_title%.", 'maximum-products-per-user-for-woocommerce' )
 			) ) );
 		$message = $this->apply_placeholders( do_shortcode( $message ) );
-		if ( $is_cart ) {
-			if ( 'yes' === $this->cart_notice ) {
-				wc_print_notice( $message, get_option( 'alg_wc_mppu_cart_notice_type', 'notice' ) );
-			} else { // 'text'
-				echo $message;
+		if ( ! $return ) {
+			if ( $is_cart ) {
+				if ( 'yes' === $this->cart_notice ) {
+					wc_print_notice( $message, get_option( 'alg_wc_mppu_cart_notice_type', 'notice' ) );
+				} else { // 'text'
+					echo $message;
+				}
+			} else {
+				wc_add_notice( $message, 'error' );
 			}
 		} else {
-			wc_add_notice( $message, 'error' );
+			$this->error_messages[] = $message;
+			return $message;
 		}
 	}
 
@@ -935,7 +1006,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_max_qty_for_product.
 	 *
-	 * @version 3.2.5
+	 * @version 3.6.0
 	 * @since   2.5.0
 	 * @todo    [next] use this inside the `check_quantities_for_product()` function
 	 */
@@ -946,7 +1017,7 @@ class Alg_WC_MPPU_Core {
 			return 0;
 		}
 		// Per product
-		if ( 'yes' === apply_filters( 'alg_wc_mppu_local_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( 'per_product', $product_id ) ) ) {
+		if ( 'yes' === apply_filters( 'alg_wc_mppu_local_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( array( 'type' => 'per_product', 'product_or_term_id' => $product_id ) ) ) ) {
 			return $max_qty;
 		}
 		// Per taxonomy
@@ -959,7 +1030,7 @@ class Alg_WC_MPPU_Core {
 				$terms    = get_the_terms( $parent_product_id, $taxonomy );
 				if ( $terms && ! is_wp_error( $terms ) ) {
 					foreach ( $terms as $term ) {
-						if ( 0 != ( $max_qty = $this->get_max_qty( 'per_term', $term->term_id ) ) ) {
+						if ( 0 != ( $max_qty = $this->get_max_qty( array( 'type' => 'per_term', 'product_or_term_id' => $term->term_id ) ) ) ) {
 							$_max_qty[] = array( 'max_qty' => $max_qty, 'term_id' => $term->term_id, 'taxonomy' => $taxonomy );
 						}
 					}
@@ -971,8 +1042,8 @@ class Alg_WC_MPPU_Core {
 		}
 		// All products or Formula (all products)
 		if (
-			( 'yes' === get_option( 'wpjup_wc_maximum_products_per_user_global_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( 'all_products' ) ) ) ||
-			( 'yes' === get_option( 'alg_wc_mppu_formula_enabled', 'no' )                       && 0 != ( $max_qty = $this->get_max_qty( 'formula' ) ) )
+			( 'yes' === get_option( 'wpjup_wc_maximum_products_per_user_global_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( array( 'type' => 'all_products' ) ) ) ) ||
+			( 'yes' === get_option( 'alg_wc_mppu_formula_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( array( 'type' => 'formula' ) ) ) )
 		) {
 			return $max_qty;
 		}
@@ -996,7 +1067,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * check_quantities_for_product.
 	 *
-	 * @version 3.5.9
+	 * @version 3.6.0
 	 * @since   2.0.0
 	 * @todo    [maybe] add `alg_wc_mppu_check_quantities_for_product_product_id` filter?
 	 */
@@ -1006,6 +1077,7 @@ class Alg_WC_MPPU_Core {
 			'cart_item_quantities'              => array(),
 			'is_cart'                           => false,
 			'do_add_notices'                    => true,
+			'return_notices'                    => false,
 			'current_user_id'                   => 0,
 			'check_guest_blocking'              => true,
 			'adding'                            => 0,
@@ -1019,6 +1091,7 @@ class Alg_WC_MPPU_Core {
 		$current_user_id                   = $args['current_user_id'];
 		$adding                            = $args['adding'];
 		$get_product_id_from_main_language = $args['get_product_id_from_main_language'];
+		$return_notices                    = $args['return_notices'];
 		// Dynamic values
 		$parent_product_id  = $this->get_parent_product_id( wc_get_product( $_product_id ) );
 		$use_parent         = ( $parent_product_id != $_product_id && ! $this->do_use_variations( $parent_product_id ) );
@@ -1047,13 +1120,21 @@ class Alg_WC_MPPU_Core {
 			return apply_filters( 'alg_wc_mppu_check_quantities_for_product', false, $this, $args );
 		}
 		// Block - default mechanism
-		if ( 'yes' === apply_filters( 'alg_wc_mppu_local_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( 'per_product', $product_id ) ) ) {
+		if ( 'yes' === apply_filters( 'alg_wc_mppu_local_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( array( 'type' => 'per_product', 'product_or_term_id' => $product_id, 'user_id' => $current_user_id ) ) ) ) {
 			// Per product
 			$bought_data         = $this->get_user_already_bought_qty( $product_id, $current_user_id, true );
 			$user_already_bought = $bought_data['bought'];
 			if ( ( $user_already_bought + $cart_item_quantity ) > $max_qty ) {
 				if ( $do_add_notices ) {
-					$this->output_notice( $product_id, $max_qty, $bought_data, $is_cart, $cart_item_quantity, $adding );
+					$this->output_notice( array(
+						'product_id'          => $product_id,
+						'limit'               => $max_qty,
+						'bought_data'         => $bought_data,
+						'is_cart'             => $is_cart,
+						'in_cart_plus_adding' => $cart_item_quantity,
+						'adding'              => $adding,
+						'return'              => $return_notices
+					) );
 				}
 				return apply_filters( 'alg_wc_mppu_check_quantities_for_product', false, $this, $args );
 			}
@@ -1065,14 +1146,23 @@ class Alg_WC_MPPU_Core {
 					$terms = get_the_terms( $parent_product_id, $taxonomy );
 					if ( $terms && ! is_wp_error( $terms ) ) {
 						foreach ( $terms as $term ) {
-							if ( 0 != ( $max_qty = $this->get_max_qty( 'per_term', $term->term_id ) ) ) {
+							if ( 0 != ( $max_qty = $this->get_max_qty( array( 'type' => 'per_term', 'product_or_term_id' => $term->term_id, 'user_id' => $current_user_id ) ) ) ) {
 								$validated_by_term      = true;
 								$cart_item_quantity_all = $this->get_cart_item_quantity_by_term( $_product_id, $_cart_item_quantity, $cart_item_quantities, $term->term_id, $taxonomy );
 								$bought_data            = $this->get_user_already_bought_qty( $term->term_id, $current_user_id, false );
 								$user_already_bought    = $bought_data['bought'];
 								if ( ( $user_already_bought + $cart_item_quantity_all ) > $max_qty ) {
 									if ( $do_add_notices ) {
-										$this->output_notice( $product_id, $max_qty, $bought_data, $is_cart, $cart_item_quantity_all, $adding, $term );
+										$this->output_notice( array(
+											'product_id'          => $product_id,
+											'limit'               => $max_qty,
+											'bought_data'         => $bought_data,
+											'is_cart'             => $is_cart,
+											'in_cart_plus_adding' => $cart_item_quantity_all,
+											'adding'              => $adding,
+											'term'                => $term,
+											'return'              => $return_notices
+										) );
 									}
 									return apply_filters( 'alg_wc_mppu_check_quantities_for_product', false, $this, $args );
 								}
@@ -1081,19 +1171,26 @@ class Alg_WC_MPPU_Core {
 					}
 				}
 			}
-			// All products or Formula (all products)
 			if (
 				! $validated_by_term &&
 				(
-					( 'yes' === get_option( 'wpjup_wc_maximum_products_per_user_global_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( 'all_products' ) ) ) ||
-					( 'yes' === get_option( 'alg_wc_mppu_formula_enabled', 'no' )                       && 0 != ( $max_qty = $this->get_max_qty( 'formula' ) ) )
+					( 'yes' === get_option( 'wpjup_wc_maximum_products_per_user_global_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( array( 'type' => 'all_products', 'user_id' => $current_user_id ) ) ) ) ||
+					( 'yes' === get_option( 'alg_wc_mppu_formula_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( array( 'type' => 'formula', 'user_id' => $current_user_id ) ) ) )
 				)
 			) {
 				$bought_data         = $this->get_user_already_bought_qty( $product_id, $current_user_id, true );
 				$user_already_bought = $bought_data['bought'];
 				if ( ( $user_already_bought + $cart_item_quantity ) > $max_qty ) {
 					if ( $do_add_notices ) {
-						$this->output_notice( $product_id, $max_qty, $bought_data, $is_cart, $cart_item_quantity, $adding );
+						$this->output_notice( array(
+							'product_id'          => $product_id,
+							'limit'               => $max_qty,
+							'bought_data'         => $bought_data,
+							'is_cart'             => $is_cart,
+							'in_cart_plus_adding' => $cart_item_quantity,
+							'adding'              => $adding,
+							'return'              => $return_notices
+						) );
 					}
 					return apply_filters( 'alg_wc_mppu_check_quantities_for_product', false, $this, $args );
 				}
@@ -1307,6 +1404,18 @@ class Alg_WC_MPPU_Core {
 	function update_post_or_term_meta( $product_or_term, $product_or_term_id, $key, $value ) {
 		$func = ( 'product' === $product_or_term ? 'update_post_meta' : 'update_term_meta' );
 		return $func( $product_or_term_id, $key, $value );
+	}
+
+	/**
+	 * get_error_messages.
+	 *
+	 * @version 3.6.0
+	 * @since   3.6.0
+	 *
+	 * @return array
+	 */
+	public function get_error_messages() {
+		return $this->error_messages;
 	}
 
 }

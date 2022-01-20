@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes
  *
- * @version 3.5.9
+ * @version 3.6.0
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -85,7 +85,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * term_limit_shortcode.
 	 *
-	 * @version 3.4.0
+	 * @version 3.6.0
 	 * @since   3.1.0
 	 * @todo    [next] `alg_wc_mppu()->core->get_notice_placeholders()`
 	 * @todo    [later] different (customizable) message depending on `$remaining`
@@ -99,7 +99,7 @@ class Alg_WC_MPPU_Shortcodes {
 			if ( $term ) {
 				$user_id = $this->get_user_id( $atts );
 				if ( $user_id ) {
-					if ( 0 != ( $max_qty = alg_wc_mppu()->core->get_max_qty( 'per_term', $term->term_id ) ) ) {
+					if ( 0 != ( $max_qty = alg_wc_mppu()->core->get_max_qty( array( 'type' => 'per_term', 'product_or_term_id' => $term->term_id ) ) ) ) {
 						$bought_data  = alg_wc_mppu()->core->get_user_already_bought_qty( $term->term_id, $user_id, false );
 						$bought       = $bought_data['bought'];
 						$remaining    = $max_qty - $bought;
@@ -276,7 +276,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * user_terms_limits_shortcode.
 	 *
-	 * @version 3.5.7
+	 * @version 3.6.0
 	 * @since   3.5.7
 	 *
 	 * @param $atts
@@ -319,7 +319,7 @@ class Alg_WC_MPPU_Shortcodes {
 			}
 			foreach ( $terms as $term ) {
 				$term_id = $term->term_id;
-				$max_qty = alg_wc_mppu()->core->get_max_qty( 'per_term', $term_id );
+				$max_qty = alg_wc_mppu()->core->get_max_qty( array( 'type' => 'per_term', 'product_or_term_id' => $term_id ) );
 				if ( $max_qty ) {
 					$bought_data         = alg_wc_mppu()->core->get_user_already_bought_qty( $term_id, $user_id, false );
 					$user_already_bought = $bought_data['bought'];
