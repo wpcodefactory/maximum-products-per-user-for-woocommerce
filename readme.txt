@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, Karzin
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
-Tested up to: 5.8
-Stable tag: 3.6.0
+Tested up to: 5.9
+Stable tag: 3.6.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,15 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 3.6.1 - 13/03/2022 =
+* Dev - Notices about limits will be displayed as soon as users get to checkout page using the hook `woocommerce_before_checkout_form`.
+* Dev - General - Orders above limits - Add option to allow users to place orders with exceeding limits.
+* Dev - General - Orders above limits - Add option to change status from newly placed orders above limits.
+* Dev - General - Orders above limits - Add option to change the custom status label from newly placed orders above limits.
+* Dev - Add `alg_wc_mppu_output_notices_args` filter.
+* WC tested up to: 6.3.
+* Tested up to: 5.9.
 
 = 3.6.0 - 19/01/2022 =
 * Dev - Compatibility - Point of Sale for WooCommerce - Add option to check limits when creating orders via registers.

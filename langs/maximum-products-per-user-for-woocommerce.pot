@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Maximum Products per User for WooCommerce 3.6.0\n"
+"Project-Id-Version: Maximum Products per User for WooCommerce 3.6.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-01-20T02:34:50+01:00\n"
+"POT-Creation-Date: 2022-03-13T15:00:28+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -35,18 +35,18 @@ msgstr ""
 msgid "https://wpfactory.com"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:584
+#: includes/class-alg-wc-mppu-core.php:589
 #: includes/settings/class-alg-wc-mppu-settings-general.php:257
 msgid "You need to register to buy products."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:939
+#: includes/class-alg-wc-mppu-core.php:949
 #: includes/class-alg-wc-mppu-shortcodes.php:46
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:108
 msgid "You can only buy maximum %limit% of %product_title% (you've already bought %bought%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:940
+#: includes/class-alg-wc-mppu-core.php:950
 #: includes/class-alg-wc-mppu-shortcodes.php:47
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:109
 msgid "You can only buy maximum %limit% of %product_title%."
@@ -1047,6 +1047,48 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-general.php:334
 msgid "Use product ID from default language when checking product limits"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:361
+#: includes/settings/class-alg-wc-mppu-settings-general.php:367
+#: includes/settings/class-alg-wc-mppu-settings-general.php:378
+msgid "Orders above limits"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:363
+msgid "Let users place orders that do not respect the limits."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:368
+msgid "Allow users to place orders with exceeding limits"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:369
+msgid "Notices regarding limit issues will not be displayed as errors on checkout."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:376
+msgid "Order status"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:377
+msgid "Change status from newly placed orders above limits"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:378
+msgid "Order status will only be changed if %s option is enabled."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:388
+msgid "Status used on orders above limits."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:396
+msgid "Custom order status label."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:398
+msgid "Above limit"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-limits.php:24
