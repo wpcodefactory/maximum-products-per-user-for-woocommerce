@@ -218,7 +218,6 @@ class Alg_WC_MPPU_Users {
 				}
 			}
 		}
-		// Orders data
 		if ( isset( $_POST['alg_wc_mppu_orders_data'] ) ) {
 			foreach ( $_POST['alg_wc_mppu_orders_data'] as $product_or_term => $data ) {
 				foreach ( $data as $product_or_term_id => $order_data ) {

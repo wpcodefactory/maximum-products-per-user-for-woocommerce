@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class
  *
- * @version 3.6.1
+ * @version 3.6.2
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -242,11 +242,22 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_permanent_notice.
 	 *
-	 * @version 3.2.0
+	 * @see https://stackoverflow.com/a/18081767/1193038
+	 *
+	 * @version 3.6.2
 	 * @since   3.2.0
 	 */
-	function get_permanent_notice() {
-		return ( is_singular( array( 'product' ) ) && ( $message = do_shortcode( '[alg_wc_mppu_current_product_limit]' ) ) ? $message : false );
+	function get_permanent_notice( $args = null ) {
+		$args                           = wp_parse_args( $args, array(
+			'current_product_limit_args' => array(
+				'empty_msg_removes_template' => 'woocommerce_before_single_product' === current_filter() ? true : false
+			),
+		) );
+		$current_product_limit_args_arr = $args['current_product_limit_args'];
+		$current_product_limit_args     = join( ' ', array_map( function ( $key ) use ( $current_product_limit_args_arr ) {
+			return $key . "='" . $current_product_limit_args_arr[ $key ] . "'";
+		}, array_keys( $current_product_limit_args_arr ) ) );
+		return ( is_singular( array( 'product' ) ) && ( $message = do_shortcode( '[alg_wc_mppu_current_product_limit ' . $current_product_limit_args . ']' ) ) ? $message : false );
 	}
 
 	/**
@@ -502,7 +513,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * validate_on_add_to_cart.
 	 *
-	 * @version 3.6.1
+	 * @version 3.6.2
 	 * @since   2.0.0
 	 * @todo    [later] `alg_wc_mppu_block_guests`: add "Block products with max qty" option (`yes_max_qty`), i.e. check for `0 != $this->get_max_qty_for_product( $_product_id, $product_id )`
 	 * @todo    [maybe] different message (i.e. different from "cart" message)?
@@ -513,9 +524,12 @@ class Alg_WC_MPPU_Core {
 		if ( 0 != $variation_id ) {
 			$product_id = $variation_id;
 		}
-		$quantity = apply_filters( 'alg_wc_mppu_validate_on_add_to_cart_quantity', $quantity, $product_id );
+		$quantity = apply_filters( 'alg_wc_mppu_validate_on_add_to_cart_quantity', $quantity, $product_id, $cart_item_quantities );
 		$adding   = $quantity;
-		if ( ! empty( $cart_item_quantities[ $product_id ] ) ) {
+		if (
+			apply_filters( 'alg_wc_mppu_validate_on_add_to_cart_quantity_do_add', true ) &&
+			! empty( $cart_item_quantities[ $product_id ] )
+		) {
 			$quantity += $cart_item_quantities[ $product_id ];
 		}
 		if ( $current_user_id = $this->get_current_user_id() ) {
@@ -914,7 +928,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * output_notice.
 	 *
-	 * @version 3.6.1
+	 * @version 3.6.2
 	 * @since   2.0.0
 	 * @todo    [maybe] customizable notice type in `wc_add_notice()`?
 	 */
@@ -933,7 +947,7 @@ class Alg_WC_MPPU_Core {
 		) );
 		$args                = apply_filters( 'alg_wc_mppu_output_notices_args', $args );
 		$product_id          = $args['product_id'];
-		$limit               = $args['limit'];
+		$limit               = (float) $args['limit'];
 		$bought_data         = $args['bought_data'];
 		$output_function     = $args['output_function'];
 		$notice_type         = $args['notice_type'];

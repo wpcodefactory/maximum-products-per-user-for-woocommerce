@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes
  *
- * @version 3.6.0
+ * @version 3.6.2
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -127,14 +127,15 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * current_product_limit_shortcode.
 	 *
-	 * @version 3.5.5
+	 * @version 3.6.2
 	 * @since   2.5.1
 	 * @todo    [later] different (customizable) message depending on `$remaining`
 	 */
 	function current_product_limit_shortcode( $atts, $content = '' ) {
 		$atts = shortcode_atts( array(
-			'product_id' => get_the_ID(),
-			'output_template' => '<span class="alg-wc-mppu-current-product-limit">{output_msg}</span>'
+			'product_id'                  => get_the_ID(),
+			'output_template'             => '<span class="alg-wc-mppu-current-product-limit">{output_msg}</span>',
+			'empty_msg_removes_template' => false
 		), $atts, 'alg_wc_mppu_current_product_limit' );
 		$product_id = $atts['product_id'];
 		$user_id    = $this->get_user_id( $atts );
@@ -190,7 +191,11 @@ class Alg_WC_MPPU_Shortcodes {
 				$output_msg = $message;
 			}
 		}
-		return str_replace( '{output_msg}', $output_msg, $atts['output_template'] );
+		if ( empty( $output_msg ) && $atts['empty_msg_removes_template'] ) {
+			return $output_msg;
+		} else {
+			return str_replace( '{output_msg}', $output_msg, $atts['output_template'] );
+		}
 	}
 
 	/**

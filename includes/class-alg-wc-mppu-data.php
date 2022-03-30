@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Data
  *
- * @version 3.5.5
+ * @version 3.6.2
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -16,21 +16,25 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.3.0
+	 * @version 3.6.2
 	 * @since   2.0.0
 	 * @todo    [next] (feature) `woocommerce_order_status_changed` (i.e. on any order status change)
 	 */
 	function __construct() {
+		// Save quantities.
 		$this->order_statuses = get_option( 'alg_wc_mppu_order_status', array( 'wc-completed' ) );
 		foreach ( $this->order_statuses as $order_status ) {
 			add_action( 'woocommerce_order_status_' . substr( $order_status, 3 ), array( $this, 'save_quantities' ), PHP_INT_MAX );
 		}
+		add_action( 'woocommerce_thankyou', array( $this, 'save_quantities_on_new_created_order' ), PHP_INT_MAX );
+		// Delete quantities.
 		$this->order_statuses_delete = get_option( 'alg_wc_mppu_order_status_delete', array() );
 		foreach ( $this->order_statuses_delete as $order_status ) {
 			add_action( 'woocommerce_order_status_' . substr( $order_status, 3 ), array( $this, 'delete_quantities' ), PHP_INT_MAX );
 		}
+		// Calculate data.
 		add_action( 'alg_wc_mppu_after_save_settings', array( $this, 'calculate_data' ) );
-		// Duplicate product functionality
+		// Duplicate product functionality.
 		if ( 'no' === get_option( 'alg_wc_mppu_duplicate_product', 'no' ) ) {
 			add_filter( 'woocommerce_duplicate_product_exclude_meta', array( $this, 'duplicate_product_exclude_meta' ), PHP_INT_MAX );
 		}
@@ -273,6 +277,21 @@ class Alg_WC_MPPU_Data {
 	}
 
 	/**
+	 * save_quantities_on_new_created_order.
+	 *
+	 * @version 3.6.2
+	 * @since   3.6.2
+	 *
+	 * @param $order_id
+	 */
+	function save_quantities_on_new_created_order( $order_id ) {
+		$order = wc_get_order( $order_id );
+		if ( in_array( 'wc-' . $order->get_status(), $this->order_statuses ) ) {
+			$this->update_quantities( $order_id, 'save' );
+		}
+	}
+
+	/**
 	 * get_user_id_from_order.
 	 *
 	 * @version 3.4.0
@@ -289,7 +308,7 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * update_quantities.
 	 *
-	 * @version 3.5.5
+	 * @version 3.6.2
 	 * @since   1.0.0
 	 * @todo    [next] mysql transaction: lock before `get_post_meta` / `get_term_meta`?
 	 * @todo    [next] `alg_wc_mppu_payment_gateways`: on `$do_save` only?
@@ -337,28 +356,6 @@ class Alg_WC_MPPU_Data {
 							foreach ( $products_and_terms as $product_or_term_id => $is_product ) {
 								$product_or_term_id = apply_filters( 'alg_wc_mppu_data_product_or_term_id', $product_or_term_id, $is_product );
 								$get_meta_func = ( $is_product ? 'get_post_meta' : 'get_term_meta' );
-								// Lifetime
-								if ( '' == ( $users_quantities = $get_meta_func( $product_or_term_id, '_alg_wc_mppu_totals_data', true ) ) ) {
-									$users_quantities = array();
-								}
-								if ( $do_save ) {
-									// Save
-									$total_product_qty = $product_qty;
-									if ( isset( $users_quantities[ $user_id ] ) ) {
-										$total_product_qty += $users_quantities[ $user_id ];
-									}
-								} else {
-									// Delete
-									$total_product_qty = 0;
-									if ( isset( $users_quantities[ $user_id ] ) ) {
-										$total_product_qty = $users_quantities[ $user_id ] - $product_qty;
-									}
-									if ( $total_product_qty < 0 ) {
-										$total_product_qty = 0;
-									}
-								}
-								$users_quantities[ $user_id ] = $total_product_qty;
-								$this->transaction_update_meta( $product_or_term_id, '_alg_wc_mppu_totals_data', $users_quantities, $is_product );
 								// Orders
 								if ( '' == ( $users_orders_quantities = $get_meta_func( $product_or_term_id, '_alg_wc_mppu_orders_data', true ) ) ) {
 									$users_orders_quantities = array();
@@ -367,7 +364,7 @@ class Alg_WC_MPPU_Data {
 									// Save
 									if ( ! isset( $users_orders_quantities[ $user_id ][ $order_id ] ) ) {
 										$users_orders_quantities[ $user_id ][ $order_id ] = $this->get_order_data( $order, $product_qty );
-									} else {
+									} elseif ( apply_filters( 'alg_wc_mppu_orders_data_increase_qty', true, $order_id, $user_id, $product_or_term_id, $is_product ) ) {
 										$users_orders_quantities[ $user_id ][ $order_id ]['qty'] += $product_qty;
 									}
 								} else {
@@ -377,6 +374,34 @@ class Alg_WC_MPPU_Data {
 									}
 								}
 								$this->transaction_update_meta( $product_or_term_id, '_alg_wc_mppu_orders_data', $users_orders_quantities, $is_product );
+								// Lifetime
+								if ( '' == ( $users_quantities = $get_meta_func( $product_or_term_id, '_alg_wc_mppu_totals_data', true ) ) ) {
+									$users_quantities = array();
+								}
+								if ( $do_save ) {
+									// Save
+									$total_product_qty = $product_qty;
+									if (
+										isset( $users_quantities[ $user_id ] ) &&
+										apply_filters( 'alg_wc_mppu_totals_data_increase_qty', true, $user_id, $product_or_term_id, $is_product )
+									) {
+										$total_product_qty += $users_quantities[ $user_id ];
+									}
+								} else {
+									// Delete
+									$total_product_qty = 0;
+									if (
+										isset( $users_quantities[ $user_id ] ) &&
+										apply_filters( 'alg_wc_mppu_totals_data_decrease_qty', true, $user_id, $product_or_term_id, $is_product )
+									) {
+										$total_product_qty = $users_quantities[ $user_id ] - $product_qty;
+									}
+									if ( $total_product_qty < 0 ) {
+										$total_product_qty = 0;
+									}
+								}
+								$users_quantities[ $user_id ] = $total_product_qty;
+								$this->transaction_update_meta( $product_or_term_id, '_alg_wc_mppu_totals_data', apply_filters( 'alg_wc_mppu_totals_data', $users_quantities, $user_id, $product_or_term_id, $is_product, $users_orders_quantities ), $is_product );
 							}
 						}
 					}

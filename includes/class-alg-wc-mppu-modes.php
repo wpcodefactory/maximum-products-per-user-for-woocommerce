@@ -1,8 +1,8 @@
 <?php
 /**
- * Maximum Products per User for WooCommerce - Modes
+ * Maximum Products per User for WooCommerce - Modes.
  *
- * @version 3.5.0
+ * @version 3.6.2
  * @since   3.0.0
  * @author  WPFactory
  */
@@ -16,31 +16,91 @@ class Alg_WC_MPPU_Modes {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.5.0
+	 * @version 3.6.2
 	 * @since   3.0.0
 	 * @todo    [next] price: do we really need to `round()`? maybe make it optional at least (enabled bu default)?
 	 */
 	function __construct() {
 		if ( 'qty' != ( $this->mode = get_option( 'alg_wc_mppu_mode', 'qty' ) ) ) {
-			add_filter( 'alg_wc_mppu_get_cart_item_quantities',         array( $this, 'get_cart_item_quantities_by_mode' ) );
+			add_filter( 'alg_wc_mppu_get_cart_item_quantities', array( $this, 'get_cart_item_quantities_by_mode' ) );
 			add_filter( 'alg_wc_mppu_validate_on_add_to_cart_quantity', array( $this, 'validate_on_add_to_cart_quantity_by_mode' ), 10, 2 );
-			add_filter( 'alg_wc_mppu_save_quantities_item_qty',         array( $this, 'save_quantities_item_qty_by_mode' ), 10, 2 );
+			add_filter( 'alg_wc_mppu_save_quantities_item_qty', array( $this, 'save_quantities_item_qty_by_mode' ), 10, 2 );
 			if ( 'orders' === $this->mode ) {
-				add_filter( 'alg_wc_mppu_get_cart_item_amount_by_term',   array( $this, 'cart_item_amount' ) );
+				add_filter( 'alg_wc_mppu_get_cart_item_amount_by_term', array( $this, 'cart_item_amount' ) );
 				add_filter( 'alg_wc_mppu_get_cart_item_amount_by_parent', array( $this, 'cart_item_amount' ) );
-				add_filter( 'alg_wc_mppu_cart_item_amount',               array( $this, 'cart_item_amount' ) );
+				add_filter( 'alg_wc_mppu_cart_item_amount', array( $this, 'cart_item_amount' ) );
+				add_filter( 'alg_wc_mppu_validate_on_add_to_cart_quantity_do_add', array( $this, 'validate_on_add_to_cart_quantity_do_add' ) );
+				add_filter( 'alg_wc_mppu_orders_data_increase_qty', array( $this, 'handle_orders_data_quantity_increase_qty_on_order_mode' ), 10, 5 );
+				add_filter( 'alg_wc_mppu_totals_data', array( $this, 'handle_totals_data_on_order_mode' ), 10, 5 );
 			}
 		}
 	}
 
 	/**
+	 * handle_totals_data_on_order_mode.
+	 *
+	 * @version 3.6.2
+	 * @since   3.6.2
+	 *
+	 * @param $user_quantities
+	 * @param $user_id
+	 * @param $product_or_term_id
+	 * @param $is_product
+	 * @param $users_orders_quantities
+	 *
+	 * @return mixed
+	 */
+	function handle_totals_data_on_order_mode( $user_quantities, $user_id, $product_or_term_id, $is_product, $users_orders_quantities ) {
+		if ( ! $is_product ) {
+			$user_quantities[ $user_id ] = count( $users_orders_quantities[ $user_id ] );
+		}
+		return $user_quantities;
+	}
+
+	/**
+	 * handle_orders_data_quantity_increase_qty_on_order_mode.
+	 *
+	 * @version 3.6.2
+	 * @since   3.6.2
+	 *
+	 * @param $increase_qty
+	 * @param $order_id
+	 * @param $user_id
+	 * @param $product_or_term_id
+	 * @param $is_product
+	 *
+	 * @return bool
+	 */
+	function handle_orders_data_quantity_increase_qty_on_order_mode( $increase_qty, $order_id, $user_id, $product_or_term_id, $is_product ) {
+		if ( ! $is_product ) {
+			$increase_qty = false;
+		}
+		return $increase_qty;
+	}
+
+	/**
+	 * validate_on_add_to_cart_quantity_do_add.
+	 *
+	 * @version 3.6.2
+	 * @since   3.6.2
+	 *
+	 * @param $do_add
+	 *
+	 * @return bool
+	 */
+	function validate_on_add_to_cart_quantity_do_add( $do_add ) {
+		$do_add = false;
+		return $do_add;
+	}
+
+	/**
 	 * cart_item_amount.
 	 *
-	 * @version 3.5.0
+	 * @version 3.6.2
 	 * @since   3.5.0
 	 */
 	function cart_item_amount( $cart_item_amount ) {
-		return max( 1, $cart_item_amount );
+		return min( 1, $cart_item_amount );
 	}
 
 	/**

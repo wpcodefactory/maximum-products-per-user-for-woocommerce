@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
 Tested up to: 5.9
-Stable tag: 3.6.1
+Stable tag: 3.6.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,18 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 3.6.2 - 30/03/2022 =
+* Fix - "Product orders" does not calculate sales data right when using per category or tag.
+* Fix - "Product orders" mode doesn't allow to add the same product cart on add to cart validation.
+* Fix - Frontend - Product limit message - Notice gets displayed empty sometimes.
+* Fix - Unsupported operand types: string - int.
+* Fix - Check status on order creation and not only on status transition.
+* Dev - Add `alg_wc_mppu_validate_on_add_to_cart_quantity_do_add` filter.
+* Dev - Add `alg_wc_mppu_totals_data_increase_qty` filter.
+* Dev - Add `alg_wc_mppu_totals_data_decrease_qty` filter.
+* Dev - Add `alg_wc_mppu_totals_data` filter.
+* Dev - Add `alg_wc_mppu_orders_data_increase_qty` filter.
 
 = 3.6.1 - 13/03/2022 =
 * Dev - Notices about limits will be displayed as soon as users get to checkout page using the hook `woocommerce_before_checkout_form`.
