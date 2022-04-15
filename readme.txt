@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
 Tested up to: 5.9
-Stable tag: 3.6.2
+Stable tag: 3.6.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,13 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 3.6.3 - 15/04/2022 =
+* Fix - Formula - Validate `is_product` boolean param from `[alg_wc_mppu_user_bought]` shortcode.
+* Dev - Formula - Add `return` param to `[alg_wc_mppu_user_bought]` shortcode. Possible values: `amount_bought`, `boolean`.
+* Dev - Formula - Allow fixed `Y-m-d` date on `date_range` parameter from [alg_wc_mppu_user_bought]` shortcode.
+* Dev - Allow `Alg_WC_MPPU_Core::get_date_to_check()` to check for a fixed `Y-m-d` date.
+* Dev - WC tested up to: 6.4.
 
 = 3.6.2 - 30/03/2022 =
 * Fix - "Product orders" does not calculate sales data right when using per category or tag.

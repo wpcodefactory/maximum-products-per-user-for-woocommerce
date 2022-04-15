@@ -1,8 +1,8 @@
 <?php
 /**
- * Maximum Products per User for WooCommerce - Core Class
+ * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 3.6.2
+ * @version 3.6.3
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -661,7 +661,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_date_to_check.
 	 *
-	 * @version 3.5.0
+	 * @version 3.6.3
 	 * @since   2.4.0
 	 * @todo    [maybe] add `alg_wc_mppu_date_to_check_custom` filter
 	 * @todo    [maybe] add more predefined ranges, e.g. `last_14_days`, `last_45_days`, `last_60_days`, `MINUTE_IN_SECONDS`
@@ -705,6 +705,9 @@ class Alg_WC_MPPU_Core {
 				break;
 			case 'custom':
 				$date_to_check = ( $current_time - $this->get_custom_date_range_in_seconds() );
+				break;
+			default:
+				$date_to_check = false !== ( $date_time = DateTime::createFromFormat( 'Y-m-d', $date_range ) ) ? $date_time->getTimestamp() : $date_to_check;
 				break;
 		}
 		return apply_filters( 'alg_wc_mppu_date_to_check', $date_to_check, $date_range, $current_time, $product_or_term_id, $current_user_id, $is_product );
