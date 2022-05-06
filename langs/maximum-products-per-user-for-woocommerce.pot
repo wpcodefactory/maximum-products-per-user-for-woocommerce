@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Maximum Products per User for WooCommerce 3.6.3\n"
+"Project-Id-Version: Maximum Products per User for WooCommerce 3.6.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-04-15T21:06:26+02:00\n"
+"POT-Creation-Date: 2022-05-06T23:45:42+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -35,42 +35,74 @@ msgstr ""
 msgid "https://wpfactory.com"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:603
+#: includes/background-process/class-alg-wc-mppu-delete-sales-async-request.php:45
+msgid "%d meta deleted."
+msgid_plural "%d metas deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/background-process/class-alg-wc-mppu-recalculate-sales-bkg-process.php:36
+msgid "Maximum Products per User - Recalculate sales data"
+msgstr ""
+
+#: includes/background-process/class-alg-wc-mppu-recalculate-sales-bkg-process.php:52
+msgid "Order processed: %d."
+msgstr ""
+
+#: includes/class-alg-wc-mppu-core.php:642
 #: includes/settings/class-alg-wc-mppu-settings-general.php:257
 msgid "You need to register to buy products."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:966
+#: includes/class-alg-wc-mppu-core.php:1005
 #: includes/class-alg-wc-mppu-shortcodes.php:46
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:108
 msgid "You can only buy maximum %limit% of %product_title% (you've already bought %bought%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:967
+#: includes/class-alg-wc-mppu-core.php:1006
 #: includes/class-alg-wc-mppu-shortcodes.php:47
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:109
 msgid "You can only buy maximum %limit% of %product_title%."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-data.php:64
-msgid "Tool task completed."
+#: includes/class-alg-wc-mppu-data.php:148
+msgid "%s order processed."
+msgid_plural "%s orders processed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-alg-wc-mppu-data.php:151
+msgid "Task running in background."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-data.php:66
-msgid "%s order(s) processed."
+#: includes/class-alg-wc-mppu-data.php:152
+msgid "When it is complete an e-mail is going to be sent to %s."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-data.php:70
-msgid "%s meta(s) deleted."
-msgstr ""
+#: includes/class-alg-wc-mppu-data.php:153
+msgid "%s order being processed."
+msgid_plural "%s orders being processed."
+msgstr[0] ""
+msgstr[1] ""
 
-#: includes/class-alg-wc-mppu-data.php:74
+#: includes/class-alg-wc-mppu-data.php:159
+msgid "%s meta deleted."
+msgid_plural "%s metas deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-alg-wc-mppu-data.php:164
 #: includes/settings/class-alg-wc-mppu-settings-tools.php:118
 msgid "Debug"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-data.php:75
+#: includes/class-alg-wc-mppu-data.php:165
 msgid "Orders: %s."
+msgstr ""
+
+#: includes/class-alg-wc-mppu-data.php:168
+msgid "Task took %s second(s)."
 msgstr ""
 
 #: includes/class-alg-wc-mppu-my-account.php:66
@@ -361,6 +393,38 @@ msgstr ""
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:104
 #: includes/settings/class-alg-wc-mppu-settings-general.php:200
 msgid "Count by current payment method"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:127
+msgid "Background processing"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:132
+msgid "Minimum amount"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:133
+msgid "The minimum amount of results from a query in order to trigger a background processing."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:139
+msgid "Send email"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:140
+msgid "Send email when a background processing is complete"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:146
+msgid "Email to."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:147
+msgid "The email address that is going to receive the email when a background processing task is complete."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:147
+msgid "Requires the \"Send email\" option enabled in order to work."
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:24
@@ -1261,6 +1325,18 @@ msgstr ""
 msgid "WooCommerce specific (%s)"
 msgstr ""
 
+#: includes/settings/class-alg-wc-mppu-settings-tools.php:125
+msgid "Sales deletion options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-tools.php:126
+msgid "Delete sales using Async request"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-tools.php:127
+msgid "Enable if you want to try to lower the time of the meta data removal by running it in a background process."
+msgstr ""
+
 #: includes/settings/class-alg-wc-mppu-settings.php:59
 msgid "Maximum Products per User for WooCommerce Pro"
 msgstr ""
@@ -1294,6 +1370,6 @@ msgstr ""
 msgid "Your settings have been reset."
 msgstr ""
 
-#: maximum-products-per-user-for-woocommerce.php:168
+#: maximum-products-per-user-for-woocommerce.php:177
 msgid "Go Pro"
 msgstr ""

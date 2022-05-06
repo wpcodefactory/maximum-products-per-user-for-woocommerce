@@ -1,8 +1,8 @@
 <?php
 /**
- * Maximum Products per User for WooCommerce - Tools Section Settings
+ * Maximum Products per User for WooCommerce - Tools Section Settings.
  *
- * @version 2.4.0
+ * @version 3.6.4
  * @since   2.4.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_Tools extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 2.4.0
+	 * @version 3.6.4
 	 * @since   2.4.0
 	 * @todo    [next] add "Reset all settings" option (i.e. reset all settings sections at once)
 	 */
@@ -56,11 +56,11 @@ class Alg_WC_MPPU_Settings_Tools extends Alg_WC_MPPU_Settings_Section {
 				'type'     => 'checkbox',
 			),
 			array(
-				'title'    => __( 'Delete sales data', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => '<strong>' . __( 'Run', 'maximum-products-per-user-for-woocommerce' ) . '</strong>',
-				'id'       => 'alg_wc_mppu_tool_delete',
-				'default'  => 'no',
-				'type'     => 'checkbox',
+				'title'         => __( 'Delete sales data', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'          => '<strong>' . __( 'Run', 'maximum-products-per-user-for-woocommerce' ) . '</strong>',
+				'id'            => 'alg_wc_mppu_tool_delete',
+				'default'       => 'no',
+				'type'          => 'checkbox',
 			),
 			array(
 				'type'     => 'sectionend',
@@ -120,6 +120,14 @@ class Alg_WC_MPPU_Settings_Tools extends Alg_WC_MPPU_Settings_Section {
 				'id'       => 'alg_wc_mppu_tool_recalculate_debug',
 				'default'  => 'no',
 				'type'     => 'checkbox',
+			),
+			array(
+				'title'         => __( 'Sales deletion options', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'          => __( 'Delete sales using Async request', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip'      => __( 'Enable if you want to try to lower the time of the meta data removal by running it in a background process.', 'maximum-products-per-user-for-woocommerce' ),
+				'id'            => 'alg_wc_mppu_tool_delete_using_async_request',
+				'default'       => 'no',
+				'type'          => 'checkbox',
 			),
 			array(
 				'type'     => 'sectionend',

@@ -1,8 +1,8 @@
 <?php
 /**
- * Maximum Products per User for WooCommerce - Data
+ * Maximum Products per User for WooCommerce - Data.
  *
- * @version 3.6.2
+ * @version 3.6.4
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -12,6 +12,51 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( ! class_exists( 'Alg_WC_MPPU_Data' ) ) :
 
 class Alg_WC_MPPU_Data {
+
+	/**
+	 * recalculate_sales_bkg_process.
+	 *
+	 * @since 3.6.4
+	 *
+	 * @var Alg_WC_MPPU_Recalculate_Sales_Bkg_Process
+	 */
+	public $recalculate_sales_bkg_process;
+
+	/**
+	 * recalculate_sales_bkg_process_initiated.
+	 *
+	 * @since 3.6.4
+	 *
+	 * @var bool
+	 */
+	public $recalculate_sales_bkg_process_running = false;
+
+	/**
+	 * recalculate_sales_bkg_process_used.
+	 *
+	 * @since 3.6.4
+	 *
+	 * @var bool
+	 */
+	public $recalculate_sales_bkg_process_used = false;
+
+	/**
+	 * recalculation_debug_time.
+	 * 
+	 * @since 3.6.4
+	 *
+	 * @var array
+	 */
+	public $recalculation_debug_time = array();
+
+	/**
+	 * delete_sales_async_request.
+	 *
+	 * $since 3.6.4.
+	 *
+	 * @var Alg_WC_MPPU_Delete_Sales_Async_Request;
+	 */
+	public $delete_sales_async_request = null;
 
 	/**
 	 * Constructor.
@@ -38,6 +83,42 @@ class Alg_WC_MPPU_Data {
 		if ( 'no' === get_option( 'alg_wc_mppu_duplicate_product', 'no' ) ) {
 			add_filter( 'woocommerce_duplicate_product_exclude_meta', array( $this, 'duplicate_product_exclude_meta' ), PHP_INT_MAX );
 		}
+		// Bkg Process
+		add_action( 'plugins_loaded', array( $this, 'init_bkg_process' ) );
+	}
+
+	/**
+	 * init_bkg_process.
+	 *
+	 * @version 3.6.4
+	 * @since   3.6.4
+	 */
+	function init_bkg_process() {
+		require_once( alg_wc_mppu()->plugin_path() . '/includes/background-process/class-alg-wc-mppu-recalculate-sales-bkg-process.php' );
+		$this->recalculate_sales_bkg_process = new Alg_WC_MPPU_Recalculate_Sales_Bkg_Process();
+		$this->handle_delete_sales_async_request_init();
+	}
+
+	/**
+	 * handle_delete_sales_async_request_init.
+	 *
+	 * @version 3.6.4
+	 * @since   3.6.4
+	 */
+	function handle_delete_sales_async_request_init() {
+		if (
+			null === $this->delete_sales_async_request &&
+			(
+				'yes' === get_option( 'alg_wc_mppu_tool_delete_using_async_request', 'no' ) ||
+				(
+					isset( $_POST['alg_wc_mppu_tool_delete_using_async_request'] ) &&
+					true === wp_validate_boolean( $_POST['alg_wc_mppu_tool_delete_using_async_request'] )
+				)
+			)
+		) {
+			require_once( alg_wc_mppu()->plugin_path() . '/includes/background-process/class-alg-wc-mppu-delete-sales-async-request.php' );
+			$this->delete_sales_async_request = new Alg_WC_MPPU_Delete_Sales_Async_Request();
+		}
 	}
 
 	/**
@@ -56,32 +137,62 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * calculate_data_notice.
 	 *
-	 * @version 2.4.0
+	 * @version 3.6.4
 	 * @since   1.0.0
 	 */
 	function calculate_data_notice() {
-		$class   = 'notice notice-info';
-		$message = __( 'Tool task completed.', 'maximum-products-per-user-for-woocommerce' );
+		$class   = 'notice notice-info inline';
+		$message = '';
 		if ( $this->admin_notice_data['order_num'] > 0 ) {
-			$message .= '<br>' . sprintf( __( '%s order(s) processed.', 'maximum-products-per-user-for-woocommerce' ),
-				'<strong>' . $this->admin_notice_data['order_num'] . '</strong>' );
+			if ( ! $this->recalculate_sales_bkg_process_used ) {
+				$message .= sprintf( _n( '%s order processed.', '%s orders processed.', $this->admin_notice_data['order_num'], 'maximum-products-per-user-for-woocommerce' ),
+					'<strong>' . $this->admin_notice_data['order_num'] . '</strong>' );
+			} else {
+				$message = __( 'Task running in background.', 'maximum-products-per-user-for-woocommerce' );
+				$message .= 'yes' === get_option( 'alg_wc_mppu_bkg_process_send_email', 'yes' ) ? ' ' . sprintf( __( 'When it is complete an e-mail is going to be sent to %s.', 'maximum-products-per-user-for-woocommerce' ), get_option( 'alg_wc_mppu_bkg_process_email_to', get_option( 'admin_email' ) ) ) : '';
+				$message .= '<br>' . sprintf( _n( '%s order being processed.', '%s orders being processed.', $this->admin_notice_data['order_num'], 'maximum-products-per-user-for-woocommerce' ),
+						'<strong>' . $this->admin_notice_data['order_num'] . '</strong>' );
+			}
 		}
 		if ( $this->admin_notice_data['meta_num'] > 0 ) {
-			$message .= '<br>' . sprintf( __( '%s meta(s) deleted.', 'maximum-products-per-user-for-woocommerce' ),
-				'<strong>' . $this->admin_notice_data['meta_num']  . '</strong>' );
-		}
-		if ( $this->admin_notice_data['order_num'] > 0 && 'yes' === get_option( 'alg_wc_mppu_tool_recalculate_debug', 'no' ) ) {
-			$message .= '<br>' . '[' . __( 'Debug', 'maximum-products-per-user-for-woocommerce' ) . ']' . ' ' .
-				sprintf( __( 'Orders: %s.', 'maximum-products-per-user-for-woocommerce' ),
-					implode( ', ', $this->admin_notice_data['order_ids'] ) );
+			$message .= ! empty( $message ) ? '<br />' : '';
+			$message .= sprintf( _n( '%s meta deleted.', '%s metas deleted.', $this->admin_notice_data['order_num'], 'maximum-products-per-user-for-woocommerce' ),
+				'<strong>' . $this->admin_notice_data['meta_num'] . '</strong>' );
 		}
 		printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message );
+		if ( $this->admin_notice_data['order_num'] > 0 && 'yes' === get_option( 'alg_wc_mppu_tool_recalculate_debug', 'no' ) ) {
+			$debug_message = '[' . __( 'Debug', 'maximum-products-per-user-for-woocommerce' ) . ']' . ' ' .
+			                 sprintf( __( 'Orders: %s.', 'maximum-products-per-user-for-woocommerce' ),
+				                 implode( ', ', $this->admin_notice_data['order_ids'] ) );
+			$seconds_spent = $this->recalculation_debug_time['end'] - $this->recalculation_debug_time['start'];
+			$debug_message .= '<br />' . sprintf( __( 'Task took %s second(s).', 'maximum-products-per-user-for-woocommerce' ), number_format( $seconds_spent, 2 ) );
+			printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $debug_message );
+		}
+	}
+
+	/**
+	 * generate_wpdb_prepare_placeholders_from_array.
+	 *
+	 * @version 3.6.4
+	 * @since   3.6.4
+	 *
+	 * @see https://stackoverflow.com/a/72147500/1193038
+	 *
+	 * @param $array
+	 *
+	 * @return string
+	 */
+	function generate_wpdb_prepare_placeholders_from_array( $array ) {
+		$placeholders = array_map( function ( $item ) {
+			return is_string( $item ) ? '%s' : ( is_float( $item ) ? '%f' : ( is_int( $item ) ? '%d' : '' ) );
+		}, $array );
+		return '(' . join( ',', $placeholders ) . ')';
 	}
 
 	/**
 	 * delete_meta_data.
 	 *
-	 * @version 2.0.0
+	 * @version 3.6.4
 	 * @since   2.0.0
 	 * @todo    [next] (feature) add tool to only *delete data* and *reset data* (i.e. no recalculation) (with `_alg_wc_mppu_order_data_saved` deleted and not deleted)
 	 */
@@ -96,17 +207,19 @@ class Alg_WC_MPPU_Data {
 			'_wpjup_wc_maximum_products_per_user_report', // product meta // deprecated
 			'_wpjup_wc_maximum_products_per_user_saved',  // order meta   // deprecated
 		);
-		$query   = "SELECT * FROM $wpdb->postmeta WHERE" . " meta_key = '" . implode( "' OR meta_key = '", $keys ) . "'";
-		foreach( $wpdb->get_results( $query ) as $meta ) {
+		$in_str = $this->generate_wpdb_prepare_placeholders_from_array( $keys );
+		$query = $wpdb->prepare( "SELECT * FROM $wpdb->postmeta WHERE meta_key IN {$in_str}", $keys );
+		foreach ( $wpdb->get_results( $query ) as $meta ) {
 			delete_post_meta( $meta->post_id, $meta->meta_key );
-			$counter++;
+			$counter ++;
 		}
 		// Terms
 		$keys    = array(
 			'_alg_wc_mppu_totals_data',
 			'_alg_wc_mppu_orders_data',
 		);
-		$query   = "SELECT * FROM $wpdb->termmeta WHERE" . " meta_key = '" . implode( "' OR meta_key = '", $keys ) . "'";
+		$in_str = $this->generate_wpdb_prepare_placeholders_from_array( $keys );
+		$query = $wpdb->prepare( "SELECT * FROM $wpdb->termmeta WHERE meta_key IN {$in_str}", $keys );
 		foreach( $wpdb->get_results( $query ) as $meta ) {
 			delete_term_meta( $meta->term_id, $meta->meta_key );
 			$counter++;
@@ -117,25 +230,31 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * calculate_data.
 	 *
-	 * @version 2.5.0
+	 * @version 3.6.4
 	 * @since   1.0.0
 	 * @todo    [later] `delete_quantities`: on `$do_recalculate`?
 	 * @todo    [later] recheck `date_query` arg for `wc_get_orders()`
 	 */
 	function calculate_data() {
-		$do_recalculate        = ( 'yes' === get_option( 'alg_wc_mppu_tool_recalculate',        'no' ) );
+		$do_recalculate        = ( 'yes' === get_option( 'alg_wc_mppu_tool_recalculate', 'no' ) );
 		$do_delete_recalculate = ( 'yes' === get_option( 'alg_wc_mppu_tool_delete_recalculate', 'no' ) );
-		$do_delete             = ( 'yes' === get_option( 'alg_wc_mppu_tool_delete',             'no' ) );
+		$do_delete             = ( 'yes' === get_option( 'alg_wc_mppu_tool_delete', 'no' ) );
+		$do_debug              = ( 'yes' === get_option( 'alg_wc_mppu_tool_recalculate_debug', 'no' ) );
 		if ( $do_recalculate || $do_delete_recalculate || $do_delete ) {
+			$this->recalculation_debug_time['start'] = $do_debug ? microtime( true ) : '';
 			// Delete data
 			$delete_counter_meta = 0;
 			if ( $do_delete_recalculate || $do_delete ) {
-				$delete_counter_meta = $this->delete_meta_data();
+				$this->handle_delete_sales_async_request_init();
+				if ( null !== $this->delete_sales_async_request ) {
+					$this->delete_sales_async_request->dispatch();
+				} else {
+					$delete_counter_meta = $this->delete_meta_data();
+				}
 			}
 			$total_orders = 0;
 			$order_ids    = array();
 			if ( $do_recalculate || $do_delete_recalculate ) {
-				$do_debug = ( 'yes' === get_option( 'alg_wc_mppu_tool_recalculate_debug', 'no' ) );
 				// Date query
 				$do_add_date_query = ( 'yes' === get_option( 'alg_wc_mppu_tool_recalculate_date_range', 'no' ) &&
 					( 'lifetime' != ( $date_range = get_option( 'alg_wc_mppu_date_range', 'lifetime' ) ) ) );
@@ -149,7 +268,7 @@ class Alg_WC_MPPU_Data {
 				$offset       = 0;
 				$block_size   = get_option( 'alg_wc_mppu_tool_recalculate_block_size', 1024 );
 				$time_limit   = get_option( 'alg_wc_mppu_tool_recalculate_time_limit', -1 );
-				$do_wp_query  = ( 'wp_query' === get_option( 'alg_wc_mppu_tool_recalculate_loop_func', 'wp_query' ) );
+				$do_wp_query = ( 'wp_query' === ( $loop_func = get_option( 'alg_wc_mppu_tool_recalculate_loop_func', 'wp_query' ) ) );
 				while ( true ) {
 					// Time limit
 					if ( $time_limit > -1 ) {
@@ -172,11 +291,21 @@ class Alg_WC_MPPU_Data {
 						}
 						// Loop
 						$loop = new WP_Query( $args );
+						// Start background processing with WP_Query.
+						if (
+							$loop->found_posts > get_option( 'alg_wc_mppu_bkg_process_min_amount', 50 ) &&
+							! $this->recalculate_sales_bkg_process_running
+						) {
+							$this->recalculate_sales_bkg_process_running = true;
+							$this->recalculate_sales_bkg_process->cancel_process();
+							$this->recalculate_sales_bkg_process_used = true;
+						}
 						if ( ! $loop->have_posts() ) {
 							break;
 						}
 						foreach ( $loop->posts as $order_id ) {
-							$this->save_quantities( $order_id );
+							$this->recalculate_sales_bkg_process_running ? $this->recalculate_sales_bkg_process->push_to_queue( array( 'order_id' => $order_id ) ) : $this->save_quantities( $order_id );
+
 							if ( $do_debug ) {
 								$order_ids[] = $order_id;
 							}
@@ -198,11 +327,20 @@ class Alg_WC_MPPU_Data {
 						}
 						// Loop
 						$orders = wc_get_orders( apply_filters( 'alg_wc_mppu_calculate_data_wc_get_orders_args', $args ) );
+						// Start background processing with wc_get_orders.
+						if (
+							count( $orders ) > get_option( 'alg_wc_mppu_bkg_process_min_amount', 50 ) &&
+							! $this->recalculate_sales_bkg_process_running
+						) {
+							$this->recalculate_sales_bkg_process_running = true;
+							$this->recalculate_sales_bkg_process->cancel_process();
+							$this->recalculate_sales_bkg_process_used = true;
+						}
 						if ( empty( $orders ) ) {
 							break;
 						}
 						foreach ( $orders as $order_id ) {
-							$this->save_quantities( $order_id );
+							$this->recalculate_sales_bkg_process_running ? $this->recalculate_sales_bkg_process->push_to_queue( array( 'order_id' => $order_id ) ) : $this->save_quantities( $order_id );
 							if ( $do_debug ) {
 								$order_ids[] = $order_id;
 							}
@@ -212,7 +350,13 @@ class Alg_WC_MPPU_Data {
 					// Offset
 					$offset += $block_size;
 				}
+				// Close background processing.
+				if ( $this->recalculate_sales_bkg_process_running ) {
+					$this->recalculate_sales_bkg_process->save()->dispatch();
+					$this->recalculate_sales_bkg_process_running = false;
+				}
 			}
+			$this->recalculation_debug_time['end'] = $do_debug ? microtime( true ) : '';
 			// Reset options
 			update_option( 'alg_wc_mppu_tool_recalculate',        'no' );
 			update_option( 'alg_wc_mppu_tool_delete_recalculate', 'no' );
@@ -221,7 +365,7 @@ class Alg_WC_MPPU_Data {
 			$this->admin_notice_data['order_num'] = $total_orders;
 			$this->admin_notice_data['order_ids'] = $order_ids;
 			$this->admin_notice_data['meta_num']  = $delete_counter_meta;
-			add_action( 'admin_notices', array( $this, 'calculate_data_notice' ) );
+			add_action( 'woocommerce_sections_alg_wc_mppu', array( $this, 'calculate_data_notice' ) );
 		}
 	}
 

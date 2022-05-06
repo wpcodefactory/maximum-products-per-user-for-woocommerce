@@ -1,8 +1,8 @@
 <?php
 /**
- * Maximum Products per User for WooCommerce - Advanced Section Settings
+ * Maximum Products per User for WooCommerce - Advanced Section Settings.
  *
- * @version 3.5.0
+ * @version 3.6.4
  * @since   2.3.1
  * @author  WPFactory
  */
@@ -61,7 +61,7 @@ class Alg_WC_MPPU_Settings_Advanced extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.5.0
+	 * @version 3.6.4
 	 * @since   2.3.1
 	 * @todo    [maybe] `alg_wc_mppu_time_func`: remove option (i.e. always use local time)?
 	 */
@@ -122,7 +122,41 @@ class Alg_WC_MPPU_Settings_Advanced extends Alg_WC_MPPU_Settings_Section {
 			),
 		);
 
-		return $advanced_settings;
+		$bkg_process_options = array(
+			array(
+				'title' => __( 'Background processing', 'maximum-products-per-user-for-woocommerce' ),
+				'type'  => 'title',
+				'id'    => 'alg_wc_mppu_advanced_bkg_process_options',
+			),
+			array(
+				'title'    => __( 'Minimum amount', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => __( 'The minimum amount of results from a query in order to trigger a background processing.', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_bkg_process_min_amount',
+				'default'  => 50,
+				'type'     => 'number',
+			),
+			array(
+				'title'   => __( 'Send email', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'    => __( 'Send email when a background processing is complete', 'maximum-products-per-user-for-woocommerce' ),
+				'id'      => 'alg_wc_mppu_bkg_process_send_email',
+				'default' => 'yes',
+				'type'    => 'checkbox',
+			),
+			array(
+				'desc'        => __( 'Email to.', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip'    => __( 'The email address that is going to receive the email when a background processing task is complete.', 'maximum-products-per-user-for-woocommerce' ) . '<br />' . __( 'Requires the "Send email" option enabled in order to work.', 'maximum-products-per-user-for-woocommerce' ),
+				'id'          => 'alg_wc_mppu_bkg_process_email_to',
+				'placeholder' => get_option( 'admin_email' ),
+				'default'     => get_option( 'admin_email' ),
+				'type'        => 'text',
+			),
+			array(
+				'type' => 'sectionend',
+				'id'   => 'alg_wc_mppu_advanced_bkg_process_options',
+			)
+		);
+
+		return array_merge( $advanced_settings, $bkg_process_options );
 	}
 
 }

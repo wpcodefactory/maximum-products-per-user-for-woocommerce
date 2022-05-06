@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 3.6.3
+ * @version 3.6.4
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -23,9 +23,18 @@ class Alg_WC_MPPU_Core {
 	public $error_messages = array();
 
 	/**
+	 * data.
+	 *
+	 * @since 3.6.4
+	 *
+	 * @var Alg_WC_MPPU_Data
+	 */
+	public $data;
+
+	/**
 	 * Constructor.
 	 *
-	 * @version 3.6.1
+	 * @version 3.6.4
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -90,7 +99,7 @@ class Alg_WC_MPPU_Core {
 			// Product terms options
 			require_once( 'settings/class-alg-wc-mppu-settings-per-term.php' );
 			// Update quantities
-			require_once( 'class-alg-wc-mppu-data.php' );
+			$this->data = require_once( 'class-alg-wc-mppu-data.php' );
 			// Sales data reports
 			require_once( 'class-alg-wc-mppu-reports.php' );
 			// Users
@@ -108,6 +117,36 @@ class Alg_WC_MPPU_Core {
 		add_filter( 'alg_wc_mppu_user_already_bought', array( $this, 'set_guest_user_bought_to_zero' ) );
 		// Core loaded
 		do_action( 'alg_wc_mppu_core_loaded', $this );
+		// Background process
+		add_action( 'plugins_loaded', array( $this, 'init_bkg_process' ), 9 );
+	}
+
+	/**
+	 * init_bkg_process.
+	 *
+	 * @version 3.6.4
+	 * @since   3.6.4
+	 */
+	function init_bkg_process() {
+		require_once( 'background-process/class-alg-wc-mppu-bkg-process.php' );
+		add_filter( 'alg_wc_mppu_bkg_process_email_params', array( $this, 'change_bkg_process_params' ) );
+		new Alg_WC_MPPU_Bkg_Process();
+	}
+
+	/**
+	 * change_bkg_process_email_params.
+	 *
+	 * @version 3.6.4
+	 * @since   3.6.4
+	 *
+	 * @param $email_params
+	 *
+	 * @return mixed
+	 */
+	function change_bkg_process_params( $email_params ) {
+		$email_params['send_email_on_task_complete'] = 'yes' === get_option( 'alg_wc_mppu_bkg_process_send_email', 'yes' );
+		$email_params['send_to']                     = get_option( 'alg_wc_mppu_bkg_process_email_to', get_option( 'admin_email' ) );
+		return $email_params;
 	}
 
 	/**
