@@ -1,8 +1,8 @@
 <?php
 /**
- * Maximum Products per User for WooCommerce - Formula Section Settings
+ * Maximum Products per User for WooCommerce - Formula Section Settings.
  *
- * @version 3.5.6
+ * @version 3.6.5
  * @since   2.3.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_Formula extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.5.6
+	 * @version 3.6.5
 	 * @since   2.3.0
 	 * @todo    [next] (desc) Examples: add more examples
 	 * @todo    [later] (desc) Examples: add link to site ("Check plugin site for more examples")
@@ -78,6 +78,7 @@ class Alg_WC_MPPU_Settings_Formula extends Alg_WC_MPPU_Settings_Section {
 								'user_id',
 								'user_role',
 								'membership_plan',
+								'memberpress_plan_id',
 								'payment_method',
 								'product_id',
 								'term_id',

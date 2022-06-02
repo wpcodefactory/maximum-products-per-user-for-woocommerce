@@ -1,8 +1,8 @@
 <?php
 /**
- * Maximum Products per User for WooCommerce - Multi-language
+ * Maximum Products per User for WooCommerce - Multi-language.
  *
- * @version 3.5.9
+ * @version 3.6.5
  * @since   3.5.0
  * @author  WPFactory
  */
@@ -38,7 +38,7 @@ class Alg_WC_MPPU_Multi_Language {
 	/**
 	 * polylang.
 	 *
-	 * @version 3.5.0
+	 * @version 3.6.5
 	 * @since   3.5.0
 	 * @see     https://polylang.wordpress.com/documentation/documentation-for-developers/functions-reference/
 	 * @see     https://wordpress.stackexchange.com/questions/302550/get-the-id-of-the-default-language-equivalent-page-in-polylang
@@ -52,8 +52,8 @@ class Alg_WC_MPPU_Multi_Language {
 		// Get product or term ID
 		return ( $this->default_language ?
 			( $is_product ?
-				( function_exists( 'pll_get_post' ) ? pll_get_post( $product_or_term_id, $this->default_language ) : $product_or_term_id ) :
-				( function_exists( 'pll_get_term' ) ? pll_get_term( $product_or_term_id, $this->default_language ) : $product_or_term_id )
+				( function_exists( 'pll_get_post' ) && is_int( $translated_post_id = pll_get_post( $product_or_term_id, $this->default_language ) ) ? $translated_post_id : $product_or_term_id ) :
+				( function_exists( 'pll_get_term' ) && is_int( $translated_term_id = pll_get_term( $product_or_term_id, $this->default_language ) ) ? $translated_term_id : $product_or_term_id )
 			) :
 			$product_or_term_id
 		);

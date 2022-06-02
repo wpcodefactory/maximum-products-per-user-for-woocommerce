@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 3.6.4
+ * @version 3.6.5
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -1129,7 +1129,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * check_quantities_for_product.
 	 *
-	 * @version 3.6.1
+	 * @version 3.6.5
 	 * @since   2.0.0
 	 * @todo    [maybe] add `alg_wc_mppu_check_quantities_for_product_product_id` filter?
 	 */
@@ -1159,15 +1159,15 @@ class Alg_WC_MPPU_Core {
 		// Dynamic values
 		$parent_product_id  = $this->get_parent_product_id( wc_get_product( $_product_id ) );
 		$use_parent         = ( $parent_product_id != $_product_id && ! $this->do_use_variations( $parent_product_id ) );
-		$product_id         = ( ! $use_parent ? $_product_id : $parent_product_id );
+		$product_id         = $maybe_translated_product_id = ( ! $use_parent ? $_product_id : $parent_product_id );
 		$cart_item_quantity = ( ! $use_parent ? $_cart_item_quantity : $this->get_cart_item_quantity_by_parent( $_product_id, $_cart_item_quantity, $cart_item_quantities, $parent_product_id ) );
 		$cart_item_quantity = apply_filters( 'alg_wc_mppu_cart_item_amount', $cart_item_quantity );
 		if ( $get_product_id_from_main_language ) {
-			$product_id = apply_filters( 'alg_wc_mppu_data_product_or_term_id', $product_id, true );
+			$maybe_translated_product_id = apply_filters( 'alg_wc_mppu_data_product_or_term_id', $product_id, true );
 		}
 		$args               = array_merge( $args, array(
 			'parent_product_id'  => $parent_product_id,    // can be the same as product ID (for non-variable products)
-			'product_id'         => $product_id,           // product or (maybe) parent ID
+			'product_id'         => $maybe_translated_product_id, // product or (maybe) parent ID
 			'cart_item_quantity' => $cart_item_quantity,   // product or (maybe) parent cart qty
 		) );
 		// Maybe exclude products
@@ -1179,14 +1179,14 @@ class Alg_WC_MPPU_Core {
 		if (
 			$args['check_guest_blocking']
 			&& empty( $current_user_id )
-			&& $this->is_product_blocked_for_guests( $product_id )
+			&& $this->is_product_blocked_for_guests( $maybe_translated_product_id )
 		) {
 			return apply_filters( 'alg_wc_mppu_check_quantities_for_product', false, $this, $args );
 		}
 		// Block - default mechanism
 		if ( 'yes' === apply_filters( 'alg_wc_mppu_local_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( array( 'type' => 'per_product', 'product_or_term_id' => $product_id, 'user_id' => $current_user_id ) ) ) ) {
 			// Per product
-			$bought_data         = $this->get_user_already_bought_qty( $product_id, $current_user_id, true );
+			$bought_data         = $this->get_user_already_bought_qty( $maybe_translated_product_id, $current_user_id, true );
 			$user_already_bought = $bought_data['bought'];
 			if ( ( $user_already_bought + $cart_item_quantity ) > $max_qty ) {
 				if ( $do_add_notices ) {
@@ -1244,7 +1244,7 @@ class Alg_WC_MPPU_Core {
 					( 'yes' === get_option( 'alg_wc_mppu_formula_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( array( 'type' => 'formula', 'user_id' => $current_user_id ) ) ) )
 				)
 			) {
-				$bought_data         = $this->get_user_already_bought_qty( $product_id, $current_user_id, true );
+				$bought_data         = $this->get_user_already_bought_qty( $maybe_translated_product_id, $current_user_id, true );
 				$user_already_bought = $bought_data['bought'];
 				if ( ( $user_already_bought + $cart_item_quantity ) > $max_qty ) {
 					if ( $do_add_notices ) {
