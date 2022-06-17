@@ -7,5 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'Expression' => $vendorDir . '/optimistex/math-expression/expression.php',
+    'ExpressionStack' => $vendorDir . '/optimistex/math-expression/expression.php',
     'WPFactory\\Promoting_Notice\\Core' => $vendorDir . '/wpfactory/wpfactory-promoting-notice/src/php/class-core.php',
 );

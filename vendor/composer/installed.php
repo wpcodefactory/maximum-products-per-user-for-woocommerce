@@ -1,33 +1,41 @@
-<?php return array (
-  'root' => 
-  array (
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
-    'aliases' => 
-    array (
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => '0926f8545f9310f85180e2159d1a336c1e38a6a6',
+        'name' => '__root__',
+        'dev' => true,
     ),
-    'reference' => 'c222d019b0e130502e067f47f8d87e7a2908eb41',
-    'name' => '__root__',
-  ),
-  'versions' => 
-  array (
-    '__root__' => 
-    array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'c222d019b0e130502e067f47f8d87e7a2908eb41',
+    'versions' => array(
+        '__root__' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => '0926f8545f9310f85180e2159d1a336c1e38a6a6',
+            'dev_requirement' => false,
+        ),
+        'optimistex/math-expression' => array(
+            'pretty_version' => '2.2.0',
+            'version' => '2.2.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../optimistex/math-expression',
+            'aliases' => array(),
+            'reference' => '744a301532109637b827315a0bd6c46e6c43b672',
+            'dev_requirement' => false,
+        ),
+        'wpfactory/wpfactory-promoting-notice' => array(
+            'pretty_version' => '1.0.5',
+            'version' => '1.0.5.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../wpfactory/wpfactory-promoting-notice',
+            'aliases' => array(),
+            'reference' => '4d248f9ec4755fe6a8fc5ac0e67a098ac6e01f37',
+            'dev_requirement' => false,
+        ),
     ),
-    'wpfactory/wpfactory-promoting-notice' => 
-    array (
-      'pretty_version' => '1.0.5',
-      'version' => '1.0.5.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '4d248f9ec4755fe6a8fc5ac0e67a098ac6e01f37',
-    ),
-  ),
 );

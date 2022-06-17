@@ -181,6 +181,14 @@ class Alg_WC_MPPU_Settings_Frontend extends Alg_WC_MPPU_Settings_Section {
 				'alg_wc_mppu_raw' => true,
 			),
 			array(
+				'title'    => __( 'Condition', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => __( 'The condition to display the message.', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Ex:', 'maximum-products-per-user-for-woocommerce' ) . ' ' . '<code>%remaining% == 0</code>',
+				'id'       => 'alg_wc_mppu_permanent_notice_condition',
+				'default'  => '',
+				'type'     => 'text',
+			),
+			array(
 				'title'             => __( 'Variations', 'maximum-products-per-user-for-woocommerce' ),
 				'desc'              => __( 'Show limit message for variations', 'maximum-products-per-user-for-woocommerce' ),
 				'desc_tip'          => sprintf( __( 'Probably you\'d like to have %s option enabled.', 'maximum-products-per-user-for-woocommerce' ), '"' . __( 'General > Use variations', 'maximum-products-per-user-for-woocommerce' ) . '"' ),

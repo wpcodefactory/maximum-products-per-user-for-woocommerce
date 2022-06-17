@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 3.6.5
+ * @version 3.6.6
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -923,7 +923,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_notice_placeholders.
 	 *
-	 * @version 3.5.0
+	 * @version 3.6.6
 	 * @since   3.1.1
 	 * @todo    [next] `%product_title%`: `get_the_title( $product_id )`?
 	 */
@@ -953,6 +953,7 @@ class Alg_WC_MPPU_Core {
 			'%first_order_date_exp_timeleft%'        => $this->get_first_order_date_exp( $bought_data['first_order_date'], $bought_data['date_range'], true ),
 			'%payment_method_title%'                 => $this->get_chosen_payment_method_title(),
 		), $product_id, $limit, $bought_data, $in_cart_plus_adding, $adding, $term );
+		return $this->placeholders;
 	}
 
 	/**

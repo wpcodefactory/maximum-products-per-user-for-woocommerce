@@ -10,14 +10,32 @@ class ComposerStaticInit4a7c3ec4b46031d59a01972b3fe86ee0
         '20872bbaff0e3115cc7db5ab4a7d607e' => __DIR__ . '/..' . '/wpfactory/wpfactory-promoting-notice/src/php/functions.php',
     );
 
+    public static $prefixLengthsPsr4 = array (
+        'o' => 
+        array (
+            'optimistex\\expression\\' => 22,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'optimistex\\expression\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/optimistex/math-expression',
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Expression' => __DIR__ . '/..' . '/optimistex/math-expression/expression.php',
+        'ExpressionStack' => __DIR__ . '/..' . '/optimistex/math-expression/expression.php',
         'WPFactory\\Promoting_Notice\\Core' => __DIR__ . '/..' . '/wpfactory/wpfactory-promoting-notice/src/php/class-core.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4a7c3ec4b46031d59a01972b3fe86ee0::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4a7c3ec4b46031d59a01972b3fe86ee0::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit4a7c3ec4b46031d59a01972b3fe86ee0::$classMap;
 
         }, null, ClassLoader::class);

@@ -1,0 +1,42 @@
+{
+  "name": "optimistex/math-expression",
+  "version": "2.2.0",
+  "type": "library",
+  "description": "Taken from http://www.phpclasses.org/browse/file/11680.html, cred to Miles Kaufmann",
+  "keywords": [
+    "math",
+    "expression",
+    "math expression",
+    "module"
+  ],
+  "homepage": "https://github.com/optimistex/math-expression",
+  "license": "MIT",
+  "support": {
+    "issues": "https://github.com/optimistex/math-expression/issues"
+  },
+  "authors": [
+    {
+      "name": "optimistex",
+      "email": "optimistex@gmail.com"
+    },
+    {
+      "name": "jcubic"
+    }
+  ],
+  "autoload": {
+    "classmap": [
+      "expression.php"
+    ],
+    "psr-4": {
+      "optimistex\\expression\\": ""
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "2.1.x-dev"
+    }
+  },
+  "require": {
+    "php": "^5.4 || >=7.0 <8.1"
+  }
+}

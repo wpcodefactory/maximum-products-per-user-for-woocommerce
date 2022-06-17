@@ -6,7 +6,8 @@
     }
   ],
   "require": {
-    "wpfactory/wpfactory-promoting-notice": "*"
+    "wpfactory/wpfactory-promoting-notice": "*",
+    "optimistex/math-expression":"*"
   },
   "config": {
     "preferred-install": "dist"

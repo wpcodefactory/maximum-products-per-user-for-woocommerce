@@ -1,8 +1,8 @@
 <?php
 /**
- * Maximum Products per User for WooCommerce - Shortcodes
+ * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 3.6.2
+ * @version 3.6.6
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -127,19 +127,25 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * current_product_limit_shortcode.
 	 *
-	 * @version 3.6.2
+	 * @version 3.6.6
 	 * @since   2.5.1
 	 * @todo    [later] different (customizable) message depending on `$remaining`
 	 */
 	function current_product_limit_shortcode( $atts, $content = '' ) {
 		$atts = shortcode_atts( array(
-			'product_id'                  => get_the_ID(),
-			'output_template'             => '<span class="alg-wc-mppu-current-product-limit">{output_msg}</span>',
+			'product_id'                 => get_the_ID(),
+			'msg_template'               => get_option( 'alg_wc_mppu_permanent_notice_message', __( "The remaining amount for %product_title% is %remaining% (you've already bought %bought% out of %limit%).", 'maximum-products-per-user-for-woocommerce' ) ),
+			'condition'                  => get_option( 'alg_wc_mppu_permanent_notice_condition', '' ),
+			'output_template'            => '<span class="alg-wc-mppu-current-product-limit">{msg_template}</span>',
 			'empty_msg_removes_template' => false
 		), $atts, 'alg_wc_mppu_current_product_limit' );
 		$product_id = $atts['product_id'];
+		if ( ! is_a( wc_get_product( $product_id ), 'WC_Product' ) ) {
+			return '';
+		}
 		$user_id    = $this->get_user_id( $atts );
 		$output_msg='';
+		$placeholders=array();
 		if ( $product_id && $user_id ) {
 			$limit = alg_wc_mppu()->core->get_max_qty_for_product( $product_id );
 			if ( $limit ) {
@@ -170,7 +176,7 @@ class Alg_WC_MPPU_Shortcodes {
 								$_cart_item_quantity, $cart_item_quantities, $_limit_data['term_id'], $_limit_data['taxonomy'] );
 						}
 						$term = get_term_by( 'id', $_limit_data['term_id'], $_limit_data['taxonomy'] );
-						alg_wc_mppu()->core->get_notice_placeholders( $product_id, $_limit_data['max_qty'], $_bought_data, $cart_item_quantity, 0, $term );
+						$placeholders = alg_wc_mppu()->core->get_notice_placeholders( $product_id, $_limit_data['max_qty'], $_bought_data, $cart_item_quantity, 0, $term );
 					}
 				} else {
 					// Products
@@ -182,19 +188,28 @@ class Alg_WC_MPPU_Shortcodes {
 							$_cart_item_quantity, $cart_item_quantities, $parent_product_id ) );
 					}
 					$bought_data = alg_wc_mppu()->core->get_user_already_bought_qty( $product_id, $user_id, true );
-					alg_wc_mppu()->core->get_notice_placeholders( $product_id, $limit, $bought_data, $cart_item_quantity, 0, false );
+					$placeholders = alg_wc_mppu()->core->get_notice_placeholders( $product_id, $limit, $bought_data, $cart_item_quantity, 0, false );
 				}
 				// Final message
-				$template = ( isset( $atts['template'] ) ? $atts['template'] : get_option( 'alg_wc_mppu_permanent_notice_message',
-					__( "The remaining amount for %product_title% is %remaining% (you've already bought %bought% out of %limit%).", 'maximum-products-per-user-for-woocommerce' ) ) );
+				$template = $atts['msg_template'];
 				$message = alg_wc_mppu()->core->apply_placeholders( $template );
 				$output_msg = $message;
 			}
 		}
+		// Hide message if condition is wrong.
+		if (
+			! empty( $atts['condition'] ) &&
+			! empty( $condition = str_replace( array_keys( $placeholders ), $placeholders, $atts['condition'] ) ) &&
+			is_a( $e = new \optimistex\expression\MathExpression(), 'optimistex\expression\MathExpression' ) &&
+			false === filter_var( $e->evaluate( $condition ), FILTER_VALIDATE_BOOLEAN )
+		) {
+			$output_msg = false;
+		}
+		// Return message.
 		if ( empty( $output_msg ) && $atts['empty_msg_removes_template'] ) {
 			return $output_msg;
 		} else {
-			return str_replace( '{output_msg}', $output_msg, $atts['output_template'] );
+			return str_replace( '{msg_template}', $output_msg, $atts['output_template'] );
 		}
 	}
 
