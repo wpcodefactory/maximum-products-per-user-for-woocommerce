@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 3.6.6
+ * @version 3.6.7
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -34,7 +34,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.6.4
+	 * @version 3.6.7
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -76,6 +76,7 @@ class Alg_WC_MPPU_Core {
 			}
 			// Hide products
 			add_filter( 'woocommerce_product_is_visible', array( $this, 'product_visibility' ), PHP_INT_MAX, 2 );
+			add_filter( 'the_posts', array( $this, 'remove_products_from_search_results' ), PHP_INT_MAX, 2 );
 			// Single product page
 			switch ( get_option( 'alg_wc_mppu_permanent_notice', 'no' ) ) {
 				case 'yes':
@@ -246,7 +247,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * product_visibility.
 	 *
-	 * @version 3.5.3
+	 * @version 3.6.7
 	 * @since   3.4.0
 	 * @todo    [next] (fix) `Showing all X results` (try filtering `product_visibility` taxonomy) (already tried `woocommerce_product_get_catalog_visibility` filter (returning `hidden`) - didn't help)
 	 * @todo    [next] add option to count current `$cart_item_quantities` as well (i.e. pass `$cart_item_quantities` as 6th param in `check_quantities_for_product()`, and `$cart_item_quantities[ $product_id ] + 1` instead of `1`)
@@ -269,13 +270,68 @@ class Alg_WC_MPPU_Core {
 		}
 		if (
 			'yes' === get_option( 'alg_wc_mppu_hide_guest_blocked_products', 'no' )
-			&& 'by_limit_options' === get_option( 'alg_wc_mppu_block_guests_method', 'all_products' )
 			&& ! is_user_logged_in()
 			&& $this->is_product_blocked_for_guests( $product_id )
 		) {
 			return false;
 		}
 		return $visible;
+	}
+
+	/**
+	 * remove_products_from_search_results.
+	 *
+	 * @version 3.6.7
+	 * @since   3.6.7
+	 *
+	 * @param $posts
+	 * @param $query
+	 *
+	 * @return array
+	 */
+	function remove_products_from_search_results( $posts, $query ) {
+		if ( ! $query->is_search() || empty( $search = $query->get( 's' ) ) ) {
+			return $posts;
+		}
+		$keys_to_remove = array();
+		// Select products to remove for logged in users.
+		if (
+			'yes' === get_option( 'alg_wc_mppu_hide_products', 'no' ) &&
+			is_user_logged_in() &&
+			( $current_user_id = $this->get_current_user_id() )
+		) {
+			foreach ( $posts as $i => $post ) {
+				if ( 'product' === get_post_type( $post ) ) {
+					if ( ! $this->check_quantities_for_product( $post->ID, array(
+						'_cart_item_quantity' => 1,
+						'do_add_notices'      => false,
+						'current_user_id'     => $current_user_id
+					) ) ) {
+						$keys_to_remove[] = $i;
+					}
+				}
+			}
+		}
+		// Select products to remove for guest users.
+		if (
+			'yes' === get_option( 'alg_wc_mppu_hide_guest_blocked_products', 'no' )
+			&& ! is_user_logged_in()
+		) {
+			$keys_to_remove = array();
+			foreach ( $posts as $i => $post ) {
+				if ( 'product' === get_post_type( $post ) ) {
+					if ( $this->is_product_blocked_for_guests( $post->ID ) ) {
+						$keys_to_remove[] = $i;
+					}
+				}
+			}
+		}
+		// Remove products.
+		if ( ! empty( $keys_to_remove ) ) {
+			$posts = array_diff_key( $posts, array_flip( $keys_to_remove ) );
+			sort( $posts, SORT_NUMERIC );
+		}
+		return $posts;
 	}
 
 	/**
@@ -1502,6 +1558,81 @@ class Alg_WC_MPPU_Core {
 	 */
 	public function get_error_messages() {
 		return $this->error_messages;
+	}
+
+	/**
+	 * get_orders_data_products_from_user.
+	 *
+	 * @version 3.6.7
+	 * @since   3.6.7
+	 *
+	 * @param null $args
+	 *
+	 * @return array
+	 */
+	function get_orders_data_products_from_user( $args = null ) {
+		$args = wp_parse_args( $args, array(
+			'user_id' => $this->get_current_user_id()
+		) );
+		global $wpdb;
+		$user_id     = intval( $args['user_id'] );
+		$sql         = $wpdb->prepare( "
+			SELECT post_id FROM {$wpdb->postmeta} 
+			WHERE meta_key = '_alg_wc_mppu_orders_data' 
+			AND meta_value REGEXP %s
+			", 'i:' . $user_id . ';a:[0-9]+:{i:[0-9]+;a:[0-9]+:' );
+		$product_ids = $wpdb->get_col( $sql );
+		return $product_ids;
+	}
+
+	/**
+	 * get_minus_1_limit_formulas.
+	 *
+	 * @version 3.6.7
+	 * @since   3.6.7
+	 *
+	 * @return array
+	 */
+	function get_minus_1_limit_formulas() {
+		$formulas       = get_option( 'alg_wc_mppu_formula', '' );
+		$formulas       = array_map( 'trim', explode( PHP_EOL, $formulas ) );
+		$found_formulas = array();
+		foreach ( $formulas as $formula ) {
+			if ( false !== strpos( $formula, 'limit="-1"' ) ) {
+				$found_formulas[] = $formula;
+			}
+		}
+		return $found_formulas;
+	}
+
+	/**
+	 * get_ids_from_formulas.
+	 *
+	 * @version 3.6.7
+	 * @since   3.6.7
+	 *
+	 * @param null $args
+	 *
+	 * @return array
+	 */
+	function get_ids_from_formulas( $args = null ) {
+		$args        = wp_parse_args( $args, array(
+			'parameter' => 'product_id',
+			'formulas'  => $this->get_minus_1_limit_formulas()
+		) );
+		$parameter   = $args['parameter'];
+		$formulas    = $args['formulas'];
+		$product_ids = array();
+		foreach ( $formulas as $formula ) {
+			if (
+				preg_match( '/' . $parameter . '=["\'](.*?)["\']/i', $formula, $result ) &&
+				2 === count( $result )
+			) {
+				$product_ids = array_merge( $product_ids, array_map( 'trim', explode( ',', $result[1] ) ) );
+			}
+		}
+		$product_ids = array_unique( $product_ids );
+		return $product_ids;
 	}
 
 }

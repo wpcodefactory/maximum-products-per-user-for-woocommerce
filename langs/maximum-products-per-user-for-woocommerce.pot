@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Maximum Products per User for WooCommerce 3.6.6\n"
+"Project-Id-Version: Maximum Products per User for WooCommerce 3.6.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-06-17T23:17:26+02:00\n"
+"POT-Creation-Date: 2022-07-11T23:25:57+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -49,18 +49,18 @@ msgstr ""
 msgid "Order processed: %d."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:642
-#: includes/settings/class-alg-wc-mppu-settings-general.php:257
+#: includes/class-alg-wc-mppu-core.php:698
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:88
 msgid "You need to register to buy products."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1006
+#: includes/class-alg-wc-mppu-core.php:1062
 #: includes/class-alg-wc-mppu-shortcodes.php:46
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:108
 msgid "You can only buy maximum %limit% of %product_title% (you've already bought %bought%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1007
+#: includes/class-alg-wc-mppu-core.php:1063
 #: includes/class-alg-wc-mppu-shortcodes.php:47
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:109
 msgid "You can only buy maximum %limit% of %product_title%."
@@ -140,8 +140,8 @@ msgstr ""
 
 #: includes/class-alg-wc-mppu-reports.php:113
 #: includes/class-alg-wc-mppu-reports.php:133
-#: includes/class-alg-wc-mppu-shortcodes.php:286
-#: includes/class-alg-wc-mppu-shortcodes.php:358
+#: includes/class-alg-wc-mppu-shortcodes.php:287
+#: includes/class-alg-wc-mppu-shortcodes.php:359
 msgid "Bought"
 msgstr ""
 
@@ -175,27 +175,27 @@ msgstr ""
 msgid "The remaining amount for %product_title% is %remaining% (you've already bought %bought% out of %limit%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:284
+#: includes/class-alg-wc-mppu-shortcodes.php:285
 #: includes/class-alg-wc-mppu-users.php:276
 msgid "Product"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:285
-#: includes/class-alg-wc-mppu-shortcodes.php:357
+#: includes/class-alg-wc-mppu-shortcodes.php:286
+#: includes/class-alg-wc-mppu-shortcodes.php:358
 msgid "Remaining"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:287
-#: includes/class-alg-wc-mppu-shortcodes.php:359
+#: includes/class-alg-wc-mppu-shortcodes.php:288
+#: includes/class-alg-wc-mppu-shortcodes.php:360
 msgid "Max"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:292
-#: includes/class-alg-wc-mppu-shortcodes.php:364
+#: includes/class-alg-wc-mppu-shortcodes.php:293
+#: includes/class-alg-wc-mppu-shortcodes.php:365
 msgid "No data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:356
+#: includes/class-alg-wc-mppu-shortcodes.php:357
 #: includes/class-alg-wc-mppu-users.php:308
 msgid "Term"
 msgstr ""
@@ -280,8 +280,6 @@ msgstr ""
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:47
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:83
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:90
-#: includes/settings/class-alg-wc-mppu-settings-general.php:177
-#: includes/settings/class-alg-wc-mppu-settings-general.php:201
 #: includes/settings/class-alg-wc-mppu-settings-limits.php:45
 #: includes/settings/class-alg-wc-mppu-settings-limits.php:88
 #: includes/settings/class-alg-wc-mppu-settings-limits.php:109
@@ -391,7 +389,7 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-advanced.php:113
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:106
-#: includes/settings/class-alg-wc-mppu-settings-general.php:200
+#: includes/settings/class-alg-wc-mppu-settings-general.php:199
 msgid "Count by current payment method"
 msgstr ""
 
@@ -475,7 +473,7 @@ msgid "You need to enable \"%s\" checkbox in \"%s\" section to use %s attributes
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:96
-#: includes/settings/class-alg-wc-mppu-settings-general.php:240
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:71
 #: includes/settings/class-alg-wc-mppu-settings-limits.php:87
 msgid "Per product"
 msgstr ""
@@ -499,19 +497,19 @@ msgid "You need to enable \"%s\" checkbox in \"%s\" section to use %s attribute.
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:109
-#: includes/settings/class-alg-wc-mppu-settings-general.php:203
+#: includes/settings/class-alg-wc-mppu-settings-general.php:201
 msgid "You may also want to disable \"%s\" and \"%s\" options in the \"%s\" section, so your customer could change the payment method on exceeded limits."
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:110
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:68
-#: includes/settings/class-alg-wc-mppu-settings-general.php:204
+#: includes/settings/class-alg-wc-mppu-settings-general.php:202
 msgid "Validate on add to cart"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:111
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:132
-#: includes/settings/class-alg-wc-mppu-settings-general.php:205
+#: includes/settings/class-alg-wc-mppu-settings-general.php:203
 msgid "Block checkout page"
 msgstr ""
 
@@ -598,7 +596,7 @@ msgstr ""
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:103
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:175
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:244
-#: includes/settings/class-alg-wc-mppu-settings-general.php:253
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:84
 msgid "You can use HTML and/or shortcodes here."
 msgstr ""
 
@@ -606,7 +604,7 @@ msgstr ""
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:176
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:226
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:245
-#: includes/settings/class-alg-wc-mppu-settings-general.php:254
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:85
 msgid "E.g.: %s."
 msgstr ""
 
@@ -952,219 +950,218 @@ msgid "User roles"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-general.php:176
-msgid "Set different limits for different user roles."
+msgid "Set different limits for different user roles"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:183
+#: includes/settings/class-alg-wc-mppu-settings-general.php:182
 msgid "Enabled user roles"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:184
+#: includes/settings/class-alg-wc-mppu-settings-general.php:183
 msgid "Select user roles for which you want to set different limits. If empty, then all user roles will be added to the settings."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:192
-#: includes/settings/class-alg-wc-mppu-settings-general.php:298
+#: includes/settings/class-alg-wc-mppu-settings-general.php:191
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:129
 msgid "Hide products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:193
+#: includes/settings/class-alg-wc-mppu-settings-general.php:192
 msgid "Hides products with exceeded limits for the current user from the catalog and search results. Products will still be accessible via the direct links."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:194
+#: includes/settings/class-alg-wc-mppu-settings-general.php:193
 msgid "Hide products with exceeded limits"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:202
-msgid "Count \"user already bought\" data for current (i.e. chosen) payment method only."
+#: includes/settings/class-alg-wc-mppu-settings-general.php:200
+msgid "Count \"user already bought\" data for current (i.e. chosen) payment method only"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:212
-#: includes/settings/class-alg-wc-mppu-settings-general.php:234
+#: includes/settings/class-alg-wc-mppu-settings-general.php:217
+#: includes/settings/class-alg-wc-mppu-settings-general.php:222
+#: includes/settings/class-alg-wc-mppu-settings-general.php:224
+msgid "Multi-language"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:223
+msgid "Use the default language product/term ID instead of the translated one."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:230
+msgid "Disabled"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:231
+msgid "WPML"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:232
+msgid "Polylang"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:236
+msgid "Limit checking"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:237
+msgid "Use product ID from default language when checking product limits"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:264
+#: includes/settings/class-alg-wc-mppu-settings-general.php:270
+#: includes/settings/class-alg-wc-mppu-settings-general.php:281
+msgid "Orders above limits"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:266
+msgid "Let users place orders that do not respect the limits."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:271
+msgid "Allow users to place orders with exceeding limits"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:272
+msgid "Notices regarding limit issues will not be displayed as errors on checkout."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:279
+msgid "Order status"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:280
+msgid "Change status from newly placed orders above limits"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:281
+msgid "Order status will only be changed if %s option is enabled."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:291
+msgid "Status used on orders above limits."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:299
+msgid "Custom order status label."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:301
+msgid "Above limit"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:24
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:44
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:65
 msgid "Guests"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:213
-msgid "Sets how non-logged users (i.e. guests) should be handled by the plugin."
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:38
+msgid "Guest users options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:218
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:40
+msgid "Options regarding how non-logged users (i.e. guests) should be handled by the plugin."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:49
 msgid "Do nothing (i.e. do not track guests sales)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:219
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:50
 msgid "Do nothing but block guests from purchasing products beyond the limits"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:220
-#: includes/settings/class-alg-wc-mppu-settings-general.php:232
-#: includes/settings/class-alg-wc-mppu-settings-general.php:234
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:51
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:63
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:65
 msgid "Block guests from buying products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:221
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:52
 msgid "Identify guests by IP address"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:234
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:65
 msgid "This whole section will only make sense if %s option is set as %s."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:238
-#: includes/settings/class-alg-wc-mppu-settings-general.php:299
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:69
 msgid "Block method"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:239
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:70
 msgid "Choose \"%s\" if you want to block guests from buying specific products."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:239
-#: includes/settings/class-alg-wc-mppu-settings-general.php:247
-#: includes/settings/class-alg-wc-mppu-settings-general.php:299
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:70
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:78
 #: includes/settings/class-alg-wc-mppu-settings-per-product.php:173
 #: includes/settings/class-alg-wc-mppu-settings-per-term.php:54
 msgid "According to limit options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:240
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:71
 msgid "In that case it will be necessary to enable the %s option on the product or taxonomy page after activating %s or %s options."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:240
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:71
 #: includes/settings/class-alg-wc-mppu-settings-per-product.php:167
 #: includes/settings/class-alg-wc-mppu-settings-per-term.php:54
 msgid "Block guests"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:240
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:71
 msgid "Per product taxonomy"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:246
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:77
 #: includes/settings/class-alg-wc-mppu-settings-limits.php:39
 msgid "All Products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:252
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:83
 msgid "Block message"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:262
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:93
 msgid "Add to cart text"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:263
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:94
 msgid "Change add to cart button text from blocked products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:271
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:102
 msgid "Change add to cart button text from blocked variations"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:278
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:109
 msgid "Custom add to cart button text"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:280
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:111
 msgid "Login to purchase"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:284
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:115
 msgid "Add to cart redirect"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:285
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:116
 msgid "Redirect after clicking on an add to cart button from a blocked product"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:292
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:123
 msgid "Redirect URL"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:299
-msgid "Hides only if %s option is set as %s"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:300
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:130
 msgid "Hides products from the catalog and search results. Products will still be accessible via the direct links."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:301
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:131
 msgid "Hide products blocked from guest users"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:314
-#: includes/settings/class-alg-wc-mppu-settings-general.php:319
-#: includes/settings/class-alg-wc-mppu-settings-general.php:321
-msgid "Multi-language"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:320
-msgid "Use the default language product/term ID instead of the translated one."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:327
-msgid "Disabled"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:328
-msgid "WPML"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:329
-msgid "Polylang"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:333
-msgid "Limit checking"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:334
-msgid "Use product ID from default language when checking product limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:361
-#: includes/settings/class-alg-wc-mppu-settings-general.php:367
-#: includes/settings/class-alg-wc-mppu-settings-general.php:378
-msgid "Orders above limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:363
-msgid "Let users place orders that do not respect the limits."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:368
-msgid "Allow users to place orders with exceeding limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:369
-msgid "Notices regarding limit issues will not be displayed as errors on checkout."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:376
-msgid "Order status"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:377
-msgid "Change status from newly placed orders above limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:378
-msgid "Order status will only be changed if %s option is enabled."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:388
-msgid "Status used on orders above limits."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:396
-msgid "Custom order status label."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:398
-msgid "Above limit"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-limits.php:24
@@ -1349,36 +1346,36 @@ msgstr ""
 msgid "Enable if you want to try to lower the time of the meta data removal by running it in a background process."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:59
+#: includes/settings/class-alg-wc-mppu-settings.php:60
 msgid "Maximum Products per User for WooCommerce Pro"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:60
+#: includes/settings/class-alg-wc-mppu-settings.php:61
 msgid "Disabled options can be unlocked using <a href=\"%pro_version_url%\" target=\"_blank\"><strong>%pro_version_title%</strong></a>"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:61
+#: includes/settings/class-alg-wc-mppu-settings.php:62
 msgid "Upgrade to Pro version"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:89
+#: includes/settings/class-alg-wc-mppu-settings.php:90
 msgid "Reset Settings"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:94
+#: includes/settings/class-alg-wc-mppu-settings.php:95
 msgid "Reset section settings"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:95
+#: includes/settings/class-alg-wc-mppu-settings.php:96
 msgid "Reset"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:96
+#: includes/settings/class-alg-wc-mppu-settings.php:97
 msgid "Check the box and save changes to reset."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:124
-#: includes/settings/class-alg-wc-mppu-settings.php:139
+#: includes/settings/class-alg-wc-mppu-settings.php:125
+#: includes/settings/class-alg-wc-mppu-settings.php:140
 msgid "Your settings have been reset."
 msgstr ""
 

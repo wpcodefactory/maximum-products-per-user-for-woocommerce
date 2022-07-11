@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 3.6.6
+ * @version 3.6.7
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -127,7 +127,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * current_product_limit_shortcode.
 	 *
-	 * @version 3.6.6
+	 * @version 3.6.7
 	 * @since   2.5.1
 	 * @todo    [later] different (customizable) message depending on `$remaining`
 	 */
@@ -199,6 +199,7 @@ class Alg_WC_MPPU_Shortcodes {
 		// Hide message if condition is wrong.
 		if (
 			! empty( $atts['condition'] ) &&
+			! empty( $placeholders ) &&
 			! empty( $condition = str_replace( array_keys( $placeholders ), $placeholders, $atts['condition'] ) ) &&
 			is_a( $e = new \optimistex\expression\MathExpression(), 'optimistex\expression\MathExpression' ) &&
 			false === filter_var( $e->evaluate( $condition ), FILTER_VALIDATE_BOOLEAN )

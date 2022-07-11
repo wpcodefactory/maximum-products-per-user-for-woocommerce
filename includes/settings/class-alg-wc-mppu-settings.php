@@ -1,8 +1,8 @@
 <?php
 /**
- * Maximum Products per User for WooCommerce - Settings
+ * Maximum Products per User for WooCommerce - Settings.
  *
- * @version 3.6.0
+ * @version 3.6.7
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_MPPU_Settings extends WC_Settings_Page {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.6.0
+	 * @version 3.6.7
 	 * @since   1.0.0
 	 */
 	function __construct() {
@@ -27,6 +27,7 @@ class Alg_WC_MPPU_Settings extends WC_Settings_Page {
 		// Sections
 		require_once( 'class-alg-wc-mppu-settings-section.php' );
 		require_once( 'class-alg-wc-mppu-settings-general.php' );
+		require_once( 'class-alg-wc-mppu-settings-guests.php' );
 		require_once( 'class-alg-wc-mppu-settings-limits.php' );
 		require_once( 'class-alg-wc-mppu-settings-formula.php' );
 		require_once( 'class-alg-wc-mppu-settings-frontend.php' );

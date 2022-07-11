@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin, algoritmika, anbinder
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
 Tested up to: 6.0
-Stable tag: 3.6.6
+Stable tag: 3.6.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,12 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 3.6.7 - 11/07/2022 =
+* Fix - Frontend - Product limit message - PHP Warning is displayed for guests.
+* Fix - General - Hide products - Products do not get hidden from search results.
+* Dev - Guests - Hide products - Hide on search results.
+* Dev - Move guest options to a new section.
 
 = 3.6.6 - 17/06/2022 =
 * Fix - Shortcodes - Change `[alg_wc_mppu_current_product_limit]` shortcode param from 'template' to 'msg_template'.
