@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Maximum Products per User for WooCommerce 3.6.7\n"
+"Project-Id-Version: Maximum Products per User for WooCommerce 3.6.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-07-11T23:25:57+02:00\n"
+"POT-Creation-Date: 2022-07-21T23:58:08+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -49,19 +49,19 @@ msgstr ""
 msgid "Order processed: %d."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:698
+#: includes/class-alg-wc-mppu-core.php:707
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:88
 msgid "You need to register to buy products."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1062
-#: includes/class-alg-wc-mppu-shortcodes.php:46
+#: includes/class-alg-wc-mppu-core.php:1071
+#: includes/class-alg-wc-mppu-shortcodes.php:50
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:108
 msgid "You can only buy maximum %limit% of %product_title% (you've already bought %bought%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1063
-#: includes/class-alg-wc-mppu-shortcodes.php:47
+#: includes/class-alg-wc-mppu-core.php:1072
+#: includes/class-alg-wc-mppu-shortcodes.php:51
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:109
 msgid "You can only buy maximum %limit% of %product_title%."
 msgstr ""
@@ -140,8 +140,8 @@ msgstr ""
 
 #: includes/class-alg-wc-mppu-reports.php:113
 #: includes/class-alg-wc-mppu-reports.php:133
-#: includes/class-alg-wc-mppu-shortcodes.php:287
-#: includes/class-alg-wc-mppu-shortcodes.php:359
+#: includes/class-alg-wc-mppu-shortcodes.php:305
+#: includes/class-alg-wc-mppu-shortcodes.php:433
 msgid "Bought"
 msgstr ""
 
@@ -166,36 +166,36 @@ msgstr ""
 msgid "Orders Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:117
+#: includes/class-alg-wc-mppu-shortcodes.php:121
 msgid "The remaining amount is %remaining% (you've already bought %bought% out of %limit%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:137
+#: includes/class-alg-wc-mppu-shortcodes.php:141
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:178
 msgid "The remaining amount for %product_title% is %remaining% (you've already bought %bought% out of %limit%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:285
+#: includes/class-alg-wc-mppu-shortcodes.php:303
 #: includes/class-alg-wc-mppu-users.php:276
 msgid "Product"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:286
-#: includes/class-alg-wc-mppu-shortcodes.php:358
+#: includes/class-alg-wc-mppu-shortcodes.php:304
+#: includes/class-alg-wc-mppu-shortcodes.php:432
 msgid "Remaining"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:288
-#: includes/class-alg-wc-mppu-shortcodes.php:360
+#: includes/class-alg-wc-mppu-shortcodes.php:306
+#: includes/class-alg-wc-mppu-shortcodes.php:434
 msgid "Max"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:293
-#: includes/class-alg-wc-mppu-shortcodes.php:365
+#: includes/class-alg-wc-mppu-shortcodes.php:311
+#: includes/class-alg-wc-mppu-shortcodes.php:439
 msgid "No data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:357
+#: includes/class-alg-wc-mppu-shortcodes.php:431
 #: includes/class-alg-wc-mppu-users.php:308
 msgid "Term"
 msgstr ""
@@ -388,7 +388,7 @@ msgid "Enabling this may make \"user already bought\" data calculations faster, 
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-advanced.php:113
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:106
+#: includes/settings/class-alg-wc-mppu-settings-formula.php:107
 #: includes/settings/class-alg-wc-mppu-settings-general.php:199
 msgid "Count by current payment method"
 msgstr ""
@@ -464,72 +464,72 @@ msgstr ""
 msgid "Available shortcode attributes: %s."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:92
+#: includes/settings/class-alg-wc-mppu-settings-formula.php:93
 msgid "%s attribute is required."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:95
+#: includes/settings/class-alg-wc-mppu-settings-formula.php:96
 msgid "You need to enable \"%s\" checkbox in \"%s\" section to use %s attributes."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:96
+#: includes/settings/class-alg-wc-mppu-settings-formula.php:97
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:71
 #: includes/settings/class-alg-wc-mppu-settings-limits.php:87
 msgid "Per product"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:100
+#: includes/settings/class-alg-wc-mppu-settings-formula.php:101
 msgid "You need to enable \"%s\" and/or \"%s\" checkbox in \"%s\" section to use %s attribute."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:101
+#: includes/settings/class-alg-wc-mppu-settings-formula.php:102
 #: includes/settings/class-alg-wc-mppu-settings-limits.php:117
 msgid "Per product category"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:101
+#: includes/settings/class-alg-wc-mppu-settings-formula.php:102
 #: includes/settings/class-alg-wc-mppu-settings-limits.php:108
 msgid "Per product tag"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:105
+#: includes/settings/class-alg-wc-mppu-settings-formula.php:106
 msgid "You need to enable \"%s\" checkbox in \"%s\" section to use %s attribute."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:109
+#: includes/settings/class-alg-wc-mppu-settings-formula.php:110
 #: includes/settings/class-alg-wc-mppu-settings-general.php:201
 msgid "You may also want to disable \"%s\" and \"%s\" options in the \"%s\" section, so your customer could change the payment method on exceeded limits."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:110
+#: includes/settings/class-alg-wc-mppu-settings-formula.php:111
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:68
 #: includes/settings/class-alg-wc-mppu-settings-general.php:202
 msgid "Validate on add to cart"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:111
+#: includes/settings/class-alg-wc-mppu-settings-formula.php:112
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:132
 #: includes/settings/class-alg-wc-mppu-settings-general.php:203
 msgid "Block checkout page"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:114
+#: includes/settings/class-alg-wc-mppu-settings-formula.php:115
 msgid "You can not use %s (or %s) and %s simultaneously in one shortcode."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:119
+#: includes/settings/class-alg-wc-mppu-settings-formula.php:120
 msgid "You can set shortcode effective date(s) with %s (and %s) attributes."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:132
+#: includes/settings/class-alg-wc-mppu-settings-formula.php:133
 msgid "Examples"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:135
+#: includes/settings/class-alg-wc-mppu-settings-formula.php:136
 msgid "Sets maximum limit to %s for users %s and %s."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:138
+#: includes/settings/class-alg-wc-mppu-settings-formula.php:139
 msgid "Sets maximum limit to %s for products %s and %s for users %s and %s."
 msgstr ""
 

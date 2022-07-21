@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 3.6.7
+ * @version 3.6.8
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -75,8 +75,8 @@ class Alg_WC_MPPU_Core {
 				}
 			}
 			// Hide products
-			add_filter( 'woocommerce_product_is_visible', array( $this, 'product_visibility' ), PHP_INT_MAX, 2 );
-			add_filter( 'the_posts', array( $this, 'remove_products_from_search_results' ), PHP_INT_MAX, 2 );
+			//add_filter( 'woocommerce_product_is_visible', array( $this, 'product_visibility' ), PHP_INT_MAX, 2 );
+			add_filter( 'the_posts', array( $this, 'remove_products_from_catalog' ), PHP_INT_MAX, 2 );
 			// Single product page
 			switch ( get_option( 'alg_wc_mppu_permanent_notice', 'no' ) ) {
 				case 'yes':
@@ -279,9 +279,9 @@ class Alg_WC_MPPU_Core {
 	}
 
 	/**
-	 * remove_products_from_search_results.
+	 * remove_products_from_catalog.
 	 *
-	 * @version 3.6.7
+	 * @version 3.6.8
 	 * @since   3.6.7
 	 *
 	 * @param $posts
@@ -289,13 +289,18 @@ class Alg_WC_MPPU_Core {
 	 *
 	 * @return array
 	 */
-	function remove_products_from_search_results( $posts, $query ) {
-		if ( ! $query->is_search() || empty( $search = $query->get( 's' ) ) ) {
-			return $posts;
+	function remove_products_from_catalog( $posts, $query ) {
+		$can_remove = false;
+		if (
+			! is_admin() ||
+			( isset( $_POST['action'] ) && 'is_ajax_load_posts' === $_POST['action'] )
+		) {
+			$can_remove = true;
 		}
 		$keys_to_remove = array();
 		// Select products to remove for logged in users.
 		if (
+			$can_remove &&
 			'yes' === get_option( 'alg_wc_mppu_hide_products', 'no' ) &&
 			is_user_logged_in() &&
 			( $current_user_id = $this->get_current_user_id() )
@@ -314,6 +319,7 @@ class Alg_WC_MPPU_Core {
 		}
 		// Select products to remove for guest users.
 		if (
+			$can_remove &&
 			'yes' === get_option( 'alg_wc_mppu_hide_guest_blocked_products', 'no' )
 			&& ! is_user_logged_in()
 		) {
@@ -327,9 +333,12 @@ class Alg_WC_MPPU_Core {
 			}
 		}
 		// Remove products.
-		if ( ! empty( $keys_to_remove ) ) {
+		if (
+			$can_remove &&
+			! empty( $keys_to_remove )
+		) {
 			$posts = array_diff_key( $posts, array_flip( $keys_to_remove ) );
-			sort( $posts, SORT_NUMERIC );
+			$posts = array_values( $posts );
 		}
 		return $posts;
 	}

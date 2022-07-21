@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin, algoritmika, anbinder
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
 Tested up to: 6.0
-Stable tag: 3.6.7
+Stable tag: 3.6.8
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,16 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 3.6.8 - 21/07/2022 =
+* Dev - Formula - Add `swpm_membership_id` param to `[alg_wc_mppu]` shortcode, adding compatibility to the [WordPress Membership Plugin](https://simple-membership-plugin.com/).
+* Dev - Shortcodes - Add `bought_value` parameter to `[alg_wc_mppu_user_product_limits]` shortcode. Possible values: `smart`, `per_product`. Default value set as `smart`.
+* Dev - Shortcodes - Add `show_unbought` parameter to `[alg_wc_mppu_user_product_limits]` shortcode. Default is `true`.
+* Dev - Shortcodes - Add `show_unbought` parameter to `[alg_wc_mppu_user_terms_limits]` shortcode. Default is `true`.
+* Dev - Shortcodes - Add `alg_wc_mppu_user_product_limits_item_validation` filter to `[alg_wc_mppu_user_product_limits]` shortcode.
+* Dev - Shortcodes - Add `alg_wc_mppu_user_terms_limits_item_validation` filter to `[alg_wc_mppu_user_terms_limits]` shortcode.
+* Dev - Guests - Hide products - Improve hiding.
+* WC tested up to: 6.7.
 
 = 3.6.7 - 11/07/2022 =
 * Fix - Frontend - Product limit message - PHP Warning is displayed for guests.

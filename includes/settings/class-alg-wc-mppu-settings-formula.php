@@ -80,6 +80,7 @@ class Alg_WC_MPPU_Settings_Formula extends Alg_WC_MPPU_Settings_Section {
 								'membership_plan',
 								'memberpress_plan_id',
 								'sumo_membership_plan',
+								'swpm_membership_id',
 								'payment_method',
 								'product_id',
 								'term_id',

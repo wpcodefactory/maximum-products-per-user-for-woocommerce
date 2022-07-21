@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 3.6.7
+ * @version 3.6.8
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -16,19 +16,23 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.5.7
+	 * @version 3.6.8
 	 * @since   2.5.0
 	 */
 	function __construct() {
-		add_shortcode( 'alg_wc_mppu_translate',                array( $this, 'language_shortcode' ) );
-		add_shortcode( 'alg_wc_mppu_user_product_limits',      array( $this, 'user_product_limits_shortcode' ) );
-		add_shortcode( 'alg_wc_mppu_user_terms_limits',        array( $this, 'user_terms_limits_shortcode' ) );
-		add_shortcode( 'alg_wc_mppu_user_product_quantities',  array( $this, 'user_product_limits_shortcode' ) );   // deprecated
-		add_shortcode( 'alg_wc_mppu_current_product_limit',    array( $this, 'current_product_limit_shortcode' ) );
+		add_shortcode( 'alg_wc_mppu_translate', array( $this, 'language_shortcode' ) );
+		add_shortcode( 'alg_wc_mppu_user_product_quantities', array( $this, 'user_product_limits_shortcode' ) );   // deprecated
+		add_shortcode( 'alg_wc_mppu_current_product_limit', array( $this, 'current_product_limit_shortcode' ) );
 		add_shortcode( 'alg_wc_mppu_current_product_quantity', array( $this, 'current_product_limit_shortcode' ) ); // deprecated
-		add_shortcode( 'alg_wc_mppu_term_limit',               array( $this, 'term_limit_shortcode' ) );
-		add_shortcode( 'alg_wc_mppu_placeholder',              array( $this, 'placeholder' ) );
-		add_shortcode( 'alg_wc_mppu_customer_msg',             array( $this, 'customer_msg_shortcode' ) );
+		add_shortcode( 'alg_wc_mppu_term_limit', array( $this, 'term_limit_shortcode' ) );
+		add_shortcode( 'alg_wc_mppu_placeholder', array( $this, 'placeholder' ) );
+		add_shortcode( 'alg_wc_mppu_customer_msg', array( $this, 'customer_msg_shortcode' ) );
+		// User product limits.
+		add_shortcode( 'alg_wc_mppu_user_product_limits', array( $this, 'user_product_limits_shortcode' ) );
+		add_filter( 'alg_wc_mppu_user_product_limits_item_validation', array( $this, 'hide_unbought_user_product_limits_table_items' ), 10, 2 );
+		// User terms limits.
+		add_shortcode( 'alg_wc_mppu_user_terms_limits', array( $this, 'user_terms_limits_shortcode' ) );
+		add_filter('alg_wc_mppu_user_terms_limits_item_validation', array( $this, 'hide_unbought_user_terms_limits_table_items' ), 10, 2 );
 	}
 
 	/**
@@ -217,7 +221,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * user_product_limits_shortcode.
 	 *
-	 * @version 3.5.9
+	 * @version 3.6.8
 	 * @since   2.5.0
 	 * @todo    [later] customizable content: use `alg_wc_mppu()->core->get_notice_placeholders()`
 	 * @todo    [later] customizable: columns, column order, column titles, table styling, "No data" text, (maybe) sorting
@@ -226,8 +230,11 @@ class Alg_WC_MPPU_Shortcodes {
 	function user_product_limits_shortcode( $atts, $content = '' ) {
 		$atts = shortcode_atts( array(
 			'user_id'             => alg_wc_mppu()->core->get_current_user_id(),
-			'hide_products_by_id' => ''
+			'hide_products_by_id' => '',
+			'bought_value'        => 'smart', // per_product | smart
+			'show_unbought'       => 'true'
 		), $atts, 'alg_wc_mppu_user_product_limits' );
+		$bought_value = $atts['bought_value'];
 		// Get user ID
 		$user_id = $this->get_user_id( $atts );
 		if ( ! $user_id ) {
@@ -237,6 +244,7 @@ class Alg_WC_MPPU_Shortcodes {
 		$output     = '';
 		$block_size = 1024;
 		$offset     = 0;
+		$_output    = '';
 		while ( true ) {
 			$args = array(
 				'post_type'      => ( 'yes' === get_option( 'alg_wc_mppu_use_variations', 'no' ) ? array( 'product', 'product_variation' ) : 'product' ),
@@ -255,7 +263,8 @@ class Alg_WC_MPPU_Shortcodes {
 			foreach ( $loop->posts as $product_id ) {
 				$max_qty = alg_wc_mppu()->core->get_max_qty_for_product( $product_id );
 				if ( $max_qty ) {
-					if ( is_array( $max_qty ) ) {
+					$bought_data = false;
+					if ( is_array( $max_qty ) && 'smart' === $bought_value ) {
 						// Terms
 						$_remaining = PHP_INT_MAX;
 						foreach ( $max_qty as $_max_qty ) {
@@ -267,14 +276,23 @@ class Alg_WC_MPPU_Shortcodes {
 								$_output    = sprintf( '<td>%s</td><td>%s</td><td>%s</td>', max( $remaining, 0 ), $user_already_bought, max( $_max_qty['max_qty'], 0 ) );
 							}
 						}
-					} else {
+					} elseif ( 'per_product' === $bought_value ) {
 						// Products
 						$bought_data         = alg_wc_mppu()->core->get_user_already_bought_qty( $product_id, $user_id, true );
 						$user_already_bought = $bought_data['bought'];
+						$max_qty             = is_array( $max_qty ) ? min( wp_list_pluck( $max_qty, 'max_qty' ) ) : $max_qty;
 						$remaining           = $max_qty - $user_already_bought;
 						$_output             = sprintf( '<td>%s</td><td>%s</td><td>%s</td>', max( $remaining, 0 ), $user_already_bought, max( $max_qty, 0 ) );
 					}
-					$output .= '<tr><td>' . '<a href="' . get_the_permalink( $product_id ) . '">' . get_the_title( $product_id ) . '</a>' . '</td>' . $_output . '</tr>';
+					if ( apply_filters( 'alg_wc_mppu_user_product_limits_item_validation', true, array(
+						'sc_atts'     => $atts,
+						'product_id'  => $product_id,
+						'user_id'     => $user_id,
+						'bought_data' => $bought_data,
+						'max_qty'     => $max_qty
+					) ) ) {
+						$output .= '<tr><td>' . '<a href="' . get_the_permalink( $product_id ) . '">' . get_the_title( $product_id ) . '</a>' . '</td>' . $_output . '</tr>';
+					}
 				}
 			}
 			$offset += $block_size;
@@ -295,9 +313,55 @@ class Alg_WC_MPPU_Shortcodes {
 	}
 
 	/**
+	 * hide_user_product_limits_table_row.
+	 *
+	 * @version 3.6.8
+	 * @since   3.6.8
+	 *
+	 * @param $show
+	 * @param $args
+	 *
+	 * @return bool
+	 */
+	function hide_unbought_user_product_limits_table_items( $show, $args ) {
+		if (
+			false === filter_var( $args['sc_atts']['show_unbought'], FILTER_VALIDATE_BOOLEAN ) &&
+			( $user_id = $args['user_id'] ) &&
+			( $product_id = $args['product_id'] )
+		) {
+			$bought_data         = alg_wc_mppu()->core->get_user_already_bought_qty( $product_id, $user_id, true );
+			$user_already_bought = $bought_data['bought'];
+			$show                = $user_already_bought > 0;
+		}
+		return $show;
+	}
+
+	/**
+	 * hide_unbought_user_terms_limits_table_items.
+	 *
+	 * @version 3.6.8
+	 * @since   3.6.8
+	 *
+	 * @param $show
+	 * @param $args
+	 *
+	 * @return bool
+	 */
+	function hide_unbought_user_terms_limits_table_items( $show, $args ){
+		if (
+			false === filter_var( $args['sc_atts']['show_unbought'], FILTER_VALIDATE_BOOLEAN ) &&
+			( $bought_data = $args['bought_data'] )
+		) {
+			$user_already_bought = $bought_data['bought'];
+			$show                = $user_already_bought > 0;
+		}
+		return $show;
+	}
+
+	/**
 	 * user_terms_limits_shortcode.
 	 *
-	 * @version 3.6.0
+	 * @version 3.6.8
 	 * @since   3.5.7
 	 *
 	 * @param $atts
@@ -309,8 +373,9 @@ class Alg_WC_MPPU_Shortcodes {
 		if ( ! $atts ) {
 			$atts = array();
 		}
-		$atts     = shortcode_atts( array(
-			'taxonomy' => 'product_cat',
+		$atts = shortcode_atts( array(
+			'taxonomy'      => 'product_cat',
+			'show_unbought' => 'true'
 		), $atts, 'alg_wc_mppu_user_terms_limits' );
 		$taxonomy = $atts['taxonomy'];
 		// Get user ID
@@ -346,7 +411,16 @@ class Alg_WC_MPPU_Shortcodes {
 					$user_already_bought = $bought_data['bought'];
 					$remaining           = $max_qty - $user_already_bought;
 					$_output             = sprintf( '<td>%s</td><td>%s</td><td>%s</td>', max( $remaining, 0 ), $user_already_bought, max( $max_qty, 0 ) );
-					$output              .= '<tr><td>' . '<a href="' . get_term_link( $term_id, $taxonomy ) . '">' . $term->name . '</a>' . '</td>' . $_output . '</tr>';
+					if ( apply_filters( 'alg_wc_mppu_user_terms_limits_item_validation', true, array(
+						'sc_atts'     => $atts,
+						'taxonomy'    => $taxonomy,
+						'term'        => $term,
+						'user_id'     => $user_id,
+						'bought_data' => $bought_data,
+						'max_qty'     => $max_qty
+					) ) ) {
+						$output .= '<tr><td>' . '<a href="' . get_term_link( $term_id, $taxonomy ) . '">' . $term->name . '</a>' . '</td>' . $_output . '</tr>';
+					}
 				}
 			}
 			$offset += $block_size;
