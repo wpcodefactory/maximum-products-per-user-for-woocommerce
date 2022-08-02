@@ -2,7 +2,7 @@
 /**
  * Order Minimum Amount for WooCommerce - Compatibility Settings.
  *
- * @version 3.6.0
+ * @version 3.6.9
  * @since   3.6.0
  *
  * @author  WPFactory
@@ -29,7 +29,7 @@ if ( ! class_exists( 'Alg_WC_MPU_Settings_Compatibility' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 3.6.0
+		 * @version 3.6.9
 		 * @since   3.6.0
 		 */
 		function get_settings() {
@@ -53,9 +53,27 @@ if ( ! class_exists( 'Alg_WC_MPU_Settings_Compatibility' ) ) :
 					'id'   => 'alg_wc_mppu_pos_wc_options',
 				),
 			);
-			return array_merge(
-				$prod_bundle_opts, array()
+			$wpc_composite_opts = array(
+				array(
+					'title' => __( 'WPC Composite Products', 'order-minimum-amount-for-woocommerce' ),
+					'type'  => 'title',
+					'desc'  => sprintf( __( 'Compatibility with %s plugin.', 'order-minimum-amount-for-woocommerce' ), sprintf( '<a href="%s" target="_blank">%s</a>', 'https://wordpress.org/plugins/wpc-composite-products/', __( 'WPC Composite Products for WooCommerce', 'order-minimum-amount-for-woocommerce' ) ) ),
+					'id'    => 'alg_wc_mppu_wpccp_options',
+				),
+				array(
+					'title'             => __( 'Add to cart text', 'order-minimum-amount-for-woocommerce' ),
+					'desc'              => __( 'Change add to cart button text from blocked guest user products', 'order-minimum-amount-for-woocommerce' ),
+					'id'                => 'alg_wc_mppu_wpccp_change_add_to_cart_btn_text_from_guest_users',
+					'default'           => 'no',
+					'type'              => 'checkbox',
+					'custom_attributes' => apply_filters( 'alg_wc_mppu_settings', array( 'disabled' => 'disabled' ) ),
+				),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'alg_wc_mppu_wpccp_options',
+				),
 			);
+			return array_merge( $prod_bundle_opts, $wpc_composite_opts );
 		}
 	}
 

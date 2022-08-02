@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 3.6.8
+ * @version 3.6.9
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -221,7 +221,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * user_product_limits_shortcode.
 	 *
-	 * @version 3.6.8
+	 * @version 3.6.9
 	 * @since   2.5.0
 	 * @todo    [later] customizable content: use `alg_wc_mppu()->core->get_notice_placeholders()`
 	 * @todo    [later] customizable: columns, column order, column titles, table styling, "No data" text, (maybe) sorting
@@ -276,7 +276,7 @@ class Alg_WC_MPPU_Shortcodes {
 								$_output    = sprintf( '<td>%s</td><td>%s</td><td>%s</td>', max( $remaining, 0 ), $user_already_bought, max( $_max_qty['max_qty'], 0 ) );
 							}
 						}
-					} elseif ( 'per_product' === $bought_value ) {
+					} elseif ( ! is_array( $max_qty ) || 'per_product' === $bought_value ) {
 						// Products
 						$bought_data         = alg_wc_mppu()->core->get_user_already_bought_qty( $product_id, $user_id, true );
 						$user_already_bought = $bought_data['bought'];

@@ -74,8 +74,8 @@ class Alg_WC_MPPU_Core {
 					add_action( 'woocommerce_init', array( $this, 'block_guest_add_to_cart_ajax_error' ), PHP_INT_MAX );
 				}
 			}
-			// Hide products
-			//add_filter( 'woocommerce_product_is_visible', array( $this, 'product_visibility' ), PHP_INT_MAX, 2 );
+			// Hide products.
+			add_filter( 'woocommerce_product_is_visible', array( $this, 'product_visibility' ), PHP_INT_MAX, 2 );
 			add_filter( 'the_posts', array( $this, 'remove_products_from_catalog' ), PHP_INT_MAX, 2 );
 			// Single product page
 			switch ( get_option( 'alg_wc_mppu_permanent_notice', 'no' ) ) {
@@ -320,6 +320,7 @@ class Alg_WC_MPPU_Core {
 		// Select products to remove for guest users.
 		if (
 			$can_remove &&
+			! is_singular() && // Remove or comment to hide it even on direct links.
 			'yes' === get_option( 'alg_wc_mppu_hide_guest_blocked_products', 'no' )
 			&& ! is_user_logged_in()
 		) {

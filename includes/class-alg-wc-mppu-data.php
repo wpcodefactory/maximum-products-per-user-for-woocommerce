@@ -529,7 +529,7 @@ class Alg_WC_MPPU_Data {
 										isset( $users_quantities[ $user_id ] ) &&
 										apply_filters( 'alg_wc_mppu_totals_data_increase_qty', true, $user_id, $product_or_term_id, $is_product )
 									) {
-										$total_product_qty += $users_quantities[ $user_id ];
+										$total_product_qty += (int) $users_quantities[ $user_id ];
 									}
 								} else {
 									// Delete
