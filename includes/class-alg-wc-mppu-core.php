@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 3.6.8
+ * @version 3.7.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -30,6 +30,24 @@ class Alg_WC_MPPU_Core {
 	 * @var Alg_WC_MPPU_Data
 	 */
 	public $data;
+
+	/**
+	 * Time offset.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @var string
+	 */
+	public $time_offset = null;
+
+	/**
+	 * user_already_bought_qty.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @var array
+	 */
+	public $user_already_bought_qty_cache = array();
 
 	/**
 	 * Constructor.
@@ -111,6 +129,8 @@ class Alg_WC_MPPU_Core {
 			require_once( 'class-alg-wc-mppu-modes.php' );
 			// Multi-language
 			$this->multilanguage = require_once( 'class-alg-wc-mppu-multi-language.php' );
+			// Compensate date to check
+			add_filter( 'alg_wc_mppu_date_to_check', array( $this, 'compensate_date_to_check_time' ), 900 );
 		}
 		// Hook msg shortcode
 		add_filter( 'shortcode_atts_' . 'alg_wc_mppu_customer_msg', array( $this, 'filter_customer_message_shortcode' ) );
@@ -120,6 +140,38 @@ class Alg_WC_MPPU_Core {
 		do_action( 'alg_wc_mppu_core_loaded', $this );
 		// Background process
 		add_action( 'plugins_loaded', array( $this, 'init_bkg_process' ), 9 );
+	}
+
+	/**
+	 * get_time_offset.
+	 *
+	 * @version 3.7.0
+	 * @since   3.7.0
+	 *
+	 * @return mixed|string|void
+	 */
+	function get_time_offset() {
+		if ( is_null( $this->time_offset ) ) {
+			$this->time_offset = get_option( 'alg_wc_mppu_time_offset', '' );
+		}
+		return $this->time_offset;
+	}
+
+	/**
+	 * compensate_date_to_check_time.
+	 *
+	 * @version 3.7.0
+	 * @since   3.7.0
+	 *
+	 * @param $date
+	 *
+	 * @return false|int
+	 */
+	function compensate_date_to_check_time( $date ) {
+		if ( ! empty( $time_offset = $this->get_time_offset() ) ) {
+			$date = strtotime( $time_offset, $date );
+		}
+		return $date;
 	}
 
 	/**
@@ -875,7 +927,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_user_already_bought_qty.
 	 *
-	 * @version 3.5.0
+	 * @version 3.7.0
 	 * @since   2.0.0
 	 * @todo    [next] completely remove separate `lifetime` calculation (i.e. `$this->do_get_lifetime_from_totals` always `false`)
 	 * @todo    [maybe] add option to use e.g. order date completed (instead of `date_created`)
@@ -886,34 +938,48 @@ class Alg_WC_MPPU_Core {
 		$first_order_date    = false;
 		$first_order_amount  = false;
 		$date_range          = ( false === $date_range ? $this->get_date_range( $product_or_term_id, $is_product ) : $date_range );
-		if ( $this->do_get_lifetime_from_totals && 'lifetime' === $date_range ) {
-			$users_quantities = $this->get_post_or_term_meta( ( $is_product ? 'product' : 'term' ), $product_or_term_id, '_alg_wc_mppu_totals_data' );
-			if ( $users_quantities && isset( $users_quantities[ $current_user_id ] ) ) {
-				$user_already_bought = $users_quantities[ $current_user_id ];
-			}
-		} else {
-			$users_quantities = $this->get_post_or_term_meta( ( $is_product ? 'product' : 'term' ), $product_or_term_id, '_alg_wc_mppu_orders_data' );
-			if ( $users_quantities && isset( $users_quantities[ $current_user_id ] ) ) {
-				foreach ( $users_quantities[ $current_user_id ] as $order_id => $order_data ) {
-					$order_date = $this->get_order_date( $order_data['date_created'] );
-					if (
-						$this->check_order_date_range( $order_date, $date_range, $product_or_term_id, $current_user_id, $is_product ) &&
-						apply_filters( 'alg_wc_mppu_user_already_bought_do_count_order', true, $order_id, $order_data )
-					) {
-						$user_already_bought += $order_data['qty'];
-						if ( false === $first_order_date || $order_date < $first_order_date ) {
-							$first_order_date   = $order_date;
-							$first_order_amount = $order_data['qty'];
+		$cached_obj_name     = md5( maybe_serialize( array(
+			'product_or_term_id' => $product_or_term_id,
+			'current_user_id'    => $current_user_id,
+			'is_product'         => $is_product,
+			'date_range'         => $date_range,
+		) ) );
+		if ( ! isset( $this->user_already_bought_qty_cache[ $cached_obj_name ] ) ) {
+			if ( $this->do_get_lifetime_from_totals && 'lifetime' === $date_range ) {
+				$users_quantities = $this->get_post_or_term_meta( ( $is_product ? 'product' : 'term' ), $product_or_term_id, '_alg_wc_mppu_totals_data' );
+				if ( $users_quantities && isset( $users_quantities[ $current_user_id ] ) ) {
+					$user_already_bought = $users_quantities[ $current_user_id ];
+				}
+			} else {
+				$users_quantities = $this->get_post_or_term_meta( ( $is_product ? 'product' : 'term' ), $product_or_term_id, '_alg_wc_mppu_orders_data' );
+				if ( $users_quantities && isset( $users_quantities[ $current_user_id ] ) ) {
+					foreach ( $users_quantities[ $current_user_id ] as $order_id => $order_data ) {
+						$order_date = $this->get_order_date( $order_data['date_created'] );
+						if (
+							$this->check_order_date_range( $order_date, $date_range, $product_or_term_id, $current_user_id, $is_product ) &&
+							apply_filters( 'alg_wc_mppu_user_already_bought_do_count_order', true, $order_id, $order_data )
+						) {
+							$user_already_bought += $order_data['qty'];
+							if ( false === $first_order_date || $order_date < $first_order_date ) {
+								$first_order_date   = $order_date;
+								$first_order_amount = $order_data['qty'];
+							}
 						}
 					}
 				}
 			}
+			$this->user_already_bought_qty_cache[ $cached_obj_name ] = $user_already_bought;
+		} else {
+			$user_already_bought = $this->user_already_bought_qty_cache[ $cached_obj_name ];
 		}
 		return apply_filters( 'alg_wc_mppu_user_already_bought', array(
-			'bought'              => ( $user_already_bought ? $user_already_bought : 0 ),
-			'first_order_date'    => $first_order_date,
-			'first_order_amount'  => $first_order_amount,
-			'date_range'          => $date_range,
+			'bought'             => ( $user_already_bought ? $user_already_bought : 0 ),
+			'first_order_date'   => $first_order_date,
+			'first_order_amount' => $first_order_amount,
+			'date_range'         => $date_range,
+			'product_or_term_id' => $product_or_term_id,
+			'current_user_id'    => $current_user_id,
+			'is_product'         => $is_product
 		) );
 	}
 
@@ -1088,7 +1154,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_cart_item_quantity_by_term.
 	 *
-	 * @version 3.5.0
+	 * @version 3.7.0
 	 * @since   2.0.0
 	 */
 	function get_cart_item_quantity_by_term( $current_product_id, $current_cart_item_quantity, $cart_item_quantities, $current_term_id, $taxonomy ) {
@@ -1104,6 +1170,7 @@ class Alg_WC_MPPU_Core {
 						foreach( $terms as $term ) {
 							if ( $term->term_id === $current_term_id ) {
 								$result += $product_qty;
+								$term_id_amount[ $term->term_id ] = $result;
 								break;
 							}
 						}
@@ -1111,7 +1178,13 @@ class Alg_WC_MPPU_Core {
 				}
 			}
 		}
-		return apply_filters( 'alg_wc_mppu_get_cart_item_amount_by_term', $result );
+		return apply_filters( 'alg_wc_mppu_get_cart_item_amount_by_term', $result, array(
+			'product_id'           => $current_product_id,
+			'cart_item_quantity'   => $current_cart_item_quantity,
+			'cart_item_quantities' => $cart_item_quantities,
+			'term_id'              => $current_term_id,
+			'taxonomy'             => $taxonomy
+		) );
 	}
 
 	/**
@@ -1196,7 +1269,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * check_quantities_for_product.
 	 *
-	 * @version 3.6.5
+	 * @version 3.7.0
 	 * @since   2.0.0
 	 * @todo    [maybe] add `alg_wc_mppu_check_quantities_for_product_product_id` filter?
 	 */
@@ -1228,7 +1301,7 @@ class Alg_WC_MPPU_Core {
 		$use_parent         = ( $parent_product_id != $_product_id && ! $this->do_use_variations( $parent_product_id ) );
 		$product_id         = $maybe_translated_product_id = ( ! $use_parent ? $_product_id : $parent_product_id );
 		$cart_item_quantity = ( ! $use_parent ? $_cart_item_quantity : $this->get_cart_item_quantity_by_parent( $_product_id, $_cart_item_quantity, $cart_item_quantities, $parent_product_id ) );
-		$cart_item_quantity = apply_filters( 'alg_wc_mppu_cart_item_amount', $cart_item_quantity );
+		$cart_item_quantity = apply_filters( 'alg_wc_mppu_cart_item_amount', $cart_item_quantity, array( 'product_id' => $product_id ) );
 		if ( $get_product_id_from_main_language ) {
 			$maybe_translated_product_id = apply_filters( 'alg_wc_mppu_data_product_or_term_id', $product_id, true );
 		}

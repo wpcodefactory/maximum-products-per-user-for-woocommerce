@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Advanced Section Settings.
  *
- * @version 3.6.4
+ * @version 3.7.0
  * @since   2.3.1
  * @author  WPFactory
  */
@@ -61,7 +61,7 @@ class Alg_WC_MPPU_Settings_Advanced extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.6.4
+	 * @version 3.7.0
 	 * @since   2.3.1
 	 * @todo    [maybe] `alg_wc_mppu_time_func`: remove option (i.e. always use local time)?
 	 */
@@ -83,6 +83,14 @@ class Alg_WC_MPPU_Settings_Advanced extends Alg_WC_MPPU_Settings_Section {
 					'time'         => __( 'Coordinated Universal Time (UTC)', 'maximum-products-per-user-for-woocommerce' ),
 					'current_time' => __( 'Local (WordPress) time', 'maximum-products-per-user-for-woocommerce' ),
 				),
+			),
+			array(
+				'title'    => __( 'Time offset', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => sprintf( __( 'Use a <a href="%s" target="_blank">date/time</a> string.', 'maximum-products-per-user-for-woocommerce' ), ' . https://www.php.net/manual/en/function.strtotime.php.' ) . ' ' . __( 'Examples:', 'maximum-products-per-user-for-woocommerce' ) . ' ' . '<code>+2 hours</code>, <code>-2 hours</code>',
+				'desc_tip' => sprintf( __( 'Compensates the time. It\'s used on the %s filter', 'maximum-products-per-user-for-woocommerce' ), '<strong>alg_wc_mppu_date_to_check</strong>' ),
+				'id'       => 'alg_wc_mppu_time_offset',
+				'default'  => '',
+				'type'     => 'text',
 			),
 			array(
 				'title'    => __( 'Exclude products', 'maximum-products-per-user-for-woocommerce' ),

@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Maximum Products per User for WooCommerce 3.6.9\n"
+"Project-Id-Version: Maximum Products per User for WooCommerce 3.7.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-08-02T20:10:48+02:00\n"
+"POT-Creation-Date: 2022-08-16T21:02:33+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -49,18 +49,18 @@ msgstr ""
 msgid "Order processed: %d."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:708
+#: includes/class-alg-wc-mppu-core.php:760
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:88
 msgid "You need to register to buy products."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1072
+#: includes/class-alg-wc-mppu-core.php:1138
 #: includes/class-alg-wc-mppu-shortcodes.php:50
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:108
 msgid "You can only buy maximum %limit% of %product_title% (you've already bought %bought%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1073
+#: includes/class-alg-wc-mppu-core.php:1139
 #: includes/class-alg-wc-mppu-shortcodes.php:51
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:109
 msgid "You can only buy maximum %limit% of %product_title%."
@@ -234,7 +234,7 @@ msgstr ""
 
 #: includes/class-alg-wc-mppu-users.php:277
 #: includes/class-alg-wc-mppu-users.php:309
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:110
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:118
 #: includes/settings/class-alg-wc-mppu-settings-general.php:97
 msgid "Lifetime"
 msgstr ""
@@ -275,8 +275,8 @@ msgid "Editable sales data"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-admin.php:49
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:99
 #: includes/settings/class-alg-wc-mppu-settings-advanced.php:107
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:115
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:47
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:83
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:90
@@ -358,70 +358,86 @@ msgid "Local (WordPress) time"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-advanced.php:88
+msgid "Time offset"
+msgstr ""
+
 #: includes/settings/class-alg-wc-mppu-settings-advanced.php:89
+msgid "Use a <a href=\"%s\" target=\"_blank\">date/time</a> string."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:89
+msgid "Examples:"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:90
+msgid "Compensates the time. It's used on the %s filter"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:96
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:97
 msgid "Exclude products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:98
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:106
 msgid "Duplicate product"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:100
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:108
 msgid "Enable this if you want to copy plugin's product meta data on product \"Duplicate\"."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:106
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:114
 msgid "Lifetime from totals"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:108
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:116
 msgid "Ignored unless \"%s\" is set to \"%s\" in \"%s\" section."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:109
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:117
 #: includes/settings/class-alg-wc-mppu-settings-general.php:91
 msgid "Date range"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:112
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:120
 msgid "Enabling this may make \"user already bought\" data calculations faster, however, it will also disable some functionality, like \"%s\" option in \"%s\" section."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:113
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:121
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:107
 #: includes/settings/class-alg-wc-mppu-settings-general.php:199
 msgid "Count by current payment method"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:127
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:135
 msgid "Background processing"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:132
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:140
 msgid "Minimum amount"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:133
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:141
 msgid "The minimum amount of results from a query in order to trigger a background processing."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:139
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:147
 msgid "Send email"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:140
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:148
 msgid "Send email when a background processing is complete"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:146
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:154
 msgid "Email to."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:147
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:155
 msgid "The email address that is going to receive the email when a background processing task is complete."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:147
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:155
 msgid "Requires the \"Send email\" option enabled in order to work."
 msgstr ""
 
