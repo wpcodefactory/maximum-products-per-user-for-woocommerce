@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 3.6.9
+ * @version 3.7.1
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -30,6 +30,7 @@ class Alg_WC_MPPU_Shortcodes {
 		// User product limits.
 		add_shortcode( 'alg_wc_mppu_user_product_limits', array( $this, 'user_product_limits_shortcode' ) );
 		add_filter( 'alg_wc_mppu_user_product_limits_item_validation', array( $this, 'hide_unbought_user_product_limits_table_items' ), 10, 2 );
+		add_filter( 'alg_wc_mppu_user_product_limits_query_args', array( $this, 'hide_unbought_items_from_user_produce_limits_query' ), 10, 2 );
 		// User terms limits.
 		add_shortcode( 'alg_wc_mppu_user_terms_limits', array( $this, 'user_terms_limits_shortcode' ) );
 		add_filter('alg_wc_mppu_user_terms_limits_item_validation', array( $this, 'hide_unbought_user_terms_limits_table_items' ), 10, 2 );
@@ -221,7 +222,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * user_product_limits_shortcode.
 	 *
-	 * @version 3.6.9
+	 * @version 3.7.1
 	 * @since   2.5.0
 	 * @todo    [later] customizable content: use `alg_wc_mppu()->core->get_notice_placeholders()`
 	 * @todo    [later] customizable: columns, column order, column titles, table styling, "No data" text, (maybe) sorting
@@ -256,6 +257,10 @@ class Alg_WC_MPPU_Shortcodes {
 				'order'          => 'ASC',
 				'fields'         => 'ids',
 			);
+			$args = apply_filters( 'alg_wc_mppu_user_product_limits_query_args', $args, array(
+				'sc_atts' => $atts,
+				'user_id' => $user_id,
+			) );
 			$loop = new WP_Query( $args );
 			if ( ! $loop->have_posts() ) {
 				break;
@@ -334,6 +339,31 @@ class Alg_WC_MPPU_Shortcodes {
 			$show                = $user_already_bought > 0;
 		}
 		return $show;
+	}
+
+	/**
+	 * hide_unbought_items_from_user_produce_limits_query.
+	 *
+	 * @version 3.7.1
+	 * @since   3.7.1
+	 *
+	 * @param $query_args
+	 * @param $args
+	 *
+	 * @return mixed
+	 */
+	function hide_unbought_items_from_user_produce_limits_query( $query_args, $args ) {
+		if ( false === filter_var( $args['sc_atts']['show_unbought'], FILTER_VALIDATE_BOOLEAN ) ) {
+			$meta_query               = isset( $query_args['meta_query'] ) ? $query_args['meta_query'] : array();
+			$new_meta_query           = array(
+				array(
+					'key'     => '_alg_wc_mppu_orders_data',
+					'compare' => 'EXISTS',
+				),
+			);
+			$query_args['meta_query'] = array_merge( $meta_query, $new_meta_query );
+		}
+		return $query_args;
 	}
 
 	/**
