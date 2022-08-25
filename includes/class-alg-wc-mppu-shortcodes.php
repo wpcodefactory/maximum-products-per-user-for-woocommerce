@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 3.7.1
+ * @version 3.7.3
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -21,13 +21,13 @@ class Alg_WC_MPPU_Shortcodes {
 	 */
 	function __construct() {
 		add_shortcode( 'alg_wc_mppu_translate', array( $this, 'language_shortcode' ) );
-		add_shortcode( 'alg_wc_mppu_user_product_quantities', array( $this, 'user_product_limits_shortcode' ) );   // deprecated
 		add_shortcode( 'alg_wc_mppu_current_product_limit', array( $this, 'current_product_limit_shortcode' ) );
 		add_shortcode( 'alg_wc_mppu_current_product_quantity', array( $this, 'current_product_limit_shortcode' ) ); // deprecated
 		add_shortcode( 'alg_wc_mppu_term_limit', array( $this, 'term_limit_shortcode' ) );
 		add_shortcode( 'alg_wc_mppu_placeholder', array( $this, 'placeholder' ) );
 		add_shortcode( 'alg_wc_mppu_customer_msg', array( $this, 'customer_msg_shortcode' ) );
 		// User product limits.
+		add_shortcode( 'alg_wc_mppu_user_product_quantities', array( $this, 'user_product_limits_shortcode' ) );   // deprecated
 		add_shortcode( 'alg_wc_mppu_user_product_limits', array( $this, 'user_product_limits_shortcode' ) );
 		add_filter( 'alg_wc_mppu_user_product_limits_item_validation', array( $this, 'hide_unbought_user_product_limits_table_items' ), 10, 2 );
 		add_filter( 'alg_wc_mppu_user_product_limits_query_args', array( $this, 'hide_unbought_items_from_user_produce_limits_query' ), 10, 2 );
@@ -132,7 +132,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * current_product_limit_shortcode.
 	 *
-	 * @version 3.6.7
+	 * @version 3.7.3
 	 * @since   2.5.1
 	 * @todo    [later] different (customizable) message depending on `$remaining`
 	 */
@@ -145,7 +145,9 @@ class Alg_WC_MPPU_Shortcodes {
 			'empty_msg_removes_template' => false
 		), $atts, 'alg_wc_mppu_current_product_limit' );
 		$product_id = $atts['product_id'];
-		if ( ! is_a( wc_get_product( $product_id ), 'WC_Product' ) ) {
+		if (
+			is_admin() ||
+			! is_a( wc_get_product( $product_id ), 'WC_Product' ) ) {
 			return '';
 		}
 		$user_id    = $this->get_user_id( $atts );
