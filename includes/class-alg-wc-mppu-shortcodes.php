@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 3.7.3
+ * @version 3.7.4
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -132,7 +132,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * current_product_limit_shortcode.
 	 *
-	 * @version 3.7.3
+	 * @version 3.7.4
 	 * @since   2.5.1
 	 * @todo    [later] different (customizable) message depending on `$remaining`
 	 */
@@ -147,6 +147,7 @@ class Alg_WC_MPPU_Shortcodes {
 		$product_id = $atts['product_id'];
 		if (
 			is_admin() ||
+			! WC()->cart ||
 			! is_a( wc_get_product( $product_id ), 'WC_Product' ) ) {
 			return '';
 		}

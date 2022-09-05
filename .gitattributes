@@ -7,3 +7,6 @@ README.md export-ignore
 # Directories
 /.wordpress-org export-ignore
 /.github export-ignore
+
+# GIT - Release version
+/git-tag.sh export-ignore

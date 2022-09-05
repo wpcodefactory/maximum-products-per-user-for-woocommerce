@@ -1,8 +1,8 @@
 <?php
 /**
- * Maximum Products per User for WooCommerce - My Account
+ * Maximum Products per User for WooCommerce - My Account.
  *
- * @version 3.5.4
+ * @version 3.7.4
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -22,6 +22,31 @@ class Alg_WC_MPPU_My_Account {
 	function __construct() {
 		if ( 'yes' === get_option( 'alg_wc_mppu_my_account_enabled', 'no' ) ) {
 			add_action( 'init', array( $this, 'init' ) );
+			add_action( 'init', array( $this, 'flush_rewrite_rules_on_init_after_plugin_activation' ), 20 );
+		}
+		register_activation_hook( alg_wc_mppu()->get_filesystem_path(), array( $this, 'plugin_activation' ) );
+	}
+
+	/**
+	 * plugin_activation.
+	 *
+	 * @version 3.7.4
+	 * @since   3.7.4
+	 */
+	function plugin_activation() {
+		update_option( 'alg_wc_mppu_flush_rewrite_rules', 1 );
+	}
+
+	/**
+	 * flush_rewrite_rules.
+	 *
+	 * @version 3.7.4
+	 * @since   3.7.4
+	 */
+	function flush_rewrite_rules_on_init_after_plugin_activation() {
+		if ( get_option( 'alg_wc_mppu_flush_rewrite_rules' ) ) {
+			flush_rewrite_rules(false);
+			delete_option( 'alg_wc_mppu_flush_rewrite_rules' );
 		}
 	}
 
@@ -34,7 +59,7 @@ class Alg_WC_MPPU_My_Account {
 	function init() {
 		$this->my_account_tab_id = do_shortcode( get_option( 'alg_wc_mppu_my_account_tab_id', 'product-limits' ) );
 		add_filter( 'the_title', array( $this, 'endpoint_title' ) );
-		add_action( 'alg_wc_mppu_after_save_settings', array( $this, 'flush_rewrite_rules' ) );
+		add_action( 'alg_wc_mppu_after_save_settings', array( $this, 'flush_rewrite_rules_on_save_frontend_settings' ) );
 		add_filter( 'query_vars', array( $this, 'query_vars' ), 0 );
 		add_filter( 'woocommerce_account_menu_items', array( $this, 'add_link' ) );
 		add_action( 'woocommerce_account_' . $this->my_account_tab_id . '_endpoint', array( $this, 'content' ) );
@@ -123,10 +148,10 @@ class Alg_WC_MPPU_My_Account {
 	/**
 	 * flush_rewrite_rules.
 	 *
-	 * @version 2.5.0
+	 * @version 3.7.4
 	 * @since   2.5.0
 	 */
-	function flush_rewrite_rules() {
+	function flush_rewrite_rules_on_save_frontend_settings() {
 		global $current_section;
 		if ( $current_section && 'frontend' == $current_section ) {
 			flush_rewrite_rules();

@@ -3,7 +3,7 @@
 Plugin Name: Maximum Products per User for WooCommerce
 Plugin URI: https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/
 Description: Limit number of items your WooCommerce customers can buy (lifetime or in selected date range).
-Version: 3.7.3
+Version: 3.7.4
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: maximum-products-per-user-for-woocommerce
@@ -63,7 +63,7 @@ class Alg_WC_MPPU {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '3.7.3';
+	public $version = '3.7.4';
 
 	/**
 	 * @var   Alg_WC_MPPU The single instance of the class
@@ -229,6 +229,18 @@ class Alg_WC_MPPU {
 	 */
 	function plugin_path() {
 		return untrailingslashit( plugin_dir_path( __FILE__ ) );
+	}
+
+	/**
+	 * get_filesystem_path.
+	 *
+	 * @version 3.7.4
+	 * @since   3.7.4
+	 *
+	 * @return string
+	 */
+	function get_filesystem_path(){
+		return __FILE__;
 	}
 
 }
