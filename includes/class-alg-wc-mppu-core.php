@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 3.7.2
+ * @version 3.7.5
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -1055,7 +1055,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_notice_placeholders.
 	 *
-	 * @version 3.7.2
+	 * @version 3.7.5
 	 * @since   3.1.1
 	 * @todo    [next] `%product_title%`: `get_the_title( $product_id )`?
 	 */
@@ -1077,7 +1077,7 @@ class Alg_WC_MPPU_Core {
 			'%in_cart_plus_adding%'                  => $in_cart_plus_adding,
 			'%bought_plus_in_cart_plus_adding%'      => ( $bought_data['bought'] + $in_cart_plus_adding ),
 			'%remaining_minus_in_cart_minus_adding%' => max( ( $remaining - $in_cart_plus_adding ), 0 ),
-			'%product_title%'                        => $product->get_title(),
+			'%product_title%'                        => method_exists( $product, 'get_name' ) ? $product->get_name() : $product->get_title(),
 			'%term_name%'                            => ( $term ? $term->name : '' ),
 			'%first_order_date%'                     => ( false !== $bought_data['first_order_date'] ? date_i18n( $this->get_date_format(), $bought_data['first_order_date'] ) : '' ),
 			'%first_order_amount%'                   => ( false !== $bought_data['first_order_amount'] ? $bought_data['first_order_amount'] : '' ),
