@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 3.7.5
+ * @version 3.7.6
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -544,7 +544,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_max_qty.
 	 *
-	 * @version 3.6.0
+	 * @version 3.7.6
 	 * @since   1.0.0
 	 * @todo    [later] (feature) `per_product`: add "enabled/disabled" option
 	 * @todo    [later] (feature) `all_products`: apply only to selected products (i.e. include/exclude products, cats, tags)
@@ -558,6 +558,9 @@ class Alg_WC_MPPU_Core {
 		) );
 		$type = $args['type'];
 		$product_or_term_id = $args['product_or_term_id'];
+		if ( alg_wc_mppu()->core->multilanguage->get_product_id_from_main_language() ) {
+			$product_or_term_id = apply_filters( 'alg_wc_mppu_data_product_or_term_id', $product_or_term_id, 'per_product' === $type );
+		}
 		$user_id = $args['user_id'];
 		if ( 0 != ( $max_qty_by_formula = apply_filters( 'alg_wc_mppu_max_qty_by_formula', 0, $type, $product_or_term_id ) ) ) {
 			return apply_filters( 'alg_wc_mppu_get_max_qty', $max_qty_by_formula, $product_or_term_id, $type );
@@ -831,19 +834,19 @@ class Alg_WC_MPPU_Core {
 				$date_to_check = 0;
 				break;
 			case 'this_hour':
-				$date_to_check = strtotime( date( 'Y-m-d H:00:00' ), $current_time );
+				$date_to_check = strtotime( date( 'Y-m-d H:00:00', $current_time ) );
 				break;
 			case 'this_day':
-				$date_to_check = strtotime( date( 'Y-m-d 00:00:00' ), $current_time );
+				$date_to_check = strtotime( date( 'Y-m-d 00:00:00', $current_time ) );
 				break;
 			case 'this_week':
 				$date_to_check = strtotime( 'monday this week', $current_time );
 				break;
 			case 'this_month':
-				$date_to_check = strtotime( date( 'Y-m-01' ), $current_time );
+				$date_to_check = strtotime( date( 'Y-m-01', $current_time ) );
 				break;
 			case 'this_year':
-				$date_to_check = strtotime( date( 'Y-01-01' ), $current_time );
+				$date_to_check = strtotime( date( 'Y-01-01', $current_time ) );
 				break;
 			case 'last_hour':
 				$date_to_check = ( $current_time - HOUR_IN_SECONDS );

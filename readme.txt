@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin, algoritmika, anbinder
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
 Tested up to: 6.0
-Stable tag: 3.7.5
+Stable tag: 3.7.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,11 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 3.7.6 - 03/10/2022 =
+* Fix - General - Multi-language - My account tab is empty on other languages.
+* Fix - General - Date range is not working consistently with some options using "This".
+* WC tested up to: 6.9.
 
 = 3.7.5 - 06/09/2022 =
 * Dev - Improve error message by showing a more relevant product title, including variation names.

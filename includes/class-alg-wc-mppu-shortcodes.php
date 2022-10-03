@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 3.7.4
+ * @version 3.7.6
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -394,7 +394,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * user_terms_limits_shortcode.
 	 *
-	 * @version 3.6.8
+	 * @version 3.7.6
 	 * @since   3.5.7
 	 *
 	 * @param $atts
@@ -432,11 +432,13 @@ class Alg_WC_MPPU_Shortcodes {
 				'order'    => 'ASC',
 				'fields'   => 'all',
 			);
-			$terms = get_terms( $args );
-			if ( empty( $terms ) || is_wp_error( $terms ) ) {
+			$terms = new WP_Term_Query( $args );
+			if ( empty( $terms ) || is_wp_error( $terms ) || empty($terms->terms) ) {
 				break;
 			}
-			foreach ( $terms as $term ) {
+
+
+			foreach ( $terms->terms as $term ) {
 				$term_id = $term->term_id;
 				$max_qty = alg_wc_mppu()->core->get_max_qty( array( 'type' => 'per_term', 'product_or_term_id' => $term_id ) );
 				if ( $max_qty ) {
