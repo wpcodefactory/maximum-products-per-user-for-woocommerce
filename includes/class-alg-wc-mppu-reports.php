@@ -1,8 +1,8 @@
 <?php
 /**
- * Maximum Products per User for WooCommerce - Reports
+ * Maximum Products per User for WooCommerce - Reports.
  *
- * @version 3.5.0
+ * @version 3.7.7
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -93,7 +93,7 @@ class Alg_WC_MPPU_Reports {
 	/**
 	 * get_report_data_table.
 	 *
-	 * @version 3.5.0
+	 * @version 3.7.7
 	 * @since   2.0.0
 	 * @todo    [next] use `alg_wc_mppu()->core->get_date_format()`
 	 */
@@ -103,8 +103,8 @@ class Alg_WC_MPPU_Reports {
 		}
 		// Lifetime
 		$users_quantities = alg_wc_mppu()->core->get_post_or_term_meta( ( $is_product ? 'product' : 'term' ), $product_or_term_id, '_alg_wc_mppu_totals_data' );
-		if ( $users_quantities ) {
-			$table_data = array();
+		if ( $users_quantities && is_array( $users_quantities ) ) {
+			$table_data   = array();
 			$table_data[] = array(
 				__( 'User ID', 'maximum-products-per-user-for-woocommerce' ),
 				__( 'User Name', 'maximum-products-per-user-for-woocommerce' ),
@@ -116,8 +116,10 @@ class Alg_WC_MPPU_Reports {
 				$table_data[] = array( $user_id, $this->get_user_name( $user_id ), '', '', $qty_bought );
 			}
 			echo '<h4>' . __( 'Lifetime Data', 'maximum-products-per-user-for-woocommerce' ) . '</h4>';
-			echo $this->get_table_html( $table_data, array( 'table_class' => 'widefat striped', 'table_heading_type' => 'horizontal',
-				'columns_styles' => array_fill( 0, 5, 'width:20%;' ) ) );
+			echo $this->get_table_html( $table_data, array(
+				'table_class'    => 'widefat striped', 'table_heading_type' => 'horizontal',
+				'columns_styles' => array_fill( 0, 5, 'width:20%;' )
+			) );
 		} else {
 			echo '<em>' . __( 'No data.', 'maximum-products-per-user-for-woocommerce' ) . '</em>';
 		}

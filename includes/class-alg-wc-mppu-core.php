@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 3.7.6
+ * @version 3.7.7
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -1211,7 +1211,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_max_qty_for_product.
 	 *
-	 * @version 3.6.0
+	 * @version 3.7.7
 	 * @since   2.5.0
 	 * @todo    [next] use this inside the `check_quantities_for_product()` function
 	 */
@@ -1248,7 +1248,7 @@ class Alg_WC_MPPU_Core {
 		// All products or Formula (all products)
 		if (
 			( 'yes' === get_option( 'wpjup_wc_maximum_products_per_user_global_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( array( 'type' => 'all_products' ) ) ) ) ||
-			( 'yes' === get_option( 'alg_wc_mppu_formula_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( array( 'type' => 'formula' ) ) ) )
+			( 'yes' === get_option( 'alg_wc_mppu_formula_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( array( 'type' => 'formula', 'product_or_term_id' => $product_id ) ) ) )
 		) {
 			return $max_qty;
 		}

@@ -2,20 +2,21 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: Maximum Products per User for WooCommerce 3.7.6\n"
+"Project-Id-Version: maximum-products-per-user-for-woocommerce 3.7.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-10-04T00:45:15+02:00\n"
+"POT-Creation-Date: 2022-10-26T01:54:55+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
 
 #. Plugin Name of the plugin
-msgid "Maximum Products per User for WooCommerce"
+#: includes/settings/class-alg-wc-mppu-settings.php:60
+msgid "Maximum Products per User for WooCommerce Pro"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -128,18 +129,18 @@ msgid "Product #%d"
 msgstr ""
 
 #: includes/class-alg-wc-mppu-reports.php:109
-#: includes/class-alg-wc-mppu-reports.php:129
+#: includes/class-alg-wc-mppu-reports.php:131
 #: includes/class-alg-wc-mppu-users.php:178
 msgid "User ID"
 msgstr ""
 
 #: includes/class-alg-wc-mppu-reports.php:110
-#: includes/class-alg-wc-mppu-reports.php:130
+#: includes/class-alg-wc-mppu-reports.php:132
 msgid "User Name"
 msgstr ""
 
 #: includes/class-alg-wc-mppu-reports.php:113
-#: includes/class-alg-wc-mppu-reports.php:133
+#: includes/class-alg-wc-mppu-reports.php:135
 #: includes/class-alg-wc-mppu-shortcodes.php:313
 #: includes/class-alg-wc-mppu-shortcodes.php:468
 msgid "Bought"
@@ -149,20 +150,20 @@ msgstr ""
 msgid "Lifetime Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:122
+#: includes/class-alg-wc-mppu-reports.php:124
 msgid "No data."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:131
+#: includes/class-alg-wc-mppu-reports.php:133
 #: includes/class-alg-wc-mppu-users.php:181
 msgid "Order ID"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:132
+#: includes/class-alg-wc-mppu-reports.php:134
 msgid "Order Date"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:146
+#: includes/class-alg-wc-mppu-reports.php:148
 msgid "Orders Data"
 msgstr ""
 
@@ -254,6 +255,17 @@ msgstr ""
 
 #: includes/class-alg-wc-mppu-users.php:348
 msgid "Order #%d<br>(%s)"
+msgstr ""
+
+#: includes/pro/class-alg-wc-mppu-orders-above-limits.php:107
+#: includes/pro/class-alg-wc-mppu-orders-above-limits.php:130
+#: includes/settings/class-alg-wc-mppu-settings-general.php:301
+msgid "Above limit"
+msgstr ""
+
+#: includes/pro/class-alg-wc-mppu-pro.php:287
+#: includes/settings/class-alg-wc-mppu-settings-guests.php:111
+msgid "Login to purchase"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-admin.php:25
@@ -1062,10 +1074,6 @@ msgstr ""
 msgid "Custom order status label."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:301
-msgid "Above limit"
-msgstr ""
-
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:24
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:44
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:65
@@ -1154,10 +1162,6 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:109
 msgid "Custom add to cart button text"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:111
-msgid "Login to purchase"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:115
@@ -1362,10 +1366,6 @@ msgstr ""
 msgid "Enable if you want to try to lower the time of the meta data removal by running it in a background process."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:60
-msgid "Maximum Products per User for WooCommerce Pro"
-msgstr ""
-
 #: includes/settings/class-alg-wc-mppu-settings.php:61
 msgid "Disabled options can be unlocked using <a href=\"%pro_version_url%\" target=\"_blank\"><strong>%pro_version_title%</strong></a>"
 msgstr ""
@@ -1395,6 +1395,6 @@ msgstr ""
 msgid "Your settings have been reset."
 msgstr ""
 
-#: maximum-products-per-user-for-woocommerce.php:186
+#: maximum-products-per-user-for-woocommerce-pro.php:188
 msgid "Go Pro"
 msgstr ""

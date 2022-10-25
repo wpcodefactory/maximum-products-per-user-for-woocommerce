@@ -3,13 +3,13 @@
 Plugin Name: Maximum Products per User for WooCommerce
 Plugin URI: https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/
 Description: Limit number of items your WooCommerce customers can buy (lifetime or in selected date range).
-Version: 3.7.6
+Version: 3.7.7
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: maximum-products-per-user-for-woocommerce
 Domain Path: /langs
 Copyright: © 2022 WPFactory
-WC tested up to: 6.9
+WC tested up to: 7.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
@@ -63,7 +63,7 @@ class Alg_WC_MPPU {
 	 * @var   string
 	 * @since 1.0.0
 	 */
-	public $version = '3.7.6';
+	public $version = '3.7.7';
 
 	/**
 	 * @var   Alg_WC_MPPU The single instance of the class
@@ -180,10 +180,14 @@ class Alg_WC_MPPU {
 	 */
 	function action_links( $links ) {
 		$custom_links = array();
-		$custom_links[] = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_mppu' ) . '">' . __( 'Settings', 'woocommerce' ) . '</a>';
-		if ( 'maximum-products-per-user-for-woocommerce.php' === basename( __FILE__ ) ) {
-			$custom_links[] = '<a target="_blank" style="font-weight: bold; color: green;" href="https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/">' .
-				__( 'Go Pro', 'maximum-products-per-user-for-woocommerce' ) . '</a>';
+		if ( ! in_array( $settings = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_mppu' ) . '">' . __( 'Settings', 'woocommerce' ) . '</a>', $links ) ) {
+			$custom_links[] = '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=alg_wc_mppu' ) . '">' . __( 'Settings', 'woocommerce' ) . '</a>';
+		}
+		if (
+			'maximum-products-per-user-for-woocommerce.php' === basename( __FILE__ ) &&
+			! in_array( $go_pro = '<a target="_blank" style="font-weight: bold; color: green;" href="https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/">' . __( 'Go Pro', 'maximum-products-per-user-for-woocommerce' ) . '</a>', $links )
+		) {
+			$custom_links[] = $go_pro;
 		}
 		return array_merge( $custom_links, $links );
 	}
