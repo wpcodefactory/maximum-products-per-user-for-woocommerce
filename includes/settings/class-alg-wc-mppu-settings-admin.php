@@ -1,8 +1,8 @@
 <?php
 /**
- * Maximum Products per User for WooCommerce - Admin Section Settings
+ * Maximum Products per User for WooCommerce - Admin Section Settings.
  *
- * @version 3.4.0
+ * @version 3.7.8
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -29,7 +29,7 @@ class Alg_WC_MPPU_Settings_Admin extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.4.0
+	 * @version 3.7.8
 	 * @since   2.2.0
 	 * @todo    [next] `alg_wc_mppu_user_export_sep`: separate for "single user export" and "all users export"?
 	 * @todo    [next] (desc) Extra meta: better desc
@@ -46,17 +46,24 @@ class Alg_WC_MPPU_Settings_Admin extends Alg_WC_MPPU_Settings_Section {
 			),
 			array(
 				'title'    => __( 'Editable sales data', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => '<strong>' . __( 'Enable', 'maximum-products-per-user-for-woocommerce' ) . '</strong>',
-				'desc_tip' => __( 'You will be able to edit each user\'s sales data on user\'s edit page (in "Users").', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Edit each user\'s sales data on user\'s edit page (in "Users")', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'alg_wc_mppu_editable_sales_data',
+				'default'  => 'no',
+				'checkboxgroup' => 'start',
+				'type'     => 'checkbox',
+			),
+			array(
+				'desc'     => __( 'Add "Lifetime" column for products/terms with no sales data', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_editable_sales_data_empty_totals',
+				'checkboxgroup' => '',
 				'default'  => 'no',
 				'type'     => 'checkbox',
 			),
 			array(
-				'desc'     => __( 'Add empty items', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip' => __( 'Adds "Lifetime" column for products/terms with no sales data.', 'maximum-products-per-user-for-woocommerce' ),
-				'id'       => 'alg_wc_mppu_editable_sales_data_empty_totals',
+				'desc'     => sprintf( __( 'Show variations even if %s option is disabled', 'maximum-products-per-user-for-woocommerce' ), '<strong>' . __( 'Use Variations', 'maximum-products-per-user-for-woocommerce' ) . '</strong>' ),
+				'id'       => 'alg_wc_mppu_editable_sales_data_show_variations',
 				'default'  => 'no',
+				'checkboxgroup' => 'end',
 				'type'     => 'checkbox',
 			),
 			array(

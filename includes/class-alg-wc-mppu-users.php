@@ -1,8 +1,8 @@
 <?php
 /**
- * Maximum Products per User for WooCommerce - Users
+ * Maximum Products per User for WooCommerce - Users.
  *
- * @version 3.5.0
+ * @version 3.7.8
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -234,20 +234,21 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * show_extra_profile_fields.
 	 *
-	 * @version 3.4.0
+	 * @version 3.7.8
 	 * @since   2.2.0
 	 */
 	function show_extra_profile_fields( $user ) {
 		if ( ! $this->check_current_user( $user->ID ) ) {
 			return false;
 		}
+		$post_type = 'yes' === get_option( 'alg_wc_mppu_use_variations', 'no' ) || 'yes' === get_option( 'alg_wc_mppu_editable_sales_data_show_variations', 'no' ) ? array( 'product', 'product_variation' ) : 'product';
 		// Products
 		$output     = '';
 		$block_size = 1024;
 		$offset     = 0;
 		while ( true ) {
 			$args = array(
-				'post_type'      => ( 'yes' === get_option( 'alg_wc_mppu_use_variations', 'no' ) ? array( 'product', 'product_variation' ) : 'product' ),
+				'post_type'      => $post_type,
 				'post_status'    => 'any',
 				'posts_per_page' => $block_size,
 				'offset'         => $offset,
