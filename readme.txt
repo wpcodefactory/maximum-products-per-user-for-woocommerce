@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, Karzin, algoritmika, anbinder
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
-Tested up to: 6.0
-Stable tag: 3.7.8
+Tested up to: 6.1
+Stable tag: 3.7.9
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,11 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 3.7.9 - 07/11/2022 =
+* Fix - Attribute `user_id` from `[alg_wc_mppu_current_product_limit]` shortcode is not working.
+* Fix - Undefined array key term_id on `class-alg-wc-mppu-pro.php`.
+* Tested up to: 6.1.
 
 = 3.7.8 - 28/10/2022 =
 * Dev - Admin - Editable sales data - New option: Show variations even if Use Variations option is disabled.

@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 3.7.6
+ * @version 3.7.9
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -132,12 +132,13 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * current_product_limit_shortcode.
 	 *
-	 * @version 3.7.4
+	 * @version 3.7.9
 	 * @since   2.5.1
 	 * @todo    [later] different (customizable) message depending on `$remaining`
 	 */
 	function current_product_limit_shortcode( $atts, $content = '' ) {
 		$atts = shortcode_atts( array(
+			'user_id'                    => alg_wc_mppu()->core->get_current_user_id(),
 			'product_id'                 => get_the_ID(),
 			'msg_template'               => get_option( 'alg_wc_mppu_permanent_notice_message', __( "The remaining amount for %product_title% is %remaining% (you've already bought %bought% out of %limit%).", 'maximum-products-per-user-for-woocommerce' ) ),
 			'condition'                  => get_option( 'alg_wc_mppu_permanent_notice_condition', '' ),

@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: maximum-products-per-user-for-woocommerce 3.7.8\n"
+"Project-Id-Version: maximum-products-per-user-for-woocommerce 3.7.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-10-29T02:03:56+02:00\n"
+"POT-Creation-Date: 2022-11-07T20:51:53+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -141,8 +141,8 @@ msgstr ""
 
 #: includes/class-alg-wc-mppu-reports.php:113
 #: includes/class-alg-wc-mppu-reports.php:135
-#: includes/class-alg-wc-mppu-shortcodes.php:313
-#: includes/class-alg-wc-mppu-shortcodes.php:468
+#: includes/class-alg-wc-mppu-shortcodes.php:314
+#: includes/class-alg-wc-mppu-shortcodes.php:469
 msgid "Bought"
 msgstr ""
 
@@ -171,32 +171,32 @@ msgstr ""
 msgid "The remaining amount is %remaining% (you've already bought %bought% out of %limit%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:142
+#: includes/class-alg-wc-mppu-shortcodes.php:143
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:178
 msgid "The remaining amount for %product_title% is %remaining% (you've already bought %bought% out of %limit%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:311
+#: includes/class-alg-wc-mppu-shortcodes.php:312
 #: includes/class-alg-wc-mppu-users.php:277
 msgid "Product"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:312
-#: includes/class-alg-wc-mppu-shortcodes.php:467
+#: includes/class-alg-wc-mppu-shortcodes.php:313
+#: includes/class-alg-wc-mppu-shortcodes.php:468
 msgid "Remaining"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:314
-#: includes/class-alg-wc-mppu-shortcodes.php:469
+#: includes/class-alg-wc-mppu-shortcodes.php:315
+#: includes/class-alg-wc-mppu-shortcodes.php:470
 msgid "Max"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:319
-#: includes/class-alg-wc-mppu-shortcodes.php:474
+#: includes/class-alg-wc-mppu-shortcodes.php:320
+#: includes/class-alg-wc-mppu-shortcodes.php:475
 msgid "No data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:466
+#: includes/class-alg-wc-mppu-shortcodes.php:467
 #: includes/class-alg-wc-mppu-users.php:309
 msgid "Term"
 msgstr ""
