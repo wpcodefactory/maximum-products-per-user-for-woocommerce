@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - General Section Settings.
  *
- * @version 3.6.7
+ * @version 3.8.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.6.7
+	 * @version 3.8.0
 	 * @since   1.0.0
 	 * @todo    [next] exclude unnecessary statuses from `alg_wc_mppu_order_status` (e.g. "Cancelled", "Refunded", "Failed") and `alg_wc_mppu_order_status_delete` (e.g. "Completed" etc.)?
 	 * @todo    [next] (desc) `alg_wc_mppu_order_status_delete`: `$this->get_recalculate_sales_data_desc( __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ) )`?
@@ -105,11 +105,12 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 					'last_7_days'   => __( 'Last 7 days', 'maximum-products-per-user-for-woocommerce' ),
 					'last_30_days'  => __( 'Last 30 days', 'maximum-products-per-user-for-woocommerce' ),
 					'last_365_days' => __( 'Last 365 days', 'maximum-products-per-user-for-woocommerce' ),
-					'custom'        => __( 'Custom', 'maximum-products-per-user-for-woocommerce' ),
+					'custom'        => __( 'Custom range', 'maximum-products-per-user-for-woocommerce' ),
+					'fixed_date'    => __( 'Fixed date', 'maximum-products-per-user-for-woocommerce' ),
 				),
 			),
 			array(
-				'desc'     => sprintf( __( 'Custom date range (in %s)', 'maximum-products-per-user-for-woocommerce' ), get_option( 'alg_wc_mppu_date_range_custom_unit', 'seconds' ) ),
+				'desc'     => sprintf( __( 'Custom date range (in %s).', 'maximum-products-per-user-for-woocommerce' ), get_option( 'alg_wc_mppu_date_range_custom_unit', 'seconds' ) ),
 				'desc_tip' => __( 'Used when "Custom" option is selected in "Date range".', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'alg_wc_mppu_date_range_custom',
 				'default'  => 3600,
@@ -117,7 +118,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'custom_attributes' => array( 'min' => 1 ),
 			),
 			array(
-				'desc'     => __( 'Custom date range unit', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Custom date range unit.', 'maximum-products-per-user-for-woocommerce' ),
 				'desc_tip' => sprintf( __( 'Used for the "%s" option.', 'maximum-products-per-user-for-woocommerce' ), __( 'Custom date range', 'maximum-products-per-user-for-woocommerce' ) ),
 				'id'       => 'alg_wc_mppu_date_range_custom_unit',
 				'default'  => 'seconds',
@@ -130,6 +131,14 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 					'days'    => __( 'days', 'maximum-products-per-user-for-woocommerce' ),
 					'weeks'   => __( 'weeks', 'maximum-products-per-user-for-woocommerce' ),
 				),
+			),
+			array(
+				'desc'     => __( 'Fixed date.', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'Used for the "%s" option.', 'maximum-products-per-user-for-woocommerce' ), __( 'Fixed date', 'maximum-products-per-user-for-woocommerce' ) ),
+				'id'       => 'alg_wc_mppu_date_range_fixed_date',
+				'default'  => '',
+				'css'      => 'width:398px;',
+				'type'     => 'datetime-local',
 			),
 			array(
 				'title'    => __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ),

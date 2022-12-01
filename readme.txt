@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin, algoritmika, anbinder
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
 Tested up to: 6.1
-Stable tag: 3.7.9
+Stable tag: 3.8.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,10 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 3.8.0 - 30/11/2022 =
+* Dev - General - Date range - New option: Fixed date.
+* WC tested up to: 7.1.
 
 = 3.7.9 - 07/11/2022 =
 * Fix - Attribute `user_id` from `[alg_wc_mppu_current_product_limit]` shortcode is not working.
