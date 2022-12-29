@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Data.
  *
- * @version 3.6.4
+ * @version 3.8.1
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -83,7 +83,7 @@ class Alg_WC_MPPU_Data {
 		if ( 'no' === get_option( 'alg_wc_mppu_duplicate_product', 'no' ) ) {
 			add_filter( 'woocommerce_duplicate_product_exclude_meta', array( $this, 'duplicate_product_exclude_meta' ), PHP_INT_MAX );
 		}
-		// Bkg Process
+		// Bkg Process.
 		add_action( 'plugins_loaded', array( $this, 'init_bkg_process' ) );
 	}
 
@@ -403,27 +403,33 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * delete_quantities.
 	 *
-	 * @version 3.3.0
+	 * @version 3.8.1
 	 * @since   3.3.0
 	 */
 	function delete_quantities( $order_id ) {
-		$this->update_quantities( $order_id, 'delete' );
+		$this->update_quantities( array(
+			'order_id' => $order_id,
+			'action'   => 'delete',
+		) );
 	}
 
 	/**
 	 * save_quantities.
 	 *
-	 * @version 3.3.0
+	 * @version 3.8.1
 	 * @since   3.3.0
 	 */
 	function save_quantities( $order_id ) {
-		$this->update_quantities( $order_id, 'save' );
+		$this->update_quantities( array(
+			'order_id' => $order_id,
+			'action'   => 'save',
+		) );
 	}
 
 	/**
 	 * save_quantities_on_new_created_order.
 	 *
-	 * @version 3.6.2
+	 * @version 3.8.1
 	 * @since   3.6.2
 	 *
 	 * @param $order_id
@@ -431,7 +437,10 @@ class Alg_WC_MPPU_Data {
 	function save_quantities_on_new_created_order( $order_id ) {
 		$order = wc_get_order( $order_id );
 		if ( in_array( 'wc-' . $order->get_status(), $this->order_statuses ) ) {
-			$this->update_quantities( $order_id, 'save' );
+			$this->update_quantities( array(
+				'order_id' => $order_id,
+				'action'   => 'save',
+			) );
 		}
 	}
 
@@ -452,13 +461,25 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * update_quantities.
 	 *
-	 * @version 3.6.2
+	 * @version 3.8.1
 	 * @since   1.0.0
 	 * @todo    [next] mysql transaction: lock before `get_post_meta` / `get_term_meta`?
 	 * @todo    [next] `alg_wc_mppu_payment_gateways`: on `$do_save` only?
 	 * @todo    [next] `do_use_variations`: desc: recalculate data?
+	 *
+	 * @param null $args
 	 */
-	function update_quantities( $order_id, $action ) {
+	function update_quantities( $args = null ) {
+		$args = wp_parse_args( $args, array(
+			'order_id'    => '',
+			'action'      => '',
+			'update_type' => array( 'product_meta', 'term_meta' ),
+			'product_qty' => array()
+		) );
+		$order_id        = $args['order_id'];
+		$action          = $args['action'];
+		$update_type     = $args['update_type'];
+		$product_qty_arg = $args['product_qty'];
 		if ( $order = wc_get_order( $order_id ) ) {
 			$do_save       = ( 'save' === $action );
 			$is_data_saved = ( 'yes' === get_post_meta( $order_id, '_alg_wc_mppu_order_data_saved', true ) );
@@ -476,6 +497,7 @@ class Alg_WC_MPPU_Data {
 							$parent_product_id = alg_wc_mppu()->core->get_parent_product_id( $product );
 							$product_id        = alg_wc_mppu()->core->get_product_id( $product );
 							$product_qty       = apply_filters( 'alg_wc_mppu_save_quantities_item_qty', $item->get_quantity(), $item );
+							$product_qty       = isset( $product_qty_arg[ $parent_product_id ] ) ? $product_qty_arg[ $parent_product_id ] : $product_qty;
 							// Maybe exclude products
 							$exclude_products = get_option( 'alg_wc_mppu_exclude_products', array() );
 							if ( ! empty( $exclude_products ) && in_array( ( alg_wc_mppu()->core->do_use_variations( $parent_product_id ) ? $product_id : $parent_product_id ), $exclude_products ) ) {
@@ -498,6 +520,12 @@ class Alg_WC_MPPU_Data {
 							}
 							// Loop thorough all products and terms
 							foreach ( $products_and_terms as $product_or_term_id => $is_product ) {
+								if (
+									( $is_product && ! in_array( 'product_meta', $update_type ) ) ||
+									( ! $is_product && ! in_array( 'term_meta', $update_type ) )
+								) {
+									continue;
+								}
 								$product_or_term_id = apply_filters( 'alg_wc_mppu_data_product_or_term_id', $product_or_term_id, $is_product );
 								$get_meta_func = ( $is_product ? 'get_post_meta' : 'get_term_meta' );
 								// Orders
@@ -509,7 +537,11 @@ class Alg_WC_MPPU_Data {
 									if ( ! isset( $users_orders_quantities[ $user_id ][ $order_id ] ) ) {
 										$users_orders_quantities[ $user_id ][ $order_id ] = $this->get_order_data( $order, $product_qty );
 									} elseif ( apply_filters( 'alg_wc_mppu_orders_data_increase_qty', true, $order_id, $user_id, $product_or_term_id, $is_product ) ) {
-										$users_orders_quantities[ $user_id ][ $order_id ]['qty'] += $product_qty;
+										if ( isset( $product_qty_arg[ $parent_product_id ] ) ) {
+											$users_orders_quantities[ $user_id ][ $order_id ]['qty'] = $product_qty;
+										} else {
+											$users_orders_quantities[ $user_id ][ $order_id ]['qty'] += $product_qty;
+										}
 									}
 								} else {
 									// Delete

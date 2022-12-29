@@ -52,7 +52,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.6.7
+	 * @version 3.8.1
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -122,7 +122,7 @@ class Alg_WC_MPPU_Core {
 			// Sales data reports
 			require_once( 'class-alg-wc-mppu-reports.php' );
 			// Users
-			require_once( 'class-alg-wc-mppu-users.php' );
+			$this->users = require_once( 'class-alg-wc-mppu-users.php' );
 			// My Account
 			require_once( 'class-alg-wc-mppu-my-account.php' );
 			// Modes

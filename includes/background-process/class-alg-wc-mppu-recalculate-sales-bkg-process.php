@@ -49,7 +49,10 @@ if ( ! class_exists( 'Alg_WC_MPPU_Recalculate_Sales_Bkg_Process' ) ) {
 		protected function task( $item ) {
 			alg_wc_mppu()->core->data->save_quantities( $item['order_id'] );
 			$logger = wc_get_logger();
-			$logger->info( sprintf( __( 'Order processed: %d.', 'maximum-products-per-user-for-woocommerce' ), $item['order_id'] ), array( 'source' => $this->get_logger_context() ) );
+			$logger->info(
+				sprintf( __( 'Order processed: %d.', 'maximum-products-per-user-for-woocommerce' ), $item['order_id'] ),
+				array( 'source' => $this->get_logger_context() )
+			);
 			return false;
 		}
 

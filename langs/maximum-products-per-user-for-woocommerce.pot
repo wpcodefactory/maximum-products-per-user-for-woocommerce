@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: maximum-products-per-user-for-woocommerce 3.8.0\n"
+"Project-Id-Version: maximum-products-per-user-for-woocommerce 3.8.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-01T02:23:05+01:00\n"
+"POT-Creation-Date: 2022-12-29T03:09:26+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -46,8 +46,16 @@ msgstr[1] ""
 msgid "Maximum Products per User - Recalculate sales data"
 msgstr ""
 
-#: includes/background-process/class-alg-wc-mppu-recalculate-sales-bkg-process.php:52
+#: includes/background-process/class-alg-wc-mppu-recalculate-sales-bkg-process.php:53
 msgid "Order processed: %d."
+msgstr ""
+
+#: includes/background-process/class-alg-wc-mppu-update-user-sales-data-bkg-process.php:36
+msgid "Maximum Products per User - Update user sales data"
+msgstr ""
+
+#: includes/background-process/class-alg-wc-mppu-update-user-sales-data-bkg-process.php:53
+msgid "Orders processed: %s."
 msgstr ""
 
 #: includes/class-alg-wc-mppu-core.php:763
@@ -130,7 +138,7 @@ msgstr ""
 
 #: includes/class-alg-wc-mppu-reports.php:109
 #: includes/class-alg-wc-mppu-reports.php:131
-#: includes/class-alg-wc-mppu-users.php:178
+#: includes/class-alg-wc-mppu-users.php:221
 msgid "User ID"
 msgstr ""
 
@@ -155,7 +163,7 @@ msgid "No data."
 msgstr ""
 
 #: includes/class-alg-wc-mppu-reports.php:133
-#: includes/class-alg-wc-mppu-users.php:181
+#: includes/class-alg-wc-mppu-users.php:224
 msgid "Order ID"
 msgstr ""
 
@@ -177,7 +185,7 @@ msgid "The remaining amount for %product_title% is %remaining% (you've already b
 msgstr ""
 
 #: includes/class-alg-wc-mppu-shortcodes.php:312
-#: includes/class-alg-wc-mppu-users.php:277
+#: includes/class-alg-wc-mppu-users.php:451
 msgid "Product"
 msgstr ""
 
@@ -197,63 +205,68 @@ msgid "No data"
 msgstr ""
 
 #: includes/class-alg-wc-mppu-shortcodes.php:467
-#: includes/class-alg-wc-mppu-users.php:309
+#: includes/class-alg-wc-mppu-users.php:483
 msgid "Term"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:179
+#: includes/class-alg-wc-mppu-users.php:62
+msgid "The data is being processed in background. Please, reload the page in order to see the info refreshed completely."
+msgstr ""
+
+#: includes/class-alg-wc-mppu-users.php:222
 msgid "Product ID"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:180
+#: includes/class-alg-wc-mppu-users.php:223
 msgid "Product title"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:182
+#: includes/class-alg-wc-mppu-users.php:225
 msgid "Order date"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:183
+#: includes/class-alg-wc-mppu-users.php:226
 msgid "Order value"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:270
-#: includes/class-alg-wc-mppu-users.php:301
+#: includes/class-alg-wc-mppu-users.php:444
+#: includes/class-alg-wc-mppu-users.php:475
 #: includes/settings/class-alg-wc-mppu-settings-general.php:55
 #: includes/settings/class-alg-wc-mppu-settings-per-product.php:38
 #: includes/settings/class-alg-wc-mppu-settings.php:24
 msgid "Maximum Products per User"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:271
+#: includes/class-alg-wc-mppu-users.php:445
 msgid "Products Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:274
+#: includes/class-alg-wc-mppu-users.php:448
 msgid "export sales data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:278
-#: includes/class-alg-wc-mppu-users.php:310
+#: includes/class-alg-wc-mppu-users.php:452
+#: includes/class-alg-wc-mppu-users.php:484
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:60
 #: includes/settings/class-alg-wc-mppu-settings-advanced.php:118
 #: includes/settings/class-alg-wc-mppu-settings-general.php:97
 msgid "Lifetime"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:279
-#: includes/class-alg-wc-mppu-users.php:311
+#: includes/class-alg-wc-mppu-users.php:453
+#: includes/class-alg-wc-mppu-users.php:485
 msgid "Orders"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:303
+#: includes/class-alg-wc-mppu-users.php:477
 msgid "Product Categories Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:304
+#: includes/class-alg-wc-mppu-users.php:478
 msgid "Product Tags Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:349
+#: includes/class-alg-wc-mppu-users.php:527
 msgid "Order #%d<br>(%s)"
 msgstr ""
 
@@ -274,67 +287,101 @@ msgid "Admin"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-admin.php:41
-msgid "Admin Options"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:43
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:79
-msgid "Export sales data for all users"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:48
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:46
 msgid "Editable sales data"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:49
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:47
 msgid "Edit each user's sales data on user's edit page (in \"Users\")"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:56
-msgid "Add \"Lifetime\" column for products/terms with no sales data"
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:53
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:192
+msgid "Variations"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:63
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:54
 msgid "Show variations even if %s option is disabled"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:63
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:54
 msgid "Use Variations"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:70
-msgid "Export"
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:61
+msgid "Automatically update lifetime column from orders column"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:71
-msgid "Column separator"
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:62
+msgid "Lifetime column won't be editable anymore."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:69
+msgid "Empty items"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:70
+msgid "Add \"Lifetime\" column for products/terms with no sales data"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-admin.php:77
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:86
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:93
-msgid "Merge user"
+msgid "Terms data"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-admin.php:78
-msgid "This will output all user's data in a single line."
+msgid "Automatically calculate terms data from products data"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-admin.php:79
-msgid "Used in \"%s\" tool."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:85
-msgid "Data separator."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:86
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:93
-msgid "Ignored unless \"%s\" option is enabled."
+msgid "Tags and categories data won't be editable anymore."
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-admin.php:92
-msgid "Extra meta (as comma separated values)."
+msgid "Sales data export options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:94
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:108
+msgid "Export sales data for all users"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:99
+msgid "Export"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:100
+msgid "Column separator"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:106
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:115
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:123
+msgid "Merge user"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:107
+msgid "Output all user's data in a single line"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:108
+msgid "Used in \"%s\" tool."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:114
+msgid "Data separator"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:115
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:123
+msgid "Ignored unless \"%s\" option is enabled."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:121
+msgid "Extra meta"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-admin.php:122
+msgid "Use comma separated values."
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-advanced.php:24
@@ -714,10 +761,6 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:186
 msgid "Ex:"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:192
-msgid "Variations"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:193

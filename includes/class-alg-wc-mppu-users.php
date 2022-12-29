@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Users.
  *
- * @version 3.7.8
+ * @version 3.8.1
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -14,9 +14,18 @@ if ( ! class_exists( 'Alg_WC_MPPU_Users' ) ) :
 class Alg_WC_MPPU_Users {
 
 	/**
+	 * recalculate_sales_bkg_process.
+	 *
+	 * @since 3.6.4
+	 *
+	 * @var Alg_WC_MPPU_Recalculate_Sales_Bkg_Process
+	 */
+	public $update_user_sales_bkg_process;
+
+	/**
 	 * Constructor.
 	 *
-	 * @version 3.4.0
+	 * @version 3.8.1
 	 * @since   2.2.0
 	 * @todo    [next] rename export functions, variables etc.
 	 * @todo    [maybe] validation: `add_action( 'user_profile_update_errors', 'user_profile_update_errors', PHP_INT_MAX, 3 ); function user_profile_update_errors( $errors, $update, $user ) {}`
@@ -31,6 +40,40 @@ class Alg_WC_MPPU_Users {
 			add_action( 'admin_init',               array( $this, 'export_orders_data' ) );
 		}
 		add_action( 'admin_init', array( $this, 'export_orders_data_all_users' ) );
+		// Bkg Process.
+		add_action( 'plugins_loaded', array( $this, 'init_bkg_process' ) );
+		// Notices.
+		add_action( 'admin_notices', array( $this, 'show_notices' ) );
+	}
+
+	/**
+	 * show_notices.
+	 *
+	 * @version 3.8.1
+	 * @since   3.8.1
+	 */
+	function show_notices() {
+		if (
+			! empty( $profile_updated = get_user_meta( get_current_user_id(), 'alg_wc_mppu_profile_updated', true ) ) &&
+			is_array( $profile_updated ) &&
+			'bkg_process' === $profile_updated['method']
+		) {
+			$class   = 'notice notice-info';
+			$message = __( 'The data is being processed in background. Please, reload the page in order to see the info refreshed completely.', 'maximum-products-per-user-for-woocommerce' );
+			printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
+			delete_user_meta( get_current_user_id(), 'alg_wc_mppu_profile_updated' );
+		}
+	}
+
+	/**
+	 * init_bkg_process.
+	 *
+	 * @version 3.8.1
+	 * @since   3.8.1
+	 */
+	function init_bkg_process() {
+		require_once( alg_wc_mppu()->plugin_path() . '/includes/background-process/class-alg-wc-mppu-update-user-sales-data-bkg-process.php' );
+		$this->update_user_sales_bkg_process = new Alg_WC_MPPU_Update_User_Sales_data_Bkg_Process();
 	}
 
 	/**
@@ -199,7 +242,7 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * update_profile_fields.
 	 *
-	 * @version 3.5.0
+	 * @version 3.8.1
 	 * @since   2.2.0
 	 * @todo    [maybe] nonce?
 	 * @todo    [maybe] maybe `floatval` (instead `intval`?)
@@ -208,27 +251,158 @@ class Alg_WC_MPPU_Users {
 		if ( ! $this->check_current_user( $user_id ) ) {
 			return false;
 		}
-		// Totals data
+		// Totals data.
 		if ( isset( $_POST['alg_wc_mppu_totals_data'] ) ) {
 			foreach ( $_POST['alg_wc_mppu_totals_data'] as $product_or_term => $data ) {
 				foreach ( $data as $product_or_term_id => $qty ) {
-					$totals_data = alg_wc_mppu()->core->get_post_or_term_meta( $product_or_term, $product_or_term_id, '_alg_wc_mppu_totals_data' );
-					$totals_data[ $user_id ] = intval( $qty );
-					alg_wc_mppu()->core->update_post_or_term_meta( $product_or_term, $product_or_term_id, '_alg_wc_mppu_totals_data', $totals_data );
+					$this->update_totals_data( array(
+						'user_id'            => $user_id,
+						'product_or_term'    => $product_or_term,
+						'product_or_term_id' => $product_or_term_id,
+						'qty'                => $qty,
+					) );
 				}
 			}
 		}
+		// Orders data.
 		if ( isset( $_POST['alg_wc_mppu_orders_data'] ) ) {
+			$iteration_count = 0;
 			foreach ( $_POST['alg_wc_mppu_orders_data'] as $product_or_term => $data ) {
 				foreach ( $data as $product_or_term_id => $order_data ) {
-					$orders_data = alg_wc_mppu()->core->get_post_or_term_meta( $product_or_term, $product_or_term_id, '_alg_wc_mppu_orders_data' );
-					foreach ( $order_data as $order_id => $qty ) {
-						$orders_data[ $user_id ][ $order_id ]['qty'] = intval( $qty );
+					$iteration_count ++;
+				}
+			}
+			if ( $iteration_count < get_option( 'alg_wc_mppu_bkg_process_min_amount', 100 ) ) {
+				foreach ( $_POST['alg_wc_mppu_orders_data'] as $product_or_term => $data ) {
+					foreach ( $data as $product_or_term_id => $order_data ) {
+						$this->update_orders_data( array(
+							'user_id'            => $user_id,
+							'product_or_term'    => $product_or_term,
+							'product_or_term_id' => $product_or_term_id,
+							'order_data'         => $order_data
+						) );
 					}
-					alg_wc_mppu()->core->update_post_or_term_meta( $product_or_term, $product_or_term_id, '_alg_wc_mppu_orders_data', $orders_data );
+				}
+			} else {
+				$this->update_user_sales_bkg_process->cancel_process();
+				foreach ( $_POST['alg_wc_mppu_orders_data'] as $product_or_term => $data ) {
+					foreach ( $data as $product_or_term_id => $order_data ) {
+						$this->update_user_sales_bkg_process->push_to_queue( array(
+							'user_id'            => $user_id,
+							'product_or_term'    => $product_or_term,
+							'product_or_term_id' => $product_or_term_id,
+							'order_data'         => $order_data
+						) );
+					}
+				}
+				$this->update_user_sales_bkg_process->save()->dispatch();
+				update_user_meta( get_current_user_id(), 'alg_wc_mppu_profile_updated', array( 'method' => 'bkg_process' ) );
+			}
+
+		}
+	}
+
+	/**
+	 * update_orders_data.
+	 *
+	 * @version 3.8.1
+	 * @since   3.8.1
+	 *
+	 * @param null $args
+	 */
+	function update_orders_data( $args = null ){
+		$args = wp_parse_args( $args, array(
+			'user_id'            => '',
+			'order_data'         => '',
+			'product_or_term'    => '',
+			'product_or_term_id' => '',
+		) );
+		$product_or_term    = $args['product_or_term'];
+		$product_or_term_id = $args['product_or_term_id'];
+		$user_id            = $args['user_id'];
+		$order_data         = $args['order_data'];
+		$lifetime_totals    = 0;
+		$orders_data        = alg_wc_mppu()->core->get_post_or_term_meta( $product_or_term, $product_or_term_id, '_alg_wc_mppu_orders_data' );
+		foreach ( $order_data as $order_id => $qty ) {
+			$orders_data[ $user_id ][ $order_id ]['qty'] = intval( $qty );
+			$lifetime_totals                             += intval( $qty );
+		}
+		alg_wc_mppu()->core->update_post_or_term_meta( $product_or_term, $product_or_term_id, '_alg_wc_mppu_orders_data', $orders_data );
+		// Update totals data.
+		if ( 'yes' === get_option( 'alg_wc_mppu_editable_sales_data_auto_update_lifetime', 'no' ) ) {
+			$this->update_totals_data( array(
+				'user_id'            => $user_id,
+				'product_or_term'    => $product_or_term,
+				'product_or_term_id' => $product_or_term_id,
+				'qty'                => intval( $lifetime_totals )
+			) );
+		}
+		// Update terms.
+		if (
+			'yes' === get_option( 'alg_wc_mppu_editable_sales_data_auto_update_terms_data', 'no' ) &&
+			'product' === $product_or_term
+		) {
+			foreach ( $order_data as $order_id => $qty ) {
+				foreach ( array( 'product_cat', 'product_tag' ) as $taxonomy ) {
+					$terms = get_the_terms( $product_or_term_id, $taxonomy );
+					if ( $terms && ! is_wp_error( $terms ) ) {
+						foreach ( $terms as $term ) {
+							// Termmeta orders data.
+							$termmeta_orders_data = get_term_meta( $term->term_id, '_alg_wc_mppu_orders_data', true );
+							if ( isset( $termmeta_orders_data[ $user_id ] ) && isset( $termmeta_orders_data[ $user_id ][ $order_id ] ) ) {
+								$termmeta_orders_data[ $user_id ][ $order_id ]['qty'] = $qty;
+							}
+							update_term_meta( $term->term_id, '_alg_wc_mppu_orders_data', $termmeta_orders_data );
+						}
+					}
+				}
+			}
+			foreach ( $order_data as $order_id => $qty ) {
+				foreach ( array( 'product_cat', 'product_tag' ) as $taxonomy ) {
+					$terms = get_the_terms( $product_or_term_id, $taxonomy );
+					if ( $terms && ! is_wp_error( $terms ) ) {
+						foreach ( $terms as $term ) {
+							// Termmeta orders data.
+							$termmeta_orders_data = get_term_meta( $term->term_id, '_alg_wc_mppu_orders_data', true );
+							$totals               = 0;
+							foreach ( $termmeta_orders_data[ $user_id ] as $order_info ) {
+								$totals += $order_info['qty'];
+							}
+							// Termmeta totals data.
+							$termmeta_totals_data = get_term_meta( $term->term_id, '_alg_wc_mppu_totals_data', true );
+							if ( isset( $termmeta_totals_data[ $user_id ] ) ) {
+								$termmeta_totals_data[ $user_id ] = $totals;
+							}
+							update_term_meta( $term->term_id, '_alg_wc_mppu_totals_data', $termmeta_totals_data );
+						}
+					}
 				}
 			}
 		}
+	}
+
+	/**
+	 * update_totals_data.
+	 *
+	 * @version 3.8.1
+	 * @since   3.8.1
+	 *
+	 * @param null $args
+	 */
+	function update_totals_data( $args = null ) {
+		$args                    = wp_parse_args( $args, array(
+			'user_id'            => '',
+			'product_or_term'    => '',
+			'product_or_term_id' => '',
+			'qty'                => 0
+		) );
+		$product_or_term         = $args['product_or_term'];
+		$product_or_term_id      = $args['product_or_term_id'];
+		$user_id                 = $args['user_id'];
+		$qty                     = $args['qty'];
+		$totals_data             = alg_wc_mppu()->core->get_post_or_term_meta( $product_or_term, $product_or_term_id, '_alg_wc_mppu_totals_data' );
+		$totals_data[ $user_id ] = intval( $qty );
+		alg_wc_mppu()->core->update_post_or_term_meta( $product_or_term, $product_or_term_id, '_alg_wc_mppu_totals_data', $totals_data );
 	}
 
 	/**
@@ -320,7 +494,7 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * get_item_data.
 	 *
-	 * @version 3.5.0
+	 * @version 3.8.1
 	 * @since   2.2.0
 	 * @todo    [next] use `alg_wc_mppu()->core->get_date_format()`
 	 */
@@ -328,6 +502,10 @@ class Alg_WC_MPPU_Users {
 		$output = '';
 		$totals_data = alg_wc_mppu()->core->get_post_or_term_meta( $product_or_term, $product_or_term_id, '_alg_wc_mppu_totals_data' );
 		$orders_data = alg_wc_mppu()->core->get_post_or_term_meta( $product_or_term, $product_or_term_id, '_alg_wc_mppu_orders_data' );
+		$disable_orders_input = 'yes' === get_option( 'alg_wc_mppu_editable_sales_data_auto_update_terms_data', 'no' ) && 'term' === $product_or_term;
+		$disable_lifetime_input = 'yes' === get_option( 'alg_wc_mppu_editable_sales_data_auto_update_lifetime', 'no' ) || $disable_orders_input;
+		$lifetime_input_disabled_str = $disable_lifetime_input ? 'disabled="disabled"' : '';
+		$orders_input_disabled_str = $disable_orders_input ? 'disabled="disabled"' : '';
 		if ( $this->do_add_empty_totals || isset( $totals_data[ $user->ID ] ) || isset( $orders_data[ $user->ID ] ) ) {
 			$output .= '<tr>';
 			$output .= '<th>' . $product_or_term_title . ' (#' . $product_or_term_id . ')' . '</th>';
@@ -335,7 +513,7 @@ class Alg_WC_MPPU_Users {
 			if ( $this->do_add_empty_totals || isset( $totals_data[ $user->ID ] ) ) {
 				$name  = 'alg_wc_mppu_totals_data[' . $product_or_term . '][' . $product_or_term_id . ']';
 				$value = ( isset( $totals_data[ $user->ID ] ) ? $totals_data[ $user->ID ] : 0 );
-				$output .= '<input type="number" name="' . $name . '" value="' . $value . '">';
+				$output .= '<input type="number" name="' . $name . '" value="' . $value . '"' . $lifetime_input_disabled_str . '>';
 			}
 			$output .= '</td>';
 			$output .= '<td>';
@@ -344,7 +522,7 @@ class Alg_WC_MPPU_Users {
 				foreach ( $orders_data[ $user->ID ] as $order_id => $order_data ) {
 					$name  = 'alg_wc_mppu_orders_data[' . $product_or_term . '][' . $product_or_term_id . '][' . $order_id . ']';
 					$value = $order_data['qty'];
-					$orders[ $order_id ] = '<input type="number" name="' . $name . '" value="' . $value . '">' .
+					$orders[ $order_id ] = '<input type="number" name="' . $name . '" value="' . $value . '"'.$orders_input_disabled_str.'>' .
 						' <a href="' . admin_url( 'post.php?post=' . $order_id . '&action=edit' ) . '">#' . $order_id . '</a>' .
 						wc_help_tip( sprintf( __( 'Order #%d<br>(%s)', 'maximum-products-per-user-for-woocommerce' ),
 							$order_id, date_i18n( 'Y-m-d H:i:s', alg_wc_mppu()->core->get_order_date( $order_data['date_created'] ) ) ), true );
