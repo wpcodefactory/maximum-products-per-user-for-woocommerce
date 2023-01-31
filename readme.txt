@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin, algoritmika, anbinder
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
 Tested up to: 6.1
-Stable tag: 3.8.1
+Stable tag: 3.8.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,11 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 3.8.2 - 31/01/2023 =
+* Dev - Frontend - My account tab - Cache the output from `[alg_wc_mppu_user_product_limits]`.
+* Dev - New action hooks: `alg_wc_mppu_order_data_saved`.
+* WC tested up to: 7.3.
 
 = 3.8.1 - 28/12/2022 =
 * Dev - Admin - Editable sales data - New option: Automatically update lifetime column from orders column.

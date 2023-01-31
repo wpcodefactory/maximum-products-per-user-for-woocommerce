@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Data.
  *
- * @version 3.8.1
+ * @version 3.8.2
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -461,7 +461,7 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * update_quantities.
 	 *
-	 * @version 3.8.1
+	 * @version 3.8.2
 	 * @since   1.0.0
 	 * @todo    [next] mysql transaction: lock before `get_post_meta` / `get_term_meta`?
 	 * @todo    [next] `alg_wc_mppu_payment_gateways`: on `$do_save` only?
@@ -582,6 +582,10 @@ class Alg_WC_MPPU_Data {
 						}
 					}
 				}
+				do_action( 'alg_wc_mppu_order_data_saved', array(
+					'order'   => $order,
+					'user_id' => empty( $user_id ) ? $this->get_user_id_from_order( $order ) : $user_id,
+				) );
 				update_post_meta( $order_id, '_alg_wc_mppu_order_data_saved', ( $do_save ? 'yes' : 'no' ) );
 			}
 		}

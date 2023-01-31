@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 3.7.9
+ * @version 3.8.2
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -31,6 +31,7 @@ class Alg_WC_MPPU_Shortcodes {
 		add_shortcode( 'alg_wc_mppu_user_product_limits', array( $this, 'user_product_limits_shortcode' ) );
 		add_filter( 'alg_wc_mppu_user_product_limits_item_validation', array( $this, 'hide_unbought_user_product_limits_table_items' ), 10, 2 );
 		add_filter( 'alg_wc_mppu_user_product_limits_query_args', array( $this, 'hide_unbought_items_from_user_produce_limits_query' ), 10, 2 );
+		add_action( 'alg_wc_mppu_order_data_saved', array( $this, 'delete_user_products_limits_output_from_cache' ) );
 		// User terms limits.
 		add_shortcode( 'alg_wc_mppu_user_terms_limits', array( $this, 'user_terms_limits_shortcode' ) );
 		add_filter('alg_wc_mppu_user_terms_limits_item_validation', array( $this, 'hide_unbought_user_terms_limits_table_items' ), 10, 2 );
@@ -226,7 +227,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * user_product_limits_shortcode.
 	 *
-	 * @version 3.7.1
+	 * @version 3.8.2
 	 * @since   2.5.0
 	 * @todo    [later] customizable content: use `alg_wc_mppu()->core->get_notice_placeholders()`
 	 * @todo    [later] customizable: columns, column order, column titles, table styling, "No data" text, (maybe) sorting
@@ -236,10 +237,12 @@ class Alg_WC_MPPU_Shortcodes {
 		$atts = shortcode_atts( array(
 			'user_id'             => alg_wc_mppu()->core->get_current_user_id(),
 			'hide_products_by_id' => '',
+			'cache_output'        => 'true',
 			'bought_value'        => 'smart', // per_product | smart
 			'show_unbought'       => 'true'
 		), $atts, 'alg_wc_mppu_user_product_limits' );
 		$bought_value = $atts['bought_value'];
+		$cache_output = filter_var( $atts['cache_output'], FILTER_VALIDATE_BOOLEAN );
 		// Get user ID
 		$user_id = $this->get_user_id( $atts );
 		if ( ! $user_id ) {
@@ -250,61 +253,65 @@ class Alg_WC_MPPU_Shortcodes {
 		$block_size = 1024;
 		$offset     = 0;
 		$_output    = '';
-		while ( true ) {
-			$args = array(
-				'post_type'      => ( 'yes' === get_option( 'alg_wc_mppu_use_variations', 'no' ) ? array( 'product', 'product_variation' ) : 'product' ),
-				'post_status'    => 'any',
-				'posts_per_page' => $block_size,
-				'offset'         => $offset,
-				'orderby'        => 'title',
-				'post__not_in'   => isset( $atts['hide_products_by_id'] ) && ! empty( $hidden_products_ids_str = $atts['hide_products_by_id'] ) ? array_map( 'trim', explode( ",", $hidden_products_ids_str ) ) : '',
-				'order'          => 'ASC',
-				'fields'         => 'ids',
-			);
-			$args = apply_filters( 'alg_wc_mppu_user_product_limits_query_args', $args, array(
-				'sc_atts' => $atts,
-				'user_id' => $user_id,
-			) );
-			$loop = new WP_Query( $args );
-			if ( ! $loop->have_posts() ) {
-				break;
-			}
-			foreach ( $loop->posts as $product_id ) {
-				$max_qty = alg_wc_mppu()->core->get_max_qty_for_product( $product_id );
-				if ( $max_qty ) {
-					$bought_data = false;
-					if ( is_array( $max_qty ) && 'smart' === $bought_value ) {
-						// Terms
-						$_remaining = PHP_INT_MAX;
-						foreach ( $max_qty as $_max_qty ) {
-							$bought_data         = alg_wc_mppu()->core->get_user_already_bought_qty( $_max_qty['term_id'], $user_id, false );
-							$user_already_bought = $bought_data['bought'];
-							$remaining           = $_max_qty['max_qty'] - $user_already_bought;
-							if ( $remaining < $_remaining ) {
-								$_remaining = $remaining;
-								$_output    = sprintf( '<td>%s</td><td>%s</td><td>%s</td>', max( $remaining, 0 ), $user_already_bought, max( $_max_qty['max_qty'], 0 ) );
+		$cached_output_meta_name = 'alg_mc_mppu_products_limits_' . md5( serialize( $atts ) );
+		if ( ! $cache_output || empty( $output = alg_wc_mppu_maybe_uncompress_string( get_user_meta( $user_id, $cached_output_meta_name, true ) ) ) ) {
+			while ( true ) {
+				$args = array(
+					'post_type'      => ( 'yes' === get_option( 'alg_wc_mppu_use_variations', 'no' ) ? array( 'product', 'product_variation' ) : 'product' ),
+					'post_status'    => 'any',
+					'posts_per_page' => $block_size,
+					'offset'         => $offset,
+					'orderby'        => 'title',
+					'post__not_in'   => isset( $atts['hide_products_by_id'] ) && ! empty( $hidden_products_ids_str = $atts['hide_products_by_id'] ) ? array_map( 'trim', explode( ",", $hidden_products_ids_str ) ) : '',
+					'order'          => 'ASC',
+					'fields'         => 'ids',
+				);
+				$args = apply_filters( 'alg_wc_mppu_user_product_limits_query_args', $args, array(
+					'sc_atts' => $atts,
+					'user_id' => $user_id,
+				) );
+				$loop = new WP_Query( $args );
+				if ( ! $loop->have_posts() ) {
+					break;
+				}
+				foreach ( $loop->posts as $product_id ) {
+					$max_qty = alg_wc_mppu()->core->get_max_qty_for_product( $product_id );
+					if ( $max_qty ) {
+						$bought_data = false;
+						if ( is_array( $max_qty ) && 'smart' === $bought_value ) {
+							// Terms
+							$_remaining = PHP_INT_MAX;
+							foreach ( $max_qty as $_max_qty ) {
+								$bought_data         = alg_wc_mppu()->core->get_user_already_bought_qty( $_max_qty['term_id'], $user_id, false );
+								$user_already_bought = $bought_data['bought'];
+								$remaining           = $_max_qty['max_qty'] - $user_already_bought;
+								if ( $remaining < $_remaining ) {
+									$_remaining = $remaining;
+									$_output    = sprintf( '<td>%s</td><td>%s</td><td>%s</td>', max( $remaining, 0 ), $user_already_bought, max( $_max_qty['max_qty'], 0 ) );
+								}
 							}
+						} elseif ( ! is_array( $max_qty ) || 'per_product' === $bought_value ) {
+							// Products
+							$bought_data         = alg_wc_mppu()->core->get_user_already_bought_qty( $product_id, $user_id, true );
+							$user_already_bought = $bought_data['bought'];
+							$max_qty             = is_array( $max_qty ) ? min( wp_list_pluck( $max_qty, 'max_qty' ) ) : $max_qty;
+							$remaining           = $max_qty - $user_already_bought;
+							$_output             = sprintf( '<td>%s</td><td>%s</td><td>%s</td>', max( $remaining, 0 ), $user_already_bought, max( $max_qty, 0 ) );
 						}
-					} elseif ( ! is_array( $max_qty ) || 'per_product' === $bought_value ) {
-						// Products
-						$bought_data         = alg_wc_mppu()->core->get_user_already_bought_qty( $product_id, $user_id, true );
-						$user_already_bought = $bought_data['bought'];
-						$max_qty             = is_array( $max_qty ) ? min( wp_list_pluck( $max_qty, 'max_qty' ) ) : $max_qty;
-						$remaining           = $max_qty - $user_already_bought;
-						$_output             = sprintf( '<td>%s</td><td>%s</td><td>%s</td>', max( $remaining, 0 ), $user_already_bought, max( $max_qty, 0 ) );
-					}
-					if ( apply_filters( 'alg_wc_mppu_user_product_limits_item_validation', true, array(
-						'sc_atts'     => $atts,
-						'product_id'  => $product_id,
-						'user_id'     => $user_id,
-						'bought_data' => $bought_data,
-						'max_qty'     => $max_qty
-					) ) ) {
-						$output .= '<tr><td>' . '<a href="' . get_the_permalink( $product_id ) . '">' . get_the_title( $product_id ) . '</a>' . '</td>' . $_output . '</tr>';
+						if ( apply_filters( 'alg_wc_mppu_user_product_limits_item_validation', true, array(
+							'sc_atts'     => $atts,
+							'product_id'  => $product_id,
+							'user_id'     => $user_id,
+							'bought_data' => $bought_data,
+							'max_qty'     => $max_qty
+						) ) ) {
+							$output .= '<tr><td>' . '<a href="' . get_the_permalink( $product_id ) . '">' . get_the_title( $product_id ) . '</a>' . '</td>' . $_output . '</tr>';
+						}
 					}
 				}
+				$offset += $block_size;
 			}
-			$offset += $block_size;
+			update_user_meta( $user_id, $cached_output_meta_name, alg_wc_mppu_maybe_compress_string( $output ) );
 		}
 		if ( ! empty( $output ) ) {
 			return '<table class="alg_wc_mppu_products_data_my_account">' .
@@ -319,6 +326,32 @@ class Alg_WC_MPPU_Shortcodes {
 		} else {
 			return __( 'No data', 'maximum-products-per-user-for-woocommerce' );
 		}
+	}
+
+	/**
+	 * delete_user_products_limits_output_from_cache.
+	 *
+	 * @version 3.8.2
+	 * @since   3.8.2
+	 *
+	 * @param $data
+	 */
+	function delete_user_products_limits_output_from_cache( $data ) {
+		$order   = $data['order'];
+		$user_id = $data['user_id'];
+		global $wpdb;
+		$meta_prefix = '%alg_mc_mppu_products_limits%';
+		// Remove user meta
+		$wpdb->query(
+			$wpdb->prepare(
+				"
+                DELETE FROM {$wpdb->usermeta}
+		 		WHERE user_id = %s AND meta_key like '%s'
+				",
+				$user_id,
+				$meta_prefix
+			)
+		);
 	}
 
 	/**
