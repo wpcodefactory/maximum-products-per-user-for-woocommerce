@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 3.8.2
+ * @version 3.8.3
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.6.8
+	 * @version 3.8.2
 	 * @since   2.5.0
 	 */
 	function __construct() {
@@ -227,7 +227,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * user_product_limits_shortcode.
 	 *
-	 * @version 3.8.2
+	 * @version 3.8.3
 	 * @since   2.5.0
 	 * @todo    [later] customizable content: use `alg_wc_mppu()->core->get_notice_placeholders()`
 	 * @todo    [later] customizable: columns, column order, column titles, table styling, "No data" text, (maybe) sorting
@@ -253,8 +253,11 @@ class Alg_WC_MPPU_Shortcodes {
 		$block_size = 1024;
 		$offset     = 0;
 		$_output    = '';
-		$cached_output_meta_name = 'alg_mc_mppu_products_limits_' . md5( serialize( $atts ) );
-		if ( ! $cache_output || empty( $output = alg_wc_mppu_maybe_uncompress_string( get_user_meta( $user_id, $cached_output_meta_name, true ) ) ) ) {
+		$cached_output_meta_name = 'alg_mc_mppu_products_limits_' . $user_id . '_' . md5( serialize( $atts ) );
+		if (
+			! $cache_output ||
+			false === ( $raw_cached_output_data = get_transient( $cached_output_meta_name ) )
+		) {
 			while ( true ) {
 				$args = array(
 					'post_type'      => ( 'yes' === get_option( 'alg_wc_mppu_use_variations', 'no' ) ? array( 'product', 'product_variation' ) : 'product' ),
@@ -311,7 +314,9 @@ class Alg_WC_MPPU_Shortcodes {
 				}
 				$offset += $block_size;
 			}
-			update_user_meta( $user_id, $cached_output_meta_name, alg_wc_mppu_maybe_compress_string( $output ) );
+			set_transient( $cached_output_meta_name, alg_wc_mppu_maybe_compress_string( $output ), 1 * HOUR_IN_SECONDS );
+		} else {
+			$output = alg_wc_mppu_maybe_uncompress_string( $raw_cached_output_data );
 		}
 		if ( ! empty( $output ) ) {
 			return '<table class="alg_wc_mppu_products_data_my_account">' .
@@ -331,7 +336,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * delete_user_products_limits_output_from_cache.
 	 *
-	 * @version 3.8.2
+	 * @version 3.8.3
 	 * @since   3.8.2
 	 *
 	 * @param $data
@@ -340,16 +345,15 @@ class Alg_WC_MPPU_Shortcodes {
 		$order   = $data['order'];
 		$user_id = $data['user_id'];
 		global $wpdb;
-		$meta_prefix = '%alg_mc_mppu_products_limits%';
+		$meta_name_like = '%_alg_mc_mppu_products_limits_' . $user_id . '_%';
 		// Remove user meta
 		$wpdb->query(
 			$wpdb->prepare(
 				"
-                DELETE FROM {$wpdb->usermeta}
-		 		WHERE user_id = %s AND meta_key like '%s'
+                DELETE FROM {$wpdb->options}
+		 		WHERE option_name like '%s'
 				",
-				$user_id,
-				$meta_prefix
+				$meta_name_like
 			)
 		);
 	}

@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: maximum-products-per-user-for-woocommerce 3.8.2\n"
+"Project-Id-Version: maximum-products-per-user-for-woocommerce 3.8.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-31T19:26:43+01:00\n"
+"POT-Creation-Date: 2023-02-03T00:39:54+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -149,8 +149,8 @@ msgstr ""
 
 #: includes/class-alg-wc-mppu-reports.php:113
 #: includes/class-alg-wc-mppu-reports.php:135
-#: includes/class-alg-wc-mppu-shortcodes.php:321
-#: includes/class-alg-wc-mppu-shortcodes.php:502
+#: includes/class-alg-wc-mppu-shortcodes.php:326
+#: includes/class-alg-wc-mppu-shortcodes.php:506
 msgid "Bought"
 msgstr ""
 
@@ -184,27 +184,27 @@ msgstr ""
 msgid "The remaining amount for %product_title% is %remaining% (you've already bought %bought% out of %limit%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:319
+#: includes/class-alg-wc-mppu-shortcodes.php:324
 #: includes/class-alg-wc-mppu-users.php:451
 msgid "Product"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:320
-#: includes/class-alg-wc-mppu-shortcodes.php:501
+#: includes/class-alg-wc-mppu-shortcodes.php:325
+#: includes/class-alg-wc-mppu-shortcodes.php:505
 msgid "Remaining"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:322
-#: includes/class-alg-wc-mppu-shortcodes.php:503
+#: includes/class-alg-wc-mppu-shortcodes.php:327
+#: includes/class-alg-wc-mppu-shortcodes.php:507
 msgid "Max"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:327
-#: includes/class-alg-wc-mppu-shortcodes.php:508
+#: includes/class-alg-wc-mppu-shortcodes.php:332
+#: includes/class-alg-wc-mppu-shortcodes.php:512
 msgid "No data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:500
+#: includes/class-alg-wc-mppu-shortcodes.php:504
 #: includes/class-alg-wc-mppu-users.php:483
 msgid "Term"
 msgstr ""
