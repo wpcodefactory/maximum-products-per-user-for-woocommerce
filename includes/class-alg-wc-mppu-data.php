@@ -230,7 +230,7 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * calculate_data.
 	 *
-	 * @version 3.6.4
+	 * @version 3.8.4
 	 * @since   1.0.0
 	 * @todo    [later] `delete_quantities`: on `$do_recalculate`?
 	 * @todo    [later] recheck `date_query` arg for `wc_get_orders()`
@@ -260,10 +260,13 @@ class Alg_WC_MPPU_Data {
 					( 'lifetime' != ( $date_range = get_option( 'alg_wc_mppu_date_range', 'lifetime' ) ) ) );
 				if ( $do_add_date_query ) {
 					$date_query = array(
-						'after'     => date( 'Y-m-d H:i:s', alg_wc_mppu()->core->get_date_to_check( $date_range ) ),
+						'after' => date( 'Y-m-d H:i:s', alg_wc_mppu()->core->get_date_to_check( array(
+							'date_range' => $date_range
+						) ) ),
 						'inclusive' => true,
 					);
 				}
+
 				// Recalculate data
 				$offset       = 0;
 				$block_size   = get_option( 'alg_wc_mppu_tool_recalculate_block_size', 1024 );

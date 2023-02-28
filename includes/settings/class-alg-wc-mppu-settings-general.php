@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - General Section Settings.
  *
- * @version 3.8.0
+ * @version 3.8.4
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.8.0
+	 * @version 3.8.4
 	 * @since   1.0.0
 	 * @todo    [next] exclude unnecessary statuses from `alg_wc_mppu_order_status` (e.g. "Cancelled", "Refunded", "Failed") and `alg_wc_mppu_order_status_delete` (e.g. "Completed" etc.)?
 	 * @todo    [next] (desc) `alg_wc_mppu_order_status_delete`: `$this->get_recalculate_sales_data_desc( __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ) )`?
@@ -94,19 +94,20 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'type'     => 'select',
 				'class'    => 'chosen_select',
 				'options'  => array(
-					'lifetime'      => __( 'Lifetime', 'maximum-products-per-user-for-woocommerce' ),
-					'this_hour'     => __( 'This hour', 'maximum-products-per-user-for-woocommerce' ),
-					'this_day'      => __( 'This day', 'maximum-products-per-user-for-woocommerce' ),
-					'this_week'     => __( 'This week', 'maximum-products-per-user-for-woocommerce' ),
-					'this_month'    => __( 'This month', 'maximum-products-per-user-for-woocommerce' ),
-					'this_year'     => __( 'This year', 'maximum-products-per-user-for-woocommerce' ),
-					'last_hour'     => __( 'Last hour', 'maximum-products-per-user-for-woocommerce' ),
-					'last_24_hours' => __( 'Last 24 hours', 'maximum-products-per-user-for-woocommerce' ),
-					'last_7_days'   => __( 'Last 7 days', 'maximum-products-per-user-for-woocommerce' ),
-					'last_30_days'  => __( 'Last 30 days', 'maximum-products-per-user-for-woocommerce' ),
-					'last_365_days' => __( 'Last 365 days', 'maximum-products-per-user-for-woocommerce' ),
-					'custom'        => __( 'Custom range', 'maximum-products-per-user-for-woocommerce' ),
-					'fixed_date'    => __( 'Fixed date', 'maximum-products-per-user-for-woocommerce' ),
+					'lifetime'       => __( 'Lifetime', 'maximum-products-per-user-for-woocommerce' ),
+					'this_hour'      => __( 'This hour', 'maximum-products-per-user-for-woocommerce' ),
+					'this_day'       => __( 'This day', 'maximum-products-per-user-for-woocommerce' ),
+					'this_week'      => __( 'This week', 'maximum-products-per-user-for-woocommerce' ),
+					'this_month'     => __( 'This month', 'maximum-products-per-user-for-woocommerce' ),
+					'this_year'      => __( 'This year', 'maximum-products-per-user-for-woocommerce' ),
+					'last_hour'      => __( 'Last hour', 'maximum-products-per-user-for-woocommerce' ),
+					'last_24_hours'  => __( 'Last 24 hours', 'maximum-products-per-user-for-woocommerce' ),
+					'last_7_days'    => __( 'Last 7 days', 'maximum-products-per-user-for-woocommerce' ),
+					'last_30_days'   => __( 'Last 30 days', 'maximum-products-per-user-for-woocommerce' ),
+					'last_365_days'  => __( 'Last 365 days', 'maximum-products-per-user-for-woocommerce' ),
+					'custom'         => __( 'Custom range', 'maximum-products-per-user-for-woocommerce' ),
+					'fixed_date'     => __( 'Fixed date', 'maximum-products-per-user-for-woocommerce' ),
+					'monthly'        => __( 'Monthly', 'maximum-products-per-user-for-woocommerce' ),
 				),
 			),
 			array(
@@ -134,11 +135,24 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 			),
 			array(
 				'desc'     => __( 'Fixed date.', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip' => sprintf( __( 'Used for the "%s" option.', 'maximum-products-per-user-for-woocommerce' ), __( 'Fixed date', 'maximum-products-per-user-for-woocommerce' ) ),
+				'desc_tip' => sprintf( __( 'Used with the "%s" date range option.', 'maximum-products-per-user-for-woocommerce' ), __( 'Fixed date', 'maximum-products-per-user-for-woocommerce' ) ),
 				'id'       => 'alg_wc_mppu_date_range_fixed_date',
 				'default'  => '',
 				'css'      => 'width:398px;',
 				'type'     => 'datetime-local',
+			),
+			array(
+				'desc'     => __( 'Origin date.', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'Used with the "%s" date range option.', 'maximum-products-per-user-for-woocommerce' ), __( 'Monthly', 'maximum-products-per-user-for-woocommerce' ) ) .
+				              ' ' . sprintf( __( 'If the user register date is %s, the limits would be reset monthly, like: %s and so on, always on day 15th.', 'maximum-products-per-user-for-woocommerce' ), '<code>2023-04-15</code>', '(2023-04-15 > 2023-05-15 > 2023-06-15)' ) .
+				              ' ' . __( 'The free version will only work with the "User register date" option.', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_date_range_origin_date',
+				'default'  => '',
+				'options'  => array(
+					'user_register_date'            => __( 'User register date', 'maximum-products-per-user-for-woocommerce' ),
+					'memberpress_subscription_date' => __( 'MemberPress subscription date', 'maximum-products-per-user-for-woocommerce' )
+				),
+				'type'     => 'select',
 			),
 			array(
 				'title'    => __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ),

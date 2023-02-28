@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 3.8.0
+ * @version 3.8.4
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -140,6 +140,56 @@ class Alg_WC_MPPU_Core {
 		do_action( 'alg_wc_mppu_core_loaded', $this );
 		// Background process
 		add_action( 'plugins_loaded', array( $this, 'init_bkg_process' ), 9 );
+		// Last month day check.
+		add_filter( 'alg_wc_mppu_user_already_bought_validation', array( $this, 'validate_user_already_bought_monthly_range' ), 10, 2 );
+	}
+
+	/**
+	 * validate_user_already_bought_monthly_range.
+	 *
+	 * @version 3.8.4
+	 * @since   3.8.4
+	 *
+	 * @param $validation
+	 * @param $args
+	 *
+	 * @return bool
+	 */
+	function validate_user_already_bought_monthly_range( $validation, $args ) {
+		if (
+			'monthly' === $args['date_range'] &&
+			$args['order_date'] < $this->get_monthly_range_origin_date( $args )
+		) {
+			$validation = false;
+		}
+		return $validation;
+	}
+
+	/**
+	 * get_monthly_range_origin_date.
+	 *
+	 * @version 3.8.4
+	 * @since   3.8.4
+	 *
+	 * @param $args
+	 *
+	 * @return string Date in strtotime format.
+	 */
+	function get_monthly_range_origin_date( $args ) {
+		$origin_date = get_option( 'alg_wc_mppu_date_range_origin_date', 'user_register_date' );
+		$date        = $this->get_current_time();
+		switch ( $origin_date ) {
+			case 'user_register_date':
+				if (
+					isset( $args['current_user_id'] ) &&
+					! empty( $user_id = $args['current_user_id'] ) &&
+					is_a( $user = get_userdata( $user_id ), 'WP_User' )
+				) {
+					$date = strtotime( $user->user_registered );
+				}
+				break;
+		}
+		return apply_filters( 'alg_mc_mppu_get_monthly_range_origin_date', $date, $origin_date, $args );
 	}
 
 	/**
@@ -821,71 +871,88 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_date_to_check.
 	 *
-	 * @version 3.8.0
+	 * @version 3.8.4
 	 * @since   2.4.0
 	 * @todo    [maybe] add `alg_wc_mppu_date_to_check_custom` filter
 	 * @todo    [maybe] add more predefined ranges, e.g. `last_14_days`, `last_45_days`, `last_60_days`, `MINUTE_IN_SECONDS`
+	 *
+	 * @param null $args
+	 *
+	 * @return mixed
 	 */
-	function get_date_to_check( $date_range, $product_or_term_id = null, $current_user_id = null, $is_product = null ) {
-		$date_to_check = 0;
-		$current_time  = $this->get_current_time();
+	function get_date_to_check( $args = null ) {
+		$args = wp_parse_args( $args, array(
+			'date_range'          => '',
+			'product_or_term_id'  => null,
+			'current_user_id'     => null,
+			'is_product'          => null,
+			'datetime_to_compare' => $this->get_current_time()
+		) );
+		$date_range          = $args['date_range'];
+		$product_or_term_id  = $args['product_or_term_id'];
+		$current_user_id     = $args['current_user_id'];
+		$is_product          = $args['is_product'];
+		$date_to_check       = 0;
+		$datetime_to_compare = $args['datetime_to_compare'];
 		switch ( $date_range ) {
 			case 'lifetime':
 				$date_to_check = 0;
 				break;
 			case 'this_hour':
-				$date_to_check = strtotime( date( 'Y-m-d H:00:00', $current_time ) );
+				$date_to_check = strtotime( date( 'Y-m-d H:00:00', $datetime_to_compare ) );
 				break;
 			case 'this_day':
-				$date_to_check = strtotime( date( 'Y-m-d 00:00:00', $current_time ) );
+				$date_to_check = strtotime( date( 'Y-m-d 00:00:00', $datetime_to_compare ) );
 				break;
 			case 'this_week':
-				$date_to_check = strtotime( 'monday this week', $current_time );
+				$date_to_check = strtotime( 'monday this week', $datetime_to_compare );
 				break;
 			case 'this_month':
-				$date_to_check = strtotime( date( 'Y-m-01', $current_time ) );
+				$date_to_check = strtotime( date( 'Y-m-01', $datetime_to_compare ) );
 				break;
 			case 'this_year':
-				$date_to_check = strtotime( date( 'Y-01-01', $current_time ) );
+				$date_to_check = strtotime( date( 'Y-01-01', $datetime_to_compare ) );
 				break;
 			case 'last_hour':
-				$date_to_check = ( $current_time - HOUR_IN_SECONDS );
+				$date_to_check = ( $datetime_to_compare - HOUR_IN_SECONDS );
 				break;
 			case 'last_24_hours':
-				$date_to_check = ( $current_time - DAY_IN_SECONDS );
+				$date_to_check = ( $datetime_to_compare - DAY_IN_SECONDS );
 				break;
 			case 'last_7_days':
-				$date_to_check = ( $current_time - WEEK_IN_SECONDS );
+				$date_to_check = ( $datetime_to_compare - WEEK_IN_SECONDS );
 				break;
 			case 'last_30_days':
-				$date_to_check = ( $current_time - MONTH_IN_SECONDS );
+				$date_to_check = ( $datetime_to_compare - MONTH_IN_SECONDS );
 				break;
 			case 'last_365_days':
-				$date_to_check = ( $current_time - YEAR_IN_SECONDS );
+				$date_to_check = ( $datetime_to_compare - YEAR_IN_SECONDS );
 				break;
 			case 'custom':
-				$date_to_check = ( $current_time - $this->get_custom_date_range_in_seconds() );
+				$date_to_check = ( $datetime_to_compare - $this->get_custom_date_range_in_seconds() );
 				break;
 			case 'fixed_date':
 				$fixed_date    = get_option( 'alg_wc_mppu_date_range_fixed_date', '' );
 				$date_to_check = ! empty( $fixed_date ) ? strtotime( $fixed_date ) : 0;
 				break;
+			case 'monthly':
+				$datetime_to_compare_info         = getdate( $this->get_monthly_range_origin_date( $args ) );
+				$current_time                     = $this->get_current_time();
+				$current_time_info                = getdate( $current_time );
+				$last_date_of_previous_month_info = getdate( strtotime( 'last day of previous month', $current_time ) );
+				if ( $current_time_info['mday'] >= $datetime_to_compare_info['mday'] ) {
+					$date_to_check_string = $current_time_info['year'] . '-' . $current_time_info['mon'] . '-' . $datetime_to_compare_info['mday'];
+				} else {
+					$month_day_to_compare = $datetime_to_compare_info['mday'] > $last_date_of_previous_month_info['mday'] ? $last_date_of_previous_month_info['mday'] : $datetime_to_compare_info['mday'];
+					$date_to_check_string = $last_date_of_previous_month_info['year'] . '-' . $last_date_of_previous_month_info['mon'] . '-' . $month_day_to_compare;
+				}
+				$date_to_check = strtotime( $date_to_check_string );
+				break;
 			default:
 				$date_to_check = false !== ( $date_time = DateTime::createFromFormat( 'Y-m-d', $date_range ) ) ? $date_time->getTimestamp() : $date_to_check;
 				break;
 		}
-		return apply_filters( 'alg_wc_mppu_date_to_check', $date_to_check, $date_range, $current_time, $product_or_term_id, $current_user_id, $is_product );
-	}
-
-	/**
-	 * check_order_date_range.
-	 *
-	 * @version 3.1.0
-	 * @since   2.0.0
-	 */
-	function check_order_date_range( $order_date, $date_range, $product_or_term_id = null, $current_user_id = null, $is_product = null ) {
-		$date_to_check = $this->get_date_to_check( $date_range, $product_or_term_id, $current_user_id, $is_product );
-		return ( $order_date >= $date_to_check );
+		return apply_filters( 'alg_wc_mppu_date_to_check', $date_to_check, $date_range, $datetime_to_compare, $product_or_term_id, $current_user_id, $is_product );
 	}
 
 	/**
@@ -934,7 +1001,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_user_already_bought_qty.
 	 *
-	 * @version 3.7.0
+	 * @version 3.8.4
 	 * @since   2.0.0
 	 * @todo    [next] completely remove separate `lifetime` calculation (i.e. `$this->do_get_lifetime_from_totals` always `false`)
 	 * @todo    [maybe] add option to use e.g. order date completed (instead of `date_created`)
@@ -963,7 +1030,19 @@ class Alg_WC_MPPU_Core {
 					foreach ( $users_quantities[ $current_user_id ] as $order_id => $order_data ) {
 						$order_date = $this->get_order_date( $order_data['date_created'] );
 						if (
-							$this->check_order_date_range( $order_date, $date_range, $product_or_term_id, $current_user_id, $is_product ) &&
+							true === apply_filters( 'alg_wc_mppu_user_already_bought_validation', true, array(
+								'order_date'         => $order_date,
+								'date_range'         => $date_range,
+								'product_or_term_id' => $product_or_term_id,
+								'current_user_id'    => $current_user_id,
+								'is_product'         => $is_product
+							) ) &&
+							$order_date >= $this->get_date_to_check( array(
+								'date_range'         => $date_range,
+								'product_or_term_id' => $product_or_term_id,
+								'current_user_id'    => $current_user_id,
+								'is_product'         => $is_product
+							) ) &&
 							apply_filters( 'alg_wc_mppu_user_already_bought_do_count_order', true, $order_id, $order_data )
 						) {
 							$user_already_bought += $order_data['qty'];

@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin, algoritmika, anbinder
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
 Tested up to: 6.1
-Stable tag: 3.8.3
+Stable tag: 3.8.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -63,8 +63,14 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 
 == Changelog ==
 
-= 3.8.3 - 02/02/2023 =
-* Dev - Frontend - My account tab - Improve cache from `[alg_wc_mppu_user_product_limits]`.
+= 3.8.4 - 28/02/2023 =
+* Dev - Frontend - My account tab - Improve performance with pagination and by improving the `show_unbought` parameter as `false`.
+* Dev - Frontend - My account tab - Remove output cache.
+* Dev - General - Date range - New option: Monthly.
+* WC tested up to: 7.4.
+
+= 3.8.3 – 02/02/2023 =
+* Dev – Frontend – My account tab – Improve cache from [alg_wc_mppu_user_product_limits].
 
 = 3.8.2 - 31/01/2023 =
 * Dev - Frontend - My account tab - Cache the output from `[alg_wc_mppu_user_product_limits]`.
