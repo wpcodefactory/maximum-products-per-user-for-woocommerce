@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Advanced Section Settings.
  *
- * @version 3.7.0
+ * @version 3.8.5
  * @since   2.3.1
  * @author  WPFactory
  */
@@ -61,7 +61,7 @@ class Alg_WC_MPPU_Settings_Advanced extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.7.0
+	 * @version 3.8.5
 	 * @since   2.3.1
 	 * @todo    [maybe] `alg_wc_mppu_time_func`: remove option (i.e. always use local time)?
 	 */
@@ -164,7 +164,74 @@ class Alg_WC_MPPU_Settings_Advanced extends Alg_WC_MPPU_Settings_Section {
 			)
 		);
 
-		return array_merge( $advanced_settings, $bkg_process_options );
+		$orders_above_limits_opts = $this->get_orders_above_limits_options();
+
+		return array_merge( $advanced_settings, $bkg_process_options, $orders_above_limits_opts );
+	}
+
+	/**
+	 * get_orders_above_limit_options.
+	 *
+	 * @version 3.8.5
+	 * @since   3.6.1
+	 *
+	 * @return array
+	 */
+	function get_orders_above_limits_options() {
+		$orders_above_limits_opts = array(
+			array(
+				'title' => __( 'Orders above limits', 'maximum-products-per-user-for-woocommerce' ),
+				'type'  => 'title',
+				'desc'  => __( 'Let users place orders that do not respect the limits.', 'maximum-products-per-user-for-woocommerce' ),
+				'id'    => 'alg_wc_mppu_orders_above_limits_options',
+			),
+			array(
+				'title'             => __( 'Orders above limits', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'              => __( 'Allow users to place orders with exceeding limits', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip'          => __( 'Notices regarding limit issues will not be displayed as errors on checkout.', 'maximum-products-per-user-for-woocommerce' ),
+				'id'                => 'alg_wc_mppu_orders_above_limits_allowed',
+				'custom_attributes' => apply_filters( 'alg_wc_mppu_settings', array( 'disabled' => 'disabled' ) ),
+				'default'           => 'no',
+				'type'              => 'checkbox',
+			),
+			array(
+				'title'    => __( 'Order status', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Change status from newly placed orders above limits', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'Order status will only be changed if %s option is enabled.', 'maximum-products-per-user-for-woocommerce' ), '<strong>' . __( 'Orders above limits', 'maximum-products-per-user-for-woocommerce' ) . '</strong>' ),
+				'id'       => 'alg_wc_mppu_orders_above_limits_change_status',
+				'type'     => 'checkbox',
+				'default'  => 'no',
+				'options'  => wc_get_order_statuses(),
+			),
+		);
+		if ( 'yes' === get_option( 'alg_wc_mppu_orders_above_limits_change_status', 'no' ) ) {
+			$orders_above_limits_opts = array_merge( $orders_above_limits_opts, array(
+					array(
+						'desc'    => __( 'Status used on orders above limits.', 'maximum-products-per-user-for-woocommerce' ),
+						'id'      => 'alg_wc_mppu_orders_above_limits_status',
+						'type'    => 'select',
+						'class'   => 'chosen_select',
+						'default' => 'wc-mppu-invalid',
+						'options' => wc_get_order_statuses(),
+					),
+					array(
+						'desc'    => __( 'Custom order status label.', 'maximum-products-per-user-for-woocommerce' ),
+						'id'      => 'alg_wc_mppu_orders_above_limits_custom_status_label',
+						'default' => __( 'Above limit', 'maximum-products-per-user-for-woocommerce' ),
+						'type'    => 'text',
+					)
+				)
+			);
+		}
+		$orders_above_limits_opts = array_merge(
+			$orders_above_limits_opts, array(
+				array(
+					'type' => 'sectionend',
+					'id'   => 'alg_wc_mppu_orders_above_limits_options',
+				)
+			)
+		);
+		return $orders_above_limits_opts;
 	}
 
 }

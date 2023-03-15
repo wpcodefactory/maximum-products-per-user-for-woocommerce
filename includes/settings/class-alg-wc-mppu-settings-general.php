@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - General Section Settings.
  *
- * @version 3.8.4
+ * @version 3.8.5
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.8.4
+	 * @version 3.8.5
 	 * @since   1.0.0
 	 * @todo    [next] exclude unnecessary statuses from `alg_wc_mppu_order_status` (e.g. "Cancelled", "Refunded", "Failed") and `alg_wc_mppu_order_status_delete` (e.g. "Completed" etc.)?
 	 * @todo    [next] (desc) `alg_wc_mppu_order_status_delete`: `$this->get_recalculate_sales_data_desc( __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ) )`?
@@ -41,9 +41,9 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 	 */
 	function get_settings() {
 
-		$plugin_settings = array(
+		$general_settings = array(
 			array(
-				'title'    => __( 'Maximum Products per User Options', 'maximum-products-per-user-for-woocommerce' ),
+				'title'    => __( 'General options', 'maximum-products-per-user-for-woocommerce' ),
 				'type'     => 'title',
 				'desc'     => '<p>' . '* ' . sprintf( __( 'While data is recalculated automatically (but only after the plugin was enabled), you can also force manual recalculation by running %s tool.', 'maximum-products-per-user-for-woocommerce' ),
 						$this->get_section_link( 'tools', __( 'Recalculate sales data', 'maximum-products-per-user-for-woocommerce' ) ) ) . ' ' .
@@ -58,18 +58,6 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'id'       => 'wpjup_wc_maximum_products_per_user_plugin_enabled',
 				'default'  => 'yes',
 				'type'     => 'checkbox',
-			),
-			array(
-				'type'     => 'sectionend',
-				'id'       => 'alg_wc_mppu_plugin_options',
-			),
-		);
-
-		$general_settings = array(
-			array(
-				'title'    => __( 'General Options', 'maximum-products-per-user-for-woocommerce' ),
-				'type'     => 'title',
-				'id'       => 'alg_wc_mppu_general_options',
 			),
 			array(
 				'title'    => __( 'Mode', 'maximum-products-per-user-for-woocommerce' ),
@@ -88,76 +76,9 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				),
 			),
 			array(
-				'title'    => __( 'Date range', 'maximum-products-per-user-for-woocommerce' ),
-				'id'       => 'alg_wc_mppu_date_range',
-				'default'  => 'lifetime',
-				'type'     => 'select',
-				'class'    => 'chosen_select',
-				'options'  => array(
-					'lifetime'       => __( 'Lifetime', 'maximum-products-per-user-for-woocommerce' ),
-					'this_hour'      => __( 'This hour', 'maximum-products-per-user-for-woocommerce' ),
-					'this_day'       => __( 'This day', 'maximum-products-per-user-for-woocommerce' ),
-					'this_week'      => __( 'This week', 'maximum-products-per-user-for-woocommerce' ),
-					'this_month'     => __( 'This month', 'maximum-products-per-user-for-woocommerce' ),
-					'this_year'      => __( 'This year', 'maximum-products-per-user-for-woocommerce' ),
-					'last_hour'      => __( 'Last hour', 'maximum-products-per-user-for-woocommerce' ),
-					'last_24_hours'  => __( 'Last 24 hours', 'maximum-products-per-user-for-woocommerce' ),
-					'last_7_days'    => __( 'Last 7 days', 'maximum-products-per-user-for-woocommerce' ),
-					'last_30_days'   => __( 'Last 30 days', 'maximum-products-per-user-for-woocommerce' ),
-					'last_365_days'  => __( 'Last 365 days', 'maximum-products-per-user-for-woocommerce' ),
-					'custom'         => __( 'Custom range', 'maximum-products-per-user-for-woocommerce' ),
-					'fixed_date'     => __( 'Fixed date', 'maximum-products-per-user-for-woocommerce' ),
-					'monthly'        => __( 'Monthly', 'maximum-products-per-user-for-woocommerce' ),
-				),
-			),
-			array(
-				'desc'     => sprintf( __( 'Custom date range (in %s).', 'maximum-products-per-user-for-woocommerce' ), get_option( 'alg_wc_mppu_date_range_custom_unit', 'seconds' ) ),
-				'desc_tip' => __( 'Used when "Custom" option is selected in "Date range".', 'maximum-products-per-user-for-woocommerce' ),
-				'id'       => 'alg_wc_mppu_date_range_custom',
-				'default'  => 3600,
-				'type'     => 'number',
-				'custom_attributes' => array( 'min' => 1 ),
-			),
-			array(
-				'desc'     => __( 'Custom date range unit.', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip' => sprintf( __( 'Used for the "%s" option.', 'maximum-products-per-user-for-woocommerce' ), __( 'Custom date range', 'maximum-products-per-user-for-woocommerce' ) ),
-				'id'       => 'alg_wc_mppu_date_range_custom_unit',
-				'default'  => 'seconds',
-				'type'     => 'select',
-				'class'    => 'chosen_select',
-				'options'  => array(
-					'seconds' => __( 'seconds', 'maximum-products-per-user-for-woocommerce' ),
-					'minutes' => __( 'minutes', 'maximum-products-per-user-for-woocommerce' ),
-					'hours'   => __( 'hours', 'maximum-products-per-user-for-woocommerce' ),
-					'days'    => __( 'days', 'maximum-products-per-user-for-woocommerce' ),
-					'weeks'   => __( 'weeks', 'maximum-products-per-user-for-woocommerce' ),
-				),
-			),
-			array(
-				'desc'     => __( 'Fixed date.', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip' => sprintf( __( 'Used with the "%s" date range option.', 'maximum-products-per-user-for-woocommerce' ), __( 'Fixed date', 'maximum-products-per-user-for-woocommerce' ) ),
-				'id'       => 'alg_wc_mppu_date_range_fixed_date',
-				'default'  => '',
-				'css'      => 'width:398px;',
-				'type'     => 'datetime-local',
-			),
-			array(
-				'desc'     => __( 'Origin date.', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip' => sprintf( __( 'Used with the "%s" date range option.', 'maximum-products-per-user-for-woocommerce' ), __( 'Monthly', 'maximum-products-per-user-for-woocommerce' ) ) .
-				              ' ' . sprintf( __( 'If the user register date is %s, the limits would be reset monthly, like: %s and so on, always on day 15th.', 'maximum-products-per-user-for-woocommerce' ), '<code>2023-04-15</code>', '(2023-04-15 > 2023-05-15 > 2023-06-15)' ) .
-				              ' ' . __( 'The free version will only work with the "User register date" option.', 'maximum-products-per-user-for-woocommerce' ),
-				'id'       => 'alg_wc_mppu_date_range_origin_date',
-				'default'  => '',
-				'options'  => array(
-					'user_register_date'            => __( 'User register date', 'maximum-products-per-user-for-woocommerce' ),
-					'memberpress_subscription_date' => __( 'MemberPress subscription date', 'maximum-products-per-user-for-woocommerce' )
-				),
-				'type'     => 'select',
-			),
-			array(
 				'title'    => __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ),
 				'desc_tip' => __( 'Choose order statuses when product data should be updated.', 'maximum-products-per-user-for-woocommerce' ) . ' ' .
-					__( 'If you select multiple order statuses, data is updated only once, on whichever status change occurs first.', 'maximum-products-per-user-for-woocommerce' ),
+				              __( 'If you select multiple order statuses, data is updated only once, on whichever status change occurs first.', 'maximum-products-per-user-for-woocommerce' ),
 				'desc'     => $this->get_recalculate_sales_data_desc( __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ) ),
 				'id'       => 'alg_wc_mppu_order_status',
 				'default'  => array( 'wc-completed' ),
@@ -168,7 +89,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 			array(
 				'title'    => __( 'Order statuses: Delete', 'maximum-products-per-user-for-woocommerce' ),
 				'desc_tip' => __( 'Choose order statuses when product data should be deleted.', 'maximum-products-per-user-for-woocommerce' ) . ' ' .
-					__( 'If you select multiple order statuses, data is deleted only once, on whichever status change occurs first.', 'maximum-products-per-user-for-woocommerce' ),
+				              __( 'If you select multiple order statuses, data is deleted only once, on whichever status change occurs first.', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'alg_wc_mppu_order_status_delete',
 				'default'  => array(),
 				'type'     => 'multiselect',
@@ -178,13 +99,20 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 			array(
 				'title'    => __( 'Payment gateways', 'maximum-products-per-user-for-woocommerce' ),
 				'desc_tip' => __( 'Choose payment gateways when product data should be updated.', 'maximum-products-per-user-for-woocommerce' ) . ' ' .
-					__( 'Leave empty to update data for all payment gateways.', 'maximum-products-per-user-for-woocommerce' ),
+				              __( 'Leave empty to update data for all payment gateways.', 'maximum-products-per-user-for-woocommerce' ),
 				'desc'     => $this->get_recalculate_sales_data_desc( __( 'Payment gateways', 'maximum-products-per-user-for-woocommerce' ) ),
 				'id'       => 'alg_wc_mppu_payment_gateways',
 				'default'  => array(),
 				'type'     => 'multiselect',
 				'class'    => 'chosen_select',
 				'options'  => ( function_exists( 'WC' ) && WC()->payment_gateways() ? wp_list_pluck( WC()->payment_gateways->payment_gateways(), 'title' ) : array() ),
+			),
+			array(
+				'title'    => __( 'Quantity input', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Set a maximum value for the product quantity field based on its current limit', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_set_qty_field_max_attr',
+				'default'  => 'no',
+				'type'     => 'checkbox',
 			),
 			array(
 				'title'    => __( 'Use variations', 'maximum-products-per-user-for-woocommerce' ),
@@ -222,16 +150,96 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'title'    => __( 'Count by current payment method', 'maximum-products-per-user-for-woocommerce' ),
 				'desc'     => __( 'Count "user already bought" data for current (i.e. chosen) payment method only', 'maximum-products-per-user-for-woocommerce' ),
 				'desc_tip' => sprintf( __( 'You may also want to disable "%s" and "%s" options in the "%s" section, so your customer could change the payment method on exceeded limits.', 'maximum-products-per-user-for-woocommerce' ),
-						__( 'Validate on add to cart', 'maximum-products-per-user-for-woocommerce' ),
-						__( 'Block checkout page', 'maximum-products-per-user-for-woocommerce' ),
-						$this->get_section_link( 'frontend' ) ),
+					__( 'Validate on add to cart', 'maximum-products-per-user-for-woocommerce' ),
+					__( 'Block checkout page', 'maximum-products-per-user-for-woocommerce' ),
+					$this->get_section_link( 'frontend' ) ),
 				'id'       => 'alg_wc_mppu_count_by_current_payment_method',
 				'default'  => 'no',
 				'type'     => 'checkbox',
 			),
 			array(
 				'type'     => 'sectionend',
-				'id'       => 'alg_wc_mppu_general_options',
+				'id'       => 'alg_wc_mppu_plugin_options',
+			),
+		);
+
+		$date_range_options = array(
+			array(
+				'title' => __( 'Date range options', 'maximum-products-per-user-for-woocommerce' ),
+				'type'  => 'title',
+				'id'    => 'alg_wc_mppu_date_range_options',
+			),
+			array(
+				'title'    => __( 'Date range', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_date_range',
+				'default'  => 'lifetime',
+				'type'     => 'select',
+				'class'    => 'chosen_select',
+				'options'  => array(
+					'lifetime'       => __( 'Lifetime', 'maximum-products-per-user-for-woocommerce' ),
+					'this_hour'      => __( 'This hour', 'maximum-products-per-user-for-woocommerce' ),
+					'this_day'       => __( 'This day', 'maximum-products-per-user-for-woocommerce' ),
+					'this_week'      => __( 'This week', 'maximum-products-per-user-for-woocommerce' ),
+					'this_month'     => __( 'This month', 'maximum-products-per-user-for-woocommerce' ),
+					'this_year'      => __( 'This year', 'maximum-products-per-user-for-woocommerce' ),
+					'last_hour'      => __( 'Last hour', 'maximum-products-per-user-for-woocommerce' ),
+					'last_24_hours'  => __( 'Last 24 hours', 'maximum-products-per-user-for-woocommerce' ),
+					'last_7_days'    => __( 'Last 7 days', 'maximum-products-per-user-for-woocommerce' ),
+					'last_30_days'   => __( 'Last 30 days', 'maximum-products-per-user-for-woocommerce' ),
+					'last_365_days'  => __( 'Last 365 days', 'maximum-products-per-user-for-woocommerce' ),
+					'custom'         => __( 'Custom range', 'maximum-products-per-user-for-woocommerce' ),
+					'fixed_date'     => __( 'Fixed date', 'maximum-products-per-user-for-woocommerce' ),
+					'monthly'        => __( 'Monthly', 'maximum-products-per-user-for-woocommerce' ),
+				),
+			),
+			array(
+				'title'    => __( 'Custom date range', 'maximum-products-per-user-for-woocommerce' ), get_option( 'alg_wc_mppu_date_range_custom_unit', 'seconds' ),
+				'desc'     => sprintf( __( 'In %s.', 'maximum-products-per-user-for-woocommerce' ), get_option( 'alg_wc_mppu_date_range_custom_unit', 'seconds' ) ),
+				'desc_tip' => __( 'Used when "Custom" option is selected in "Date range".', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_date_range_custom',
+				'default'  => 3600,
+				'type'     => 'number',
+				'custom_attributes' => array( 'min' => 1 ),
+			),
+			array(
+				'desc'     => __( 'Custom date range unit.', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'Used for the "%s" option.', 'maximum-products-per-user-for-woocommerce' ), __( 'Custom date range', 'maximum-products-per-user-for-woocommerce' ) ),
+				'id'       => 'alg_wc_mppu_date_range_custom_unit',
+				'default'  => 'seconds',
+				'type'     => 'select',
+				'class'    => 'chosen_select',
+				'options'  => array(
+					'seconds' => __( 'seconds', 'maximum-products-per-user-for-woocommerce' ),
+					'minutes' => __( 'minutes', 'maximum-products-per-user-for-woocommerce' ),
+					'hours'   => __( 'hours', 'maximum-products-per-user-for-woocommerce' ),
+					'days'    => __( 'days', 'maximum-products-per-user-for-woocommerce' ),
+					'weeks'   => __( 'weeks', 'maximum-products-per-user-for-woocommerce' ),
+				),
+			),
+			array(
+				'title'    => __( 'Fixed date range', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'Used with the "%s" date range option.', 'maximum-products-per-user-for-woocommerce' ), __( 'Fixed date', 'maximum-products-per-user-for-woocommerce' ) ),
+				'id'       => 'alg_wc_mppu_date_range_fixed_date',
+				'default'  => '',
+				'css'      => 'width:398px;',
+				'type'     => 'datetime-local',
+			),
+			array(
+				'title'     => __( 'Origin date', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'Used with the "%s" date range option.', 'maximum-products-per-user-for-woocommerce' ), __( 'Monthly', 'maximum-products-per-user-for-woocommerce' ) ) .
+				              ' ' . sprintf( __( 'If the user register date is %s, the limits would be reset monthly, like: %s and so on, always on day 15th.', 'maximum-products-per-user-for-woocommerce' ), '<code>2023-04-15</code>', '(2023-04-15 > 2023-05-15 > 2023-06-15)' ) .
+				              ' ' . __( 'The free version will only work with the "User register date" option.', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_date_range_origin_date',
+				'default'  => '',
+				'options'  => array(
+					'user_register_date'            => __( 'User register date', 'maximum-products-per-user-for-woocommerce' ),
+					'memberpress_subscription_date' => __( 'MemberPress subscription date', 'maximum-products-per-user-for-woocommerce' )
+				),
+				'type'     => 'select',
+			),
+			array(
+				'type'     => 'sectionend',
+				'id'       => 'alg_wc_mppu_date_range_options',
 			),
 		);
 
@@ -268,74 +276,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 			),
 		);
 
-		$orders_above_limits_opts = $this->get_orders_above_limits_options();
-
-		return array_merge( $plugin_settings, $general_settings, $orders_above_limits_opts, $multi_lang_options );
-	}
-
-	/**
-	 * get_orders_above_limit_options.
-	 *
-	 * @version 3.6.1
-	 * @since   3.6.1
-	 *
-	 * @return array
-	 */
-	function get_orders_above_limits_options() {
-		$orders_above_limits_opts = array(
-			array(
-				'title' => __( 'Orders above limits', 'maximum-products-per-user-for-woocommerce' ),
-				'type'  => 'title',
-				'desc'  => __( 'Let users place orders that do not respect the limits.', 'maximum-products-per-user-for-woocommerce' ),
-				'id'    => 'alg_wc_mppu_multilang_options',
-			),
-			array(
-				'title'             => __( 'Orders above limits', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'              => __( 'Allow users to place orders with exceeding limits', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip'          => __( 'Notices regarding limit issues will not be displayed as errors on checkout.', 'maximum-products-per-user-for-woocommerce' ),
-				'id'                => 'alg_wc_mppu_orders_above_limits_allowed',
-				'custom_attributes' => apply_filters( 'alg_wc_mppu_settings', array( 'disabled' => 'disabled' ) ),
-				'default'           => 'no',
-				'type'              => 'checkbox',
-			),
-			array(
-				'title'    => __( 'Order status', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => __( 'Change status from newly placed orders above limits', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip' => sprintf( __( 'Order status will only be changed if %s option is enabled.', 'maximum-products-per-user-for-woocommerce' ), '<strong>' . __( 'Orders above limits', 'maximum-products-per-user-for-woocommerce' ) . '</strong>' ),
-				'id'       => 'alg_wc_mppu_orders_above_limits_change_status',
-				'type'     => 'checkbox',
-				'default'  => 'no',
-				'options'  => wc_get_order_statuses(),
-			),
-		);
-		if ( 'yes' === get_option( 'alg_wc_mppu_orders_above_limits_change_status', 'no' ) ) {
-			$orders_above_limits_opts = array_merge( $orders_above_limits_opts, array(
-					array(
-						'desc'    => __( 'Status used on orders above limits.', 'maximum-products-per-user-for-woocommerce' ),
-						'id'      => 'alg_wc_mppu_orders_above_limits_status',
-						'type'    => 'select',
-						'class'   => 'chosen_select',
-						'default' => 'wc-mppu-invalid',
-						'options' => wc_get_order_statuses(),
-					),
-					array(
-						'desc'    => __( 'Custom order status label.', 'maximum-products-per-user-for-woocommerce' ),
-						'id'      => 'alg_wc_mppu_orders_above_limits_custom_status_label',
-						'default' => __( 'Above limit', 'maximum-products-per-user-for-woocommerce' ),
-						'type'    => 'text',
-					)
-				)
-			);
-		}
-		$orders_above_limits_opts = array_merge(
-			$orders_above_limits_opts, array(
-				array(
-					'type' => 'sectionend',
-					'id'   => 'alg_wc_mppu_multilang_options',
-				)
-			)
-		);
-		return $orders_above_limits_opts;
+		return array_merge( $general_settings, $date_range_options, $multi_lang_options );
 	}
 
 }

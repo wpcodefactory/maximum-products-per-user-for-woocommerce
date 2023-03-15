@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 3.8.4
+ * @version 3.8.5
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -52,7 +52,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.8.1
+	 * @version 3.8.5
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -142,6 +142,88 @@ class Alg_WC_MPPU_Core {
 		add_action( 'plugins_loaded', array( $this, 'init_bkg_process' ), 9 );
 		// Last month day check.
 		add_filter( 'alg_wc_mppu_user_already_bought_validation', array( $this, 'validate_user_already_bought_monthly_range' ), 10, 2 );
+		// Manages max attribute from quantity field.
+		$this->handle_qty_field_max_attr();
+	}
+
+	/**
+	 * Manages max attribute from quantity field.
+	 *
+	 * @version 3.8.5
+	 * @since   3.8.5
+	 *
+	 */
+	function handle_qty_field_max_attr(){
+		add_filter( 'woocommerce_quantity_input_args', array( $this, 'set_qty_field_max_attr' ), 10, 2 );
+		add_filter( 'woocommerce_available_variation', array( $this, 'set_qty_field_max_attr' ), 10, 2 );
+		add_action( 'woocommerce_after_single_variation', array( $this, 'change_variation_qty_input_script' ) );
+	}
+
+	/**
+	 * change_variation_qty_input_script.
+	 *
+	 * @version 3.8.5
+	 * @since   3.8.5
+	 */
+	function change_variation_qty_input_script() {
+		if ( 'yes' !== get_option( 'alg_wc_mppu_set_qty_field_max_attr', 'no' ) ) {
+			return;
+		}
+		?>
+		<script type="text/javascript">
+			jQuery(function ($) {
+				$(document).on('show_variation', function (e, variation) {
+					let qty_input = $('div.quantity > input.qty');
+					if (qty_input.val() > variation.max_qty) {
+						qty_input.val(variation.max_qty);
+					}
+					qty_input.attr('max', variation.max_qty);
+				})
+			});
+		</script>
+		<?php
+	}
+
+	/**
+	 * set_qty_field_max_attr.
+	 *
+	 * @version 3.8.5
+	 * @since   3.8.5
+	 *
+	 * @param $args
+	 * @param $product
+	 *
+	 * @return mixed
+	 */
+	function set_qty_field_max_attr( $args, $product ) {
+		if (
+			'yes' === get_option( 'alg_wc_mppu_set_qty_field_max_attr', 'no' ) &&
+			! empty( $product_id = is_a( $product, 'WC_Product_Variable' ) && isset( $args['variation_id'] ) ? $args['variation_id'] : $product->get_id() ) &&
+			! empty( $limit = alg_wc_mppu()->core->get_max_qty_for_product( $product_id ) ) &&
+			! empty( $bought_data = alg_wc_mppu()->core->get_user_already_bought_qty( $product_id, $this->get_current_user_id(), true ) ) &&
+			isset( $bought_data['bought'] )
+		) {
+			$final_remaining = 0;
+			if ( is_array( $limit ) ) {
+				$_remaining = PHP_INT_MAX;
+				foreach ( $limit as $_max_qty ) {
+					$bought_data         = alg_wc_mppu()->core->get_user_already_bought_qty( $_max_qty['term_id'], $this->get_current_user_id(), false );
+					$user_already_bought = $bought_data['bought'];
+					$remaining           = $_max_qty['max_qty'] - $user_already_bought;
+					if ( $remaining < $_remaining ) {
+						$_remaining      = $remaining;
+						$final_remaining = $remaining;
+					}
+				}
+			} else {
+				$final_remaining = $limit - $bought_data['bought'];
+			}
+			if ( $final_remaining > 0 ) {
+				$args['max_value'] = isset( $args['max_value'] ) && (int) $args['max_value'] > 0 ? min( $args['max_value'], $final_remaining ) : $final_remaining;
+				$args['max_qty']   = isset( $args['max_qty'] ) && (int) $args['max_qty'] > 0 ? min( $args['max_qty'], $final_remaining ) : $final_remaining;
+			}
+		}
+		return $args;
 	}
 
 	/**

@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: maximum-products-per-user-for-woocommerce 3.8.4\n"
+"Project-Id-Version: maximum-products-per-user-for-woocommerce 3.8.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-02-28T18:43:32+01:00\n"
+"POT-Creation-Date: 2023-03-15T20:49:18+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -58,18 +58,18 @@ msgstr ""
 msgid "Orders processed: %s."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:813
+#: includes/class-alg-wc-mppu-core.php:895
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:88
 msgid "You need to register to buy products."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1224
+#: includes/class-alg-wc-mppu-core.php:1306
 #: includes/class-alg-wc-mppu-shortcodes.php:51
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:108
 msgid "You can only buy maximum %limit% of %product_title% (you've already bought %bought%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1225
+#: includes/class-alg-wc-mppu-core.php:1307
 #: includes/class-alg-wc-mppu-shortcodes.php:52
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:109
 msgid "You can only buy maximum %limit% of %product_title%."
@@ -264,7 +264,7 @@ msgstr ""
 #: includes/class-alg-wc-mppu-users.php:484
 #: includes/settings/class-alg-wc-mppu-settings-admin.php:60
 #: includes/settings/class-alg-wc-mppu-settings-advanced.php:118
-#: includes/settings/class-alg-wc-mppu-settings-general.php:97
+#: includes/settings/class-alg-wc-mppu-settings-general.php:179
 msgid "Lifetime"
 msgstr ""
 
@@ -287,7 +287,7 @@ msgstr ""
 
 #: includes/pro/class-alg-wc-mppu-orders-above-limits.php:107
 #: includes/pro/class-alg-wc-mppu-orders-above-limits.php:130
-#: includes/settings/class-alg-wc-mppu-settings-general.php:324
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:220
 msgid "Above limit"
 msgstr ""
 
@@ -472,7 +472,7 @@ msgid "Ignored unless \"%s\" is set to \"%s\" in \"%s\" section."
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-advanced.php:117
-#: includes/settings/class-alg-wc-mppu-settings-general.php:91
+#: includes/settings/class-alg-wc-mppu-settings-general.php:173
 msgid "Date range"
 msgstr ""
 
@@ -482,7 +482,7 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-advanced.php:121
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:107
-#: includes/settings/class-alg-wc-mppu-settings-general.php:222
+#: includes/settings/class-alg-wc-mppu-settings-general.php:150
 msgid "Count by current payment method"
 msgstr ""
 
@@ -516,6 +516,44 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-advanced.php:155
 msgid "Requires the \"Send email\" option enabled in order to work."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:183
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:189
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:200
+msgid "Orders above limits"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:185
+msgid "Let users place orders that do not respect the limits."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:190
+msgid "Allow users to place orders with exceeding limits"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:191
+msgid "Notices regarding limit issues will not be displayed as errors on checkout."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:198
+msgid "Order status"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:199
+msgid "Change status from newly placed orders above limits"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:200
+msgid "Order status will only be changed if %s option is enabled."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:210
+msgid "Status used on orders above limits."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:218
+msgid "Custom order status label."
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:24
@@ -590,19 +628,19 @@ msgid "You need to enable \"%s\" checkbox in \"%s\" section to use %s attribute.
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:110
-#: includes/settings/class-alg-wc-mppu-settings-general.php:224
+#: includes/settings/class-alg-wc-mppu-settings-general.php:152
 msgid "You may also want to disable \"%s\" and \"%s\" options in the \"%s\" section, so your customer could change the payment method on exceeded limits."
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:111
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:68
-#: includes/settings/class-alg-wc-mppu-settings-general.php:225
+#: includes/settings/class-alg-wc-mppu-settings-general.php:153
 msgid "Validate on add to cart"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:112
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:132
-#: includes/settings/class-alg-wc-mppu-settings-general.php:226
+#: includes/settings/class-alg-wc-mppu-settings-general.php:154
 msgid "Block checkout page"
 msgstr ""
 
@@ -844,7 +882,7 @@ msgid "General"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-general.php:46
-msgid "Maximum Products per User Options"
+msgid "General options"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-general.php:48
@@ -865,313 +903,284 @@ msgstr ""
 msgid "Enable plugin"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:70
-msgid "General Options"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:75
-#: includes/settings/class-alg-wc-mppu-settings-general.php:76
+#: includes/settings/class-alg-wc-mppu-settings-general.php:63
+#: includes/settings/class-alg-wc-mppu-settings-general.php:64
 msgid "Mode"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:82
+#: includes/settings/class-alg-wc-mppu-settings-general.php:70
 msgid "Product quantities"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:83
+#: includes/settings/class-alg-wc-mppu-settings-general.php:71
 msgid "Product orders"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:84
+#: includes/settings/class-alg-wc-mppu-settings-general.php:72
 msgid "Product prices (incl. tax)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:85
+#: includes/settings/class-alg-wc-mppu-settings-general.php:73
 msgid "Product prices (excl. tax)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:86
+#: includes/settings/class-alg-wc-mppu-settings-general.php:74
 msgid "Product weights"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:87
+#: includes/settings/class-alg-wc-mppu-settings-general.php:75
 msgid "Product volumes"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:98
-msgid "This hour"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:99
-msgid "This day"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:100
-msgid "This week"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:101
-msgid "This month"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:102
-msgid "This year"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:103
-msgid "Last hour"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:104
-msgid "Last 24 hours"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:105
-msgid "Last 7 days"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:106
-msgid "Last 30 days"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:107
-msgid "Last 365 days"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:108
-msgid "Custom range"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:109
-#: includes/settings/class-alg-wc-mppu-settings-general.php:138
-msgid "Fixed date"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:110
-#: includes/settings/class-alg-wc-mppu-settings-general.php:146
-msgid "Monthly"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:114
-msgid "Custom date range (in %s)."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:115
-msgid "Used when \"Custom\" option is selected in \"Date range\"."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:122
-msgid "Custom date range unit."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:123
-msgid "Used for the \"%s\" option."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:123
-msgid "Custom date range"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:129
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:97
-msgid "seconds"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:130
-msgid "minutes"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:131
-msgid "hours"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:132
-msgid "days"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:133
-msgid "weeks"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:137
-msgid "Fixed date."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:138
-#: includes/settings/class-alg-wc-mppu-settings-general.php:146
-msgid "Used with the \"%s\" date range option."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:145
-msgid "Origin date."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:147
-msgid "If the user register date is %s, the limits would be reset monthly, like: %s and so on, always on day 15th."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:148
-msgid "The free version will only work with the \"User register date\" option."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:152
-msgid "User register date"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:153
-msgid "MemberPress subscription date"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:158
-#: includes/settings/class-alg-wc-mppu-settings-general.php:161
+#: includes/settings/class-alg-wc-mppu-settings-general.php:79
+#: includes/settings/class-alg-wc-mppu-settings-general.php:82
 msgid "Order statuses"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:159
+#: includes/settings/class-alg-wc-mppu-settings-general.php:80
 msgid "Choose order statuses when product data should be updated."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:160
+#: includes/settings/class-alg-wc-mppu-settings-general.php:81
 msgid "If you select multiple order statuses, data is updated only once, on whichever status change occurs first."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:169
+#: includes/settings/class-alg-wc-mppu-settings-general.php:90
 msgid "Order statuses: Delete"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:170
+#: includes/settings/class-alg-wc-mppu-settings-general.php:91
 msgid "Choose order statuses when product data should be deleted."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:171
+#: includes/settings/class-alg-wc-mppu-settings-general.php:92
 msgid "If you select multiple order statuses, data is deleted only once, on whichever status change occurs first."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:179
-#: includes/settings/class-alg-wc-mppu-settings-general.php:182
+#: includes/settings/class-alg-wc-mppu-settings-general.php:100
+#: includes/settings/class-alg-wc-mppu-settings-general.php:103
 msgid "Payment gateways"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:180
+#: includes/settings/class-alg-wc-mppu-settings-general.php:101
 msgid "Choose payment gateways when product data should be updated."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:181
+#: includes/settings/class-alg-wc-mppu-settings-general.php:102
 msgid "Leave empty to update data for all payment gateways."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:190
+#: includes/settings/class-alg-wc-mppu-settings-general.php:111
+msgid "Quantity input"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:112
+msgid "Set a maximum value for the product quantity field based on its current limit"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:118
 #: includes/settings/class-alg-wc-mppu-settings-per-product.php:196
 msgid "Use variations"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:191
+#: includes/settings/class-alg-wc-mppu-settings-general.php:119
 msgid "Use variations in \"All products\" and \"Per product\" calculations."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:192
+#: includes/settings/class-alg-wc-mppu-settings-general.php:120
 msgid "If \"Limits > Per Product\" section is enabled, you will be able to (optionally) override this option for each individual product."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:198
+#: includes/settings/class-alg-wc-mppu-settings-general.php:126
 msgid "User roles"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:199
+#: includes/settings/class-alg-wc-mppu-settings-general.php:127
 msgid "Set different limits for different user roles"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:205
+#: includes/settings/class-alg-wc-mppu-settings-general.php:133
 msgid "Enabled user roles"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:206
+#: includes/settings/class-alg-wc-mppu-settings-general.php:134
 msgid "Select user roles for which you want to set different limits. If empty, then all user roles will be added to the settings."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:214
+#: includes/settings/class-alg-wc-mppu-settings-general.php:142
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:129
 msgid "Hide products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:215
+#: includes/settings/class-alg-wc-mppu-settings-general.php:143
 msgid "Hides products with exceeded limits for the current user from the catalog and search results. Products will still be accessible via the direct links."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:216
+#: includes/settings/class-alg-wc-mppu-settings-general.php:144
 msgid "Hide products with exceeded limits"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:223
+#: includes/settings/class-alg-wc-mppu-settings-general.php:151
 msgid "Count \"user already bought\" data for current (i.e. chosen) payment method only"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:240
-#: includes/settings/class-alg-wc-mppu-settings-general.php:245
-#: includes/settings/class-alg-wc-mppu-settings-general.php:247
+#: includes/settings/class-alg-wc-mppu-settings-general.php:168
+msgid "Date range options"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:180
+msgid "This hour"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:181
+msgid "This day"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:182
+msgid "This week"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:183
+msgid "This month"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:184
+msgid "This year"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:185
+msgid "Last hour"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:186
+msgid "Last 24 hours"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:187
+msgid "Last 7 days"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:188
+msgid "Last 30 days"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:189
+msgid "Last 365 days"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:190
+msgid "Custom range"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:191
+#: includes/settings/class-alg-wc-mppu-settings-general.php:221
+msgid "Fixed date"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:192
+#: includes/settings/class-alg-wc-mppu-settings-general.php:229
+msgid "Monthly"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:196
+#: includes/settings/class-alg-wc-mppu-settings-general.php:206
+msgid "Custom date range"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:197
+msgid "In %s."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:198
+msgid "Used when \"Custom\" option is selected in \"Date range\"."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:205
+msgid "Custom date range unit."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:206
+msgid "Used for the \"%s\" option."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:212
+#: includes/settings/class-alg-wc-mppu-settings-tools.php:97
+msgid "seconds"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:213
+msgid "minutes"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:214
+msgid "hours"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:215
+msgid "days"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:216
+msgid "weeks"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:220
+msgid "Fixed date range"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:221
+#: includes/settings/class-alg-wc-mppu-settings-general.php:229
+msgid "Used with the \"%s\" date range option."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:228
+msgid "Origin date"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:230
+msgid "If the user register date is %s, the limits would be reset monthly, like: %s and so on, always on day 15th."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:231
+msgid "The free version will only work with the \"User register date\" option."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:235
+msgid "User register date"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:236
+msgid "MemberPress subscription date"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:248
+#: includes/settings/class-alg-wc-mppu-settings-general.php:253
+#: includes/settings/class-alg-wc-mppu-settings-general.php:255
 msgid "Multi-language"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:246
+#: includes/settings/class-alg-wc-mppu-settings-general.php:254
 msgid "Use the default language product/term ID instead of the translated one."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:253
+#: includes/settings/class-alg-wc-mppu-settings-general.php:261
 msgid "Disabled"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:254
+#: includes/settings/class-alg-wc-mppu-settings-general.php:262
 msgid "WPML"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:255
+#: includes/settings/class-alg-wc-mppu-settings-general.php:263
 msgid "Polylang"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:259
+#: includes/settings/class-alg-wc-mppu-settings-general.php:267
 msgid "Limit checking"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:260
+#: includes/settings/class-alg-wc-mppu-settings-general.php:268
 msgid "Use product ID from default language when checking product limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:287
-#: includes/settings/class-alg-wc-mppu-settings-general.php:293
-#: includes/settings/class-alg-wc-mppu-settings-general.php:304
-msgid "Orders above limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:289
-msgid "Let users place orders that do not respect the limits."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:294
-msgid "Allow users to place orders with exceeding limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:295
-msgid "Notices regarding limit issues will not be displayed as errors on checkout."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:302
-msgid "Order status"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:303
-msgid "Change status from newly placed orders above limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:304
-msgid "Order status will only be changed if %s option is enabled."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:314
-msgid "Status used on orders above limits."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:322
-msgid "Custom order status label."
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:24
