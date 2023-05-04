@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, Karzin, algoritmika, anbinder
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
-Tested up to: 6.1
-Stable tag: 3.8.5
+Tested up to: 6.2
+Stable tag: 3.8.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,12 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 3.8.6 - 04/05/2023 =
+* Dev - Admin - Editable sales data - Improve the user profile sales data UI.
+* Dev - Admin - Editable sales data - New option: Load sales data using AJAX.
+* Tested up to: 6.2.
+* WC tested up to: 7.6.
 
 = 3.8.5 - 15/03/2023 =
 * Dev - General - New option: Set a maximum value for the the product quantity field based on its current limit.

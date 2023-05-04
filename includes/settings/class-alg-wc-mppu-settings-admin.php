@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Admin Section Settings.
  *
- * @version 3.7.8
+ * @version 3.8.6
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -29,7 +29,7 @@ class Alg_WC_MPPU_Settings_Admin extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.8.1
+	 * @version 3.8.6
 	 * @since   2.2.0
 	 * @todo    [next] `alg_wc_mppu_user_export_sep`: separate for "single user export" and "all users export"?
 	 * @todo    [next] (desc) Extra meta: better desc
@@ -39,13 +39,22 @@ class Alg_WC_MPPU_Settings_Admin extends Alg_WC_MPPU_Settings_Section {
 		$sales_data_opts = array(
 			array(
 				'title'    => __( 'Editable sales data', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => sprintf( __( 'Show user sales data on the %s.', 'maximum-products-per-user-for-woocommerce' ), '<a href="' . admin_url( 'profile.php' ) . '">' . __( 'profile page', 'maximum-products-per-user-for-woocommerce' ) . '</a>' ),
 				'type'     => 'title',
 				'id'       => 'alg_wc_mppu_sales_data_options',
 			),
 			array(
 				'title'    => __( 'Editable sales data', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => __( 'Edit each user\'s sales data on user\'s edit page (in "Users")', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'See and edit each user\'s sales data', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'alg_wc_mppu_editable_sales_data',
+				'default'  => 'no',
+				'type'     => 'checkbox',
+			),
+			array(
+				'title'    => __( 'AJAX', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Load sales data using AJAX', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => __( 'Enable it if the results are taking too long to be retrieved or if you are experiencing timeout errors.', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_editable_sales_data_using_ajax',
 				'default'  => 'no',
 				'type'     => 'checkbox',
 			),
