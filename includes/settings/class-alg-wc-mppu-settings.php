@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Settings.
  *
- * @version 3.6.7
+ * @version 3.8.7
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_MPPU_Settings extends WC_Settings_Page {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.6.7
+	 * @version 3.8.7
 	 * @since   1.0.0
 	 */
 	function __construct() {
@@ -37,6 +37,50 @@ class Alg_WC_MPPU_Settings extends WC_Settings_Page {
 		require_once( 'class-alg-wc-mppu-settings-compatibility.php' );
 		// Create notice about pro
 		add_action( 'admin_init', array( $this, 'add_promoting_notice' ) );
+		// Admin style
+		add_action( 'admin_head-' . 'woocommerce_page_wc-settings', array( $this, 'admin_style' ) );
+	}
+
+	/**
+	 * admin_style.
+	 *
+	 * @version 3.8.7
+	 * @since   3.8.7
+	 */
+	function admin_style() {
+		if (
+			! isset( $_GET['tab'] )
+			|| $this->id !== $_GET['tab']
+		) {
+			return;
+		}
+		?>
+		<style>
+            .alg-wc-mppu-notes-wrapper pre {
+                white-space: pre-wrap;
+            }
+
+            .alg-wc-mppu-notes-wrapper {
+                background: #fff;
+                padding: 15px 15px 15px;
+                border: 1px solid #ccd0d4;
+            }
+
+            .alg-wc-mppu-note {
+                margin-bottom: 12px;
+                display: list-item;
+                list-style: inside;
+            }
+
+            .alg-wc-mppu-note .bullet{
+                display:none;
+            }
+
+            .alg-wc-mppu-note:last-child, .alg-wc-oma-notes-wrapper > *:last-child {
+                margin-bottom: 0;
+            }
+		</style>
+		<?php
 	}
 
 	/**

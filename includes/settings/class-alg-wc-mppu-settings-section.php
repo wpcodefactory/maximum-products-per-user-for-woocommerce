@@ -1,8 +1,8 @@
 <?php
 /**
- * Maximum Products per User for WooCommerce - Section Settings
+ * Maximum Products per User for WooCommerce - Section Settings.
  *
- * @version 3.5.3
+ * @version 3.8.7
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -22,6 +22,16 @@ class Alg_WC_MPPU_Settings_Section {
 	function __construct() {
 		add_filter( 'woocommerce_get_sections_alg_wc_mppu',              array( $this, 'settings_section' ) );
 		add_filter( 'woocommerce_get_settings_alg_wc_mppu_' . $this->id, array( $this, 'get_settings' ), PHP_INT_MAX );
+	}
+
+	/**
+	 * format_notes.
+	 *
+	 * @version 3.8.7
+	 * @since   3.8.7
+	 */
+	function format_notes( $notes ) {
+		return '<div class="alg-wc-mppu-notes-wrapper"><div class="alg-wc-mppu-note">' . implode( '</div><div class="alg-wc-mppu-note">', $notes ) . '</div></div>';
 	}
 
 	/**

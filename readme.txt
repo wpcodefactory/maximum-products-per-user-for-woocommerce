@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin, algoritmika, anbinder
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
 Tested up to: 6.2
-Stable tag: 3.8.6
+Stable tag: 3.8.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,9 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 3.8.7 - 07/05/2023 =
+* Dev - Formula - New attribute `product_limit_meta`.
 
 = 3.8.6 - 04/05/2023 =
 * Dev - Admin - Editable sales data - Improve the user profile sales data UI.
