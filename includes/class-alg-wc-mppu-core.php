@@ -52,7 +52,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.8.5
+	 * @version 3.8.8
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -68,6 +68,7 @@ class Alg_WC_MPPU_Core {
 			// Properties
 			$this->do_use_user_roles           = ( 'yes' === get_option( 'alg_wc_mppu_use_user_roles', 'no' ) );
 			$this->do_identify_guests_by_ip    = ( 'identify_by_ip' === get_option( 'alg_wc_mppu_block_guests', 'no' ) );
+			$this->do_identify_by_checkout_email    = ( 'identify_by_checkout_email' === get_option( 'alg_wc_mppu_block_guests', 'no' ) );
 			$this->do_get_lifetime_from_totals = ( 'yes' === get_option( 'alg_wc_mppu_get_lifetime_from_totals', 'no' ) );
 			// Check quantities - Checkout
 			add_action( 'woocommerce_checkout_process', array( $this, 'check_cart_quantities' ), PHP_INT_MAX );
@@ -409,7 +410,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_current_user_id.
 	 *
-	 * @version 3.4.0
+	 * @version 3.8.8
 	 * @since   3.4.0
 	 * @todo    [next] identify guests: by address (shipping/billing); by email (also in `Alg_WC_MPPU_Data::get_user_id_from_order()`)
 	 * @todo    [later] identify guests: IP: option to block "unidentifiable" users (i.e. when `'' === WC_Geolocation::get_ip_address()`)?
@@ -420,9 +421,15 @@ class Alg_WC_MPPU_Core {
 			if ( ! function_exists( 'get_current_user_id' ) ) {
 				return 0;
 			}
+
 			$this->current_user_id = get_current_user_id();
+
 			if ( 0 == $this->current_user_id && $this->do_identify_guests_by_ip ) {
 				$this->current_user_id = 'ip:' . WC_Geolocation::get_ip_address();
+			}
+
+			if ( 0 == $this->current_user_id && $this->do_identify_by_checkout_email ) {
+				$this->current_user_id = WC()->checkout->get_value('billing_email');
 			}
 		}
 		return $this->current_user_id;
@@ -630,7 +637,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_max_qty_for_user_role.
 	 *
-	 * @version 3.6.0
+	 * @version 3.8.8
 	 * @since   2.2.0
 	 * @todo    [maybe] (feature) per user (currently can be done via "Formula" section)
 	 */
@@ -660,6 +667,11 @@ class Alg_WC_MPPU_Core {
 		}
 		// Get current user roles
 		if ( ! isset( $current_user->roles ) || empty( $current_user->roles ) ) {
+
+			if ( !$current_user ) {
+				$current_user = new \stdClass();
+			}
+
 			$current_user->roles = array( 'guest' );
 		}
 		$current_user->roles = array_map( array( $this, 'handle_user_roles' ), $current_user->roles );

@@ -450,7 +450,7 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * get_user_id_from_order.
 	 *
-	 * @version 3.4.0
+	 * @version 3.8.8
 	 * @since   3.4.0
 	 */
 	function get_user_id_from_order( $order ) {
@@ -458,6 +458,11 @@ class Alg_WC_MPPU_Data {
 		if ( ! $user_id && alg_wc_mppu()->core->do_identify_guests_by_ip ) {
 			$user_id = 'ip:' . $order->get_customer_ip_address();
 		}
+
+		if ( ! $user_id && alg_wc_mppu()->core->do_identify_by_checkout_email ) {
+			$user_id = $customer_email = $order->get_billing_email();
+		}
+
 		return $user_id;
 	}
 

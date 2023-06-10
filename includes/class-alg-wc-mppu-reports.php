@@ -76,12 +76,14 @@ class Alg_WC_MPPU_Reports {
 	/**
 	 * get_user_name.
 	 *
-	 * @version 3.4.0
+	 * @version 3.8.8
 	 * @since   3.4.0
 	 */
 	function get_user_name( $user_id ) {
 		if ( ! $user_id ) {
 			return __( 'Guest', 'maximum-products-per-user-for-woocommerce' );
+		} elseif ( filter_var( $user_id, FILTER_VALIDATE_EMAIL ) ) {
+			return __( 'Guest by billing email id', 'maximum-products-per-user-for-woocommerce' );
 		} elseif ( ! is_numeric( $user_id ) ) {
 			return __( 'Guest by IP', 'maximum-products-per-user-for-woocommerce' );
 		} else {

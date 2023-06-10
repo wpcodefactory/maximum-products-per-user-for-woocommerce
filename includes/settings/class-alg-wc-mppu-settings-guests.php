@@ -28,7 +28,7 @@ if ( ! class_exists( 'Alg_WC_MPPU_Settings_Guests' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 3.6.7
+		 * @version 3.8.8
 		 * @since   3.6.7
 		 */
 		function get_settings() {
@@ -50,6 +50,7 @@ if ( ! class_exists( 'Alg_WC_MPPU_Settings_Guests' ) ) :
 						'block_beyond_limit' => __( 'Do nothing but block guests from purchasing products beyond the limits', 'maximum-products-per-user-for-woocommerce' ),
 						'yes'                => __( 'Block guests from buying products', 'maximum-products-per-user-for-woocommerce' ),
 						'identify_by_ip'     => __( 'Identify guests by IP address', 'maximum-products-per-user-for-woocommerce' ),
+						'identify_by_checkout_email'     => __( 'Identify guests by checkout billing email address ( N.B: It will work at the time of checkout )', 'maximum-products-per-user-for-woocommerce' ),
 					),
 				),
 				array(
