@@ -3,7 +3,7 @@ Contributors: wpcodefactory, Karzin, algoritmika, anbinder, omardabbas, kousikmu
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
 Tested up to: 6.2
-Stable tag: 3.8.8
+Stable tag: 3.8.9
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,10 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+
+= 3.8.9 - 17/06/2023 =
+* WC tested up to: 7.8.
 
 = 3.8.8 - 10/06/2023 =
 * Dev - Guests - New option `identify guests by checkout billing email address`.
