@@ -338,7 +338,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * set_guest_user_bought_to_zero
 	 *
-	 * @version 3.5.3
+	 * @version 3.9.0
 	 * @since   3.5.3
 	 *
 	 * @param $data
@@ -347,7 +347,7 @@ class Alg_WC_MPPU_Core {
 	 */
 	function set_guest_user_bought_to_zero( $data ) {
 		if (
-			! is_user_logged_in()
+			! alg_wc_mppu_is_user_logged_in()
 			&& 'block_beyond_limit' == get_option( 'alg_wc_mppu_block_guests' )
 		) {
 			$data['bought'] = 0;
@@ -438,7 +438,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * product_visibility.
 	 *
-	 * @version 3.6.7
+	 * @version 3.9.0
 	 * @since   3.4.0
 	 * @todo    [next] (fix) `Showing all X results` (try filtering `product_visibility` taxonomy) (already tried `woocommerce_product_get_catalog_visibility` filter (returning `hidden`) - didn't help)
 	 * @todo    [next] add option to count current `$cart_item_quantities` as well (i.e. pass `$cart_item_quantities` as 6th param in `check_quantities_for_product()`, and `$cart_item_quantities[ $product_id ] + 1` instead of `1`)
@@ -449,7 +449,7 @@ class Alg_WC_MPPU_Core {
 	function product_visibility( $visible, $product_id ) {
 		if (
 			'yes' === get_option( 'alg_wc_mppu_hide_products', 'no' )
-			&& is_user_logged_in()
+			&& alg_wc_mppu_is_user_logged_in()
 			&& ( $current_user_id = $this->get_current_user_id() )
 			&& ! $this->check_quantities_for_product( $product_id, array(
 				'_cart_item_quantity' => 1,
@@ -461,7 +461,7 @@ class Alg_WC_MPPU_Core {
 		}
 		if (
 			'yes' === get_option( 'alg_wc_mppu_hide_guest_blocked_products', 'no' )
-			&& ! is_user_logged_in()
+			&& ! alg_wc_mppu_is_user_logged_in()
 			&& $this->is_product_blocked_for_guests( $product_id )
 		) {
 			return false;
@@ -472,7 +472,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * remove_products_from_catalog.
 	 *
-	 * @version 3.6.8
+	 * @version 3.9.0
 	 * @since   3.6.7
 	 *
 	 * @param $posts
@@ -493,7 +493,7 @@ class Alg_WC_MPPU_Core {
 		if (
 			$can_remove &&
 			'yes' === get_option( 'alg_wc_mppu_hide_products', 'no' ) &&
-			is_user_logged_in() &&
+			alg_wc_mppu_is_user_logged_in() &&
 			( $current_user_id = $this->get_current_user_id() )
 		) {
 			foreach ( $posts as $i => $post ) {
@@ -513,7 +513,7 @@ class Alg_WC_MPPU_Core {
 			$can_remove &&
 			! is_singular() && // Remove or comment to hide it even on direct links.
 			'yes' === get_option( 'alg_wc_mppu_hide_guest_blocked_products', 'no' )
-			&& ! is_user_logged_in()
+			&& ! alg_wc_mppu_is_user_logged_in()
 		) {
 			$keys_to_remove = array();
 			foreach ( $posts as $i => $post ) {

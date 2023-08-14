@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Functions.
  *
- * @version 3.8.2
+ * @version 3.9.0
  * @since   3.8.2
  * @author  WPFactory
  */
@@ -22,6 +22,7 @@ if ( ! function_exists( 'alg_wc_mppu_maybe_compress_string' ) ) {
 		if ( function_exists( 'gzcompress' ) && ! empty( $string ) ) {
 			$string = base64_encode( gzcompress( $string ) );
 		}
+
 		return $string;
 	}
 }
@@ -37,6 +38,24 @@ if ( ! function_exists( 'alg_wc_mppu_maybe_uncompress_string' ) ) {
 		if ( function_exists( 'gzuncompress' ) && ! empty( $string ) ) {
 			$string = gzuncompress( base64_decode( $string ) );
 		}
+
 		return $string;
+	}
+}
+
+if ( ! function_exists( 'alg_wc_mppu_is_user_logged_in' ) ) {
+	/**
+	 * alg_wc_mppu_is_user_logged_in.
+	 *
+	 * @version 3.9.0
+	 * @since   3.9.0
+	 */
+	function alg_wc_mppu_is_user_logged_in() {
+		if ( ! function_exists( 'is_user_logged_in' ) ) {
+			include_once( ABSPATH . 'wp-includes/pluggables.php' );
+		}
+
+
+		return is_user_logged_in();
 	}
 }

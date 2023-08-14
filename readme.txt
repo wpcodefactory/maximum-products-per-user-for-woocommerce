@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, Karzin, algoritmika, anbinder, omardabbas, kousikmukherjeeli
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
-Tested up to: 6.2
-Stable tag: 3.8.9
+Tested up to: 6.3
+Stable tag: 3.9.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -63,6 +63,10 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 
 == Changelog ==
 
+= 3.9.0 - 14/08/2023 =
+* Fix - Call to undefined function `is_user_logged_in()` in some circumstances.
+* Tested up to: 6.3.
+* WC tested up to: 8.0.
 
 = 3.8.9 - 17/06/2023 =
 * WC tested up to: 7.8.
