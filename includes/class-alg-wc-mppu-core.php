@@ -1095,12 +1095,23 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_user_already_bought_qty.
 	 *
-	 * @version 3.8.4
+	 * @version 3.9.2
 	 * @since   2.0.0
 	 * @todo    [next] completely remove separate `lifetime` calculation (i.e. `$this->do_get_lifetime_from_totals` always `false`)
 	 * @todo    [maybe] add option to use e.g. order date completed (instead of `date_created`)
 	 */
 	function get_user_already_bought_qty( $product_or_term_id, $current_user_id, $is_product, $date_range = false ) {
+
+		// check if guest user register himself also.
+		
+		$current_user_email = '';
+		if(is_user_logged_in()){
+			$user = get_user_by( 'id', $current_user_id );
+			if($user){
+				$current_user_email = $user->user_email;
+			}
+		}
+
 		$product_or_term_id  = apply_filters( 'alg_wc_mppu_data_product_or_term_id', $product_or_term_id, $is_product );
 		$user_already_bought = 0;
 		$first_order_date    = false;
@@ -1118,6 +1129,12 @@ class Alg_WC_MPPU_Core {
 				if ( $users_quantities && isset( $users_quantities[ $current_user_id ] ) ) {
 					$user_already_bought = $users_quantities[ $current_user_id ];
 				}
+
+				// check if guest user register himself also.
+				if ( $users_quantities && !empty($current_user_email) && isset( $users_quantities[ $current_user_email ] ) ) {
+					$user_already_bought = $user_already_bought + $users_quantities[ $current_user_email ];
+				}
+
 			} else {
 				$users_quantities = $this->get_post_or_term_meta( ( $is_product ? 'product' : 'term' ), $product_or_term_id, '_alg_wc_mppu_orders_data' );
 				if ( $users_quantities && isset( $users_quantities[ $current_user_id ] ) ) {
@@ -1147,6 +1164,36 @@ class Alg_WC_MPPU_Core {
 						}
 					}
 				}
+
+				// check if guest user register himself also.
+				if ( $users_quantities && !empty($current_user_email) && isset( $users_quantities[ $current_user_email ] ) ) {
+					foreach ( $users_quantities[ $current_user_email ] as $order_id => $order_data ) {
+						$order_date = $this->get_order_date( $order_data['date_created'] );
+						if (
+							true === apply_filters( 'alg_wc_mppu_user_already_bought_validation', true, array(
+								'order_date'         => $order_date,
+								'date_range'         => $date_range,
+								'product_or_term_id' => $product_or_term_id,
+								'current_user_id'    => $current_user_email,
+								'is_product'         => $is_product
+							) ) &&
+							$order_date >= $this->get_date_to_check( array(
+								'date_range'         => $date_range,
+								'product_or_term_id' => $product_or_term_id,
+								'current_user_id'    => $current_user_email,
+								'is_product'         => $is_product
+							) ) &&
+							apply_filters( 'alg_wc_mppu_user_already_bought_do_count_order', true, $order_id, $order_data )
+						) {
+							$user_already_bought += $order_data['qty'];
+							if ( false === $first_order_date || $order_date < $first_order_date ) {
+								$first_order_date   = $order_date;
+								$first_order_amount = $order_data['qty'];
+							}
+						}
+					}
+				}
+
 			}
 			$this->user_already_bought_qty_cache[ $cached_obj_name ] = $user_already_bought;
 		} else {
