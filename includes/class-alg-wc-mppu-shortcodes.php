@@ -226,7 +226,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * user_product_limits_shortcode.
 	 *
-	 * @version 3.9.4
+	 * @version 3.9.5
 	 * @since   2.5.0
 	 * @todo    [later] customizable content: use `alg_wc_mppu()->core->get_notice_placeholders()`
 	 * @todo    [later] customizable: columns, column order, column titles, table styling, "No data" text, (maybe) sorting
@@ -312,7 +312,7 @@ class Alg_WC_MPPU_Shortcodes {
 				}
 			}
 			$total_pages = $loop->max_num_pages;
-			if ( $total_pages > 1 && $off_page_nav == 'true' ) {
+			if ( $total_pages > 1 && $off_page_nav != 'true' ) {
 				$current_page    = max( 1, $paged );
 				$pagination_html .= '<nav class="woocommerce-pagination">';
 				$pagination_html .= paginate_links( array(
