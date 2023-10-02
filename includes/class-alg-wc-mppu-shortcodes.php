@@ -226,7 +226,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * user_product_limits_shortcode.
 	 *
-	 * @version 3.8.4
+	 * @version 3.9.4
 	 * @since   2.5.0
 	 * @todo    [later] customizable content: use `alg_wc_mppu()->core->get_notice_placeholders()`
 	 * @todo    [later] customizable: columns, column order, column titles, table styling, "No data" text, (maybe) sorting
@@ -238,9 +238,11 @@ class Alg_WC_MPPU_Shortcodes {
 			'hide_products_by_id' => '',
 			'per_page'            => wc_get_default_products_per_row() * wc_get_default_product_rows_per_page(),
 			'bought_value'        => 'smart', // per_product | smart
-			'show_unbought'       => 'true'
+			'show_unbought'       => 'true',
+			'off_page_nav'       => 'false'
 		), $atts, 'alg_wc_mppu_user_product_limits' );
 		$posts_per_page = intval( $atts['per_page'] );
+		$off_page_nav = $atts['off_page_nav'];
 		$bought_value = $atts['bought_value'];
 		// Get user ID
 		$user_id = $this->get_user_id( $atts );
@@ -310,7 +312,7 @@ class Alg_WC_MPPU_Shortcodes {
 				}
 			}
 			$total_pages = $loop->max_num_pages;
-			if ( $total_pages > 1 ) {
+			if ( $total_pages > 1 && $off_page_nav == 'true' ) {
 				$current_page    = max( 1, $paged );
 				$pagination_html .= '<nav class="woocommerce-pagination">';
 				$pagination_html .= paginate_links( array(
