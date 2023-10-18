@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Data.
  *
- * @version 3.8.2
+ * @version 3.9.6
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -192,7 +192,7 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * delete_meta_data.
 	 *
-	 * @version 3.6.4
+	 * @version 3.9.6
 	 * @since   2.0.0
 	 * @todo    [next] (feature) add tool to only *delete data* and *reset data* (i.e. no recalculation) (with `_alg_wc_mppu_order_data_saved` deleted and not deleted)
 	 */
@@ -200,30 +200,41 @@ class Alg_WC_MPPU_Data {
 		global $wpdb;
 		$counter = 0;
 		// Products and Orders
-		$keys    = array(
+		$product_keys = array(
 			'_alg_wc_mppu_totals_data',                   // product meta
 			'_alg_wc_mppu_orders_data',                   // product meta
-			'_alg_wc_mppu_order_data_saved',              // order meta
 			'_wpjup_wc_maximum_products_per_user_report', // product meta // deprecated
-			'_wpjup_wc_maximum_products_per_user_saved',  // order meta   // deprecated
 		);
-		$in_str = $this->generate_wpdb_prepare_placeholders_from_array( $keys );
-		$query = $wpdb->prepare( "SELECT * FROM $wpdb->postmeta WHERE meta_key IN {$in_str}", $keys );
+		$order_keys   = array(
+			'_alg_wc_mppu_order_data_saved',              // order meta
+		);
+		$keys         = array_merge( $product_keys, $order_keys );
+		$in_str       = $this->generate_wpdb_prepare_placeholders_from_array( $keys );
+		$query        = $wpdb->prepare( "SELECT * FROM $wpdb->postmeta WHERE meta_key IN {$in_str}", $keys );
 		foreach ( $wpdb->get_results( $query ) as $meta ) {
 			delete_post_meta( $meta->post_id, $meta->meta_key );
 			$counter ++;
 		}
+		if ( \Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			$in_str        = $this->generate_wpdb_prepare_placeholders_from_array( $order_keys );
+			$query         = $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wc_orders_meta WHERE meta_key IN {$in_str}", $order_keys );
+			$query_results = $wpdb->query( $query );
+			if ( is_int( $query_results ) ) {
+				$counter += $query_results;
+			}
+		}
 		// Terms
-		$keys    = array(
+		$keys   = array(
 			'_alg_wc_mppu_totals_data',
 			'_alg_wc_mppu_orders_data',
 		);
 		$in_str = $this->generate_wpdb_prepare_placeholders_from_array( $keys );
-		$query = $wpdb->prepare( "SELECT * FROM $wpdb->termmeta WHERE meta_key IN {$in_str}", $keys );
-		foreach( $wpdb->get_results( $query ) as $meta ) {
+		$query  = $wpdb->prepare( "SELECT * FROM $wpdb->termmeta WHERE meta_key IN {$in_str}", $keys );
+		foreach ( $wpdb->get_results( $query ) as $meta ) {
 			delete_term_meta( $meta->term_id, $meta->meta_key );
-			$counter++;
+			$counter ++;
 		}
+
 		return $counter;
 	}
 
@@ -469,7 +480,7 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * update_quantities.
 	 *
-	 * @version 3.8.2
+	 * @version 3.9.6
 	 * @since   1.0.0
 	 * @todo    [next] mysql transaction: lock before `get_post_meta` / `get_term_meta`?
 	 * @todo    [next] `alg_wc_mppu_payment_gateways`: on `$do_save` only?
@@ -490,7 +501,7 @@ class Alg_WC_MPPU_Data {
 		$product_qty_arg = $args['product_qty'];
 		if ( $order = wc_get_order( $order_id ) ) {
 			$do_save       = ( 'save' === $action );
-			$is_data_saved = ( 'yes' === get_post_meta( $order_id, '_alg_wc_mppu_order_data_saved', true ) );
+			$is_data_saved = ( 'yes' === $order->get_meta('_alg_wc_mppu_order_data_saved', true ) );
 			if ( ( $do_save && ! $is_data_saved ) || ( ! $do_save && $is_data_saved ) ) {
 				if ( ! apply_filters( "alg_wc_mppu_{$action}_quantities", true, $order_id, $order ) ) {
 					return;
@@ -505,7 +516,7 @@ class Alg_WC_MPPU_Data {
 							$parent_product_id = alg_wc_mppu()->core->get_parent_product_id( $product );
 							$product_id        = alg_wc_mppu()->core->get_product_id( $product );
 							$product_qty       = apply_filters( 'alg_wc_mppu_save_quantities_item_qty', $item->get_quantity(), $item );
-							$product_qty       = isset( $product_qty_arg[ $parent_product_id ] ) ? $product_qty_arg[ $parent_product_id ] : $product_qty;
+							$product_qty       = ( is_array($product_qty_arg) && isset( $product_qty_arg[ $parent_product_id ] )) ? $product_qty_arg[ $parent_product_id ] : $product_qty;
 							// Maybe exclude products
 							$exclude_products = get_option( 'alg_wc_mppu_exclude_products', array() );
 							if ( ! empty( $exclude_products ) && in_array( ( alg_wc_mppu()->core->do_use_variations( $parent_product_id ) ? $product_id : $parent_product_id ), $exclude_products ) ) {
@@ -594,7 +605,8 @@ class Alg_WC_MPPU_Data {
 					'order'   => $order,
 					'user_id' => empty( $user_id ) ? $this->get_user_id_from_order( $order ) : $user_id,
 				) );
-				update_post_meta( $order_id, '_alg_wc_mppu_order_data_saved', ( $do_save ? 'yes' : 'no' ) );
+				$order->update_meta_data( '_alg_wc_mppu_order_data_saved', ( $do_save ? 'yes' : 'no' ) );
+				$order->save();
 			}
 		}
 	}
