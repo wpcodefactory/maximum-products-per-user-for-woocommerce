@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Users.
  *
- * @version 3.8.6
+ * @version 3.9.7
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -43,7 +43,7 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.8.6
+	 * @version 3.9.7
 	 * @since   2.2.0
 	 * @todo    [next] rename export functions, variables etc.
 	 * @todo    [maybe] validation: `add_action( 'user_profile_update_errors', 'user_profile_update_errors', PHP_INT_MAX, 3 ); function user_profile_update_errors( $errors, $update, $user ) {}`
@@ -62,7 +62,7 @@ class Alg_WC_MPPU_Users {
 		}
 		add_action( 'admin_init', array( $this, 'export_orders_data_all_users' ) );
 		// Bkg Process.
-		add_action( 'plugins_loaded', array( $this, 'init_bkg_process' ) );
+		$this->init_bkg_process();
 		// Notices.
 		add_action( 'admin_notices', array( $this, 'show_notices' ) );
 	}

@@ -24,7 +24,7 @@ if ( ! class_exists( 'Alg_WC_MPPU' ) ) :
 		 * @since 1.0.0
 		 * @var   string
 		 */
-		public $version = '3.9.6';
+		public $version = '3.9.7';
 
 		/**
 		 * @since 1.0.0

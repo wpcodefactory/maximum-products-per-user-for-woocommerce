@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 3.8.5
+ * @version 3.9.7
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -52,7 +52,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.8.8
+	 * @version 3.9.7
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -65,6 +65,8 @@ class Alg_WC_MPPU_Core {
 	function __construct() {
 		$this->is_wc_version_below_3_0_0 = version_compare( get_option( 'woocommerce_version', null ), '3.0.0', '<' );
 		if ( 'yes' === get_option( 'wpjup_wc_maximum_products_per_user_plugin_enabled', 'yes' ) ) {
+			// Background process.
+			$this->init_bkg_process();
 			// Properties
 			$this->do_use_user_roles           = ( 'yes' === get_option( 'alg_wc_mppu_use_user_roles', 'no' ) );
 			$this->do_identify_guests_by_ip    = ( 'identify_by_ip' === get_option( 'alg_wc_mppu_block_guests', 'no' ) );
@@ -139,8 +141,6 @@ class Alg_WC_MPPU_Core {
 		add_filter( 'alg_wc_mppu_user_already_bought', array( $this, 'set_guest_user_bought_to_zero' ) );
 		// Core loaded
 		do_action( 'alg_wc_mppu_core_loaded', $this );
-		// Background process
-		add_action( 'plugins_loaded', array( $this, 'init_bkg_process' ), 9 );
 		// Last month day check.
 		add_filter( 'alg_wc_mppu_user_already_bought_validation', array( $this, 'validate_user_already_bought_monthly_range' ), 10, 2 );
 		// Manages max attribute from quantity field.

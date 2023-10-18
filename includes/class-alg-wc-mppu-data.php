@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Data.
  *
- * @version 3.9.6
+ * @version 3.9.7
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -61,7 +61,7 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.6.2
+	 * @version 3.9.7
 	 * @since   2.0.0
 	 * @todo    [next] (feature) `woocommerce_order_status_changed` (i.e. on any order status change)
 	 */
@@ -84,7 +84,7 @@ class Alg_WC_MPPU_Data {
 			add_filter( 'woocommerce_duplicate_product_exclude_meta', array( $this, 'duplicate_product_exclude_meta' ), PHP_INT_MAX );
 		}
 		// Bkg Process.
-		add_action( 'plugins_loaded', array( $this, 'init_bkg_process' ) );
+		$this->init_bkg_process();
 	}
 
 	/**
