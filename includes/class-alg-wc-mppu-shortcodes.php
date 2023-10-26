@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 3.8.3
+ * @version 3.9.8
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -226,7 +226,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * user_product_limits_shortcode.
 	 *
-	 * @version 3.9.5
+	 * @version 3.9.8
 	 * @since   2.5.0
 	 * @todo    [later] customizable content: use `alg_wc_mppu()->core->get_notice_placeholders()`
 	 * @todo    [later] customizable: columns, column order, column titles, table styling, "No data" text, (maybe) sorting
@@ -234,15 +234,18 @@ class Alg_WC_MPPU_Shortcodes {
 	 */
 	function user_product_limits_shortcode( $atts, $content = '' ) {
 		$atts = shortcode_atts( array(
-			'user_id'             => alg_wc_mppu()->core->get_current_user_id(),
-			'hide_products_by_id' => '',
-			'per_page'            => wc_get_default_products_per_row() * wc_get_default_product_rows_per_page(),
-			'bought_value'        => 'smart', // per_product | smart
-			'show_unbought'       => 'true',
-			'off_page_nav'       => 'false'
+			'user_id'             				=> alg_wc_mppu()->core->get_current_user_id(),
+			'hide_products_by_id' 				=> '',
+			'per_page'            				=> wc_get_default_products_per_row() * wc_get_default_product_rows_per_page(),
+			'bought_value'        				=> 'smart', // per_product | smart
+			'show_unbought'       				=> 'true',
+			'off_page_nav'       				=> 'false',
+			'show_only_limited_products'       	=> 'false'
 		), $atts, 'alg_wc_mppu_user_product_limits' );
+
 		$posts_per_page = intval( $atts['per_page'] );
 		$off_page_nav = $atts['off_page_nav'];
+		$show_only_limited_products = $atts['show_only_limited_products'];
 		$bought_value = $atts['bought_value'];
 		// Get user ID
 		$user_id = $this->get_user_id( $atts );
@@ -268,6 +271,16 @@ class Alg_WC_MPPU_Shortcodes {
 			'posts_per_page' => $posts_per_page,
 			'post__not_in'   => isset( $atts['hide_products_by_id'] ) && ! empty( $hidden_products_ids_str = $atts['hide_products_by_id'] ) ? array_map( 'trim', explode( ",", $hidden_products_ids_str ) ) : '',
 		);
+
+		if ( $show_only_limited_products == 'true' ) {
+			
+			$query_args['meta_query'][0]['key'] 	= '_wpjup_wc_maximum_products_per_user_qty';
+			$query_args['meta_query'][0]['value'] 	= 0;
+			$query_args['meta_query'][0]['type'] 	= 'numeric';
+			$query_args['meta_query'][0]['compare'] = '>=';	
+			
+		}
+		
 		$query_args = apply_filters( 'alg_wc_mppu_user_product_limits_query_args', $query_args, array(
 			'sc_atts' => $atts,
 			'user_id' => $user_id,

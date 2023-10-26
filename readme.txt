@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
 Tested up to: 6.3
-Stable tag: 3.9.7
+Stable tag: 3.9.8
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,9 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 3.9.8 - 26/10/2023 =
+* Dev - New attribute to the shortcode [alg_wc_mppu_user_product_limits show_only_limited_products="true"]
 
 = 3.9.7 - 18/10/2023 =
 * Fix - Background processing does not work.
