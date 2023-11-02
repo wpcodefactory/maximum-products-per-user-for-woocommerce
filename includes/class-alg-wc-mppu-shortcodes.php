@@ -242,7 +242,7 @@ class Alg_WC_MPPU_Shortcodes {
 			'off_page_nav'       				=> 'false',
 			'show_only_limited_products'       	=> 'false'
 		), $atts, 'alg_wc_mppu_user_product_limits' );
-
+		
 		$posts_per_page = intval( $atts['per_page'] );
 		$off_page_nav = $atts['off_page_nav'];
 		$show_only_limited_products = $atts['show_only_limited_products'];
@@ -280,7 +280,7 @@ class Alg_WC_MPPU_Shortcodes {
 			$query_args['meta_query'][0]['compare'] = '>=';	
 			
 		}
-		
+
 		$query_args = apply_filters( 'alg_wc_mppu_user_product_limits_query_args', $query_args, array(
 			'sc_atts' => $atts,
 			'user_id' => $user_id,

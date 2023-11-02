@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 3.9.7
+ * @version 3.9.9
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -50,9 +50,36 @@ class Alg_WC_MPPU_Core {
 	public $user_already_bought_qty_cache = array();
 
 	/**
+     * $products_max_qty.
+     *
+	 * @since 3.9.9
+     *
+	 * @var array
+	 */
+	public $products_max_qty = array();
+
+	/**
+     * $products_remaining_qty.
+     *
+	 * @since 3.9.9
+     *
+	 * @var array
+	 */
+    public $products_remaining_qty = array();
+
+	/**
+     * $disable_product_purchase_by_limit.
+     *
+	 * @since 3.9.9
+     *
+	 * @var null
+	 */
+    public $disable_product_purchase_by_limit = null;
+
+	/**
 	 * Constructor.
 	 *
-	 * @version 3.9.7
+	 * @version 3.9.9
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -145,6 +172,7 @@ class Alg_WC_MPPU_Core {
 		add_filter( 'alg_wc_mppu_user_already_bought_validation', array( $this, 'validate_user_already_bought_monthly_range' ), 10, 2 );
 		// Manages max attribute from quantity field.
 		$this->handle_qty_field_max_attr();
+		add_filter( 'woocommerce_is_purchasable', array( $this, 'disallow_product_purchase' ), 10, 2 );
 	}
 
 	/**
@@ -188,7 +216,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * set_qty_field_max_attr.
 	 *
-	 * @version 3.8.5
+	 * @version 3.9.9
 	 * @since   3.8.5
 	 *
 	 * @param $args
@@ -197,34 +225,100 @@ class Alg_WC_MPPU_Core {
 	 * @return mixed
 	 */
 	function set_qty_field_max_attr( $args, $product ) {
-		if (
-			'yes' === get_option( 'alg_wc_mppu_set_qty_field_max_attr', 'no' ) &&
-			! empty( $product_id = is_a( $product, 'WC_Product_Variable' ) && isset( $args['variation_id'] ) ? $args['variation_id'] : $product->get_id() ) &&
-			! empty( $limit = alg_wc_mppu()->core->get_max_qty_for_product( $product_id ) ) &&
-			! empty( $bought_data = alg_wc_mppu()->core->get_user_already_bought_qty( $product_id, $this->get_current_user_id(), true ) ) &&
-			isset( $bought_data['bought'] )
-		) {
-			$final_remaining = 0;
-			if ( is_array( $limit ) ) {
-				$_remaining = PHP_INT_MAX;
-				foreach ( $limit as $_max_qty ) {
-					$bought_data         = alg_wc_mppu()->core->get_user_already_bought_qty( $_max_qty['term_id'], $this->get_current_user_id(), false );
-					$user_already_bought = $bought_data['bought'];
-					$remaining           = $_max_qty['max_qty'] - $user_already_bought;
-					if ( $remaining < $_remaining ) {
-						$_remaining      = $remaining;
-						$final_remaining = $remaining;
-					}
-				}
-			} else {
-				$final_remaining = $limit - $bought_data['bought'];
-			}
+		if ( 'yes' === get_option( 'alg_wc_mppu_set_qty_field_max_attr', 'no' ) ) {
+			$final_remaining = $this->get_product_remaining_qty( array( 'product' => $product ) );
 			if ( $final_remaining > 0 ) {
 				$args['max_value'] = isset( $args['max_value'] ) && (int) $args['max_value'] > 0 ? min( $args['max_value'], $final_remaining ) : $final_remaining;
 				$args['max_qty']   = isset( $args['max_qty'] ) && (int) $args['max_qty'] > 0 ? min( $args['max_qty'], $final_remaining ) : $final_remaining;
 			}
 		}
+
 		return $args;
+	}
+
+	/**
+     * get_product_remaining_qty.
+     *
+	 * @version 3.9.9
+	 * @since   3.9.9
+     *
+	 * @param $args
+	 *
+	 * @return int|mixed|null
+	 */
+	function get_product_remaining_qty( $args = null ) {
+		$args            = wp_parse_args( $args, array(
+			'product' => ''
+		) );
+		$cached_obj_name = md5( maybe_serialize( $args ) );
+		if ( isset( $this->products_remaining_qty[ $cached_obj_name ] ) ) {
+			return $this->products_remaining_qty[ $cached_obj_name ];
+		}
+		$product = $args['product'];
+		if ( ! is_a( $product, 'WC_Product' ) ) {
+			$this->products_remaining_qty[ $cached_obj_name ] = 0;
+
+			return 0;
+		}
+		$product_id      = $product->get_id();
+		$limit           = alg_wc_mppu()->core->get_max_qty_for_product( $product_id );
+		$bought_data     = alg_wc_mppu()->core->get_user_already_bought_qty( $product_id, $this->get_current_user_id(), true );
+		$final_remaining = 0;
+		if ( is_array( $limit ) ) {
+			$_remaining = PHP_INT_MAX;
+			foreach ( $limit as $_max_qty ) {
+				$bought_data         = alg_wc_mppu()->core->get_user_already_bought_qty( $_max_qty['term_id'], $this->get_current_user_id(), false );
+				$user_already_bought = $bought_data['bought'];
+				$remaining           = $_max_qty['max_qty'] - $user_already_bought;
+				if ( $remaining < $_remaining ) {
+					$_remaining      = $remaining;
+					$final_remaining = $remaining;
+				}
+			}
+		} else {
+			$final_remaining = $limit - $bought_data['bought'];
+		}
+		$this->products_remaining_qty[ $cached_obj_name ] = $final_remaining;
+
+		return $final_remaining;
+	}
+
+	/**
+     * disallow_product_purchase.
+     *
+	 * @version 3.9.9
+	 * @since   3.9.9
+     *
+	 * @param $is_purchasable
+	 * @param $product
+	 *
+	 * @return boolean
+	 */
+	function disallow_product_purchase( $is_purchasable, $product ) {
+		if (
+			$this->need_to_disable_product_purchase_by_limit() &&
+			$this->get_product_remaining_qty( array( 'product' => $product ) ) <= 0
+		) {
+			$is_purchasable = false;
+		}
+
+		return $is_purchasable;
+	}
+
+	/**
+	 * need_to_disable_product_purchase_by_limit
+	 *
+	 * @version 3.9.9
+	 * @since   3.9.9
+	 *
+	 * @return bool|null
+	 */
+	function need_to_disable_product_purchase_by_limit() {
+		if ( is_null( $this->disable_product_purchase_by_limit ) ) {
+			$this->disable_product_purchase_by_limit = 'yes' === get_option( 'alg_wc_mppu_disable_product_purchase_by_limit', 'no' );
+		}
+
+		return $this->disable_product_purchase_by_limit;
 	}
 
 	/**
@@ -1435,18 +1529,28 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_max_qty_for_product.
 	 *
-	 * @version 3.7.7
+	 * @version 3.9.9
 	 * @since   2.5.0
 	 * @todo    [next] use this inside the `check_quantities_for_product()` function
 	 */
 	function get_max_qty_for_product( $product_id, $parent_product_id = false ) {
+		$cached_obj_name = md5( maybe_serialize( array(
+			'product_id'        => $product_id,
+			'parent_product_id' => $parent_product_id,
+		) ) );
+		if ( isset( $this->products_max_qty[ $cached_obj_name ] ) ) {
+			return $this->products_max_qty[ $cached_obj_name ];
+		}
+
 		// Maybe exclude products
 		$exclude_products = get_option( 'alg_wc_mppu_exclude_products', array() );
 		if ( ! empty( $exclude_products ) && in_array( $product_id, $exclude_products ) ) {
+			$this->products_max_qty[ $cached_obj_name ] = 0;
 			return 0;
 		}
 		// Per product
 		if ( 'yes' === apply_filters( 'alg_wc_mppu_local_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( array( 'type' => 'per_product', 'product_or_term_id' => $product_id ) ) ) ) {
+			$this->products_max_qty[ $cached_obj_name ] = $max_qty;
 			return $max_qty;
 		}
 		// Per taxonomy
@@ -1465,6 +1569,7 @@ class Alg_WC_MPPU_Core {
 					}
 				}
 				if ( ! empty( $_max_qty ) ) {
+					$this->products_max_qty[ $cached_obj_name ] = $_max_qty;
 					return $_max_qty;
 				}
 			}
@@ -1474,9 +1579,11 @@ class Alg_WC_MPPU_Core {
 			( 'yes' === get_option( 'wpjup_wc_maximum_products_per_user_global_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( array( 'type' => 'all_products' ) ) ) ) ||
 			( 'yes' === get_option( 'alg_wc_mppu_formula_enabled', 'no' ) && 0 != ( $max_qty = $this->get_max_qty( array( 'type' => 'formula', 'product_or_term_id' => $product_id ) ) ) )
 		) {
+			$this->products_max_qty[ $cached_obj_name ] = $max_qty;
 			return $max_qty;
 		}
 		// No max qty for the current product
+		$this->products_max_qty[ $cached_obj_name ] = 0;
 		return 0;
 	}
 

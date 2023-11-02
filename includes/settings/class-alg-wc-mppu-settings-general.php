@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - General Section Settings.
  *
- * @version 3.8.5
+ * @version 3.9.9
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.8.5
+	 * @version 3.9.9
 	 * @since   1.0.0
 	 * @todo    [next] exclude unnecessary statuses from `alg_wc_mppu_order_status` (e.g. "Cancelled", "Refunded", "Failed") and `alg_wc_mppu_order_status_delete` (e.g. "Completed" etc.)?
 	 * @todo    [next] (desc) `alg_wc_mppu_order_status_delete`: `$this->get_recalculate_sales_data_desc( __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ) )`?
@@ -111,6 +111,13 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'title'    => __( 'Quantity input', 'maximum-products-per-user-for-woocommerce' ),
 				'desc'     => __( 'Set a maximum value for the product quantity field based on its current limit', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'alg_wc_mppu_set_qty_field_max_attr',
+				'default'  => 'no',
+				'type'     => 'checkbox',
+			),
+			array(
+				'title'    => __( 'Add to cart button', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Disable product purchase if its remaining quantity for current user is lower than the limit', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_disable_product_purchase_by_limit',
 				'default'  => 'no',
 				'type'     => 'checkbox',
 			),

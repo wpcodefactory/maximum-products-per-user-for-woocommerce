@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Data.
  *
- * @version 3.9.7
+ * @version 3.9.9
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -480,7 +480,7 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * update_quantities.
 	 *
-	 * @version 3.9.6
+	 * @version 3.9.9
 	 * @since   1.0.0
 	 * @todo    [next] mysql transaction: lock before `get_post_meta` / `get_term_meta`?
 	 * @todo    [next] `alg_wc_mppu_payment_gateways`: on `$do_save` only?
@@ -522,23 +522,31 @@ class Alg_WC_MPPU_Data {
 							if ( ! empty( $exclude_products ) && in_array( ( alg_wc_mppu()->core->do_use_variations( $parent_product_id ) ? $product_id : $parent_product_id ), $exclude_products ) ) {
 								continue;
 							}
-							// Get products
+
+							// Get products.
 							$products_and_terms = array();
-							$products_and_terms[ $product_id ] = true;
-							if ( $parent_product_id != $product_id ) {
-								$products_and_terms[ $parent_product_id ] = true;
-							}
-							// Get terms
+							$products_and_terms[] = array(
+								'object_id'  => $parent_product_id != $product_id ? $parent_product_id : $product_id,
+								'is_product' => true
+							);
+
+							// Get terms.
 							foreach ( array( 'product_cat', 'product_tag' ) as $taxonomy ) {
 								$terms = get_the_terms( $parent_product_id, $taxonomy );
 								if ( $terms && ! is_wp_error( $terms ) ) {
 									foreach ( $terms as $term ) {
-										$products_and_terms[ $term->term_id ] = false;
+										$products_and_terms[] = array(
+											'object_id'  => $term->term_id,
+											'is_product' => false
+										);
 									}
 								}
 							}
-							// Loop thorough all products and terms
-							foreach ( $products_and_terms as $product_or_term_id => $is_product ) {
+
+							// Loop thorough all products and terms.
+							foreach ( $products_and_terms as $object_data ) {
+								$product_or_term_id = $object_data['object_id'];
+								$is_product         = $object_data['is_product'];
 								if (
 									( $is_product && ! in_array( 'product_meta', $update_type ) ) ||
 									( ! $is_product && ! in_array( 'term_meta', $update_type ) )

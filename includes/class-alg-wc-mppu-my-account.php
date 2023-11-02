@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - My Account.
  *
- * @version 3.7.4
+ * @version 3.9.9
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class Alg_WC_MPPU_My_Account {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.5.4
+	 * @version 3.9.9
 	 * @since   2.5.0
 	 */
 	function __construct() {
@@ -24,7 +24,7 @@ class Alg_WC_MPPU_My_Account {
 			add_action( 'init', array( $this, 'init' ) );
 			add_action( 'init', array( $this, 'flush_rewrite_rules_on_init_after_plugin_activation' ), 20 );
 		}
-		register_activation_hook( alg_wc_mppu()->get_filesystem_path(), array( $this, 'plugin_activation' ) );
+		add_action( 'alg_wc_mppu_on_activation', array( $this, 'plugin_activation' ) );
 	}
 
 	/**
