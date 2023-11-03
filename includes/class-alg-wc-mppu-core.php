@@ -77,9 +77,18 @@ class Alg_WC_MPPU_Core {
     public $disable_product_purchase_by_limit = null;
 
 	/**
+	 * $my_account.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @var null
+	 */
+	public $my_account = null;
+
+	/**
 	 * Constructor.
 	 *
-	 * @version 3.9.9
+	 * @version 4.0.0
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -153,8 +162,8 @@ class Alg_WC_MPPU_Core {
 			require_once( 'class-alg-wc-mppu-reports.php' );
 			// Users
 			$this->users = require_once( 'class-alg-wc-mppu-users.php' );
-			// My Account
-			require_once( 'class-alg-wc-mppu-my-account.php' );
+			// My Account.
+			$this->my_account = require_once( 'class-alg-wc-mppu-my-account.php' );
 			// Modes
 			require_once( 'class-alg-wc-mppu-modes.php' );
 			// Multi-language

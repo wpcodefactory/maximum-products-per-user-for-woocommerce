@@ -116,7 +116,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 			),
 			array(
 				'title'    => __( 'Add to cart button', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => __( 'Disable product purchase if its remaining quantity for current user is lower than the limit', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Disable product purchase if its remaining quantity for the current user is lower than the limit', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'alg_wc_mppu_disable_product_purchase_by_limit',
 				'default'  => 'no',
 				'type'     => 'checkbox',

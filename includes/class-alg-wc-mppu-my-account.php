@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - My Account.
  *
- * @version 3.9.9
+ * @version 4.0.0
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -14,17 +14,26 @@ if ( ! class_exists( 'Alg_WC_MPPU_My_Account' ) ) :
 class Alg_WC_MPPU_My_Account {
 
 	/**
+	 * $product_limits_id.
+	 *
+	 * @version 4.0.0
+	 *
+	 * @var null
+	 */
+	public $product_limits_tab_id = null;
+
+	/**
 	 * Constructor.
 	 *
-	 * @version 3.9.9
+	 * @version 4.0.0
 	 * @since   2.5.0
 	 */
 	function __construct() {
 		if ( 'yes' === get_option( 'alg_wc_mppu_my_account_enabled', 'no' ) ) {
 			add_action( 'init', array( $this, 'init' ) );
 			add_action( 'init', array( $this, 'flush_rewrite_rules_on_init_after_plugin_activation' ), 20 );
+			add_action( 'alg_wc_mppu_on_activation', array( $this, 'plugin_activation' ) );
 		}
-		add_action( 'alg_wc_mppu_on_activation', array( $this, 'plugin_activation' ) );
 	}
 
 	/**
@@ -53,29 +62,45 @@ class Alg_WC_MPPU_My_Account {
 	/**
 	 * init.
 	 *
-	 * @version 3.5.4
+	 * @version 4.0.0
 	 * @since   2.5.0
 	 */
 	function init() {
-		$this->my_account_tab_id = do_shortcode( get_option( 'alg_wc_mppu_my_account_tab_id', 'product-limits' ) );
+		$product_limits_tab_id = $this->get_product_limits_tab_id();
 		add_filter( 'the_title', array( $this, 'endpoint_title' ) );
 		add_action( 'alg_wc_mppu_after_save_settings', array( $this, 'flush_rewrite_rules_on_save_frontend_settings' ) );
 		add_filter( 'query_vars', array( $this, 'query_vars' ), 0 );
 		add_filter( 'woocommerce_account_menu_items', array( $this, 'add_link' ) );
-		add_action( 'woocommerce_account_' . $this->my_account_tab_id . '_endpoint', array( $this, 'content' ) );
+		add_action( 'woocommerce_account_' . $product_limits_tab_id . '_endpoint', array( $this, 'content' ) );
 		add_action( 'wp_head', array( $this, 'icon' ) );
 		$this->add_endpoint();
 	}
 
 	/**
+	 * get_product_limits_id.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 *
+	 * @return string|null
+	 */
+	function get_product_limits_tab_id() {
+		if ( is_null( $this->product_limits_tab_id ) ) {
+			$this->product_limits_tab_id = do_shortcode( get_option( 'alg_wc_mppu_my_account_tab_id', 'product-limits' ) );
+		}
+
+		return $this->product_limits_tab_id;
+	}
+
+	/**
 	 * icon.
 	 *
-	 * @version 3.3.2
+	 * @version 4.0.0
 	 * @since   3.3.2
 	 */
 	function icon() {
 		if ( '' !== ( $icon_code = get_option( 'alg_wc_mppu_my_account_tab_icon', '' ) ) ) {
-			echo '<style>' . '.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--' . $this->my_account_tab_id . ' a::before { ' .
+			echo '<style>' . '.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--' . $this->get_product_limits_tab_id() . ' a::before { ' .
 				'content: "\\' . $icon_code . '";' . ' }' .
 			'</style>';
 		}
@@ -105,7 +130,7 @@ class Alg_WC_MPPU_My_Account {
 	/**
 	 * add_link.
 	 *
-	 * @version 3.3.1
+	 * @version 4.0.0
 	 * @since   2.5.0
 	 */
 	function add_link( $items ) {
@@ -114,12 +139,12 @@ class Alg_WC_MPPU_My_Account {
 		foreach ( $items as $id => $item ) {
 			$_items[ $id ] = $item;
 			if ( 'orders' == $id ) {
-				$_items[ $this->my_account_tab_id ] = $this->get_tab_title();
+				$_items[ $this->get_product_limits_tab_id() ] = $this->get_tab_title();
 				$is_added = true;
 			}
 		}
 		if ( ! $is_added ) {
-			$_items[ $this->my_account_tab_id ] = $this->get_tab_title();
+			$_items[ $this->get_product_limits_tab_id() ] = $this->get_tab_title();
 		}
 		return $_items;
 	}
@@ -127,22 +152,22 @@ class Alg_WC_MPPU_My_Account {
 	/**
 	 * query_vars.
 	 *
-	 * @version 2.5.0
+	 * @version 4.0.0
 	 * @since   2.5.0
 	 */
 	function query_vars( $vars ) {
-		$vars[] = $this->my_account_tab_id;
+		$vars[] = $this->get_product_limits_tab_id();
 		return $vars;
 	}
 
 	/**
 	 * add_endpoint.
 	 *
-	 * @version 2.5.0
+	 * @version 4.0.0
 	 * @since   2.5.0
 	 */
 	function add_endpoint() {
-		add_rewrite_endpoint( $this->my_account_tab_id, EP_ROOT | EP_PAGES );
+		add_rewrite_endpoint( $this->get_product_limits_tab_id(), EP_ROOT | EP_PAGES );
 	}
 
 	/**
@@ -161,12 +186,12 @@ class Alg_WC_MPPU_My_Account {
 	/**
 	 * endpoint_title.
 	 *
-	 * @version 3.3.1
+	 * @version 4.0.0
 	 * @since   2.5.0
 	 */
 	function endpoint_title( $title ) {
 		global $wp_query;
-		$is_endpoint = isset( $wp_query->query_vars[ $this->my_account_tab_id ] );
+		$is_endpoint = isset( $wp_query->query_vars[ $this->get_product_limits_tab_id() ] );
 		if ( $is_endpoint && ! is_admin() && is_main_query() && in_the_loop() && is_account_page() ) {
 			$title = $this->get_tab_title();
 			remove_filter( 'the_title', array( $this, 'endpoint_title' ) );

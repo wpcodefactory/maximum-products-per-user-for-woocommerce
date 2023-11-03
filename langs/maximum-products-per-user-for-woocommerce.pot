@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: maximum-products-per-user-for-woocommerce 3.9.9\n"
+"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-02T20:46:55+01:00\n"
+"POT-Creation-Date: 2023-11-03T20:14:14+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -66,18 +66,18 @@ msgstr ""
 msgid "Term \"%s\" updated from user %s."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1001
+#: includes/class-alg-wc-mppu-core.php:1010
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:89
 msgid "You need to register to buy products."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1459
+#: includes/class-alg-wc-mppu-core.php:1468
 #: includes/class-alg-wc-mppu-shortcodes.php:51
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:108
 msgid "You can only buy maximum %limit% of %product_title% (you've already bought %bought%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1460
+#: includes/class-alg-wc-mppu-core.php:1469
 #: includes/class-alg-wc-mppu-shortcodes.php:52
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:109
 msgid "You can only buy maximum %limit% of %product_title%."
@@ -122,7 +122,7 @@ msgstr ""
 msgid "Task took %s second(s)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-my-account.php:91
+#: includes/class-alg-wc-mppu-my-account.php:116
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:228
 msgid "Product limits"
 msgstr ""
@@ -161,8 +161,8 @@ msgstr ""
 
 #: includes/class-alg-wc-mppu-reports.php:115
 #: includes/class-alg-wc-mppu-reports.php:137
-#: includes/class-alg-wc-mppu-shortcodes.php:350
-#: includes/class-alg-wc-mppu-shortcodes.php:513
+#: includes/class-alg-wc-mppu-shortcodes.php:365
+#: includes/class-alg-wc-mppu-shortcodes.php:538
 msgid "Bought"
 msgstr ""
 
@@ -196,42 +196,41 @@ msgstr ""
 msgid "The remaining amount for %product_title% is %remaining% (you've already bought %bought% out of %limit%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:303
-#: includes/class-alg-wc-mppu-shortcodes.php:312
+#: includes/class-alg-wc-mppu-shortcodes.php:254
 #: includes/settings/class-alg-wc-mppu-settings-per-product.php:204
 msgid "Yes"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:324
+#: includes/class-alg-wc-mppu-shortcodes.php:255
 #: includes/settings/class-alg-wc-mppu-settings-per-product.php:205
 msgid "No"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:348
+#: includes/class-alg-wc-mppu-shortcodes.php:363
 #: includes/class-alg-wc-mppu-users.php:616
 msgid "Product"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:349
-#: includes/class-alg-wc-mppu-shortcodes.php:512
+#: includes/class-alg-wc-mppu-shortcodes.php:364
+#: includes/class-alg-wc-mppu-shortcodes.php:537
 msgid "Remaining"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:351
-#: includes/class-alg-wc-mppu-shortcodes.php:514
+#: includes/class-alg-wc-mppu-shortcodes.php:366
+#: includes/class-alg-wc-mppu-shortcodes.php:539
 msgid "Max"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:352
+#: includes/class-alg-wc-mppu-shortcodes.php:370
 msgid "Restrictions"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:363
-#: includes/class-alg-wc-mppu-shortcodes.php:519
+#: includes/class-alg-wc-mppu-shortcodes.php:388
+#: includes/class-alg-wc-mppu-shortcodes.php:544
 msgid "No data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:511
+#: includes/class-alg-wc-mppu-shortcodes.php:536
 #: includes/class-alg-wc-mppu-users.php:658
 msgid "Term"
 msgstr ""
@@ -1035,7 +1034,7 @@ msgid "Add to cart button"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-general.php:119
-msgid "Disable product purchase if its remaining quantity for current user is lower than the limit"
+msgid "Disable product purchase if its remaining quantity for the current user is lower than the limit"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-general.php:125

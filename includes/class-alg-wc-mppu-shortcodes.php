@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 3.9.8
+ * @version 4.0.0
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -226,7 +226,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * user_product_limits_shortcode.
 	 *
-	 * @version 3.9.8
+	 * @version 4.0.0
 	 * @since   2.5.0
 	 * @todo    [later] customizable content: use `alg_wc_mppu()->core->get_notice_placeholders()`
 	 * @todo    [later] customizable: columns, column order, column titles, table styling, "No data" text, (maybe) sorting
@@ -234,19 +234,26 @@ class Alg_WC_MPPU_Shortcodes {
 	 */
 	function user_product_limits_shortcode( $atts, $content = '' ) {
 		$atts = shortcode_atts( array(
-			'user_id'             				=> alg_wc_mppu()->core->get_current_user_id(),
-			'hide_products_by_id' 				=> '',
-			'per_page'            				=> wc_get_default_products_per_row() * wc_get_default_product_rows_per_page(),
-			'bought_value'        				=> 'smart', // per_product | smart
-			'show_unbought'       				=> 'true',
-			'off_page_nav'       				=> 'false',
-			'show_only_limited_products'       	=> 'false'
+			'user_id'                    => alg_wc_mppu()->core->get_current_user_id(),
+			'hide_products_by_id'        => '',
+			'per_page'                   => wc_get_default_products_per_row() * wc_get_default_product_rows_per_page(),
+			'bought_value'               => 'smart', // per_product | smart
+			'show_unbought'              => 'true',
+			'off_page_nav'               => 'false',
+			'show_restrictions_col'      => 'true',
+			'show_only_limited_products' => 'false'
 		), $atts, 'alg_wc_mppu_user_product_limits' );
 		
 		$posts_per_page = intval( $atts['per_page'] );
 		$off_page_nav = $atts['off_page_nav'];
 		$show_only_limited_products = $atts['show_only_limited_products'];
 		$bought_value = $atts['bought_value'];
+		$show_restrictions_column = filter_var( $atts['show_restrictions_col'], FILTER_VALIDATE_BOOLEAN );
+		$restrictions_column_data = array(
+			'column_template' => '<td>%s</td>',
+			'column_val_yes'  => __( 'Yes', 'maximum-products-per-user-for-woocommerce' ),
+			'column_val_no'   => __( 'No', 'maximum-products-per-user-for-woocommerce' )
+		);
 		// Get user ID
 		$user_id = $this->get_user_id( $atts );
 		if ( ! $user_id ) {
@@ -258,8 +265,8 @@ class Alg_WC_MPPU_Shortcodes {
 		$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 		if ( 1 === $paged ) {
 			global $wp_query;
-			$paged = str_replace("page/", "", $wp_query->query_vars['product-limits']);
-			$paged = !empty($paged) ? $paged : 1;
+			$paged = str_replace( "page/", "", $wp_query->query_vars[ alg_wc_mppu()->core->my_account->get_product_limits_tab_id() ] );
+			$paged = ! empty( $paged ) ? $paged : 1;
 		}
 		$query_args = array(
 			'fields'         => 'ids',
@@ -300,7 +307,10 @@ class Alg_WC_MPPU_Shortcodes {
 							$remaining           = $_max_qty['max_qty'] - $user_already_bought;
 							if ( $remaining < $_remaining ) {
 								$_remaining = $remaining;
-								$_output    = sprintf( '<td>%s</td><td>%s</td><td>%s</td><td>%s</td>', max( $remaining, 0 ), $user_already_bought, max( $_max_qty['max_qty'], 0 ), __( 'Yes', 'maximum-products-per-user-for-woocommerce' ) );
+								$_output    = sprintf( '<td>%s</td><td>%s</td><td>%s</td>', max( $remaining, 0 ), $user_already_bought, max( $_max_qty['max_qty'], 0 ) );
+								if ( $show_restrictions_column ) {
+									$_output .= sprintf( $restrictions_column_data['column_template'], $restrictions_column_data['column_val_yes'] );
+								}
 							}
 						}
 					} elseif ( ! is_array( $max_qty ) || 'per_product' === $bought_value ) {
@@ -309,7 +319,10 @@ class Alg_WC_MPPU_Shortcodes {
 						$user_already_bought = $bought_data['bought'];
 						$max_qty             = is_array( $max_qty ) ? min( wp_list_pluck( $max_qty, 'max_qty' ) ) : $max_qty;
 						$remaining           = $max_qty - $user_already_bought;
-						$_output             = sprintf( '<td>%s</td><td>%s</td><td>%s</td><td>%s</td>', max( $remaining, 0 ), $user_already_bought, max( $max_qty, 0 ), __( 'Yes', 'maximum-products-per-user-for-woocommerce' ) );
+						$_output             = sprintf( '<td>%s</td><td>%s</td><td>%s</td>', max( $remaining, 0 ), $user_already_bought, max( $max_qty, 0 ) );
+						if ( $show_restrictions_column ) {
+							$_output .= sprintf( $restrictions_column_data['column_template'], $restrictions_column_data['column_val_yes'] );
+						}
 					}
 					if ( apply_filters( 'alg_wc_mppu_user_product_limits_item_validation', true, array(
 						'sc_atts'     => $atts,
@@ -321,7 +334,12 @@ class Alg_WC_MPPU_Shortcodes {
 						$output .= '<tr><td>' . '<a href="' . get_the_permalink( $product_id ) . '">' . get_the_title( $product_id ) . '</a>' . '</td>' . $_output . '</tr>';
 					}
 				} else {
-					$output .= '<tr class="alg-wc-mppu-no-restrictions"><td>' . '<a href="' . get_the_permalink( $product_id ) . '">' . get_the_title( $product_id ) . '</a>' . '</td><td>-</td><td>-</td><td>-</td><td>' . __( 'No', 'maximum-products-per-user-for-woocommerce' ) . '</td></tr>';
+
+					if ( $show_restrictions_column ) {
+						$output .= '<tr class="alg-wc-mppu-no-restrictions"><td>' . '<a href="' . get_the_permalink( $product_id ) . '">' . get_the_title( $product_id ) . '</a>' . '</td><td>-</td><td>-</td><td>-</td><td>' . $restrictions_column_data['column_val_no'] . '</td></tr>';
+					}else{
+						$output .= '<tr class="alg-wc-mppu-no-restrictions"><td>' . '<a href="' . get_the_permalink( $product_id ) . '">' . get_the_title( $product_id ) . '</a>' . '</td><td>-</td><td>-</td><td>-</td></tr>';
+					}
 				}
 			}
 			$total_pages = $loop->max_num_pages;
@@ -342,14 +360,21 @@ class Alg_WC_MPPU_Shortcodes {
 		endif;
 		wp_reset_postdata();
 		if ( ! empty( $output ) ) {
+			$thead = '<th>' . __( 'Product', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
+			         '<th>' . __( 'Remaining', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
+			         '<th>' . __( 'Bought', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
+			         '<th>' . __( 'Max', 'maximum-products-per-user-for-woocommerce' ) . '</th>';
+
+			if ( $show_restrictions_column ) {
+				$thead .=
+					'<th>' . __( 'Restrictions', 'maximum-products-per-user-for-woocommerce' ) . '</th>';
+
+			}
+
 			$final_output =
 				'<table class="alg_wc_mppu_products_data_my_account">' .
 				'<tr>' .
-				'<th>' . __( 'Product', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
-				'<th>' . __( 'Remaining', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
-				'<th>' . __( 'Bought', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
-				'<th>' . __( 'Max', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
-				'<th>' . __( 'Restrictions', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
+				$thead.
 				'</tr>' .
 				$output .
 				'</table>';
