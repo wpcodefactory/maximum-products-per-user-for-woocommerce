@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.0.2
+ * @version 4.0.3
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -225,7 +225,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * set_qty_field_max_attr.
 	 *
-	 * @version 4.0.2
+	 * @version 4.0.3
 	 * @since   3.8.5
 	 *
 	 * @param $args
@@ -236,10 +236,10 @@ class Alg_WC_MPPU_Core {
 	function set_qty_field_max_attr( $args, $product ) {
 		if ( 'yes' === get_option( 'alg_wc_mppu_set_qty_field_max_attr', 'no' ) ) {
 			$max_qty_data = alg_wc_mppu()->core->get_max_qty_for_product( $product->get_id() );
-			usort( $max_qty_data, function ( $a, $b ) {
-				return $b['max_qty'] <=> $a['max_qty'];
-			} );
 			if ( is_array( $max_qty_data ) ) {
+				usort( $max_qty_data, function ( $a, $b ) {
+					return $b['max_qty'] <=> $a['max_qty'];
+				} );
 				$max_qty_data = $max_qty_data[0]['max_qty'];
 			} else {
 				$max_qty_data;
