@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product quantity, woo commerce
 Requires at least: 4.4
 Tested up to: 6.3
-Stable tag: 4.0.3
+Stable tag: 4.0.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,13 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
 
 == Changelog ==
+
+= 4.0.4 - 08/11/2023 =
+* Fix - Shortcode `[alg_wc_mppu_user_bought]` doesn't work if the formula option is not enabled.
+* Fix - Variation data is being saved only on the parent product.
+* Fix - Param `is_product` from `alg_wc_mppu_user_bought` is not consistent.
+* Fix - General - Quantity input option may prevent products from being added to cart.
+* Fix - General - Quantity input option may not work on variable products.
 
 = 4.0.3 - 07/11/2023 =
 * Fix - General - Quantity input option might trigger an error.

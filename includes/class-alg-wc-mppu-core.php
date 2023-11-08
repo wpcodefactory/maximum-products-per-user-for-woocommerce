@@ -187,20 +187,20 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * Manages max attribute from quantity field.
 	 *
-	 * @version 3.8.5
+	 * @version 4.0.4
 	 * @since   3.8.5
 	 *
 	 */
 	function handle_qty_field_max_attr(){
 		add_filter( 'woocommerce_quantity_input_args', array( $this, 'set_qty_field_max_attr' ), 10, 2 );
-		add_filter( 'woocommerce_available_variation', array( $this, 'set_qty_field_max_attr' ), 10, 2 );
+		add_filter( 'woocommerce_available_variation', array( $this, 'set_qty_field_max_attr' ), 10, 3 );
 		add_action( 'woocommerce_after_single_variation', array( $this, 'change_variation_qty_input_script' ) );
 	}
 
 	/**
 	 * change_variation_qty_input_script.
 	 *
-	 * @version 3.8.5
+	 * @version 4.0.4
 	 * @since   3.8.5
 	 */
 	function change_variation_qty_input_script() {
@@ -208,24 +208,27 @@ class Alg_WC_MPPU_Core {
 			return;
 		}
 		?>
-		<script type="text/javascript">
-			jQuery(function ($) {
-				$(document).on('show_variation', function (e, variation) {
-					let qty_input = $('div.quantity > input.qty');
-					if (qty_input.val() > variation.max_qty) {
-						qty_input.val(variation.max_qty);
-					}
-					qty_input.attr('max', variation.max_qty);
-				})
-			});
-		</script>
+        <script type="text/javascript">
+            jQuery(function ($) {
+                $(document).on('show_variation', function (e, variation) {
+                    let qty_input = $('div.quantity > input.qty');
+                    if (variation.max_qty) {
+                        if (qty_input.val() > variation.max_qty) {
+                            qty_input.val(variation.max_qty);
+                        }
+                        qty_input.attr('max', variation.max_qty);
+                    }
+
+                })
+            });
+        </script>
 		<?php
 	}
 
 	/**
 	 * set_qty_field_max_attr.
 	 *
-	 * @version 4.0.3
+	 * @version 4.0.4
 	 * @since   3.8.5
 	 *
 	 * @param $args
@@ -235,7 +238,9 @@ class Alg_WC_MPPU_Core {
 	 */
 	function set_qty_field_max_attr( $args, $product ) {
 		if ( 'yes' === get_option( 'alg_wc_mppu_set_qty_field_max_attr', 'no' ) ) {
-			$max_qty_data = alg_wc_mppu()->core->get_max_qty_for_product( $product->get_id() );
+
+			$final_product = 3 === func_num_args() ? func_get_args()[2] : $product;
+			$max_qty_data  = alg_wc_mppu()->core->get_max_qty_for_product( $final_product->get_id() );
 			if ( is_array( $max_qty_data ) ) {
 				usort( $max_qty_data, function ( $a, $b ) {
 					return $b['max_qty'] <=> $a['max_qty'];
@@ -244,10 +249,19 @@ class Alg_WC_MPPU_Core {
 			} else {
 				$max_qty_data;
 			}
-			$final_remaining   = $this->get_product_remaining_qty( array( 'product' => $product ) );
+			$final_remaining   = $this->get_product_remaining_qty( array( 'product' => $final_product ) );
 			$max_qty_input_val = $final_remaining > 0 ? $final_remaining : $max_qty_data;
-			$args['max_value'] = isset( $args['max_value'] ) && (int) $args['max_value'] > 0 ? min( $args['max_value'], $max_qty_input_val ) : $max_qty_input_val;
-			$args['max_qty']   = isset( $args['max_qty'] ) && (int) $args['max_qty'] > 0 ? min( $args['max_qty'], $max_qty_input_val ) : $max_qty_input_val;
+			if ( $max_qty_input_val > 0 ) {
+				$args['max_value'] = isset( $args['max_value'] ) && (int) $args['max_value'] > 0 ? min( $args['max_value'], $max_qty_input_val ) : $max_qty_input_val;
+				$args['max_qty']   = isset( $args['max_qty'] ) && (int) $args['max_qty'] > 0 ? min( $args['max_qty'], $max_qty_input_val ) : $max_qty_input_val;
+				if ( isset( $args['min_qty'] ) && $args['min_qty'] > $args['max_qty'] ) {
+					unset( $args['max_qty'] );
+				}
+				if ( isset( $args['min_value'] ) && $args['min_value'] > $args['max_value'] ) {
+					unset( $args['max_value'] );
+				}
+			}
+
 		}
 
 		return $args;

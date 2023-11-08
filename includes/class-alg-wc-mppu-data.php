@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Data.
  *
- * @version 3.9.9
+ * @version 4.0.4
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -480,7 +480,7 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * update_quantities.
 	 *
-	 * @version 3.9.9
+	 * @version 4.0.4
 	 * @since   1.0.0
 	 * @todo    [next] mysql transaction: lock before `get_post_meta` / `get_term_meta`?
 	 * @todo    [next] `alg_wc_mppu_payment_gateways`: on `$do_save` only?
@@ -524,11 +524,18 @@ class Alg_WC_MPPU_Data {
 							}
 
 							// Get products.
-							$products_and_terms = array();
-							$products_and_terms[] = array(
-								'object_id'  => $parent_product_id != $product_id ? $parent_product_id : $product_id,
-								'is_product' => true
+							$products_and_terms = array(
+								array(
+									'object_id'  => $product_id,
+									'is_product' => true
+								)
 							);
+							if ( $parent_product_id != $product_id ) {
+								$products_and_terms[] = array(
+									'object_id'  => $parent_product_id,
+									'is_product' => true
+								);
+							}
 
 							// Get terms.
 							foreach ( array( 'product_cat', 'product_tag' ) as $taxonomy ) {
