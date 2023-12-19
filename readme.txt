@@ -1,9 +1,9 @@
 === Maximum Products per User for WooCommerce ===
 Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmukherjeeli
-Tags: woocommerce, product quantity, woo commerce
+Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
-Tested up to: 6.3
-Stable tag: 4.0.4
+Tested up to: 6.4
+Stable tag: 4.0.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -11,45 +11,237 @@ Limit number of items your WooCommerce customers can buy (lifetime or in selecte
 
 == Description ==
 
-**Maximum Products per User for WooCommerce** plugin lets you limit number of items your WooCommerce customers can buy (lifetime or in selected date range).
+> “Great plugin: This plugin is fantastic, simple, light, compatible with all my other plugins (80 installed), and effective. Perfect if you sell services and to limit problems related to order duplications
+Support Is brilliant and fast. Strongly advised!” – ⭐⭐⭐⭐⭐  [tommaso78](https://wordpress.org/support/topic/great-plugin-28538/)
 
-### &#9989; Main Features ###
+[Pro Version](https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme) | [Support](https://wpfactory.com/support/item/maximum-products-per-user-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme) | [Documentation & How to](https://wpfactory.com/docs/maximum-products-per-user-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme)
 
-* Set **maximum products** number **per user**.
-* Select plugin mode: product **quantities**, product **orders**, product **prices** (including or excluding taxes), product **weights**, or product **volumes**.
-* Set **date range** (for example: lifetime, this month, this year, last 30 days, last 365 days, or custom date range).
-* Set on which **order statuses** product data should be updated.
-* Set different maximum product limits for different **user roles**.
-* Enable variable products **variations** usage.
-* Customize **customer message** on frontend.
-* **Block checkout page** on exceeded limits.
-* **Exclude products** from plugin scope.
-* **Edit** and **export** each user's **sales data**.
-* Choose which **payment gateways** should update product data.
-* **Display** remaining amount, maximum limits, etc. to the users in cart, checkout, single product page, "My account", or with shortcode anywhere on your site.
-* **Identify guests by IP address** or **block guests** from buying products in your shop.
-* **Hide products** with exceeded limits for the current user.
-* Enable **multi-language** support (WPML, Polylang).
-* And more...
+Have you ever wanted to restrict the products your customer can purchase? Either in lifetime or in specific period?
 
-### &#127942; Premium Version ###
+While this might not be the case for everyone (since we all want to sell as much as we can), in many cases you want to maintain your inventory and guarantee fairness across your customers (specially when running massive promotions), and here comes a handy plugin to restrict the amount, quantities, or orders that each customer can place on your store.
 
-Some [Maximum Products per User for WooCommerce Pro](https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/) plugin features:
+In a nutshell, here is what you can do with this plugin:
 
-* Display the limit message on variations.
-* Set maximum products per user:
-  * Per product **category**.
-  * Per product **tag**.
-  * Per **individual** product.
-  * By **formula**, for example: per **user ID**, per **membership** plan, per **payment method**, etc.
-* More options oriented to guest users:
-  * Block specific products from guests.
-  * Change add to cart button text from blocked products.
+* Limit maximum products quantity per user
+* Select type of limitation/restriction to apply, whether by quantity, number of orders, prices, weights, or volume
+* Specify how long the restriction to be applied, lifetime, in a month/year or custom date range
+* Customize & set restrictions by user role
+* Control & customize messages appearing for users on limits
+* Exclude specific products from plugin settings
+* Multi-language sites support (WPML & Polylang)
 
-= More =
+And much more.
 
-* We are open to your suggestions and feedback. Thank you for using or trying out one of our plugins!
-* [Visit plugin site](https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/).
+___
+## 🤝 Recommended By##
+* [WPGlob: 5+ Product  Plugins for WordPress](https://wpglob.com/5-product-catalog-plugins-for-wordpress-free-and-pro/ "WPGlob: 5+ Product  Plugins for WordPress")
+* [Themeum: Limit Course Per User](https://docs.themeum.com/tutor-lms/tutorials/limit-one-course-per-user/ "Themeum: Limit Course Per User")
+* [WP Help Blog: How to Set a Minimum and Maximum Order in Your WooCommerce Online Store](https://wphelp.blog/how-to-set-a-minimum-and-maximum-order-in-your-woocommerce-online-store/ "WP Help Blog: How to Set a Minimum and Maximum Order in Your WooCommerce Online Store")
+* [WCLovers: Limit The Amount of Products a User Can Buy](https://wclovers.com/forums/topic/limit-the-amount-of-products-an-user-can-buy/ "WCLovers: Limit The Amount Of Products An User Can Buy")
+* [WPHive: Top Plugins to Restrict Products by User](https://wphive.com/plugins/maximum-products-per-user-for-woocommerce/ "WPHive: Top Plugins To Restrict Products by User")
+
+___
+## 🚀 Main Features: FREE Version##
+
+### 🚀 Restrict Maximum Products & Orders Per User ###
+
+As basic as it sounds, the plugin allows you to restrict what your customers can purchase, restrictions/limits can be based on:
+
+#### **Restrict by Product Quantity** ####
+
+This method allows you to restrict the maximum number (quantity) of products a customer can purchase, restricting it by 10 for example will allow your customers to buy 10 of a single product, or 2 products with quantity of 5 each.
+
+**Use cases:**
+
+1. Limited Edition Items: You have a limited edition product, and you want to ensure that each customer can purchase only a maximum of 2 units to provide a fair opportunity for more customers to access the product.
+
+2. Bulk Purchase Limit: To prevent abuse of discounts, you set a restriction of 10 units per order for a specific product, ensuring that customers cannot exploit bulk purchase discounts excessively.
+
+#### **Restrict by Order** ####
+
+This limits the number or orders a customer can place (lifetime or specified time range) on your store, useful when you want to restrict 1 order per month for example.
+The plugin allows you to specify what order status(es) should be treated as a full order, like considering order in plugin restrictions when order status is "Completed" or "Processing" for example.
+
+**Use cases:**
+
+1. Subscription Services: Your store offers a subscription-based service, and you want to limit customers to one subscription order per month to align with your monthly billing cycle.
+
+2. Pharmaceutical Prescriptions: In compliance with some pharmaceutical regulations, you can restrict customers to one order per month for prescription medications to ensure controlled and periodic dispensing.
+
+#### **Restrict by Price (with/without tax)** ####
+
+This allows you to control maximum price (per product) customers can purchase, for example, you can restrict specific user roles from buying expensive products if they are new to your store and afraid of fraud or high returns.
+
+**Use cases:**
+
+1. New Customer Trial Period: For new customers, you want to limit the purchase of high-value items during the first month to minimize the risk of fraud or returns, setting a maximum purchase price for specific user roles.
+
+2. Membership Tiers: Different user roles have varying purchase limits based on their membership tiers. Premium members, for instance, can buy higher-priced items compared to standard members.
+
+#### **Restrict by Product Weight & Volume** ####
+
+If you need to restrict orders based on product weight or volume, the plugin helps in accomplishing that. This type of restrictions can be very useful in shipping constraints, when packages are set to specific dimensions (volume) or maximum weight per order.
+
+**Use cases:**
+
+1. Shipping Constraints: To comply with shipping regulations, you set restrictions on the maximum weight and volume per order. This ensures that customers cannot place orders that exceed the shipping constraints of your chosen carriers.
+
+2. Fragile Items: Products with specific weight or volume constraints, such as fragile or bulky items, are restricted to ensure safe and cost-effective shipping, preventing customers from overloading orders with delicate items.
+
+
+### 🚀 Restrict Maximum Products & Orders Per User Role ###
+
+Set different restrictions & limitations for what your customers can purchase (order, quantity, prices, etc) based on user role, whether standard WordPress/WooCommerce roles, or custom ones you have.
+
+**Use cases:**
+
+1. Wholesale Customers: You have wholesale customers who buy in large quantities. Using the plugin, you can set higher product quantity limits for users with the "Wholesale" role, allowing them to place bulk orders while maintaining control over the order size.
+
+2. VIP or Premium Members: You offer a VIP or premium membership program. Members with this special role enjoy the privilege of higher order limits and can purchase products at a higher price point, providing exclusive benefits to your loyal and high-value customers
+
+3. New Customer Trial Period: To encourage new customers to explore your products, you set relaxed restrictions for users with the "New Customer" role during their first month. This allows them to experience a variety of offerings without immediate constraints on quantity or prices.
+
+### 🚀 Select How Long Restriction Period to Last ###
+
+When you limit the maximum products a customer can buy, you need to define the period in which this restriction will be applied, i.e. is it a lifetime, in a week, in a month, and so on.
+
+You can specify to reset the count for every customer for any specific period (in seconds, minutes, hours, days, or weeks), where the customers will start a new purchase limit when that specified period passes.
+
+### 🚀 Control Guest Users Limits ###
+
+The plugin allows you to go further and control what restrictions to apply to guest users (non logged-in) in case you're allowing guest checkout on your WooCommerce store.
+
+You can select from multiple options to apply restrictions in these cases:
+
+- Do nothing (i.e. do not limit guests sales), such option will allow people to bypass all restrictions
+- Do nothing but block guests from purchasing products beyond the limits, this will treat guest users similar to logged-in ones
+- Block guests from buying products
+- Identify guests by IP address
+- Identify guests by checkout billing email address
+
+### 🚀 Customize Messages & Notifications ###
+
+You can personalize the messages appearing to your customers on different locations, informing them about their quantities and limits.
+
+#### **Add to Cart Validation** ####
+
+Select to validate product quantities when they add items to their cart, so customers are aware of limits before reaching the cart.
+
+On cart, you can also configure the plugin to show notifications either as notice, error, or success with custom messages using shortcodes available.
+
+If customers have multiple items with wrong limits, you can also show multiple notices (one for each product).
+
+#### **Block Checkout** ####
+
+You can prevent customers from accessing the checkout page on exceeded limits, and they will be redirected to the cart page in this case.
+
+In addition, you can use more validation actions, like woocommerce_review_order_before_submit to validate the limits on checkout update.
+
+#### **Show Info on Product Page** ####
+
+Don't leave your customers lost between error messages when trying to add to cart, show product limit information either as a notice, in product summary, or product description.
+
+Customize the message by showing the remaining amount allowed for that product, and you can also include what the customer has already bought, using this format:
+"The remaining amount for %product_title% is %remaining% (you've already bought %bought% out of %limit%)."
+
+#### **Show Limits on My Account Page** ####
+
+Add a separate tab on "My Account" where customers can see the purchased, remaining, and maximum amounts they can buy from each product.
+
+The tab is customizable by name, id, and icon (from FontAwesome), and further customization can be applied to its text content as well.
+
+### 🚀 Admin Management Options ###
+
+The plugin isn't only about restricting what customers can buy, it comes with variety of options that help admins better manage customers sales and see where they should/can enforce some limitations.
+
+#### **Show Users Sales Data** ####
+
+Admins can see and edit each user's sales data in their profile pages, so admins can have general overview of calculated sales data (periodic or lifetime) for each customer.
+
+#### **Export Sales Data** ####
+
+Admins can also have the option of exporting all users sales data to CSV files, with custom column separator.
+
+You can also select to export users sales data in a single row (for further analysis) and customize data separator and any extra metas you need in the report.
+
+### 🚀 Calculate & Recalculate Sales Data  ###
+
+Even if you installed the plugin just today, you can run a tool to recalculate all previous data for your customers, and include outputs in plugin restriction settings you want to apply.
+
+You can also start in a clean slate at any moment, delete all saved sales data for your customers (from plugin calculations, not actual data) and start implementing limitations after that.
+
+> “Great plugin & support: This plugin does exactly what it says it does. The creator Tom offers amazing support, and was very willing to help make sure everything was working perfectly. I definitely recommend this plugin and Tom’s support.” – ⭐⭐⭐⭐⭐ [jburkhart24](https://wordpress.org/support/topic/great-plugin-support-224/)
+
+> “perfect service!: unbelievably good service. WPFactory quickly and accurately customized the plugin for us. This is how a plugin manufacturer must be. Thank you very much Pablo!” – ⭐⭐⭐⭐⭐ [rawagmbh](https://wordpress.org/support/topic/perfect-service-21/)
+
+___
+## 🏆 Do More: PRO Version ##
+
+All what's listed above (and more) is available in the free version, but for those who would like to go further and beyond, we have a premium version of [Maximum Products per User for WooCommerce Pro](https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme) plugin.
+
+### 🏆Specify Limits by Category & Tags ###
+
+The plugin by default deals with products quantities, the Pro feature allows you to add limits (all limits mentioned above) based on category & tag.
+
+This option adds a new meta key in products categories & tags where you can specify the maximum limit you want to be enforced.
+
+### 🏆Specify Limits by Product ###
+
+Want to specify a maximum amount by product and not quantity? You can configure the maximum amount/quantity of any particular product using this option, by having a new key in each product page to set the limit you need.
+
+### 🏆Set Limits using Advanced Formulas ###
+
+The default limiting options aren't enough for you? Those who love math equations & formulas can use advanced methods to calculate limits for users, based on various shortcodes like:
+user_role, payment_method, product_id, term_id, product_sku.
+And much more.
+
+### 🏆 Guest Users Advanced Options ###
+
+In the Pro version, you can select to prevent guest customers from buying anything on your store, or allow regular guest checkout but prevent exceeding plugin limits.
+
+Multiple options are also available to customize the error/notice messages to show to guest users.
+
+You can even change "Add to cart" button text/label for guest users to something like "Login to purchase", furthermore, you can hide products blocked from guest users from shop/category & search pages.
+
+### 🏆 Allow Exceeding Limits ###
+
+If you just want error messages to become notices, you can allow users to place orders with exceeding limits without preventing them from checkout.
+
+### 🏆 3rd Party Compatibility ###
+
+The plugin works seamlessly with most plugins in their standard functionalities, but we've added several advanced compatibility options with Point of Sale for WooCommerce (by Actuality Extensions) & WPC Composite Products for WooCommerce (by WPClever) to provide more integration with these plugins.
+
+## 💯 Why WPFactory?##
+
+* **Experience You Can Trust:** Over a decade in the business
+* **Wide Plugin Selection:** Offering 65+ unique and powerful plugins
+* **Highly-Rated Support:** Backed by hundreds of 5-star reviews
+* **Expert Team:** Dedicated developers and technical support at your service
+
+___
+
+## What's Next? Check More Plugins by WPFactory##
+
+If you're enjoying our plugin, we'd love for you to explore our other offerings. WPFactory has a diverse range of plugins tailored to enhance your experience. 
+
+Dive in and discover more tools to empower your WooCommerce Store!
+
+
+* [**Min Max Step Quantity**](https://wpfactory.com/item/product-quantity-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Min Max Step Quantity**"): Define a min max, step and default quantity for products, show a dropdown, quantities on archive/categories pages, use decimal quantities, and much more on WooCommerce stores (**[Try our Free version](https://wordpress.org/plugins/product-quantity-for-woocommerce/ "Try our Free version")**)
+
+* [**Cost of Goods for WooCommerce**](https://wpfactory.com/item/cost-of-goods-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Cost of Goods WooCommerce**"): Make informed decisions to maximize profits, correctly calculate Cost of Goods Sold (COGS) for your WooCommerce store and enhance your financial management capabilities (**[Try our Free version](https://wordpress.org/plugins/cost-of-goods-for-woocommerce/ "Try our Free version")**)
+
+* [**Maximum Products per User**](https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Maximum Products per User**"): Set personalized purchase limits for your customers, define maximum product quantities, catered to specific user roles & selected date range (**[Try our Free version](https://wordpress.org/plugins/maximum-products-per-user-for-woocommerce/ "Try our Free version")**)
+
+* [**Order Minimum/Maximum Amount**](https://wpfactory.com/item/order-minimum-maximum-amount-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Order Minimum/Maximum Amount**"): Set tailored minimum and maximum order thresholds, by sum, quantity, weight, or volume, customize limits by user role, specific user, product category, shipping method, payment gateway, or even by currency (**Try our Free version](https://wordpress.org/plugins/order-minimum-amount-for-woocommerce/ "Try our Free version")**)
+
+* [**EU/UK VAT Manager for WooCommerce**](https://wpfactory.com/item/eu-vat-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**EU/UK VAT Manager for WooCommerce**"): Streamline your WooCommerce store’s EU/UK VAT compliance effortlessly, automate VAT settings, validation (VIES), and how to apply taxes, ensuring a seamless and compliant customer experience (**[Try our Free version](https://wordpress.org/plugins/eu-vat-for-woocommerce/ "Try our Free version")**)
+
+* [**Email Verification for WooCommerce**](https://wpfactory.com/item/email-verification-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Email Verification for WooCommerce**"): Enhance WooCommerce security and credibility with Email Verification best plugin. Ensure genuine customer interactions, eliminate spam, and elevate email marketing efficiency (**[Try our Free version](https://wordpress.org/plugins/maximum-products-per-user-for-woocommerce/ "Try our Free version")**)
+
+* [**Free Shipping Over Amount for WooCommerce**](https://wpfactory.com/item/amount-left-free-shipping-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Free Shipping Over Amount for WooCommerce**"): WooCommerce Advanced Free Shipping plugin, use our plugin to quality customers for free shipping when they spend specific amount, by showing a bar on remaining amounts they need to spend to qualify for free shipping (**[Try our Free version](https://wordpress.org/plugins/amount-left-free-shipping-woocommerce/ "Try our Free version")**)
+
+* [**Dynamic Pricing & Bulk Quantity Discounts**](https://wpfactory.com/item/product-price-by-quantity-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme "**Dynamic Pricing & Bulk Quantity Discounts**"): Create and manage advanced dynamic pricing and bulk discount rules for WooCommerce, encouraging bulk purchases and driving your sales to new heights (**[Try our Free version](https://wordpress.org/plugins/wholesale-pricing-woocommerce/ "Try our Free version")**)
 
 == Frequently Asked Questions ==
 = Is it possible that the limits could work for different products at the same time instead of the same ones?
@@ -57,11 +249,35 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 
 == Installation ==
 
-1. Upload the entire plugin folder to the `/wp-content/plugins/` directory.
-2. Activate the plugin through the "Plugins" menu in WordPress.
-3. Start by visiting plugin settings at "WooCommerce > Settings > Maximum Products per User".
+**Follow these simplified steps to get your plugin up and running:**
+
+**From the WordPress Admin Panel:**
+1. Navigate to â€œPluginsâ€ > â€œAdd Newâ€.
+2. Use the search bar and find the plugin using the exact name.
+3. Click â€œInstall Nowâ€ for the desired plugin.
+4. Once the installation is finished, and click â€œActivateâ€.
+
+**Manual Installation Using FTP:**
+1. Download the desired plugin from WordPress.org.
+2. Using your preferred FTP client, upload the entire plugin folder to the /wp-content/plugins/ directory of your WordPress installation.
+3. Go to â€œPluginsâ€ > â€œInstalled Pluginsâ€ in your dashboard and click â€œActivateâ€.
+
+**Manual download & upload from the WordPress Admin Panel:**
+1. Download the desired plugin in a ZIP format.
+2. On your site, navigate to â€œPluginsâ€ > â€œAdd Newâ€ and click the â€œUpload Pluginâ€ button.
+3. Choose the downloaded plugin file and click â€œInstall Now.â€
+4. After the installation is complete, click â€œActivateâ€.
+
+**Post-Activation:**
+Once activated, access the plugin's settings by navigating to â€œWooCommerce > Settingsâ€ and look for the relevant tab.
 
 == Changelog ==
+
+= 4.0.5 - 19/12/2023 =
+* Fix - Advanced - Time offset - Link to strtotime on admin is wrong.
+* Tested up to: 6.4.
+* WC tested up to: 8.4.
+* Update readme.txt file.
 
 = 4.0.4 - 08/11/2023 =
 * Fix - Shortcode `[alg_wc_mppu_user_bought]` doesn't work if the formula option is not enabled.
@@ -146,8 +362,8 @@ Fix - error with [user_product_limits_shortcode] condition.
 * Dev - General - Date range - New option: Monthly.
 * WC tested up to: 7.4.
 
-= 3.8.3 – 02/02/2023 =
-* Dev – Frontend – My account tab – Improve cache from [alg_wc_mppu_user_product_limits].
+= 3.8.3 â€“ 02/02/2023 =
+* Dev â€“ Frontend â€“ My account tab â€“ Improve cache from [alg_wc_mppu_user_product_limits].
 
 = 3.8.2 - 31/01/2023 =
 * Dev - Frontend - My account tab - Cache the output from `[alg_wc_mppu_user_product_limits]`.
