@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.0.3
+ * @version 4.0.6
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -84,6 +84,15 @@ class Alg_WC_MPPU_Core {
 	 * @var null
 	 */
 	public $my_account = null;
+
+	/**
+	 * $multilanguage.
+	 *
+	 * @since 4.0.6
+	 *
+	 * @var Alg_WC_MPPU_Multi_Language
+	 */
+	public $multilanguage;
 
 	/**
 	 * Constructor.
