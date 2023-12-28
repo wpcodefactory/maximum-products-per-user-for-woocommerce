@@ -1,1560 +1,1706 @@
-# Copyright (C) 2023 WPFactory
-# This file is distributed under the GNU General Public License v3.0.
-msgid ""
-msgstr ""
-"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.0.6\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-12-26T20:21:48+01:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
-"X-Domain: maximum-products-per-user-for-woocommerce\n"
-
-#. Plugin Name of the plugin
-#: includes/settings/class-alg-wc-mppu-settings.php:104
-msgid "Maximum Products per User for WooCommerce Pro"
-msgstr ""
-
-#. Plugin URI of the plugin
-msgid "https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/"
-msgstr ""
-
-#. Description of the plugin
-#: includes/settings/class-alg-wc-mppu-settings-general.php:57
-msgid "Limit number of items your WooCommerce customers can buy (lifetime or in selected date range)."
-msgstr ""
-
-#. Author of the plugin
-msgid "WPFactory"
-msgstr ""
-
-#. Author URI of the plugin
-msgid "https://wpfactory.com"
-msgstr ""
-
-#: includes/background-process/class-alg-wc-mppu-delete-sales-async-request.php:45
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\background-process\class-alg-wc-mppu-delete-sales-async-request.php:45
+#, php-format
 msgid "%d meta deleted."
 msgid_plural "%d metas deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/background-process/class-alg-wc-mppu-recalculate-sales-bkg-process.php:36
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\background-process\class-alg-wc-mppu-recalculate-sales-bkg-process.php:36
 msgid "Maximum Products per User - Recalculate sales data"
 msgstr ""
 
-#: includes/background-process/class-alg-wc-mppu-recalculate-sales-bkg-process.php:53
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\background-process\class-alg-wc-mppu-recalculate-sales-bkg-process.php:53
+#, php-format
 msgid "Order processed: %d."
 msgstr ""
 
-#: includes/background-process/class-alg-wc-mppu-update-user-sales-data-bkg-process.php:36
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\background-process\class-alg-wc-mppu-update-user-sales-data-bkg-process.php:36
 msgid "Maximum Products per User - Update user sales data"
 msgstr ""
 
-#: includes/background-process/class-alg-wc-mppu-update-user-sales-data-bkg-process.php:53
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\background-process\class-alg-wc-mppu-update-user-sales-data-bkg-process.php:53
+#, php-format
 msgid "Orders processed: %s."
 msgstr ""
 
-#: includes/background-process/class-alg-wc-mppu-update-user-terms-data-bkg-process.php:35
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\background-process\class-alg-wc-mppu-update-user-terms-data-bkg-process.php:35
 msgid "Maximum Products per User - Update user terms data"
 msgstr ""
 
-#: includes/background-process/class-alg-wc-mppu-update-user-terms-data-bkg-process.php:52
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\background-process\class-alg-wc-mppu-update-user-terms-data-bkg-process.php:52
+#, php-format
 msgid "Term \"%s\" updated from user %s."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1041
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:89
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-core.php:1040
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:88
+msgid "Login"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-core.php:1041
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:89
 msgid "You need to register to buy products."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1499
-#: includes/class-alg-wc-mppu-shortcodes.php:51
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:108
-msgid "You can only buy maximum %limit% of %product_title% (you've already bought %bought%)."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-core.php:1498
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:107
+#, php-format
+msgid "[alg_wc_mppu_customer_msg bought_msg=\"%s\" not_bought_msg=\"%s\"]"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1500
-#: includes/class-alg-wc-mppu-shortcodes.php:52
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:109
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-core.php:1499
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-shortcodes.php:51
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:108
+msgid ""
+"You can only buy maximum %limit% of %product_title% (you've already bought "
+"%bought%)."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-core.php:1500
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-shortcodes.php:52
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:109
 msgid "You can only buy maximum %limit% of %product_title%."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-data.php:148
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-data.php:148
+#, php-format
 msgid "%s order processed."
 msgid_plural "%s orders processed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-alg-wc-mppu-data.php:151
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-data.php:151
 msgid "Task running in background."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-data.php:152
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-data.php:152
+#, php-format
 msgid "When it is complete an e-mail is going to be sent to %s."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-data.php:153
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-data.php:153
+#, php-format
 msgid "%s order being processed."
 msgid_plural "%s orders being processed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-alg-wc-mppu-data.php:159
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-data.php:159
+#, php-format
 msgid "%s meta deleted."
 msgid_plural "%s metas deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-alg-wc-mppu-data.php:164
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:118
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-data.php:164
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:118
 msgid "Debug"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-data.php:165
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-data.php:165
+#, php-format
 msgid "Orders: %s."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-data.php:168
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-data.php:168
+#, php-format
 msgid "Task took %s second(s)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-my-account.php:116
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:228
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-my-account.php:116
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:228
 msgid "Product limits"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:39
-#: includes/class-alg-wc-mppu-reports.php:52
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-reports.php:39
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-reports.php:52
 msgid "Maximum Products per User: Sales Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:84
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-reports.php:84
 msgid "Guest"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:86
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-reports.php:86
 msgid "Guest by billing email id"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:88
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-reports.php:88
 msgid "Guest by IP"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:104
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-reports.php:104
+#, php-format
 msgid "Product #%d"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:111
-#: includes/class-alg-wc-mppu-reports.php:133
-#: includes/class-alg-wc-mppu-users.php:245
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-reports.php:111
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-reports.php:133
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:245
 msgid "User ID"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:112
-#: includes/class-alg-wc-mppu-reports.php:134
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-reports.php:112
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-reports.php:134
 msgid "User Name"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:115
-#: includes/class-alg-wc-mppu-reports.php:137
-#: includes/class-alg-wc-mppu-shortcodes.php:365
-#: includes/class-alg-wc-mppu-shortcodes.php:538
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-reports.php:115
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-reports.php:137
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-shortcodes.php:365
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-shortcodes.php:538
 msgid "Bought"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:120
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-reports.php:120
 msgid "Lifetime Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:126
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-reports.php:126
 msgid "No data."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:135
-#: includes/class-alg-wc-mppu-users.php:248
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-reports.php:135
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:248
 msgid "Order ID"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:136
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-reports.php:136
 msgid "Order Date"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:150
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-reports.php:150
 msgid "Orders Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:122
-msgid "The remaining amount is %remaining% (you've already bought %bought% out of %limit%)."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-shortcodes.php:122
+msgid ""
+"The remaining amount is %remaining% (you've already bought %bought% out of "
+"%limit%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:143
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:178
-msgid "The remaining amount for %product_title% is %remaining% (you've already bought %bought% out of %limit%)."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-shortcodes.php:143
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:178
+msgid ""
+"The remaining amount for %product_title% is %remaining% (you've already "
+"bought %bought% out of %limit%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:254
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:204
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-shortcodes.php:254
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-product.php:204
 msgid "Yes"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:255
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:205
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-shortcodes.php:255
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-product.php:205
 msgid "No"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:363
-#: includes/class-alg-wc-mppu-users.php:616
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-shortcodes.php:363
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:616
 msgid "Product"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:364
-#: includes/class-alg-wc-mppu-shortcodes.php:537
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-shortcodes.php:364
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-shortcodes.php:537
 msgid "Remaining"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:366
-#: includes/class-alg-wc-mppu-shortcodes.php:539
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-shortcodes.php:366
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-shortcodes.php:539
 msgid "Max"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:370
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-shortcodes.php:370
 msgid "Restrictions"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:388
-#: includes/class-alg-wc-mppu-shortcodes.php:544
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-shortcodes.php:388
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-shortcodes.php:544
 msgid "No data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:536
-#: includes/class-alg-wc-mppu-users.php:658
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-shortcodes.php:536
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:658
 msgid "Term"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:83
-msgid "The data is being processed in background. Please, reload the page in order to see the info refreshed completely."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:83
+msgid ""
+"The data is being processed in background. Please, reload the page in order "
+"to see the info refreshed completely."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:246
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:246
 msgid "Product ID"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:247
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:247
 msgid "Product title"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:249
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:249
 msgid "Order date"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:250
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:250
 msgid "Order value"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:617
-#: includes/class-alg-wc-mppu-users.php:659
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:69
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:118
-#: includes/settings/class-alg-wc-mppu-settings-general.php:186
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:617
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:659
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:69
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:118
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:186
 msgid "Lifetime"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:618
-#: includes/class-alg-wc-mppu-users.php:660
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:618
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:660
 msgid "Orders"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:686
-#: includes/class-alg-wc-mppu-users.php:791
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:686
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:791
 msgid "Show sales data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:688
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:688
 msgid "Export products data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:691
-#: includes/settings/class-alg-wc-mppu-settings-general.php:55
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:38
-#: includes/settings/class-alg-wc-mppu-settings.php:24
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:691
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:55
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-product.php:38
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings.php:24
 msgid "Maximum Products per User"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:693
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:693
 msgid "Export Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:694
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:694
 msgid "Products Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:790
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:790
 msgid "Product Categories Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:790
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:790
 msgid "Product Tags Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:863
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:863
 msgid "There was en error. Please, try again later."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:900
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu-users.php:900
+#, php-format
 msgid "Order #%d<br>(%s)"
 msgstr ""
 
-#: includes/class-alg-wc-mppu.php:197
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu.php:192
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu.php:193
+msgid "Settings"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\class-alg-wc-mppu.php:197
 msgid "Go Pro"
 msgstr ""
 
-#: includes/pro/class-alg-wc-mppu-orders-above-limits.php:107
-#: includes/pro/class-alg-wc-mppu-orders-above-limits.php:130
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:220
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\pro\class-alg-wc-mppu-orders-above-limits.php:107
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\pro\class-alg-wc-mppu-orders-above-limits.php:130
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:220
 msgid "Above limit"
 msgstr ""
 
-#: includes/pro/class-alg-wc-mppu-pro.php:286
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:112
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\pro\class-alg-wc-mppu-pro.php:286
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:112
 msgid "Login to purchase"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:25
-#: includes/settings/class-alg-wc-mppu-settings-section.php:63
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:25
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-section.php:63
 msgid "Admin"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:41
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:47
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:41
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:47
 msgid "Editable sales data"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:42
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:42
+#, php-format
 msgid "Show user sales data on the %s."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:42
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:42
 msgid "profile page"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:48
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:48
 msgid "See and edit each user's sales data"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:54
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:54
 msgid "AJAX"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:55
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:55
 msgid "Load sales data using AJAX"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:56
-msgid "Enable it if the results are taking too long to be retrieved or if you are experiencing timeout errors."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:56
+msgid ""
+"Enable it if the results are taking too long to be retrieved or if you are "
+"experiencing timeout errors."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:62
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:192
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:62
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:192
 msgid "Variations"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:63
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:63
+#, php-format
 msgid "Show variations even if %s option is disabled"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:63
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:63
 msgid "Use Variations"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:70
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:70
 msgid "Automatically update lifetime column from orders column"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:71
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:71
 msgid "Lifetime column won't be editable anymore."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:78
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:78
 msgid "Empty items"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:79
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:79
 msgid "Add \"Lifetime\" column for products/terms with no sales data"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:86
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:86
 msgid "Terms data"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:87
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:87
 msgid "Automatically calculate terms data from products data"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:88
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:88
 msgid "Tags and categories data won't be editable anymore."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:101
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:101
 msgid "Sales data export options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:103
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:117
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:103
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:117
 msgid "Export sales data for all users"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:108
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:108
 msgid "Export"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:109
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:109
 msgid "Column separator"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:115
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:124
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:132
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:115
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:124
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:132
 msgid "Merge user"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:116
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:116
 msgid "Output all user's data in a single line"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:117
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:117
+#, php-format
 msgid "Used in \"%s\" tool."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:123
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:123
 msgid "Data separator"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:124
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:132
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:124
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:132
+#, php-format
 msgid "Ignored unless \"%s\" option is enabled."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:130
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:130
 msgid "Extra meta"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:131
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-admin.php:131
 msgid "Use comma separated values."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:24
-#: includes/settings/class-alg-wc-mppu-settings-section.php:65
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:70
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:24
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-section.php:65
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:70
 msgid "Advanced"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:72
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:72
 msgid "Advanced Options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:77
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:77
 msgid "Time function"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:83
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:83
 msgid "Coordinated Universal Time (UTC)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:84
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:84
 msgid "Local (WordPress) time"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:88
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:88
 msgid "Time offset"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:89
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:89
+#, php-format
 msgid "Use a <a href=\"%s\" target=\"_blank\">date/time</a> string."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:89
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:89
 msgid "Examples:"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:90
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:90
+#, php-format
 msgid "Compensates the time. It's used on the %s filter"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:96
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:97
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:96
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:97
 msgid "Exclude products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:106
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:106
 msgid "Duplicate product"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:107
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:115
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:47
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:83
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:90
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:45
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:88
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:109
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:118
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:119
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:107
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:115
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:47
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:83
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:90
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:45
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:88
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:109
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:118
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:119
 msgid "Enable"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:108
-msgid "Enable this if you want to copy plugin's product meta data on product \"Duplicate\"."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:108
+msgid ""
+"Enable this if you want to copy plugin's product meta data on product "
+"\"Duplicate\"."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:114
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:114
 msgid "Lifetime from totals"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:116
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:116
+#, php-format
 msgid "Ignored unless \"%s\" is set to \"%s\" in \"%s\" section."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:117
-#: includes/settings/class-alg-wc-mppu-settings-general.php:180
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:117
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:180
 msgid "Date range"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:120
-msgid "Enabling this may make \"user already bought\" data calculations faster, however, it will also disable some functionality, like \"%s\" option in \"%s\" section."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:120
+#, php-format
+msgid ""
+"Enabling this may make \"user already bought\" data calculations faster, "
+"however, it will also disable some functionality, like \"%s\" option in \"%s"
+"\" section."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:121
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:112
-#: includes/settings/class-alg-wc-mppu-settings-general.php:157
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:121
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:112
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:157
 msgid "Count by current payment method"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:135
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:135
 msgid "Background processing"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:140
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:140
 msgid "Minimum amount"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:141
-msgid "The minimum amount of results from a query in order to trigger a background processing."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:141
+msgid ""
+"The minimum amount of results from a query in order to trigger a background "
+"processing."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:147
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:147
 msgid "Send email"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:148
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:148
 msgid "Send email when a background processing is complete"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:154
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:154
 msgid "Email to."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:155
-msgid "The email address that is going to receive the email when a background processing task is complete."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:155
+msgid ""
+"The email address that is going to receive the email when a background "
+"processing task is complete."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:155
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:155
 msgid "Requires the \"Send email\" option enabled in order to work."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:183
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:189
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:200
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:183
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:189
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:200
 msgid "Orders above limits"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:185
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:185
 msgid "Let users place orders that do not respect the limits."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:190
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:190
 msgid "Allow users to place orders with exceeding limits"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:191
-msgid "Notices regarding limit issues will not be displayed as errors on checkout."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:191
+msgid ""
+"Notices regarding limit issues will not be displayed as errors on checkout."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:198
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:198
 msgid "Order status"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:199
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:199
 msgid "Change status from newly placed orders above limits"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:200
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:200
+#, php-format
 msgid "Order status will only be changed if %s option is enabled."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:210
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:210
 msgid "Status used on orders above limits."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:218
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-advanced.php:218
 msgid "Custom order status label."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:24
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:54
-#: includes/settings/class-alg-wc-mppu-settings-section.php:61
-msgid "Formula"
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-compatibility.php:25
+msgid "Compatibility"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:40
-msgid "Limits by Formula"
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-compatibility.php:38
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-compatibility.php:40
+msgid "Point of Sale for WooCommerce"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:41
-msgid "This section introduces an alternative method for setting limits."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-compatibility.php:40
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-compatibility.php:60
+#, php-format
+msgid "Compatibility with %s plugin."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:46
-msgid "Limits by formula"
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-compatibility.php:44
+msgid "Registers"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:55
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:71
-msgid "One shortcode per line."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-compatibility.php:45
+msgid "Check limits when creating orders via registers"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:66
-msgid "Notes"
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-compatibility.php:58
+msgid "WPC Composite Products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:68
-msgid "You need to use %s shortcode here."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-compatibility.php:60
+msgid "WPC Composite Products for WooCommerce"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:73
-msgid "Algorithm stops when first matching shortcode is found (from top to bottom)."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:75
-msgid "Available shortcode attributes: %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:93
-msgid "%s attribute is required."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:96
-msgid "You need to enable \"%s\" checkbox in \"%s\" section to use %s attributes."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:97
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:72
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:87
-msgid "Per product"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:106
-msgid "You need to enable \"%s\" and/or \"%s\" checkbox in \"%s\" section to use %s attribute."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:107
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:117
-msgid "Per product category"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:107
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:108
-msgid "Per product tag"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:111
-msgid "You need to enable \"%s\" checkbox in \"%s\" section to use %s attribute."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:115
-#: includes/settings/class-alg-wc-mppu-settings-general.php:159
-msgid "You may also want to disable \"%s\" and \"%s\" options in the \"%s\" section, so your customer could change the payment method on exceeded limits."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:116
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:68
-#: includes/settings/class-alg-wc-mppu-settings-general.php:160
-msgid "Validate on add to cart"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:117
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:132
-#: includes/settings/class-alg-wc-mppu-settings-general.php:161
-msgid "Block checkout page"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:120
-msgid "You can not use %s (or %s) and %s simultaneously in one shortcode."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:125
-msgid "You can set shortcode effective date(s) with %s (and %s) attributes."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:129
-msgid "You can only use %s combined with %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:141
-msgid "Examples"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:144
-msgid "Sets maximum limit to %s for users %s and %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:147
-msgid "Sets maximum limit to %s for products %s and %s for users %s and %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:24
-#: includes/settings/class-alg-wc-mppu-settings-section.php:62
-msgid "Frontend"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:44
-msgid "Frontend Options"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:65
-msgid "Available message placeholders: %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:69
-msgid "Validate limits immediately when \"add to cart\" button is pressed"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:75
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:90
-msgid "Cart notice"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:76
-msgid "Shows notice on the cart page."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:82
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:167
-msgid "Disable"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:84
-msgid "As text"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:88
-msgid "Cart notice type"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:89
-msgid "Ignored unless \"%s\" option is set to \"%s\"."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:96
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:168
-msgid "Notice"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:97
-msgid "Error"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:98
-msgid "Success"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:102
-msgid "Customer message"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:103
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:175
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:244
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:85
-msgid "You can use HTML and/or shortcodes here."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:104
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:176
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:226
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:245
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:86
-msgid "E.g.: %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:113
-msgid "Available %s shortcode params:"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:124
-msgid "Multiple notices"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:125
-msgid "Display cart & checkout notices for each product"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:126
-msgid "If disabled, only one message will be displayed for the first product."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:133
-msgid "Stop customer from accessing the checkout page on exceeded limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:134
-msgid "Customer will be redirected to the cart page."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:140
-msgid "Additional validation actions."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:140
-msgid "For example, use %s to validate the limits on checkout update."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:141
-msgid "WordPress action hooks used to validate the limits."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:142
-msgid "Use one per line."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:154
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:160
-msgid "Product limit message"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:155
-msgid "Adds current product limit info to the single product page."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:161
-msgid "Adds current product limit info to the single product pages."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:169
-msgid "Text in product summary"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:170
-msgid "Text in product description"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:174
-msgid "Message content"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:184
-msgid "Condition"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:185
-msgid "The condition to display the message."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:186
-msgid "Ex:"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:193
-msgid "Show limit message for variations"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:194
-msgid "Probably you'd like to have %s option enabled."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:194
-msgid "General > Use variations"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:206
-msgid "My account tab"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:211
-msgid "Enable tab"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:212
-msgid "Add tab to \"My Account\" page"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:218
-msgid "Tab id"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:224
-msgid "Tab title"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:225
-msgid "You can use shortcodes here."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:233
-msgid "Tab icon"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:234
-msgid "You need to enter icon code here, e.g. %s. Icon codes are available on %s site."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:237
-msgid "Will use the default icon if empty."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:243
-msgid "Tab content"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:246
-msgid "You can use %s parameter as %s on %s shortcode in order to get tags."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:247
-msgid "Useful shortcodes:"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:24
-#: includes/settings/class-alg-wc-mppu-settings-section.php:59
-msgid "General"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:46
-msgid "General options"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:48
-msgid "While data is recalculated automatically (but only after the plugin was enabled), you can also force manual recalculation by running %s tool."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:49
-#: includes/settings/class-alg-wc-mppu-settings-section.php:115
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:45
-msgid "Recalculate sales data"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:50
-msgid "This is useful on initial plugin install (i.e. to calculate sales data from before the plugin was enabled)."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:56
-msgid "Enable plugin"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:63
-#: includes/settings/class-alg-wc-mppu-settings-general.php:64
-msgid "Mode"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:70
-msgid "Product quantities"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:71
-msgid "Product orders"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:72
-msgid "Product prices (incl. tax)"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:73
-msgid "Product prices (excl. tax)"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:74
-msgid "Product weights"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:75
-msgid "Product volumes"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:79
-#: includes/settings/class-alg-wc-mppu-settings-general.php:82
-msgid "Order statuses"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:80
-msgid "Choose order statuses when product data should be updated."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:81
-msgid "If you select multiple order statuses, data is updated only once, on whichever status change occurs first."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:90
-msgid "Order statuses: Delete"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:91
-msgid "Choose order statuses when product data should be deleted."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:92
-msgid "If you select multiple order statuses, data is deleted only once, on whichever status change occurs first."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:100
-#: includes/settings/class-alg-wc-mppu-settings-general.php:103
-msgid "Payment gateways"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:101
-msgid "Choose payment gateways when product data should be updated."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:102
-msgid "Leave empty to update data for all payment gateways."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:111
-msgid "Quantity input"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:112
-msgid "Set a maximum value for the product quantity field based on its current limit"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:118
-msgid "Add to cart button"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:119
-msgid "Disable product purchase if its limit has been reached for the current user"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:125
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:196
-msgid "Use variations"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:126
-msgid "Use variations in \"All products\" and \"Per product\" calculations."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:127
-msgid "If \"Limits > Per Product\" section is enabled, you will be able to (optionally) override this option for each individual product."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:133
-msgid "User roles"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:134
-msgid "Set different limits for different user roles"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:140
-msgid "Enabled user roles"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:141
-msgid "Select user roles for which you want to set different limits. If empty, then all user roles will be added to the settings."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:149
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:130
-msgid "Hide products"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:150
-msgid "Hides products with exceeded limits for the current user from the catalog and search results. Products will still be accessible via the direct links."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:151
-msgid "Hide products with exceeded limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:158
-msgid "Count \"user already bought\" data for current (i.e. chosen) payment method only"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:175
-msgid "Date range options"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:187
-msgid "This hour"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:188
-msgid "This day"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:189
-msgid "This week"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:190
-msgid "This month"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:191
-msgid "This year"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:192
-msgid "Last hour"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:193
-msgid "Last 24 hours"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:194
-msgid "Last 7 days"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:195
-msgid "Last 30 days"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:196
-msgid "Last 365 days"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:197
-msgid "Custom range"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:198
-#: includes/settings/class-alg-wc-mppu-settings-general.php:228
-msgid "Fixed date"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:199
-#: includes/settings/class-alg-wc-mppu-settings-general.php:236
-msgid "Monthly"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:203
-#: includes/settings/class-alg-wc-mppu-settings-general.php:213
-msgid "Custom date range"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:204
-msgid "In %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:205
-msgid "Used when \"Custom\" option is selected in \"Date range\"."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:212
-msgid "Custom date range unit."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:213
-msgid "Used for the \"%s\" option."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:219
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:97
-msgid "seconds"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:220
-msgid "minutes"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:221
-msgid "hours"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:222
-msgid "days"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:223
-msgid "weeks"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:227
-msgid "Fixed date range"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:228
-#: includes/settings/class-alg-wc-mppu-settings-general.php:236
-msgid "Used with the \"%s\" date range option."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:235
-msgid "Origin date"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:237
-msgid "If the user register date is %s, the limits would be reset monthly, like: %s and so on, always on day 15th."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:238
-msgid "The free version will only work with the \"User register date\" option."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:242
-msgid "User register date"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:243
-msgid "MemberPress subscription date"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:255
-#: includes/settings/class-alg-wc-mppu-settings-general.php:260
-#: includes/settings/class-alg-wc-mppu-settings-general.php:262
-msgid "Multi-language"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:261
-msgid "Use the default language product/term ID instead of the translated one."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:268
-msgid "Disabled"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:269
-msgid "WPML"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:270
-msgid "Polylang"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:274
-msgid "Limit checking"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:275
-msgid "Use product ID from default language when checking product limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:24
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:44
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:66
-msgid "Guests"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:38
-msgid "Guest users options"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:40
-msgid "Options regarding how non-logged users (i.e. guests) should be handled by the plugin."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:49
-msgid "Do nothing (i.e. do not track guests sales)"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:50
-msgid "Do nothing but block guests from purchasing products beyond the limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:51
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:64
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:66
-msgid "Block guests from buying products"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:52
-msgid "Identify guests by IP address"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:53
-msgid "Identify guests by checkout billing email address ( N.B: It will work at the time of checkout )"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:66
-msgid "This whole section will only make sense if %s option is set as %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:70
-msgid "Block method"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:71
-msgid "Choose \"%s\" if you want to block guests from buying specific products."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:71
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:79
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:173
-#: includes/settings/class-alg-wc-mppu-settings-per-term.php:54
-msgid "According to limit options"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:72
-msgid "In that case it will be necessary to enable the %s option on the product or taxonomy page after activating %s or %s options."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:72
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:167
-#: includes/settings/class-alg-wc-mppu-settings-per-term.php:54
-msgid "Block guests"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:72
-msgid "Per product taxonomy"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:78
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:39
-msgid "All Products"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:84
-msgid "Block message"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:94
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-compatibility.php:64
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:94
 msgid "Add to cart text"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:95
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-compatibility.php:65
+msgid "Change add to cart button text from blocked guest user products"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:24
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:54
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-section.php:61
+msgid "Formula"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:40
+msgid "Limits by Formula"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:41
+msgid "This section introduces an alternative method for setting limits."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:46
+msgid "Limits by formula"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:55
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:71
+msgid "One shortcode per line."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:66
+msgid "Notes"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:68
+#, php-format
+msgid "You need to use %s shortcode here."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:73
+msgid ""
+"Algorithm stops when first matching shortcode is found (from top to bottom)."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:75
+#, php-format
+msgid "Available shortcode attributes: %s."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:93
+#, php-format
+msgid "%s attribute is required."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:96
+#, php-format
+msgid ""
+"You need to enable \"%s\" checkbox in \"%s\" section to use %s attributes."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:97
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:72
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:87
+msgid "Per product"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:106
+#, php-format
+msgid ""
+"You need to enable \"%s\" and/or \"%s\" checkbox in \"%s\" section to use %s "
+"attribute."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:107
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:117
+msgid "Per product category"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:107
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:108
+msgid "Per product tag"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:111
+#, php-format
+msgid ""
+"You need to enable \"%s\" checkbox in \"%s\" section to use %s attribute."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:115
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:159
+#, php-format
+msgid ""
+"You may also want to disable \"%s\" and \"%s\" options in the \"%s\" "
+"section, so your customer could change the payment method on exceeded limits."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:116
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:68
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:160
+msgid "Validate on add to cart"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:117
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:132
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:161
+msgid "Block checkout page"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:120
+#, php-format
+msgid "You can not use %s (or %s) and %s simultaneously in one shortcode."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:125
+#, php-format
+msgid "You can set shortcode effective date(s) with %s (and %s) attributes."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:129
+#, php-format
+msgid "You can only use %s combined with %s."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:141
+msgid "Examples"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:144
+#, php-format
+msgid "Sets maximum limit to %s for users %s and %s."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-formula.php:147
+#, php-format
+msgid "Sets maximum limit to %s for products %s and %s for users %s and %s."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:24
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-section.php:62
+msgid "Frontend"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:44
+msgid "Frontend Options"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:65
+#, php-format
+msgid "Available message placeholders: %s."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:69
+msgid "Validate limits immediately when \"add to cart\" button is pressed"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:75
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:90
+msgid "Cart notice"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:76
+msgid "Shows notice on the cart page."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:82
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:167
+msgid "Disable"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:84
+msgid "As text"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:88
+msgid "Cart notice type"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:89
+#, php-format
+msgid "Ignored unless \"%s\" option is set to \"%s\"."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:96
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:168
+msgid "Notice"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:97
+msgid "Error"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:98
+msgid "Success"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:102
+msgid "Customer message"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:103
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:175
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:244
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:85
+msgid "You can use HTML and/or shortcodes here."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:104
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:176
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:226
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:245
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:86
+#, php-format
+msgid "E.g.: %s."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:113
+#, php-format
+msgid "Available %s shortcode params:"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:124
+msgid "Multiple notices"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:125
+msgid "Display cart & checkout notices for each product"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:126
+msgid "If disabled, only one message will be displayed for the first product."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:133
+msgid "Stop customer from accessing the checkout page on exceeded limits"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:134
+msgid "Customer will be redirected to the cart page."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:140
+msgid "Additional validation actions."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:140
+#, php-format
+msgid "For example, use %s to validate the limits on checkout update."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:141
+msgid "WordPress action hooks used to validate the limits."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:142
+msgid "Use one per line."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:154
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:160
+msgid "Product limit message"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:155
+msgid "Adds current product limit info to the single product page."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:161
+msgid "Adds current product limit info to the single product pages."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:169
+msgid "Text in product summary"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:170
+msgid "Text in product description"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:174
+msgid "Message content"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:184
+msgid "Condition"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:185
+msgid "The condition to display the message."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:186
+msgid "Ex:"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:193
+msgid "Show limit message for variations"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:194
+#, php-format
+msgid "Probably you'd like to have %s option enabled."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:194
+msgid "General > Use variations"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:206
+msgid "My account tab"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:211
+msgid "Enable tab"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:212
+msgid "Add tab to \"My Account\" page"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:218
+msgid "Tab id"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:224
+msgid "Tab title"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:225
+msgid "You can use shortcodes here."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:233
+msgid "Tab icon"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:234
+#, php-format
+msgid ""
+"You need to enter icon code here, e.g. %s. Icon codes are available on %s "
+"site."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:237
+msgid "Will use the default icon if empty."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:243
+msgid "Tab content"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:246
+#, php-format
+msgid "You can use %s parameter as %s on %s shortcode in order to get tags."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-frontend.php:247
+msgid "Useful shortcodes:"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:24
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-section.php:59
+msgid "General"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:46
+msgid "General options"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:48
+#, php-format
+msgid ""
+"While data is recalculated automatically (but only after the plugin was "
+"enabled), you can also force manual recalculation by running %s tool."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:49
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-section.php:115
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:45
+msgid "Recalculate sales data"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:50
+msgid ""
+"This is useful on initial plugin install (i.e. to calculate sales data from "
+"before the plugin was enabled)."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:56
+msgid "Enable plugin"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:57
+msgid ""
+"Limit number of items your WooCommerce customers can buy (lifetime or in "
+"selected date range)."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:63
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:64
+msgid "Mode"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:70
+msgid "Product quantities"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:71
+msgid "Product orders"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:72
+msgid "Product prices (incl. tax)"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:73
+msgid "Product prices (excl. tax)"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:74
+msgid "Product weights"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:75
+msgid "Product volumes"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:79
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:82
+msgid "Order statuses"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:80
+msgid "Choose order statuses when product data should be updated."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:81
+msgid ""
+"If you select multiple order statuses, data is updated only once, on "
+"whichever status change occurs first."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:90
+msgid "Order statuses: Delete"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:91
+msgid "Choose order statuses when product data should be deleted."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:92
+msgid ""
+"If you select multiple order statuses, data is deleted only once, on "
+"whichever status change occurs first."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:100
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:103
+msgid "Payment gateways"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:101
+msgid "Choose payment gateways when product data should be updated."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:102
+msgid "Leave empty to update data for all payment gateways."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:111
+msgid "Quantity input"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:112
+msgid ""
+"Set a maximum value for the product quantity field based on its current limit"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:118
+msgid "Add to cart button"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:119
+msgid ""
+"Disable product purchase if its limit has been reached for the current user"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:125
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-product.php:196
+msgid "Use variations"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:126
+msgid "Use variations in \"All products\" and \"Per product\" calculations."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:127
+msgid ""
+"If \"Limits > Per Product\" section is enabled, you will be able to "
+"(optionally) override this option for each individual product."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:133
+msgid "User roles"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:134
+msgid "Set different limits for different user roles"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:140
+msgid "Enabled user roles"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:141
+msgid ""
+"Select user roles for which you want to set different limits. If empty, then "
+"all user roles will be added to the settings."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:149
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:130
+msgid "Hide products"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:150
+msgid ""
+"Hides products with exceeded limits for the current user from the catalog "
+"and search results. Products will still be accessible via the direct links."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:151
+msgid "Hide products with exceeded limits"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:158
+msgid ""
+"Count \"user already bought\" data for current (i.e. chosen) payment method "
+"only"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:175
+msgid "Date range options"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:187
+msgid "This hour"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:188
+msgid "This day"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:189
+msgid "This week"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:190
+msgid "This month"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:191
+msgid "This year"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:192
+msgid "Last hour"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:193
+msgid "Last 24 hours"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:194
+msgid "Last 7 days"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:195
+msgid "Last 30 days"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:196
+msgid "Last 365 days"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:197
+msgid "Custom range"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:198
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:228
+msgid "Fixed date"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:199
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:236
+msgid "Monthly"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:203
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:213
+msgid "Custom date range"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:204
+#, php-format
+msgid "In %s."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:205
+msgid "Used when \"Custom\" option is selected in \"Date range\"."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:212
+msgid "Custom date range unit."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:213
+#, php-format
+msgid "Used for the \"%s\" option."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:219
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:97
+msgid "seconds"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:220
+msgid "minutes"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:221
+msgid "hours"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:222
+msgid "days"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:223
+msgid "weeks"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:227
+msgid "Fixed date range"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:228
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:236
+#, php-format
+msgid "Used with the \"%s\" date range option."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:235
+msgid "Origin date"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:237
+#, php-format
+msgid ""
+"If the user register date is %s, the limits would be reset monthly, like: %s "
+"and so on, always on day 15th."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:238
+msgid "The free version will only work with the \"User register date\" option."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:242
+msgid "User register date"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:243
+msgid "MemberPress subscription date"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:255
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:260
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:262
+msgid "Multi-language"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:261
+msgid "Use the default language product/term ID instead of the translated one."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:268
+msgid "Disabled"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:269
+msgid "WPML"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:270
+msgid "Polylang"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:274
+msgid "Limit checking"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-general.php:275
+msgid "Use product ID from default language when checking product limits"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:24
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:44
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:66
+msgid "Guests"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:38
+msgid "Guest users options"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:40
+msgid ""
+"Options regarding how non-logged users (i.e. guests) should be handled by "
+"the plugin."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:49
+msgid "Do nothing (i.e. do not track guests sales)"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:50
+msgid "Do nothing but block guests from purchasing products beyond the limits"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:51
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:64
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:66
+msgid "Block guests from buying products"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:52
+msgid "Identify guests by IP address"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:53
+msgid ""
+"Identify guests by checkout billing email address ( N.B: It will work at the "
+"time of checkout )"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:66
+#, php-format
+msgid "This whole section will only make sense if %s option is set as %s."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:70
+msgid "Block method"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:71
+#, php-format
+msgid ""
+"Choose \"%s\" if you want to block guests from buying specific products."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:71
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:79
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-product.php:173
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-term.php:54
+msgid "According to limit options"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:72
+#, php-format
+msgid ""
+"In that case it will be necessary to enable the %s option on the product or "
+"taxonomy page after activating %s or %s options."
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:72
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-product.php:167
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-term.php:54
+msgid "Block guests"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:72
+msgid "Per product taxonomy"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:78
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:39
+msgid "All Products"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:84
+msgid "Block message"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:95
 msgid "Change add to cart button text from blocked products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:103
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:103
 msgid "Change add to cart button text from blocked variations"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:110
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:110
 msgid "Custom add to cart button text"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:116
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:116
 msgid "Add to cart redirect"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:117
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:117
 msgid "Redirect after clicking on an add to cart button from a blocked product"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:124
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:124
 msgid "Redirect URL"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:131
-msgid "Hides products from the catalog and search results. Products will still be accessible via the direct links."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:131
+msgid ""
+"Hides products from the catalog and search results. Products will still be "
+"accessible via the direct links."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:132
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-guests.php:132
 msgid "Hide products blocked from guest users"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:24
-#: includes/settings/class-alg-wc-mppu-settings-section.php:60
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:24
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-section.php:60
 msgid "Limits"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:44
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:44
 msgid "All products"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:51
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:63
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:157
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:180
-#: includes/settings/class-alg-wc-mppu-settings-per-term.php:48
-#: includes/settings/class-alg-wc-mppu-settings-per-term.php:76
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:51
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:63
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-product.php:157
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-product.php:180
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-term.php:48
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-term.php:76
 msgid "Limit per user"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:52
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:52
 msgid "Maximum allowed each product's limit per user."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:64
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:186
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:64
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-product.php:186
 msgid "If set to zero - \"Limit per user\" option will be used."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:82
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:82
 msgid "Per Product"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:89
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:89
 msgid "This will add new meta box to each product's edit page."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:103
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:103
 msgid "Per Product Taxonomy"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:110
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:110
 msgid "This will add new meta box to each product tag term's edit page."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:119
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-limits.php:119
 msgid "This will add new meta box to each product category term's edit page."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:162
-msgid "If set to zero, and \"All Products\" section is enabled - global limit will be used; in case if \"All Products\" section is disabled - no limit will be used."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-product.php:162
+msgid ""
+"If set to zero, and \"All Products\" section is enabled - global limit will "
+"be used; in case if \"All Products\" section is disabled - no limit will be "
+"used."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:172
-#: includes/settings/class-alg-wc-mppu-settings-per-term.php:64
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-product.php:172
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-term.php:64
 msgid "Block guests from purchasing"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:173
-#: includes/settings/class-alg-wc-mppu-settings-per-term.php:54
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-product.php:173
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-term.php:54
+#, php-format
 msgid "It's necessary to set %s option as %s"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:173
-#: includes/settings/class-alg-wc-mppu-settings-per-term.php:54
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-product.php:173
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-term.php:54
 msgid "General > Block method"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:203
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-product.php:203
 msgid "Default"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:207
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-per-product.php:207
 msgid "\"Update\" the product after you change this option."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-section.php:64
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:24
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:39
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-section.php:64
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:24
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:39
 msgid "Tools"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-section.php:102
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-section.php:102
+#, php-format
 msgid "Placeholders: %s."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-section.php:114
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-section.php:114
+#, php-format
 msgid "You will need to %s after changing \"%s\" option."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:40
-msgid "Check the box and save settings to run the tool. Please note that there is no undo for this action."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:40
+msgid ""
+"Check the box and save settings to run the tool. Please note that there is "
+"no undo for this action."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:46
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:53
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:60
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:46
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:53
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:60
 msgid "Run"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:52
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:52
 msgid "Delete & recalculate sales data"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:59
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:59
 msgid "Delete sales data"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:71
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:71
 msgid "Advanced options for both recalculation tools."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:72
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:72
 msgid "Leave the default values if not sure."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:77
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:77
 msgid "Orders date range"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:83
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:83
 msgid "All orders"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:84
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:84
 msgid "Only orders in \"General > Date range\""
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:88
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:88
 msgid "Query block size"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:89
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:89
 msgid "How many orders to process in a single query."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:96
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:96
 msgid "Time limit"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:98
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:98
 msgid "The maximum execution time, in seconds."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:99
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:99
 msgid "If set to zero, no time limit is imposed."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:100
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:100
+#, php-format
 msgid "If set to minus one, server time limit (%s seconds) is used."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:107
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:107
 msgid "Loop function"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:113
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:113
+#, php-format
 msgid "WordPress standard (%s)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:114
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:114
+#, php-format
 msgid "WooCommerce specific (%s)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:125
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:125
 msgid "Sales deletion options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:126
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:126
 msgid "Delete sales using Async request"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:127
-msgid "Enable if you want to try to lower the time of the meta data removal by running it in a background process."
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings-tools.php:127
+msgid ""
+"Enable if you want to try to lower the time of the meta data removal by "
+"running it in a background process."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:105
-msgid "Disabled options can be unlocked using <a href=\"%pro_version_url%\" target=\"_blank\"><strong>%pro_version_title%</strong></a>"
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings.php:104
+msgid "Maximum Products per User for WooCommerce Pro"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:106
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings.php:105
+msgid ""
+"Disabled options can be unlocked using <a href=\"%pro_version_url%\" target="
+"\"_blank\"><strong>%pro_version_title%</strong></a>"
+msgstr ""
+
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings.php:106
 msgid "Upgrade to Pro version"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:134
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings.php:134
 msgid "Reset Settings"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:139
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings.php:139
 msgid "Reset section settings"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:140
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings.php:140
 msgid "Reset"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:141
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings.php:141
 msgid "Check the box and save changes to reset."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:169
-#: includes/settings/class-alg-wc-mppu-settings.php:184
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings.php:169
+#: E:\xampp_php_8\htdocs\wpfactory-local\wp-content\plugins\maximum-products-per-user-for-woocommerce-pro\includes\settings\class-alg-wc-mppu-settings.php:184
 msgid "Your settings have been reset."
 msgstr ""

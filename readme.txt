@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.4
-Stable tag: 4.0.6
+Stable tag: 4.0.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -252,26 +252,29 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 **Follow these simplified steps to get your plugin up and running:**
 
 **From the WordPress Admin Panel:**
-1. Navigate to â€œPluginsâ€ > â€œAdd Newâ€.
+1. Navigate to "Plugins" > "Add New".
 2. Use the search bar and find the plugin using the exact name.
-3. Click â€œInstall Nowâ€ for the desired plugin.
-4. Once the installation is finished, and click â€œActivateâ€.
+3. Click "Install Now" for the desired plugin.
+4. Once the installation is finished, and click "Activate".
 
 **Manual Installation Using FTP:**
 1. Download the desired plugin from WordPress.org.
 2. Using your preferred FTP client, upload the entire plugin folder to the /wp-content/plugins/ directory of your WordPress installation.
-3. Go to â€œPluginsâ€ > â€œInstalled Pluginsâ€ in your dashboard and click â€œActivateâ€.
+3. Go to "Plugins" > "Installed Plugins" in your dashboard and click "Activate".
 
 **Manual download & upload from the WordPress Admin Panel:**
 1. Download the desired plugin in a ZIP format.
-2. On your site, navigate to â€œPluginsâ€ > â€œAdd Newâ€ and click the â€œUpload Pluginâ€ button.
-3. Choose the downloaded plugin file and click â€œInstall Now.â€
-4. After the installation is complete, click â€œActivateâ€.
+2. On your site, navigate to "Plugins" > "Add New" and click the "Upload Plugin" button.
+3. Choose the downloaded plugin file and click "Install Now."
+4. After the installation is complete, click "Activate".
 
 **Post-Activation:**
-Once activated, access the plugin's settings by navigating to â€œWooCommerce > Settingsâ€ and look for the relevant tab.
+Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.0.7 - 28/12/2023 =
+* Upgrade readme.txt boom char.
 
 = 4.0.6 - 26/12/2023 =
 * Fix - "Undefined property: `Alg_WC_MPPU_Core::$multilanguage` in `Alg_WC_MPPU_Core`".
