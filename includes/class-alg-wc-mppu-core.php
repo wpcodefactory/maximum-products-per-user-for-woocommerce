@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.0.6
+ * @version 4.0.8
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -97,7 +97,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 4.0.0
+	 * @version 4.0.8
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -179,18 +179,18 @@ class Alg_WC_MPPU_Core {
 			$this->multilanguage = require_once( 'class-alg-wc-mppu-multi-language.php' );
 			// Compensate date to check
 			add_filter( 'alg_wc_mppu_date_to_check', array( $this, 'compensate_date_to_check_time' ), 900 );
+			// Hook msg shortcode
+			add_filter( 'shortcode_atts_' . 'alg_wc_mppu_customer_msg', array( $this, 'filter_customer_message_shortcode' ) );
+			// Set bought data to zero if guest option is set as "Do nothing and block guests from purchasing products beyond the limits"
+			add_filter( 'alg_wc_mppu_user_already_bought', array( $this, 'set_guest_user_bought_to_zero' ) );
+			// Last month day check.
+			add_filter( 'alg_wc_mppu_user_already_bought_validation', array( $this, 'validate_user_already_bought_monthly_range' ), 10, 2 );
+			// Manages max attribute from quantity field.
+			$this->handle_qty_field_max_attr();
+			add_filter( 'woocommerce_is_purchasable', array( $this, 'disallow_product_purchase' ), 10, 2 );
 		}
-		// Hook msg shortcode
-		add_filter( 'shortcode_atts_' . 'alg_wc_mppu_customer_msg', array( $this, 'filter_customer_message_shortcode' ) );
-		// Set bought data to zero if guest option is set as "Do nothing and block guests from purchasing products beyond the limits"
-		add_filter( 'alg_wc_mppu_user_already_bought', array( $this, 'set_guest_user_bought_to_zero' ) );
 		// Core loaded
 		do_action( 'alg_wc_mppu_core_loaded', $this );
-		// Last month day check.
-		add_filter( 'alg_wc_mppu_user_already_bought_validation', array( $this, 'validate_user_already_bought_monthly_range' ), 10, 2 );
-		// Manages max attribute from quantity field.
-		$this->handle_qty_field_max_attr();
-		add_filter( 'woocommerce_is_purchasable', array( $this, 'disallow_product_purchase' ), 10, 2 );
 	}
 
 	/**
