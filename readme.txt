@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.4
-Stable tag: 4.0.8
+Stable tag: 4.0.9
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -272,6 +272,9 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.0.9 - 26/01/2023 =
+* Dev - General - Date range options - New option "Week starts on" That works with the "This week" date range option.
 
 = 4.0.8 - 08/01/2023 =
 * Fix - Error: Call to a member function get_product_id_from_main_language() on null in `Alg_WC_MPPU_Core`.

@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.0.8\n"
+"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.0.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-01-08T19:28:58+01:00\n"
+"POT-Creation-Date: 2024-01-26T23:53:15+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -66,18 +66,18 @@ msgstr ""
 msgid "Term \"%s\" updated from user %s."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1041
+#: includes/class-alg-wc-mppu-core.php:1068
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:89
 msgid "You need to register to buy products."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1499
+#: includes/class-alg-wc-mppu-core.php:1530
 #: includes/class-alg-wc-mppu-shortcodes.php:51
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:108
 msgid "You can only buy maximum %limit% of %product_title% (you've already bought %bought%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1500
+#: includes/class-alg-wc-mppu-core.php:1531
 #: includes/class-alg-wc-mppu-shortcodes.php:52
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:109
 msgid "You can only buy maximum %limit% of %product_title%."
@@ -306,6 +306,34 @@ msgstr ""
 
 #: includes/class-alg-wc-mppu-users.php:900
 msgid "Order #%d<br>(%s)"
+msgstr ""
+
+#: includes/class-alg-wc-mppu-week-days.php:62
+msgid "Sunday"
+msgstr ""
+
+#: includes/class-alg-wc-mppu-week-days.php:63
+msgid "Monday"
+msgstr ""
+
+#: includes/class-alg-wc-mppu-week-days.php:64
+msgid "Tuesday"
+msgstr ""
+
+#: includes/class-alg-wc-mppu-week-days.php:65
+msgid "Wednesday"
+msgstr ""
+
+#: includes/class-alg-wc-mppu-week-days.php:66
+msgid "Thursday"
+msgstr ""
+
+#: includes/class-alg-wc-mppu-week-days.php:67
+msgid "Friday"
+msgstr ""
+
+#: includes/class-alg-wc-mppu-week-days.php:68
+msgid "Saturday"
 msgstr ""
 
 #: includes/class-alg-wc-mppu.php:197
@@ -1096,6 +1124,7 @@ msgid "This day"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-general.php:189
+#: includes/settings/class-alg-wc-mppu-settings-general.php:249
 msgid "This week"
 msgstr ""
 
@@ -1189,6 +1218,7 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-general.php:228
 #: includes/settings/class-alg-wc-mppu-settings-general.php:236
+#: includes/settings/class-alg-wc-mppu-settings-general.php:249
 msgid "Used with the \"%s\" date range option."
 msgstr ""
 
@@ -1212,33 +1242,37 @@ msgstr ""
 msgid "MemberPress subscription date"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:255
-#: includes/settings/class-alg-wc-mppu-settings-general.php:260
-#: includes/settings/class-alg-wc-mppu-settings-general.php:262
+#: includes/settings/class-alg-wc-mppu-settings-general.php:248
+msgid "Week starts on"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-general.php:263
+#: includes/settings/class-alg-wc-mppu-settings-general.php:268
+#: includes/settings/class-alg-wc-mppu-settings-general.php:270
 msgid "Multi-language"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:261
+#: includes/settings/class-alg-wc-mppu-settings-general.php:269
 msgid "Use the default language product/term ID instead of the translated one."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:268
+#: includes/settings/class-alg-wc-mppu-settings-general.php:276
 msgid "Disabled"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:269
+#: includes/settings/class-alg-wc-mppu-settings-general.php:277
 msgid "WPML"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:270
+#: includes/settings/class-alg-wc-mppu-settings-general.php:278
 msgid "Polylang"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:274
+#: includes/settings/class-alg-wc-mppu-settings-general.php:282
 msgid "Limit checking"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-general.php:275
+#: includes/settings/class-alg-wc-mppu-settings-general.php:283
 msgid "Use product ID from default language when checking product limits"
 msgstr ""
 

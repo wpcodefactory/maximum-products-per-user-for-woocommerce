@@ -245,6 +245,14 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'type'     => 'select',
 			),
 			array(
+				'title'    => __( 'Week starts on', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => sprintf( __( 'Used with the "%s" date range option.', 'maximum-products-per-user-for-woocommerce' ), __( 'This week', 'maximum-products-per-user-for-woocommerce' ) ),
+				'id'       => 'alg_wc_mppu_date_range_week_starts_on',
+				'default'  => alg_wc_mppu()->core->weekdays->get_week_starts_on_default_val(),
+				'options'  => alg_wc_mppu()->core->weekdays->get_week_days_by_key_and_value( 'name_formatted' ),
+				'type'     => 'select',
+			),
+			array(
 				'type'     => 'sectionend',
 				'id'       => 'alg_wc_mppu_date_range_options',
 			),

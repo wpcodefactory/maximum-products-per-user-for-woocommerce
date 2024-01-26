@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.0.8
+ * @version 4.0.9
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -95,9 +95,18 @@ class Alg_WC_MPPU_Core {
 	public $multilanguage;
 
 	/**
+	 * $weekdays.
+	 *
+	 * @since 4.0.9
+	 *
+	 * @var Alg_WC_MPPU_Week_Days
+	 */
+    public $weekdays;
+
+	/**
 	 * Constructor.
 	 *
-	 * @version 4.0.8
+	 * @version 4.0.9
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -112,6 +121,8 @@ class Alg_WC_MPPU_Core {
 		if ( 'yes' === get_option( 'wpjup_wc_maximum_products_per_user_plugin_enabled', 'yes' ) ) {
 			// Background process.
 			$this->init_bkg_process();
+            // Initialize classes.
+            $this->initialize_classes();
 			// Properties
 			$this->do_use_user_roles           = ( 'yes' === get_option( 'alg_wc_mppu_use_user_roles', 'no' ) );
 			$this->do_identify_guests_by_ip    = ( 'identify_by_ip' === get_option( 'alg_wc_mppu_block_guests', 'no' ) );
@@ -159,24 +170,7 @@ class Alg_WC_MPPU_Core {
 			if ( 'yes' === get_option( 'alg_wc_mppu_count_by_current_payment_method', 'no' ) ) {
 				add_filter( 'alg_wc_mppu_user_already_bought_do_count_order', array( $this, 'count_by_current_payment_method' ), 10, 3 );
 			}
-			// Shortcodes
-			require_once( 'class-alg-wc-mppu-shortcodes.php' );
-			// Per product options
-			require_once( 'settings/class-alg-wc-mppu-settings-per-product.php' );
-			// Product terms options
-			require_once( 'settings/class-alg-wc-mppu-settings-per-term.php' );
-			// Update quantities
-			$this->data = require_once( 'class-alg-wc-mppu-data.php' );
-			// Sales data reports
-			require_once( 'class-alg-wc-mppu-reports.php' );
-			// Users
-			$this->users = require_once( 'class-alg-wc-mppu-users.php' );
-			// My Account.
-			$this->my_account = require_once( 'class-alg-wc-mppu-my-account.php' );
-			// Modes
-			require_once( 'class-alg-wc-mppu-modes.php' );
-			// Multi-language
-			$this->multilanguage = require_once( 'class-alg-wc-mppu-multi-language.php' );
+
 			// Compensate date to check
 			add_filter( 'alg_wc_mppu_date_to_check', array( $this, 'compensate_date_to_check_time' ), 900 );
 			// Hook msg shortcode
@@ -192,6 +186,39 @@ class Alg_WC_MPPU_Core {
 		// Core loaded
 		do_action( 'alg_wc_mppu_core_loaded', $this );
 	}
+
+	/**
+     * load_classes.
+     *
+	 * @version 4.0.9
+	 * @since   4.0.9
+     *
+	 * @return void
+	 */
+    function initialize_classes(){
+	    // Shortcodes
+	    require_once( 'class-alg-wc-mppu-shortcodes.php' );
+	    // Per product options
+	    require_once( 'settings/class-alg-wc-mppu-settings-per-product.php' );
+	    // Product terms options
+	    require_once( 'settings/class-alg-wc-mppu-settings-per-term.php' );
+	    // Update quantities
+	    $this->data = require_once( 'class-alg-wc-mppu-data.php' );
+	    // Sales data reports
+	    require_once( 'class-alg-wc-mppu-reports.php' );
+	    // Users
+	    $this->users = require_once( 'class-alg-wc-mppu-users.php' );
+	    // My Account.
+	    $this->my_account = require_once( 'class-alg-wc-mppu-my-account.php' );
+	    // Modes
+	    require_once( 'class-alg-wc-mppu-modes.php' );
+	    // Multi-language
+	    $this->multilanguage = require_once( 'class-alg-wc-mppu-multi-language.php' );
+	    // Week Days.
+	    require_once( 'class-alg-wc-mppu-week-days.php' );
+	    $this->weekdays = new Alg_WC_MPPU_Week_Days();
+	    $this->weekdays->init();
+    }
 
 	/**
 	 * Manages max attribute from quantity field.
@@ -1099,7 +1126,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_date_to_check.
 	 *
-	 * @version 3.8.4
+	 * @version 4.0.9
 	 * @since   2.4.0
 	 * @todo    [maybe] add `alg_wc_mppu_date_to_check_custom` filter
 	 * @todo    [maybe] add more predefined ranges, e.g. `last_14_days`, `last_45_days`, `last_60_days`, `MINUTE_IN_SECONDS`
@@ -1133,7 +1160,9 @@ class Alg_WC_MPPU_Core {
 				$date_to_check = strtotime( date( 'Y-m-d 00:00:00', $datetime_to_compare ) );
 				break;
 			case 'this_week':
-				$date_to_check = strtotime( 'monday this week', $datetime_to_compare );
+                $week_start_day = alg_wc_mppu()->core->weekdays->get_week_starts_on_option();
+				$week_start_day_formatted = $week_start_day['name_slug'];
+				$date_to_check = strtotime( "{$week_start_day_formatted} this week", $datetime_to_compare );
 				break;
 			case 'this_month':
 				$date_to_check = strtotime( date( 'Y-m-01', $datetime_to_compare ) );
@@ -1180,6 +1209,8 @@ class Alg_WC_MPPU_Core {
 				$date_to_check = false !== ( $date_time = DateTime::createFromFormat( 'Y-m-d', $date_range ) ) ? $date_time->getTimestamp() : $date_to_check;
 				break;
 		}
+
+
 		return apply_filters( 'alg_wc_mppu_date_to_check', $date_to_check, $date_range, $datetime_to_compare, $product_or_term_id, $current_user_id, $is_product );
 	}
 
