@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - General Section Settings.
  *
- * @version 3.9.9
+ * @version 4.1.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.9.9
+	 * @version 4.1.0
 	 * @since   1.0.0
 	 * @todo    [next] exclude unnecessary statuses from `alg_wc_mppu_order_status` (e.g. "Cancelled", "Refunded", "Failed") and `alg_wc_mppu_order_status_delete` (e.g. "Completed" etc.)?
 	 * @todo    [next] (desc) `alg_wc_mppu_order_status_delete`: `$this->get_recalculate_sales_data_desc( __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ) )`?
@@ -248,8 +248,8 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'title'    => __( 'Week starts on', 'maximum-products-per-user-for-woocommerce' ),
 				'desc_tip' => sprintf( __( 'Used with the "%s" date range option.', 'maximum-products-per-user-for-woocommerce' ), __( 'This week', 'maximum-products-per-user-for-woocommerce' ) ),
 				'id'       => 'alg_wc_mppu_date_range_week_starts_on',
-				'default'  => alg_wc_mppu()->core->weekdays->get_week_starts_on_default_val(),
-				'options'  => alg_wc_mppu()->core->weekdays->get_week_days_by_key_and_value( 'name_formatted' ),
+				'default'  => alg_wc_mppu()->core->weekdays ? alg_wc_mppu()->core->weekdays->get_week_starts_on_default_val() : '0',
+				'options'  => alg_wc_mppu()->core->weekdays ? alg_wc_mppu()->core->weekdays->get_week_days_by_key_and_value( 'name_formatted' ) : array(),
 				'type'     => 'select',
 			),
 			array(
