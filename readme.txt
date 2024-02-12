@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.4
-Stable tag: 4.1.0
+Stable tag: 4.1.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,7 +14,7 @@ Limit number of items your WooCommerce customers can buy (lifetime or in selecte
 > “Great plugin: This plugin is fantastic, simple, light, compatible with all my other plugins (80 installed), and effective. Perfect if you sell services and to limit problems related to order duplications
 Support Is brilliant and fast. Strongly advised!” – ⭐⭐⭐⭐⭐  [tommaso78](https://wordpress.org/support/topic/great-plugin-28538/)
 
-[Pro Version](https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme) | [Support](https://wpfactory.com/support/item/maximum-products-per-user-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme) | [Documentation & How to](https://wpfactory.com/docs/maximum-products-per-user-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme)
+[Pro Version](https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme) | [Support](https://wpfactory.com/support/item/maximum-products-per-user-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme) | [Documentation & How to](https://wpfactory.com/docs/maximum-products-per-user-for-woocommerce/?utm_source=wporg&utm_medium=organic&utm_campaign=readme) | [Demo] (https://productperuser.instawp.xyz/)
 
 Have you ever wanted to restrict the products your customer can purchase? Either in lifetime or in specific period?
 
@@ -272,6 +272,13 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.1.2 - 12/02/2024 =
+* fix readme.txt file.
+
+= 4.1.1 - 12/02/2024 =
+* Update readme.txt file.
+* WC tested up to: 8.5.
 
 = 4.1.0 - 01/02/2023 =
 * Fix - Call to a member function get_week_starts_on_default_val() on null.

@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.0.7
+ * @version 4.1.2
  * @since   3.9.6
  * @author  WPFactory
  */
@@ -13,7 +13,7 @@ if ( ! class_exists( 'Alg_WC_MPPU' ) ) :
 	 * Main Alg_WC_MPPU Class.
 	 *
 	 * @class   Alg_WC_MPPU
-	 * @version 4.0.7
+	 * @version 4.1.2
 	 * @since   1.0.0
 	 */
 	class Alg_WC_MPPU {
@@ -24,7 +24,7 @@ if ( ! class_exists( 'Alg_WC_MPPU' ) ) :
 		 * @since 1.0.0
 		 * @var   string
 		 */
-		public $version = '4.1.0';
+		public $version = '4.1.2';
 
 		/**
 		 * @since 1.0.0
