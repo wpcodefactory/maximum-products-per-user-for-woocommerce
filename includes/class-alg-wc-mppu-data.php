@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Data.
  *
- * @version 4.0.4
+ * @version 4.1.4
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 if ( ! class_exists( 'Alg_WC_MPPU_Data' ) ) :
 
-class Alg_WC_MPPU_Data {
+class Alg_WC_MPPU_Data extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 
 	/**
 	 * recalculate_sales_bkg_process.
@@ -241,7 +241,7 @@ class Alg_WC_MPPU_Data {
 	/**
 	 * calculate_data.
 	 *
-	 * @version 3.8.4
+	 * @version 4.1.4
 	 * @since   1.0.0
 	 * @todo    [later] `delete_quantities`: on `$do_recalculate`?
 	 * @todo    [later] recheck `date_query` arg for `wc_get_orders()`
@@ -282,7 +282,7 @@ class Alg_WC_MPPU_Data {
 				$offset       = 0;
 				$block_size   = get_option( 'alg_wc_mppu_tool_recalculate_block_size', 1024 );
 				$time_limit   = get_option( 'alg_wc_mppu_tool_recalculate_time_limit', -1 );
-				$do_wp_query = ( 'wp_query' === ( $loop_func = get_option( 'alg_wc_mppu_tool_recalculate_loop_func', 'wp_query' ) ) );
+				$do_wp_query = ( 'wp_query' === ( $loop_func = get_option( 'alg_wc_mppu_tool_recalculate_loop_func', 'wc_get_orders' ) ) );
 				while ( true ) {
 					// Time limit
 					if ( $time_limit > -1 ) {

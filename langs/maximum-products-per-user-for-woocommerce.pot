@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.1.0\n"
+"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.1.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-01T17:37:58+01:00\n"
+"POT-Creation-Date: 2024-03-28T23:27:01+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -352,7 +352,7 @@ msgid "Login to purchase"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-admin.php:25
-#: includes/settings/class-alg-wc-mppu-settings-section.php:63
+#: includes/settings/class-alg-wc-mppu-settings-section.php:81
 msgid "Admin"
 msgstr ""
 
@@ -475,7 +475,7 @@ msgid "Use comma separated values."
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-advanced.php:24
-#: includes/settings/class-alg-wc-mppu-settings-section.php:65
+#: includes/settings/class-alg-wc-mppu-settings-section.php:83
 #: includes/settings/class-alg-wc-mppu-settings-tools.php:70
 msgid "Advanced"
 msgstr ""
@@ -633,7 +633,7 @@ msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:24
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:54
-#: includes/settings/class-alg-wc-mppu-settings-section.php:61
+#: includes/settings/class-alg-wc-mppu-settings-section.php:79
 msgid "Formula"
 msgstr ""
 
@@ -744,7 +744,7 @@ msgid "Sets maximum limit to %s for products %s and %s for users %s and %s."
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:24
-#: includes/settings/class-alg-wc-mppu-settings-section.php:62
+#: includes/settings/class-alg-wc-mppu-settings-section.php:80
 msgid "Frontend"
 msgstr ""
 
@@ -956,7 +956,7 @@ msgid "Useful shortcodes:"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-general.php:24
-#: includes/settings/class-alg-wc-mppu-settings-section.php:59
+#: includes/settings/class-alg-wc-mppu-settings-section.php:77
 msgid "General"
 msgstr ""
 
@@ -969,7 +969,7 @@ msgid "While data is recalculated automatically (but only after the plugin was e
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-general.php:49
-#: includes/settings/class-alg-wc-mppu-settings-section.php:115
+#: includes/settings/class-alg-wc-mppu-settings-section.php:133
 #: includes/settings/class-alg-wc-mppu-settings-tools.php:45
 msgid "Recalculate sales data"
 msgstr ""
@@ -1391,7 +1391,7 @@ msgid "Hide products blocked from guest users"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-limits.php:24
-#: includes/settings/class-alg-wc-mppu-settings-section.php:60
+#: includes/settings/class-alg-wc-mppu-settings-section.php:78
 msgid "Limits"
 msgstr ""
 
@@ -1464,17 +1464,17 @@ msgstr ""
 msgid "\"Update\" the product after you change this option."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-section.php:64
+#: includes/settings/class-alg-wc-mppu-settings-section.php:82
 #: includes/settings/class-alg-wc-mppu-settings-tools.php:24
 #: includes/settings/class-alg-wc-mppu-settings-tools.php:39
 msgid "Tools"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-section.php:102
+#: includes/settings/class-alg-wc-mppu-settings-section.php:120
 msgid "Placeholders: %s."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-section.php:114
+#: includes/settings/class-alg-wc-mppu-settings-section.php:132
 msgid "You will need to %s after changing \"%s\" option."
 msgstr ""
 

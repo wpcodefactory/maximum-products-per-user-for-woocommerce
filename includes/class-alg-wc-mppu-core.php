@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.0.9
+ * @version 4.1.4
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 if ( ! class_exists( 'Alg_WC_MPPU_Core' ) ) :
 
-class Alg_WC_MPPU_Core {
+class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 
 	/**
 	 * $error_messages.
@@ -1814,7 +1814,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * check_quantities.
 	 *
-	 * @version 3.6.1
+	 * @version 4.1.4
 	 * @since   1.0.0
 	 *
 	 * @param null $args
@@ -1831,7 +1831,7 @@ class Alg_WC_MPPU_Core {
 		if ( ! isset( WC()->cart ) ) {
 			return true;
 		}
-		$is_cart = ( function_exists( 'is_cart' ) && is_cart() );
+		$is_cart         = ( function_exists( 'is_cart' ) && is_cart() );
 		$output_function = 'wc_add_notice';
 		if ( $is_cart ) {
 			$output_function = 'yes' === $this->cart_notice ? 'wc_print_notice' : '';
@@ -1846,7 +1846,27 @@ class Alg_WC_MPPU_Core {
 				if ( $do_add_notices ) {
 					$this->output_guest_notice( $is_cart );
 				}
+
 				return false;
+			} elseif (
+				'yes' === ( $block_guests_opt = get_option( 'alg_wc_mppu_block_guests', 'no' ) )
+				&& 'by_limit_options' === get_option( 'alg_wc_mppu_block_guests_method', 'all_products' )
+			) {
+				$cart_item_quantities = $this->get_cart_item_quantities();
+				foreach ( $cart_item_quantities as $_product_id => $cart_item_quantity ) {
+					if ( $this->is_product_blocked_for_guests( $_product_id ) ) {
+						if ( ! wp_doing_ajax() ) {
+							do_action( 'alg_wc_mppu_before_block_guest_on_add_to_cart' );
+							$this->output_guest_notice( false );
+						} else {
+							add_filter( 'woocommerce_cart_redirect_after_error', array( $this, 'block_guest_add_to_cart_ajax_redirect' ), PHP_INT_MAX, 2 );
+						}
+
+						return false;
+					}
+				}
+
+				return true;
 			} elseif ( 'block_beyond_limit' !== $block_guests_opt ) {
 				return true;
 			}
@@ -1864,8 +1884,8 @@ class Alg_WC_MPPU_Core {
 		foreach ( $cart_item_quantities as $_product_id => $cart_item_quantity ) {
 			if ( ! $this->check_quantities_for_product( $_product_id, array(
 				'_cart_item_quantity'  => $cart_item_quantity,
-				'notice_type'         => $notice_type,
-				'output_function'     => $output_function,
+				'notice_type'          => $notice_type,
+				'output_function'      => $output_function,
 				'do_add_notices'       => $do_add_notices,
 				'return_notices'       => $return_notices,
 				'current_user_id'      => $current_user_id,
@@ -1878,6 +1898,7 @@ class Alg_WC_MPPU_Core {
 				}
 			}
 		}
+
 		return $result;
 	}
 
