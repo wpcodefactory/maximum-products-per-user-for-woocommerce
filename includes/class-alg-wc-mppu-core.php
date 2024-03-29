@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.0.9
+ * @version 4.1.5
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 if ( ! class_exists( 'Alg_WC_MPPU_Core' ) ) :
 
-class Alg_WC_MPPU_Core {
+class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 
 	/**
 	 * $error_messages.
@@ -39,6 +39,15 @@ class Alg_WC_MPPU_Core {
 	 * @var string
 	 */
 	public $time_offset = null;
+
+	/**
+	 * $current_time_offset.
+	 *
+	 * @since 4.1.5
+	 *
+	 * @var string
+	 */
+	public $current_time_offset = null;
 
 	/**
 	 * user_already_bought_qty.
@@ -106,7 +115,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * Constructor.
 	 *
-	 * @version 4.0.9
+	 * @version 4.1.5
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -171,8 +180,10 @@ class Alg_WC_MPPU_Core {
 				add_filter( 'alg_wc_mppu_user_already_bought_do_count_order', array( $this, 'count_by_current_payment_method' ), 10, 3 );
 			}
 
-			// Compensate date to check
+			// Compensate date to check.
 			add_filter( 'alg_wc_mppu_date_to_check', array( $this, 'compensate_date_to_check_time' ), 900 );
+			// Compensate datetime to compare.
+			add_filter( 'alg_wc_mppu_datetime_to_compare', array( $this, 'compensate_current_time_to_compare' ), 900 );
 			// Hook msg shortcode
 			add_filter( 'shortcode_atts_' . 'alg_wc_mppu_customer_msg', array( $this, 'filter_customer_message_shortcode' ) );
 			// Set bought data to zero if guest option is set as "Do nothing and block guests from purchasing products beyond the limits"
@@ -452,6 +463,21 @@ class Alg_WC_MPPU_Core {
 	}
 
 	/**
+	 * get_current_time_offset.
+	 *
+	 * @version 4.1.5
+	 * @since   4.1.5
+	 *
+	 * @return false|mixed|string|null
+	 */
+	function get_current_time_offset(){
+		if ( is_null( $this->current_time_offset ) ) {
+			$this->current_time_offset = get_option( 'alg_wc_mppu_current_time_offset', '' );
+		}
+		return $this->current_time_offset;
+	}
+
+	/**
 	 * compensate_date_to_check_time.
 	 *
 	 * @version 3.7.0
@@ -466,6 +492,23 @@ class Alg_WC_MPPU_Core {
 			$date = strtotime( $time_offset, $date );
 		}
 		return $date;
+	}
+
+	/**
+	 * compensate_datetime_to_compare.
+	 *
+	 * @version 4.1.5
+	 * @since   4.1.5
+	 *
+	 * @param $datetime
+	 *
+	 * @return mixed
+	 */
+	function compensate_current_time_to_compare( $datetime ) {
+		if ( ! empty( $time_offset = $this->get_current_time_offset() ) ) {
+			$datetime = strtotime( $time_offset, $datetime );
+		}
+		return $datetime;
 	}
 
 	/**
@@ -1126,7 +1169,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * get_date_to_check.
 	 *
-	 * @version 4.0.9
+	 * @version 4.1.5
 	 * @since   2.4.0
 	 * @todo    [maybe] add `alg_wc_mppu_date_to_check_custom` filter
 	 * @todo    [maybe] add more predefined ranges, e.g. `last_14_days`, `last_45_days`, `last_60_days`, `MINUTE_IN_SECONDS`
@@ -1149,6 +1192,7 @@ class Alg_WC_MPPU_Core {
 		$is_product          = $args['is_product'];
 		$date_to_check       = 0;
 		$datetime_to_compare = $args['datetime_to_compare'];
+		$datetime_to_compare = apply_filters( 'alg_wc_mppu_datetime_to_compare', $datetime_to_compare, $date_range, $product_or_term_id, $current_user_id, $is_product );
 		switch ( $date_range ) {
 			case 'lifetime':
 				$date_to_check = 0;
@@ -1814,7 +1858,7 @@ class Alg_WC_MPPU_Core {
 	/**
 	 * check_quantities.
 	 *
-	 * @version 3.6.1
+	 * @version 4.1.4
 	 * @since   1.0.0
 	 *
 	 * @param null $args
@@ -1831,7 +1875,7 @@ class Alg_WC_MPPU_Core {
 		if ( ! isset( WC()->cart ) ) {
 			return true;
 		}
-		$is_cart = ( function_exists( 'is_cart' ) && is_cart() );
+		$is_cart         = ( function_exists( 'is_cart' ) && is_cart() );
 		$output_function = 'wc_add_notice';
 		if ( $is_cart ) {
 			$output_function = 'yes' === $this->cart_notice ? 'wc_print_notice' : '';
@@ -1846,7 +1890,27 @@ class Alg_WC_MPPU_Core {
 				if ( $do_add_notices ) {
 					$this->output_guest_notice( $is_cart );
 				}
+
 				return false;
+			} elseif (
+				'yes' === ( $block_guests_opt = get_option( 'alg_wc_mppu_block_guests', 'no' ) )
+				&& 'by_limit_options' === get_option( 'alg_wc_mppu_block_guests_method', 'all_products' )
+			) {
+				$cart_item_quantities = $this->get_cart_item_quantities();
+				foreach ( $cart_item_quantities as $_product_id => $cart_item_quantity ) {
+					if ( $this->is_product_blocked_for_guests( $_product_id ) ) {
+						if ( ! wp_doing_ajax() ) {
+							do_action( 'alg_wc_mppu_before_block_guest_on_add_to_cart' );
+							$this->output_guest_notice( false );
+						} else {
+							add_filter( 'woocommerce_cart_redirect_after_error', array( $this, 'block_guest_add_to_cart_ajax_redirect' ), PHP_INT_MAX, 2 );
+						}
+
+						return false;
+					}
+				}
+
+				return true;
 			} elseif ( 'block_beyond_limit' !== $block_guests_opt ) {
 				return true;
 			}
@@ -1864,8 +1928,8 @@ class Alg_WC_MPPU_Core {
 		foreach ( $cart_item_quantities as $_product_id => $cart_item_quantity ) {
 			if ( ! $this->check_quantities_for_product( $_product_id, array(
 				'_cart_item_quantity'  => $cart_item_quantity,
-				'notice_type'         => $notice_type,
-				'output_function'     => $output_function,
+				'notice_type'          => $notice_type,
+				'output_function'      => $output_function,
 				'do_add_notices'       => $do_add_notices,
 				'return_notices'       => $return_notices,
 				'current_user_id'      => $current_user_id,
@@ -1878,6 +1942,7 @@ class Alg_WC_MPPU_Core {
 				}
 			}
 		}
+
 		return $result;
 	}
 

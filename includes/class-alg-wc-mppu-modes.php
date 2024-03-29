@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Modes.
  *
- * @version 3.6.2
+ * @version 4.1.4
  * @since   3.0.0
  * @author  WPFactory
  */
@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 if ( ! class_exists( 'Alg_WC_MPPU_Modes' ) ) :
 
-class Alg_WC_MPPU_Modes {
+class Alg_WC_MPPU_Modes extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 
 	/**
 	 * Constructor.

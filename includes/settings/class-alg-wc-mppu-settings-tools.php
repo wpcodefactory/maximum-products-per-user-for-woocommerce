@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Tools Section Settings.
  *
- * @version 3.6.4
+ * @version 4.1.4
  * @since   2.4.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_Tools extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.6.4
+	 * @version 4.1.4
 	 * @since   2.4.0
 	 * @todo    [next] add "Reset all settings" option (i.e. reset all settings sections at once)
 	 */
@@ -106,7 +106,7 @@ class Alg_WC_MPPU_Settings_Tools extends Alg_WC_MPPU_Settings_Section {
 			array(
 				'title'    => __( 'Loop function', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'alg_wc_mppu_tool_recalculate_loop_func',
-				'default'  => 'wp_query',
+				'default'  => 'wc_get_orders',
 				'type'     => 'select',
 				'class'    => 'chosen_select',
 				'options'  => array(

@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Section Settings.
  *
- * @version 3.8.7
+ * @version 4.1.4
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -12,6 +12,24 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 if ( ! class_exists( 'Alg_WC_MPPU_Settings_Section' ) ) :
 
 class Alg_WC_MPPU_Settings_Section {
+
+	/**
+	 * id.
+	 *
+	 * @since   4.1.4
+	 *
+	 * @var
+	 */
+	protected $id;
+
+	/**
+	 * desc.
+	 *
+	 * @since   4.1.4
+	 *
+	 * @var
+	 */
+	protected $desc;
 
 	/**
 	 * Constructor.

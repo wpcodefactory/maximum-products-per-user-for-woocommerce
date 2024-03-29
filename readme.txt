@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.4
-Stable tag: 4.1.3
+Stable tag: 4.1.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -272,6 +272,19 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.1.5 - 29/03/2024 =
+* Dev - Advanced - Add option to compensate current time.
+* Dev - Add new filter `alg_wc_mppu_datetime_to_compare`.
+
+= 4.1.4 - 28/03/2024 =
+* Fix - If Guests option is set as "Block guests from buying products", the "Frontend > Block checkout page" doesn't work well for guests.
+* Fix - "Change Tools > Advanced > Loop function" to `wc_get_orders()` to avoid problems with HPOS.
+* Fix - Multiple warnings of "Creation of dynamic property is deprecated" are being triggered.
+* WC tested up to: 8.7.
+
+= 4.1.3 - 13/02/2024 =
+* Change on readme.
 
 = 4.1.2 - 12/02/2024 =
 * fix readme.txt file.
