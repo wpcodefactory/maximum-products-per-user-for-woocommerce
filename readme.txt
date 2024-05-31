@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.5
-Stable tag: 4.1.7
+Stable tag: 4.1.8
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -270,6 +270,11 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.1.8 - 31/05/2024 =
+* Fix - PHP message: PHP Warning: Undefined variable $element_type in Alg_WC_MPPU_Multi_Language on line 94.
+* Improve "Weeks starts on" description.
+* WC tested up to: 8.9.
 
 = 4.1.7 - 15/04/2024 =
 * Fix - Frontend - Product limit message - PHP Warning:  an unexpected error occured "&" [] false.

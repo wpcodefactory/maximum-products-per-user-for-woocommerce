@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Advanced Section Settings.
  *
- * @version 4.1.5
+ * @version 4.1.8
  * @since   2.3.1
  * @author  WPFactory
  */
@@ -61,7 +61,7 @@ class Alg_WC_MPPU_Settings_Advanced extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 4.1.5
+	 * @version 4.1.8
 	 * @since   2.3.1
 	 * @todo    [maybe] `alg_wc_mppu_time_func`: remove option (i.e. always use local time)?
 	 */
@@ -86,8 +86,8 @@ class Alg_WC_MPPU_Settings_Advanced extends Alg_WC_MPPU_Settings_Section {
 			),
 			array(
 				'title'    => __( 'Time offset', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => sprintf( __( 'Use a <a href="%s" target="_blank">date/time</a> string.', 'maximum-products-per-user-for-woocommerce' ), ' . https://www.php.net/manual/en/function.strtotime.php' ) . ' ' . __( 'Examples:', 'maximum-products-per-user-for-woocommerce' ) . ' ' . '<code>+2 hours</code>, <code>-2 hours</code>',
-				'desc_tip' => sprintf( __( 'Compensates the date used on the Date Range option. It\'s used on the %s filter', 'maximum-products-per-user-for-woocommerce' ), '<strong>alg_wc_mppu_date_to_check</strong>' ),
+				'desc'     => sprintf( __( 'Use a <a href="%s" target="_blank">date/time</a> string.', 'maximum-products-per-user-for-woocommerce' ), ' . https://www.php.net/manual/en/function.strtotime.php' ) . ' ' . __( 'Examples:', 'maximum-products-per-user-for-woocommerce' ) . ' ' . '<code>+2 hours</code>, <code>-2 hours</code>.',
+				'desc_tip' => sprintf( __( 'Compensates the date used on the Date Range option. It\'s used on the %s filter.', 'maximum-products-per-user-for-woocommerce' ), '<strong>alg_wc_mppu_date_to_check</strong>' ),
 				'id'       => 'alg_wc_mppu_time_offset',
 				'default'  => '',
 				'type'     => 'text',
@@ -95,7 +95,9 @@ class Alg_WC_MPPU_Settings_Advanced extends Alg_WC_MPPU_Settings_Section {
 			array(
 				'title'    => __( 'Current time offset', 'maximum-products-per-user-for-woocommerce' ),
 				'desc'     => sprintf( __( 'Use a <a href="%s" target="_blank">date/time</a> string.', 'maximum-products-per-user-for-woocommerce' ), ' . https://www.php.net/manual/en/function.strtotime.php' ) . ' ' . __( 'Examples:', 'maximum-products-per-user-for-woocommerce' ) . ' ' . '<code>+2 hours</code>, <code>-2 hours</code>',
-				'desc_tip' => sprintf( __( 'Compensates the current time. It\'s used on the %s filter', 'maximum-products-per-user-for-woocommerce' ), '<strong>alg_wc_mppu_datetime_to_compare</strong>' ),
+				'desc_tip' => sprintf( __( 'Compensates the current time. It\'s used on the %s filter.', 'maximum-products-per-user-for-woocommerce' ), '<strong>alg_wc_mppu_datetime_to_compare</strong>' ).' '.
+				              sprintf( __( 'If used with the %s option, it should reflect the difference of days starting on Monday.', 'maximum-products-per-user-for-woocommerce' ), '"'.__( 'General > Weeks starts on', 'maximum-products-per-user-for-woocommerce' ).'"' ).' '.
+				              sprintf( __( 'Example: If the %s is set as Thursday, it should be set as %s', 'maximum-products-per-user-for-woocommerce' ), '"'.__( 'Weeks starts on', 'maximum-products-per-user-for-woocommerce' ).'"','<code>'.__( '- 3 days', 'maximum-products-per-user-for-woocommerce' ).'</code>' ),
 				'id'       => 'alg_wc_mppu_current_time_offset',
 				'default'  => '',
 				'type'     => 'text',

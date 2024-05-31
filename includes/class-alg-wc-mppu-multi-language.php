@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Multi-language.
  *
- * @version 3.6.5
+ * @version 4.1.8
  * @since   3.5.0
  * @author  WPFactory
  */
@@ -16,12 +16,18 @@ class Alg_WC_MPPU_Multi_Language {
 	/**
 	 * get_product_id_from_main_language.
 	 *
-	 * @version 3.5.9
-	 * @since   3.5.9
+	 * @since 3.5.9
 	 *
 	 * @var bool
 	 */
 	protected $get_product_id_from_main_language = null;
+
+	/**
+	 * $default_language.
+	 *
+	 * @since 4.1.8
+	 */
+	protected $default_language;
 
 	/**
 	 * Constructor.
@@ -62,14 +68,14 @@ class Alg_WC_MPPU_Multi_Language {
 	/**
 	 * wpml.
 	 *
-	 * @version 3.5.0
+	 * @version 4.1.8
 	 * @since   3.5.0
 	 * @see     https://wpml.org/wpml-hook/wpml_object_id/
 	 * @see     https://wpml.org/documentation/support/creating-multilingual-wordpress-themes/language-dependent-ids/
 	 * @todo    [maybe] `icl_object_id( $product_or_term_id, $element_type, true, $default_language );`
 	 */
 	function wpml( $product_or_term_id, $is_product ) {
-		// Get default language
+		// Get default language.
 		if ( ! isset( $this->default_language ) ) {
 			$this->default_language = null;
 			global $sitepress;
@@ -79,9 +85,9 @@ class Alg_WC_MPPU_Multi_Language {
 				$this->default_language = icl_get_setting( 'default_language' );
 			}
 		}
-		// Get product or term ID
+		// Get product or term ID.
 		if ( $this->default_language ) {
-			// Get element type
+			// Get element type.
 			if ( $is_product ) {
 				$element_type = 'product';
 			} else {
@@ -90,8 +96,8 @@ class Alg_WC_MPPU_Multi_Language {
 					$element_type = $term->taxonomy;
 				}
 			}
-			// Get element ID
-			if ( $element_type ) {
+			// Get element ID.
+			if ( isset( $element_type ) && $element_type ) {
 				return apply_filters( 'wpml_object_id', $product_or_term_id, $element_type, true, $this->default_language );
 			}
 		}
