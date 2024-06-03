@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 4.1.7
+ * @version 4.1.9
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -226,7 +226,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * user_product_limits_shortcode.
 	 *
-	 * @version 4.0.0
+	 * @version 4.1.9
 	 * @since   2.5.0
 	 * @todo    [later] customizable content: use `alg_wc_mppu()->core->get_notice_placeholders()`
 	 * @todo    [later] customizable: columns, column order, column titles, table styling, "No data" text, (maybe) sorting
@@ -270,7 +270,7 @@ class Alg_WC_MPPU_Shortcodes {
 		}
 		$query_args = array(
 			'fields'         => 'ids',
-			'orderby'        => 'title',
+			'orderby'        => 'menu_order title',
 			'order'          => 'ASC',
 			'paged'          => $paged,
 			'post_type'      => ( 'yes' === get_option( 'alg_wc_mppu_use_variations', 'no' ) ? array( 'product', 'product_variation' ) : 'product' ),
@@ -280,12 +280,10 @@ class Alg_WC_MPPU_Shortcodes {
 		);
 
 		if ( $show_only_limited_products == 'true' ) {
-			
 			$query_args['meta_query'][0]['key'] 	= '_wpjup_wc_maximum_products_per_user_qty';
 			$query_args['meta_query'][0]['value'] 	= 0;
 			$query_args['meta_query'][0]['type'] 	= 'numeric';
-			$query_args['meta_query'][0]['compare'] = '>=';	
-			
+			$query_args['meta_query'][0]['compare'] = '>=';
 		}
 
 		$query_args = apply_filters( 'alg_wc_mppu_user_product_limits_query_args', $query_args, array(
@@ -464,7 +462,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * user_terms_limits_shortcode.
 	 *
-	 * @version 3.7.6
+	 * @version 4.1.9
 	 * @since   3.5.7
 	 *
 	 * @param $atts
@@ -498,7 +496,7 @@ class Alg_WC_MPPU_Shortcodes {
 				'taxonomy' => $taxonomy,
 				'number'   => $block_size,
 				'offset'   => $offset,
-				'orderby'  => 'title',
+				'orderby'  => 'menu_order title',
 				'order'    => 'ASC',
 				'fields'   => 'all',
 			);
