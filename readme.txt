@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.5
-Stable tag: 4.1.9
+Stable tag: 4.2.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -270,6 +270,10 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.2.0 - 06/06/2024 =
+* Fix PHP warnings regarding dynamic properties.
+* Fix - WooCommerce cart and checkout blocks sometimes do not prevent the order from being placed.
 
 = 4.1.9 - 03/06/2024 =
 * Dev - Change "orderby" param from "title" to "menu_order title" on `[alg_wc_mppu_user_terms_limits]` and `[alg_wc_mppu_user_product_limits]` shortcodes.

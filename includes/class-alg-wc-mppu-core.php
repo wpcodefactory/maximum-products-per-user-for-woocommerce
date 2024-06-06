@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.1.5
+ * @version 4.2.0
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -115,7 +115,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
 	 * Constructor.
 	 *
-	 * @version 4.1.5
+	 * @version 4.2.0
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -137,9 +137,12 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 			$this->do_identify_guests_by_ip    = ( 'identify_by_ip' === get_option( 'alg_wc_mppu_block_guests', 'no' ) );
 			$this->do_identify_by_checkout_email    = ( 'identify_by_checkout_email' === get_option( 'alg_wc_mppu_block_guests', 'no' ) );
 			$this->do_get_lifetime_from_totals = ( 'yes' === get_option( 'alg_wc_mppu_get_lifetime_from_totals', 'no' ) );
-			// Check quantities - Checkout
+
+			// Check quantities - Checkout.
 			add_action( 'woocommerce_checkout_process', array( $this, 'check_cart_quantities' ), PHP_INT_MAX );
 			add_action( 'woocommerce_before_checkout_form', array( $this, 'check_cart_quantities' ), PHP_INT_MAX );
+			add_action( 'woocommerce_store_api_cart_errors', array( $this, 'check_cart_quantities_and_add_errors_to_cart' ), 10, 2 );
+
 			// Check quantities - Cart
 			if ( 'no' != ( $this->cart_notice = get_option( 'alg_wc_mppu_cart_notice', 'yes' ) ) ) {
 				add_action( ( 'yes' === $this->cart_notice ? 'woocommerce_before_cart' : 'woocommerce_before_cart_table' ), array( $this, 'check_cart_quantities' ), PHP_INT_MAX );
@@ -1131,6 +1134,25 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	}
 
 	/**
+	 * check_cart_quantities_and_add_errors_to_cart.
+	 *
+	 * @version 4.2.0
+	 * @since   4.2.0
+	 *
+	 * @param $cart_errors
+	 * @param $cart
+	 *
+	 * @return void
+	 */
+	function check_cart_quantities_and_add_errors_to_cart( $cart_errors, $cart ) {
+		alg_wc_mppu()->core->check_quantities( array( 'return_notices' => true ) );
+		$errors = alg_wc_mppu()->core->error_messages;
+		if ( ! empty( $errors ) ) {
+			$cart_errors->add( 'alg_wc_mppu_order_above_limit', $errors[0] );
+		}
+	}
+
+	/**
 	 * get_current_time.
 	 *
 	 * @version 3.4.0
@@ -1539,7 +1561,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
 	 * output_notice.
 	 *
-	 * @version 3.6.2
+	 * @version 4.2.0
 	 * @since   2.0.0
 	 * @todo    [maybe] customizable notice type in `wc_add_notice()`?
 	 */
@@ -1554,7 +1576,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 			'term'                => false,
 			'msg'                 => false,
 			'output_function'     => 'wc_add_notice', // wc_print_notice || wc_add_notice
-			'notice_type'         => 'notice', // notice || error
+			'notice_type'         => ( function_exists( 'is_checkout' ) && is_checkout() ) ? 'error' : get_option( 'alg_wc_mppu_cart_notice_type', 'notice' ), // notice || error
 		) );
 		$args                = apply_filters( 'alg_wc_mppu_output_notices_args', $args );
 		$product_id          = $args['product_id'];
@@ -1718,7 +1740,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
 	 * check_quantities_for_product.
 	 *
-	 * @version 3.7.0
+	 * @version 4.2.0
 	 * @since   2.0.0
 	 * @todo    [maybe] add `alg_wc_mppu_check_quantities_for_product_product_id` filter?
 	 */
@@ -1729,7 +1751,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 			'output_function'                   => 'wc_add_notice', // wc_print_notice || wc_add_notice
 			'do_add_notices'                    => true,
 			'return_notices'                    => false,
-			'notice_type'                       => 'notice', // notice || error
+			'notice_type'                       => ( function_exists( 'is_checkout' ) && is_checkout() ) ? 'error' : get_option( 'alg_wc_mppu_cart_notice_type', 'notice' ), // notice || error
 			'current_user_id'                   => 0,
 			'check_guest_blocking'              => true,
 			'adding'                            => 0,
@@ -1858,7 +1880,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
 	 * check_quantities.
 	 *
-	 * @version 4.1.4
+	 * @version 4.2.0
 	 * @since   1.0.0
 	 *
 	 * @param null $args
@@ -1880,8 +1902,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 		if ( $is_cart ) {
 			$output_function = 'yes' === $this->cart_notice ? 'wc_print_notice' : '';
 		}
-		$is_checkout = ( function_exists( 'is_checkout' ) && is_checkout() );
-		$notice_type = $is_checkout ? 'error' : 'notice';
+		$notice_type = ( function_exists( 'is_checkout' ) && is_checkout() ) ? 'error' : get_option( 'alg_wc_mppu_cart_notice_type', 'notice' );
 		if ( ! ( $current_user_id = $this->get_current_user_id() ) ) {
 			if (
 				'yes' === ( $block_guests_opt = get_option( 'alg_wc_mppu_block_guests', 'no' ) )
@@ -1890,7 +1911,6 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 				if ( $do_add_notices ) {
 					$this->output_guest_notice( $is_cart );
 				}
-
 				return false;
 			} elseif (
 				'yes' === ( $block_guests_opt = get_option( 'alg_wc_mppu_block_guests', 'no' ) )
@@ -1909,7 +1929,6 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 						return false;
 					}
 				}
-
 				return true;
 			} elseif ( 'block_beyond_limit' !== $block_guests_opt ) {
 				return true;

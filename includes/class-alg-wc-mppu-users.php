@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Users.
  *
- * @version 3.9.7
+ * @version 4.2.0
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -38,7 +38,23 @@ class Alg_WC_MPPU_Users {
 	 */
 	protected $need_to_update_terms_with_bkg_process = null;
 
+	/**
+	 * $terms_query.
+	 *
+	 * @since 4.1.9
+	 *
+	 * @var array
+	 */
 	protected $terms_query = array();
+
+	/**
+	 * $do_add_empty_totals.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @var bool
+	 */
+	protected $do_add_empty_totals;
 
 	/**
 	 * Constructor.
