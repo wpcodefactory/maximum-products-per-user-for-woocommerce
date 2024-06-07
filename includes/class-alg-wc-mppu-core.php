@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.2.0
+ * @version 4.2.1
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -237,7 +237,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
 	 * Manages max attribute from quantity field.
 	 *
-	 * @version 4.0.4
+	 * @version 4.2.1
 	 * @since   3.8.5
 	 *
 	 */
@@ -245,6 +245,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 		add_filter( 'woocommerce_quantity_input_args', array( $this, 'set_qty_field_max_attr' ), 10, 2 );
 		add_filter( 'woocommerce_available_variation', array( $this, 'set_qty_field_max_attr' ), 10, 3 );
 		add_action( 'woocommerce_after_single_variation', array( $this, 'change_variation_qty_input_script' ) );
+		add_filter( 'woocommerce_store_api_product_quantity_maximum', array($this,'set_store_api_product_max_qty'), 10, 3 );
 	}
 
 	/**
@@ -278,7 +279,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
 	 * set_qty_field_max_attr.
 	 *
-	 * @version 4.0.4
+	 * @version 4.2.1
 	 * @since   3.8.5
 	 *
 	 * @param $args
@@ -288,17 +289,9 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	 */
 	function set_qty_field_max_attr( $args, $product ) {
 		if ( 'yes' === get_option( 'alg_wc_mppu_set_qty_field_max_attr', 'no' ) ) {
-
 			$final_product = 3 === func_num_args() ? func_get_args()[2] : $product;
 			$max_qty_data  = alg_wc_mppu()->core->get_max_qty_for_product( $final_product->get_id() );
-			if ( is_array( $max_qty_data ) ) {
-				usort( $max_qty_data, function ( $a, $b ) {
-					return $b['max_qty'] <=> $a['max_qty'];
-				} );
-				$max_qty_data = $max_qty_data[0]['max_qty'];
-			} else {
-				$max_qty_data;
-			}
+			$max_qty_data = $this->sort_max_qty_data( $max_qty_data );
 			$final_remaining   = $this->get_product_remaining_qty( array( 'product' => $final_product ) );
 			$max_qty_input_val = $final_remaining > 0 ? $final_remaining : $max_qty_data;
 			if ( $max_qty_input_val > 0 ) {
@@ -315,6 +308,54 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 		}
 
 		return $args;
+	}
+
+	/**
+	 * set_store_api_product_max_qty.
+	 *
+	 * @version 4.2.1
+	 * @since   4.2.1
+	 *
+	 * @param $quantity
+	 * @param $product
+	 * @param $cart_item
+	 *
+	 * @return int|mixed|null
+	 */
+	function set_store_api_product_max_qty( $quantity, $product, $cart_item )  {
+		if ( 'yes' === get_option( 'alg_wc_mppu_set_qty_field_max_attr', 'no' ) ) {
+			$max_qty_data  = alg_wc_mppu()->core->get_max_qty_for_product( $product->get_id() );
+			$max_qty_data = $this->sort_max_qty_data( $max_qty_data );
+			$final_remaining   = $this->get_product_remaining_qty( array( 'product' => $product ) );
+			$max_qty_input_val = $final_remaining > 0 ? $final_remaining : $max_qty_data;
+			if ( $max_qty_input_val > 0 ) {
+				$quantity = $max_qty_input_val;
+			}
+		}
+		return $quantity;
+	}
+
+	/**
+	 * sort_max_qty_data.
+	 *
+	 * @version 4.2.1
+	 * @since   4.2.1
+	 *
+	 * @param $max_qty_data
+	 *
+	 * @return mixed
+	 */
+	function sort_max_qty_data( $max_qty_data ) {
+		if ( is_array( $max_qty_data ) ) {
+			usort( $max_qty_data, function ( $a, $b ) {
+				return $b['max_qty'] <=> $a['max_qty'];
+			} );
+			$max_qty_data = $max_qty_data[0]['max_qty'];
+		} else {
+			$max_qty_data;
+		}
+
+		return $max_qty_data;
 	}
 
 	/**
