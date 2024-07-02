@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.2.1
+ * @version 4.2.2
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -245,7 +245,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 		add_filter( 'woocommerce_quantity_input_args', array( $this, 'set_qty_field_max_attr' ), 10, 2 );
 		add_filter( 'woocommerce_available_variation', array( $this, 'set_qty_field_max_attr' ), 10, 3 );
 		add_action( 'woocommerce_after_single_variation', array( $this, 'change_variation_qty_input_script' ) );
-		add_filter( 'woocommerce_store_api_product_quantity_maximum', array($this,'set_store_api_product_max_qty'), 10, 3 );
+		add_filter( 'woocommerce_store_api_product_quantity_maximum', array( $this, 'set_store_api_product_max_qty' ), 10, 3 );
 	}
 
 	/**
@@ -408,7 +408,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
      * disallow_product_purchase.
      *
-	 * @version 3.9.9
+	 * @version 4.2.2
 	 * @since   3.9.9
      *
 	 * @param $is_purchasable
@@ -419,6 +419,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	function disallow_product_purchase( $is_purchasable, $product ) {
 		if (
 			$this->need_to_disable_product_purchase_by_limit() &&
+			alg_wc_mppu()->core->get_max_qty_for_product( $product->get_id() ) &&
 			$this->get_product_remaining_qty( array( 'product' => $product ) ) <= 0
 		) {
 			$is_purchasable = false;
