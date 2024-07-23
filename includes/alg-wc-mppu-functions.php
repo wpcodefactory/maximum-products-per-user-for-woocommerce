@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Functions.
  *
- * @version 3.9.1
+ * @version 4.2.3
  * @since   3.8.2
  * @author  WPFactory
  */
@@ -57,5 +57,19 @@ if ( ! function_exists( 'alg_wc_mppu_is_user_logged_in' ) ) {
 
 
 		return is_user_logged_in();
+	}
+}
+
+if ( ! function_exists( 'alg_wc_mppu_get_option' ) ) {
+	/**
+	 * alg_wc_mppu_get_option.
+	 *
+	 * @version 4.2.3
+	 * @since   4.2.3
+	 *
+	 * @return false|mixed|null
+	 */
+	function alg_wc_mppu_get_option( $option, $default_value = false, $get_value_from_cache = true ) {
+		return alg_wc_mppu()->core->options->get_option( $option, $default_value, $get_value_from_cache );
 	}
 }

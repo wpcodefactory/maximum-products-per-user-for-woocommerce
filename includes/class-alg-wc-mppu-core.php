@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.2.2
+ * @version 4.2.3
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -113,6 +113,15 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
     public $weekdays;
 
 	/**
+	 * Options.
+	 *
+	 * @since 4.2.3
+	 *
+	 * @var Alg_WC_MPPU_Options
+	 */
+	public $options;
+
+	/**
 	 * Constructor.
 	 *
 	 * @version 4.2.0
@@ -204,12 +213,17 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
      * load_classes.
      *
-	 * @version 4.0.9
+	 * @version 4.2.3
 	 * @since   4.0.9
      *
 	 * @return void
 	 */
     function initialize_classes(){
+	    require_once( 'class-alg-wc-mppu-options.php' );
+	    $this->options = new Alg_WC_MPPU_Options();
+	    if ( is_admin() ) {
+		    require_once( 'class-alg-wc-mppu-sales-data-btn.php' );
+	    }
 	    // Shortcodes
 	    require_once( 'class-alg-wc-mppu-shortcodes.php' );
 	    // Per product options

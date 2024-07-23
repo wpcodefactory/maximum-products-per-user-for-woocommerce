@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Admin Section Settings.
  *
- * @version 3.8.6
+ * @version 4.2.3
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -29,17 +29,43 @@ class Alg_WC_MPPU_Settings_Admin extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 3.8.6
+	 * @version 4.2.3
 	 * @since   2.2.0
 	 * @todo    [next] `alg_wc_mppu_user_export_sep`: separate for "single user export" and "all users export"?
 	 * @todo    [next] (desc) Extra meta: better desc
 	 */
 	function get_settings() {
-
-		$sales_data_opts = array(
+		$product_sales_data_opts = array(
 			array(
-				'title'    => __( 'Editable sales data', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => sprintf( __( 'Show user sales data on the %s.', 'maximum-products-per-user-for-woocommerce' ), '<a href="' . admin_url( 'profile.php' ) . '">' . __( 'profile page', 'maximum-products-per-user-for-woocommerce' ) . '</a>' ),
+				'title' => __( 'Product sales data', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'  => sprintf( __( 'See sales data from products on the %s.', 'maximum-products-per-user-for-woocommerce' ), __( 'admin product page', 'maximum-products-per-user-for-woocommerce' ) ),
+				'type'  => 'title',
+				'id'    => 'alg_wc_mppu_sales_data_options',
+			),
+			array(
+				'title'    => __( 'Sales data', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Enable sales data on product page', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_enable_product_sales_data',
+				'default'  => 'yes',
+				'type'     => 'checkbox',
+			),
+			array(
+				'title'    => __( 'AJAX', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'load sales data using AJAX', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_enable_product_sales_data_via_ajax',
+				'default'  => 'yes',
+				'type'     => 'checkbox',
+			),
+			array(
+				'type' => 'sectionend',
+				'id'   => 'alg_wc_mppu_sales_data_options',
+			),
+		);
+
+		$users_editable_sales_data_opts = array(
+			array(
+				'title'    => __( 'User sales data', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => sprintf( __( 'Mange sales data from users on the %s.', 'maximum-products-per-user-for-woocommerce' ), '<a href="' . admin_url( 'profile.php' ) . '">' . __( 'profile page', 'maximum-products-per-user-for-woocommerce' ) . '</a>' ),
 				'type'     => 'title',
 				'id'       => 'alg_wc_mppu_sales_data_options',
 			),
@@ -96,9 +122,9 @@ class Alg_WC_MPPU_Settings_Admin extends Alg_WC_MPPU_Settings_Section {
 			),
 		);
 
-		$sales_data_export_opts = array(
+		$user_sales_data_export_opts = array(
 			array(
-				'title'    => __( 'Sales data export options', 'maximum-products-per-user-for-woocommerce' ),
+				'title'    => __( 'User sales data export options', 'maximum-products-per-user-for-woocommerce' ),
 				'desc'     => '<a class="button" href="' . add_query_arg( 'alg_wc_mppu_export_all_users_orders_data', true ). '">' .
 				              __( 'Export sales data for all users', 'maximum-products-per-user-for-woocommerce' ) . '</a>',
 				'type'     => 'title',
@@ -141,7 +167,11 @@ class Alg_WC_MPPU_Settings_Admin extends Alg_WC_MPPU_Settings_Section {
 			),
 		);
 
-		return array_merge( $sales_data_opts, $sales_data_export_opts );
+		return array_merge(
+			$product_sales_data_opts,
+			$users_editable_sales_data_opts,
+			$user_sales_data_export_opts,
+		);
 	}
 
 }

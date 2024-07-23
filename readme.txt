@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmukherjeeli
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
-Tested up to: 6.5
-Stable tag: 4.2.2
+Tested up to: 6.6
+Stable tag: 4.2.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -270,6 +270,12 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.2.3 - 23/07/2024 =
+* Dev - Admin - Added option to enable/disable the product sales data on product page.
+* Dev - Admin - Added option to load the product sales data using AJAX.
+* Tested up to: 6.6.
+* WC tested up to: 9.1.
 
 = 4.2.2 - 02/07/2024 =
 * Fix - General - "Disable product purchase" was not working properly in some circumstances.

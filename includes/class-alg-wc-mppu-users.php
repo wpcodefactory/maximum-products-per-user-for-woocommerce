@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Users.
  *
- * @version 4.2.0
+ * @version 4.2.3
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -59,7 +59,7 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.9.7
+	 * @version 4.2.3
 	 * @since   2.2.0
 	 * @todo    [next] rename export functions, variables etc.
 	 * @todo    [maybe] validation: `add_action( 'user_profile_update_errors', 'user_profile_update_errors', PHP_INT_MAX, 3 ); function user_profile_update_errors( $errors, $update, $user ) {}`
@@ -74,7 +74,7 @@ class Alg_WC_MPPU_Users {
 			add_action( 'admin_init',               array( $this, 'export_orders_data' ) );
 			// AJAX.
 			add_action( 'admin_footer-profile.php', array( $this, 'handle_sales_data_via_js' ) );
-			add_action( 'wp_ajax_get_user_sales_data_html', array( $this, 'get_user_sales_data_html_ajax' ) );
+			add_action( 'wp_ajax_get_mppu_user_sales_data', array( $this, 'get_user_sales_data_html_ajax' ) );
 		}
 		add_action( 'admin_init', array( $this, 'export_orders_data_all_users' ) );
 		// Bkg Process.
@@ -689,7 +689,7 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * show_extra_profile_fields.
 	 *
-	 * @version 3.8.6
+	 * @version 4.2.3
 	 * @since   2.2.0
 	 */
 	function show_extra_profile_fields( $user ) {
@@ -697,9 +697,16 @@ class Alg_WC_MPPU_Users {
 			return false;
 		}
 
+		$sales_data_btn = new Alg_WC_MPPU_Sales_Data_Btn();
+		$sales_data_btn_html = $sales_data_btn->get_btn_html( array(
+			'user_id' => $user->ID,
+			'action'  => 'get_mppu_user_sales_data',
+			'type'    => 'product'
+		) );
+
         $style = $this->get_user_profile_styles();
 		$get_html_using_ajax    = $this->show_extra_profile_fields_using_ajax();
-		$product_data_html      = false === $get_html_using_ajax ? $this->get_user_products_data_html( $user ) : '<button class="mppu-show-sales-data button button-secondary" data-user_id="' . esc_attr( $user->ID ) . '" data-action="get_mppu_sales_data" data-type="product">' . __( 'Show sales data', 'maximum-products-per-user-for-woocommerce' ) . '<span class="hide rotating loading"><i class="dashicons dashicons-image-rotate"></i></span></span></button>';
+		$product_data_html = false === $get_html_using_ajax ? $this->get_user_products_data_html( $user ) : $sales_data_btn_html;
 		$terms_data             = $this->get_extra_profile_fields_terms_data_table_rows( $user );
 		$export_sales_data_html = '<a class="mppu-export-data button button-primary" href="' . add_query_arg( 'alg_wc_mppu_export_single_user_orders_data', $user->ID ) . '"><i class="dashicons dashicons-download"></i>' . __( 'Export products data', 'maximum-products-per-user-for-woocommerce' ) . '</a>';
 
@@ -715,7 +722,7 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * get_user_profile_styles.
 	 *
-	 * @version 3.8.6
+	 * @version 4.2.3
 	 * @since   3.8.6
 	 *
 	 * @return string
@@ -745,33 +752,13 @@ class Alg_WC_MPPU_Users {
             .mppu-export-data i {
                 margin: 0 4px 0 -2px;
             }
-
-            .mppu-show-sales-data{
-                vertical-align: middle !important;
-            }
-            .mppu-show-sales-data .loading{
-                margin:0 0 0 8px;
-                display:inline-block;
-            }
-            .mppu-show-sales-data .loading i{
-                line-height:19px;
-            }
-            .mppu-show-sales-data .loading.hide{
-                display:none;
-            }
-
-            @-webkit-keyframes rotating {
-                to{
-                    -webkit-transform: rotate(-360deg);
-                }
-            }
-            .rotating {
-                -webkit-animation: rotating 1.2s linear infinite;
-            }
         </style>
 		<?php
 		$result = ob_get_contents();
 		ob_end_clean();
+
+		$sales_data_btn_style = new Alg_WC_MPPU_Sales_Data_Btn();
+		$result               .= $sales_data_btn_style->get_style();
 
 		return $result;
 	}
@@ -791,7 +778,7 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * get_extra_profile_fields_terms_data_table_rows.
 	 *
-	 * @version 3.8.6
+	 * @version 4.2.3
 	 * @since   3.8.6
 	 *
 	 * @param $user
@@ -804,7 +791,13 @@ class Alg_WC_MPPU_Users {
 		foreach ( array( 'product_cat', 'product_tag' ) as $taxonomy ) {
 			if ( 'yes' === apply_filters( 'alg_wc_mppu_' . $taxonomy . '_enabled', 'no' ) ) {
 				$term_name  = 'product_cat' === $taxonomy ? __( 'Product Categories Data', 'maximum-products-per-user-for-woocommerce' ) : __( 'Product Tags Data', 'maximum-products-per-user-for-woocommerce' );
-				$data_html  = false === $get_html_using_ajax ? $this->get_user_terms_data_html( $user, $taxonomy ) : '<button class="mppu-show-sales-data button button-secondary" data-user_id="' . esc_attr( $user->ID ) . '" data-action="get_mppu_sales_data" data-type="' . esc_attr( $taxonomy ) . '">' . __( 'Show sales data', 'maximum-products-per-user-for-woocommerce' ) . '<span class="hide loading rotating"><i class="dashicons dashicons-image-rotate"></i></span></button>';
+				$sales_data_btn = new Alg_WC_MPPU_Sales_Data_Btn();
+				$sales_data_btn_html = $sales_data_btn->get_btn_html( array(
+					'user_id' => $user->ID,
+					'action'  => 'get_mppu_user_sales_data',
+					'type'    => $taxonomy
+				) );
+				$data_html  = false === $get_html_using_ajax ? $this->get_user_terms_data_html( $user, $taxonomy ) : $sales_data_btn_html;
 				$terms_data .= '<tr><th>' . $term_name . '</h2>' . '</th><td>' . $data_html . '</td></tr>';
 			}
 		}
@@ -815,7 +808,7 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * handle_sales_data_via_js.
 	 *
-	 * @version 3.8.6
+	 * @version 4.2.3
 	 * @since   3.8.6
 	 *
 	 * @return void
@@ -831,13 +824,13 @@ class Alg_WC_MPPU_Users {
         <script>
             jQuery(document).ready(function ($) {
                 let data_from_php = <?php echo json_encode( $php_to_js );?>;
-                $('.button[data-action="get_mppu_sales_data"]').on('click', function (e) {
+                $('.button[data-action="get_mppu_user_sales_data"]').on('click', function (e) {
                     e.preventDefault();
                     let clickedBtn = $(this);
                     clickedBtn.find('.loading').removeClass('hide');
                     let data = {
                         security: data_from_php.security,
-                        'action': 'get_user_sales_data_html',
+                        'action': 'get_mppu_user_sales_data',
                         'user_id': clickedBtn.attr('data-user_id'),
                         'data_type': clickedBtn.attr('data-type'),
                     };
