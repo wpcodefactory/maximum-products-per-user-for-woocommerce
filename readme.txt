@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.6
-Stable tag: 4.2.3
+Stable tag: 4.2.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -270,6 +270,10 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.2.4 - 03/09/2024 =
+* Fix - Fixed warning regarding `is_singular()` function.
+* Dev - General - Created option to hide products with exceeded limits from search and from direct links.
 
 = 4.2.3 - 23/07/2024 =
 * Dev - Admin - Added option to enable/disable the product sales data on product page.

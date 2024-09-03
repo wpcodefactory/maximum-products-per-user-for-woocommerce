@@ -51,7 +51,7 @@ class Alg_WC_MPPU_Settings_Admin extends Alg_WC_MPPU_Settings_Section {
 			),
 			array(
 				'title'    => __( 'AJAX', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => __( 'load sales data using AJAX', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Load sales data using AJAX', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'alg_wc_mppu_enable_product_sales_data_via_ajax',
 				'default'  => 'yes',
 				'type'     => 'checkbox',

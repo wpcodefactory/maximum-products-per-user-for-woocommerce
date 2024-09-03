@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - General Section Settings.
  *
- * @version 4.1.8
+ * @version 4.2.4
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 4.1.8
+	 * @version 4.2.4
 	 * @since   1.0.0
 	 * @todo    [next] exclude unnecessary statuses from `alg_wc_mppu_order_status` (e.g. "Cancelled", "Refunded", "Failed") and `alg_wc_mppu_order_status_delete` (e.g. "Completed" etc.)?
 	 * @todo    [next] (desc) `alg_wc_mppu_order_status_delete`: `$this->get_recalculate_sales_data_desc( __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ) )`?
@@ -147,11 +147,18 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 			),
 			array(
 				'title'         => __( 'Hide products', 'maximum-products-per-user-for-woocommerce' ),
-				'desc_tip'      => __( 'Hides products with exceeded limits for the current user from the catalog and search results. Products will still be accessible via the direct links.', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'          => __( 'Hide products with exceeded limits', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'          => __( 'Hide products with exceeded limits from the catalog', 'maximum-products-per-user-for-woocommerce' ),
 				'id'            => 'alg_wc_mppu_hide_products',
 				'default'       => 'no',
+				'checkboxgroup' => 'start',
 				'type'          => 'checkbox',
+			),
+			array(
+				'desc'          => __( 'Hide products with exceeded limits from search and direct links', 'maximum-products-per-user-for-woocommerce' ),
+				'id'            => 'alg_wc_mppu_hide_products_on_search_and_direct_links',
+				'default'       => 'no',
+				'type'          => 'checkbox',
+				'checkboxgroup' => 'end',
 			),
 			array(
 				'title'    => __( 'Count by current payment method', 'maximum-products-per-user-for-woocommerce' ),

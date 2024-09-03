@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.2.3
+ * @version 4.2.4
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -174,7 +174,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 			}
 			// Hide products.
 			add_filter( 'woocommerce_product_is_visible', array( $this, 'product_visibility' ), PHP_INT_MAX, 2 );
-			add_filter( 'the_posts', array( $this, 'remove_products_from_catalog' ), PHP_INT_MAX, 2 );
+			add_filter( 'the_posts', array( $this, 'hide_products_from_search_and_direct_links' ), PHP_INT_MAX, 2 );
 			// Single product page
 			switch ( get_option( 'alg_wc_mppu_permanent_notice', 'no' ) ) {
 				case 'yes':
@@ -211,11 +211,11 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	}
 
 	/**
-     * load_classes.
-     *
+	 * load_classes.
+	 *
 	 * @version 4.2.3
 	 * @since   4.0.9
-     *
+	 *
 	 * @return void
 	 */
     function initialize_classes(){
@@ -701,7 +701,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
 	 * product_visibility.
 	 *
-	 * @version 3.9.0
+	 * @version 4.2.4
 	 * @since   3.4.0
 	 * @todo    [next] (fix) `Showing all X results` (try filtering `product_visibility` taxonomy) (already tried `woocommerce_product_get_catalog_visibility` filter (returning `hidden`) - didn't help)
 	 * @todo    [next] add option to count current `$cart_item_quantities` as well (i.e. pass `$cart_item_quantities` as 6th param in `check_quantities_for_product()`, and `$cart_item_quantities[ $product_id ] + 1` instead of `1`)
@@ -711,7 +711,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	 */
 	function product_visibility( $visible, $product_id ) {
 		if (
-			'yes' === get_option( 'alg_wc_mppu_hide_products', 'no' )
+			'yes' === alg_wc_mppu_get_option( 'alg_wc_mppu_hide_products', 'no' )
 			&& alg_wc_mppu_is_user_logged_in()
 			&& ( $current_user_id = $this->get_current_user_id() )
 			&& ! $this->check_quantities_for_product( $product_id, array(
@@ -735,7 +735,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
 	 * remove_products_from_catalog.
 	 *
-	 * @version 3.9.0
+	 * @version 4.2.4
 	 * @since   3.6.7
 	 *
 	 * @param $posts
@@ -743,7 +743,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	 *
 	 * @return array
 	 */
-	function remove_products_from_catalog( $posts, $query ) {
+	function hide_products_from_search_and_direct_links( $posts, $query ) {
 		$can_remove = false;
 		if (
 			! is_admin() ||
@@ -755,7 +755,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 		// Select products to remove for logged in users.
 		if (
 			$can_remove &&
-			'yes' === get_option( 'alg_wc_mppu_hide_products', 'no' ) &&
+			'yes' === alg_wc_mppu_get_option( 'alg_wc_mppu_hide_products_on_search_and_direct_links', 'no' ) &&
 			alg_wc_mppu_is_user_logged_in() &&
 			( $current_user_id = $this->get_current_user_id() )
 		) {
@@ -774,7 +774,8 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 		// Select products to remove for guest users.
 		if (
 			$can_remove &&
-			! is_singular() && // Remove or comment to hide it even on direct links.
+			'yes' === alg_wc_mppu_get_option( 'alg_wc_mppu_hide_products_on_search_and_direct_links', 'no' ) &&
+			//! is_singular() && // Remove or comment to hide it even on direct links.
 			'yes' === get_option( 'alg_wc_mppu_hide_guest_blocked_products', 'no' )
 			&& ! alg_wc_mppu_is_user_logged_in()
 		) {
