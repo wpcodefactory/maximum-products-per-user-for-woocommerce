@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Data.
  *
- * @version 4.1.4
+ * @version 4.2.6
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -61,7 +61,7 @@ class Alg_WC_MPPU_Data extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.9.7
+	 * @version 4.2.6
 	 * @since   2.0.0
 	 * @todo    [next] (feature) `woocommerce_order_status_changed` (i.e. on any order status change)
 	 */
@@ -72,19 +72,44 @@ class Alg_WC_MPPU_Data extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 			add_action( 'woocommerce_order_status_' . substr( $order_status, 3 ), array( $this, 'save_quantities' ), PHP_INT_MAX );
 		}
 		add_action( 'woocommerce_thankyou', array( $this, 'save_quantities_on_new_created_order' ), PHP_INT_MAX );
+
 		// Delete quantities.
 		$this->order_statuses_delete = get_option( 'alg_wc_mppu_order_status_delete', array() );
 		foreach ( $this->order_statuses_delete as $order_status ) {
 			add_action( 'woocommerce_order_status_' . substr( $order_status, 3 ), array( $this, 'delete_quantities' ), PHP_INT_MAX );
 		}
+
 		// Calculate data.
 		add_action( 'alg_wc_mppu_after_save_settings', array( $this, 'calculate_data' ) );
+
 		// Duplicate product functionality.
 		if ( 'no' === get_option( 'alg_wc_mppu_duplicate_product', 'no' ) ) {
 			add_filter( 'woocommerce_duplicate_product_exclude_meta', array( $this, 'duplicate_product_exclude_meta' ), PHP_INT_MAX );
 		}
+
 		// Bkg Process.
 		$this->init_bkg_process();
+
+		// Deducts refunds from orders.
+		add_action( 'woocommerce_order_partially_refunded', array( $this, 'deduct_refunds_from_orders' ), 10, 2 );
+	}
+
+	/**
+	 * subtract_refunds_from_orders.
+	 *
+	 * @version 4.2.6
+	 * @since   4.2.6
+	 *
+	 * @param $order_id
+	 * @param $refund_id
+	 *
+	 * @return void
+	 */
+	function deduct_refunds_from_orders( $order_id, $refund_id ) {
+		if ( 'yes' === alg_wc_mppu_get_option( 'alg_wc_mppu_deduct_refunds', 'no' ) ) {
+			$this->delete_quantities( $order_id );
+			$this->save_quantities( $order_id );
+		}
 	}
 
 	/**
@@ -480,7 +505,7 @@ class Alg_WC_MPPU_Data extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
 	 * update_quantities.
 	 *
-	 * @version 4.0.4
+	 * @version 4.2.6
 	 * @since   1.0.0
 	 * @todo    [next] mysql transaction: lock before `get_post_meta` / `get_term_meta`?
 	 * @todo    [next] `alg_wc_mppu_payment_gateways`: on `$do_save` only?
@@ -515,8 +540,8 @@ class Alg_WC_MPPU_Data extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 						if ( $item->is_type( 'line_item' ) && ( $product = $item->get_product() ) ) {
 							$parent_product_id = alg_wc_mppu()->core->get_parent_product_id( $product );
 							$product_id        = alg_wc_mppu()->core->get_product_id( $product );
-							$product_qty       = apply_filters( 'alg_wc_mppu_save_quantities_item_qty', $item->get_quantity(), $item );
-							$product_qty       = ( is_array($product_qty_arg) && isset( $product_qty_arg[ $parent_product_id ] )) ? $product_qty_arg[ $parent_product_id ] : $product_qty;
+							$product_qty       = apply_filters( 'alg_wc_mppu_save_quantities_item_qty', $item->get_quantity(), $item, $order );
+							$product_qty       = ( is_array( $product_qty_arg ) && isset( $product_qty_arg[ $parent_product_id ] ) ) ? $product_qty_arg[ $parent_product_id ] : $product_qty;
 							// Maybe exclude products
 							$exclude_products = get_option( 'alg_wc_mppu_exclude_products', array() );
 							if ( ! empty( $exclude_products ) && in_array( ( alg_wc_mppu()->core->do_use_variations( $parent_product_id ) ? $product_id : $parent_product_id ), $exclude_products ) ) {

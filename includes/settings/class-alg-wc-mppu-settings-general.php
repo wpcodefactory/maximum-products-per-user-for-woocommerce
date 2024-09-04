@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - General Section Settings.
  *
- * @version 4.2.4
+ * @version 4.2.6
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 4.2.4
+	 * @version 4.2.6
 	 * @since   1.0.0
 	 * @todo    [next] exclude unnecessary statuses from `alg_wc_mppu_order_status` (e.g. "Cancelled", "Refunded", "Failed") and `alg_wc_mppu_order_status_delete` (e.g. "Completed" etc.)?
 	 * @todo    [next] (desc) `alg_wc_mppu_order_status_delete`: `$this->get_recalculate_sales_data_desc( __( 'Order statuses', 'maximum-products-per-user-for-woocommerce' ) )`?
@@ -106,6 +106,13 @@ class Alg_WC_MPPU_Settings_General extends Alg_WC_MPPU_Settings_Section {
 				'type'     => 'multiselect',
 				'class'    => 'chosen_select',
 				'options'  => ( function_exists( 'WC' ) && WC()->payment_gateways() ? wp_list_pluck( WC()->payment_gateways->payment_gateways(), 'title' ) : array() ),
+			),
+			array(
+				'title'   => __( 'Refunds', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'    => __( 'Deduct partial refunds from user limits', 'maximum-products-per-user-for-woocommerce' ),
+				'id'      => 'alg_wc_mppu_deduct_refunds',
+				'default' => 'no',
+				'type'    => 'checkbox',
 			),
 			array(
 				'title'    => __( 'Quantity input', 'maximum-products-per-user-for-woocommerce' ),

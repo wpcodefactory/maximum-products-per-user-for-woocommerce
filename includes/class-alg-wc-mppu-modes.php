@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Modes.
  *
- * @version 4.1.4
+ * @version 4.2.6
  * @since   3.0.0
  * @author  WPFactory
  */
@@ -16,23 +16,22 @@ class Alg_WC_MPPU_Modes extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.6.2
+	 * @version 4.2.6
 	 * @since   3.0.0
 	 * @todo    [next] price: do we really need to `round()`? maybe make it optional at least (enabled bu default)?
 	 */
 	function __construct() {
-		if ( 'qty' != ( $this->mode = get_option( 'alg_wc_mppu_mode', 'qty' ) ) ) {
-			add_filter( 'alg_wc_mppu_get_cart_item_quantities', array( $this, 'get_cart_item_quantities_by_mode' ) );
-			add_filter( 'alg_wc_mppu_validate_on_add_to_cart_quantity', array( $this, 'validate_on_add_to_cart_quantity_by_mode' ), 10, 2 );
-			add_filter( 'alg_wc_mppu_save_quantities_item_qty', array( $this, 'save_quantities_item_qty_by_mode' ), 10, 2 );
-			if ( 'orders' === $this->mode ) {
-				add_filter( 'alg_wc_mppu_get_cart_item_amount_by_term', array( $this, 'cart_item_amount' ) );
-				add_filter( 'alg_wc_mppu_get_cart_item_amount_by_parent', array( $this, 'cart_item_amount' ) );
-				add_filter( 'alg_wc_mppu_cart_item_amount', array( $this, 'cart_item_amount' ) );
-				add_filter( 'alg_wc_mppu_validate_on_add_to_cart_quantity_do_add', array( $this, 'validate_on_add_to_cart_quantity_do_add' ) );
-				add_filter( 'alg_wc_mppu_orders_data_increase_qty', array( $this, 'handle_orders_data_quantity_increase_qty_on_order_mode' ), 10, 5 );
-				add_filter( 'alg_wc_mppu_totals_data', array( $this, 'handle_totals_data_on_order_mode' ), 10, 5 );
-			}
+		$this->mode = get_option( 'alg_wc_mppu_mode', 'qty' );
+		add_filter( 'alg_wc_mppu_get_cart_item_quantities', array( $this, 'get_cart_item_quantities_by_mode' ) );
+		add_filter( 'alg_wc_mppu_validate_on_add_to_cart_quantity', array( $this, 'validate_on_add_to_cart_quantity_by_mode' ), 10, 2 );
+		add_filter( 'alg_wc_mppu_save_quantities_item_qty', array( $this, 'save_quantities_item_qty_by_mode' ), 10, 3 );
+		if ( 'orders' === $this->mode ) {
+			add_filter( 'alg_wc_mppu_get_cart_item_amount_by_term', array( $this, 'cart_item_amount' ) );
+			add_filter( 'alg_wc_mppu_get_cart_item_amount_by_parent', array( $this, 'cart_item_amount' ) );
+			add_filter( 'alg_wc_mppu_cart_item_amount', array( $this, 'cart_item_amount' ) );
+			add_filter( 'alg_wc_mppu_validate_on_add_to_cart_quantity_do_add', array( $this, 'validate_on_add_to_cart_quantity_do_add' ) );
+			add_filter( 'alg_wc_mppu_orders_data_increase_qty', array( $this, 'handle_orders_data_quantity_increase_qty_on_order_mode' ), 10, 5 );
+			add_filter( 'alg_wc_mppu_totals_data', array( $this, 'handle_totals_data_on_order_mode' ), 10, 5 );
 		}
 	}
 
@@ -106,27 +105,49 @@ class Alg_WC_MPPU_Modes extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
 	 * save_quantities_item_qty_by_mode.
 	 *
-	 * @version 3.5.0
+	 * @version 4.2.6
 	 * @since   3.0.0
 	 */
-	function save_quantities_item_qty_by_mode( $item_qty, $item ) {
+	function save_quantities_item_qty_by_mode( $item_qty, $item, $order ) {
 		switch ( $this->mode ) {
 			case 'price':
-				return round( ( $item->get_total() + $item->get_total_tax() ), wc_get_price_decimals() );
+				$item_refund_total = 0;
+				if ( 'yes' === alg_wc_mppu_get_option( 'alg_wc_mppu_deduct_refunds', 'no' ) ) {
+					$item_refund_total = $order->get_total_refunded_for_item( $item->get_id() );
+				}
+				return round( ( $item->get_total() + $item->get_total_tax() - $item_refund_total ), wc_get_price_decimals() );
 			case 'price_excl_tax':
-				return round( $item->get_total(), wc_get_price_decimals() );
+				$item_refund_total = 0;
+				if ( 'yes' === alg_wc_mppu_get_option( 'alg_wc_mppu_deduct_refunds', 'no' ) ) {
+					$item_refund_total = $order->get_total_refunded_for_item( $item->get_id() );
+				}
+				return round( $item->get_total() - $item_refund_total, wc_get_price_decimals() );
 			case 'weight':
+				$item_refund_qty = 0;
+				if ( 'yes' === alg_wc_mppu_get_option( 'alg_wc_mppu_deduct_refunds', 'no' ) ) {
+					$item_refund_qty = abs( $order->get_qty_refunded_for_item( $item->get_id() ) );
+				}
 				$product_id = ( ! empty( $item['variation_id'] ) ? $item['variation_id'] : $item['product_id'] );
 				$product    = wc_get_product( $product_id );
 				$weight     = ( $product && ( $weight = $product->get_weight() ) ? $weight : 0 );
-				return $item['quantity'] * $weight;
+				return ( $item['quantity'] - $item_refund_qty ) * $weight;
 			case 'volume':
+				$item_refund_qty = 0;
+				if ( 'yes' === alg_wc_mppu_get_option( 'alg_wc_mppu_deduct_refunds', 'no' ) ) {
+					$item_refund_qty = abs( $order->get_qty_refunded_for_item( $item->get_id() ) );
+				}
 				$product_id = ( ! empty( $item['variation_id'] ) ? $item['variation_id'] : $item['product_id'] );
 				$product    = wc_get_product( $product_id );
 				$volume     = ( $product && ( $length = $product->get_length() ) && ( $width = $product->get_width() ) && ( $height = $product->get_height() ) ? $length * $width * $height : 0 );
-				return $item['quantity'] * $volume;
+				return ( $item['quantity'] - $item_refund_qty ) * $volume;
 			case 'orders':
 				return 1;
+			case 'qty':
+				$item_refund_qty = 0;
+				if ( 'yes' === alg_wc_mppu_get_option( 'alg_wc_mppu_deduct_refunds', 'no' ) ) {
+					$item_refund_qty = abs( $order->get_qty_refunded_for_item( $item->get_id() ) );
+				}
+				return $item->get_quantity() - $item_refund_qty;
 		}
 	}
 
