@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.6
-Stable tag: 4.2.6
+Stable tag: 4.2.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -270,6 +270,9 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.2.7 - 09/09/2024 =
+* Fix - Fixed a bug with the product quantities mode.
 
 = 4.2.6 - 04/09/2024 =
 * Dev - General - Added new option to deduct partial refunds from user limits.
