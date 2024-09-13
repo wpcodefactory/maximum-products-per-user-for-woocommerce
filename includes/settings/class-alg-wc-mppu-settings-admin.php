@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Admin Section Settings.
  *
- * @version 4.2.3
+ * @version 4.2.8
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -29,7 +29,7 @@ class Alg_WC_MPPU_Settings_Admin extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 4.2.3
+	 * @version 4.2.8
 	 * @since   2.2.0
 	 * @todo    [next] `alg_wc_mppu_user_export_sep`: separate for "single user export" and "all users export"?
 	 * @todo    [next] (desc) Extra meta: better desc
@@ -64,17 +64,36 @@ class Alg_WC_MPPU_Settings_Admin extends Alg_WC_MPPU_Settings_Section {
 
 		$users_editable_sales_data_opts = array(
 			array(
-				'title'    => __( 'User sales data', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => sprintf( __( 'Mange sales data from users on the %s.', 'maximum-products-per-user-for-woocommerce' ), '<a href="' . admin_url( 'profile.php' ) . '">' . __( 'profile page', 'maximum-products-per-user-for-woocommerce' ) . '</a>' ),
+				'title'    => __( 'User\'s sales data', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => sprintf( __( 'Manage sales data from users on the %s.', 'maximum-products-per-user-for-woocommerce' ), '<a href="' . admin_url( 'profile.php' ) . '">' . __( 'profile page', 'maximum-products-per-user-for-woocommerce' ) . '</a>' ),
 				'type'     => 'title',
 				'id'       => 'alg_wc_mppu_sales_data_options',
 			),
 			array(
-				'title'    => __( 'Editable sales data', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => __( 'See and edit each user\'s sales data', 'maximum-products-per-user-for-woocommerce' ),
+				'title'    => __( 'User\'s sales data', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Display user\'s sales data', 'maximum-products-per-user-for-woocommerce' ),
+				'desc_tip' => __( 'This option is necessary for all of the options below.', 'maximum-products-per-user-for-woocommerce' ),
 				'id'       => 'alg_wc_mppu_editable_sales_data',
 				'default'  => 'no',
 				'type'     => 'checkbox',
+			),
+			array(
+				'title'    => __( 'Delete sales button', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Add a button to delete user\'s sales data', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_delete_user_sales_btn_enabled',
+				'default'  => 'no',
+				'type'     => 'checkbox',
+			),
+			array(
+				'desc'     => __( 'User email type used to delete the user\'s sales.', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_delete_user_sales_email_type',
+				'default'  => 'user_email',
+				'options' => array(
+					'user_email'    => __( 'User email', 'maximum-products-per-user-for-woocommerce' ),
+					'billing_email' => __( 'Customer billing email', 'maximum-products-per-user-for-woocommerce' ),
+				),
+				'type'     => 'select',
+				'class'    => 'chosen_select'
 			),
 			array(
 				'title'    => __( 'AJAX', 'maximum-products-per-user-for-woocommerce' ),

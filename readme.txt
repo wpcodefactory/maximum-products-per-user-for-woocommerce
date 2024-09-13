@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.6
-Stable tag: 4.2.7
+Stable tag: 4.2.8
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -270,6 +270,12 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.2.8 - 13/09/2024 =
+* Fix - Admin - User sales data - "Show sales data button" was not working on other profile pages.
+* Fix - Admin - User sales data - Options optimized.
+* Dev - Admin - User sales data - Added new option to delete user's sales data.
+* Dev - Admin - User sales data - Added new option to select the email type to be used to delete user's sales data.
 
 = 4.2.7 - 09/09/2024 =
 * Fix - Fixed a bug with the product quantities mode.

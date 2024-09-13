@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Users.
  *
- * @version 4.2.3
+ * @version 4.2.8
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -48,51 +48,164 @@ class Alg_WC_MPPU_Users {
 	protected $terms_query = array();
 
 	/**
-	 * $do_add_empty_totals.
-	 *
-	 * @since 4.2.0
-	 *
-	 * @var bool
-	 */
-	protected $do_add_empty_totals;
-
-	/**
 	 * Constructor.
 	 *
-	 * @version 4.2.3
+	 * @version 4.2.8
 	 * @since   2.2.0
 	 * @todo    [next] rename export functions, variables etc.
 	 * @todo    [maybe] validation: `add_action( 'user_profile_update_errors', 'user_profile_update_errors', PHP_INT_MAX, 3 ); function user_profile_update_errors( $errors, $update, $user ) {}`
 	 */
 	function __construct() {
-		if ( 'yes' === get_option( 'alg_wc_mppu_editable_sales_data', 'no' ) ) {
-			$this->do_add_empty_totals = ( 'yes' === get_option( 'alg_wc_mppu_editable_sales_data_empty_totals', 'no' ) );
-			add_action( 'show_user_profile',        array( $this, 'show_extra_profile_fields' ), PHP_INT_MAX );
-			add_action( 'edit_user_profile',        array( $this, 'show_extra_profile_fields' ), PHP_INT_MAX );
-			add_action( 'personal_options_update',  array( $this, 'update_profile_fields' ) );
-			add_action( 'edit_user_profile_update', array( $this, 'update_profile_fields' ) );
-			add_action( 'admin_init',               array( $this, 'export_orders_data' ) );
-			// AJAX.
-			add_action( 'admin_footer-profile.php', array( $this, 'handle_sales_data_via_js' ) );
-			add_action( 'wp_ajax_get_mppu_user_sales_data', array( $this, 'get_user_sales_data_html_ajax' ) );
-		}
+
+		// Manages sales data fields.
+		add_action( 'show_user_profile', array( $this, 'show_extra_profile_fields' ), PHP_INT_MAX );
+		add_action( 'edit_user_profile', array( $this, 'show_extra_profile_fields' ), PHP_INT_MAX );
+		add_action( 'personal_options_update', array( $this, 'update_profile_fields' ) );
+		add_action( 'edit_user_profile_update', array( $this, 'update_profile_fields' ) );
+		add_action( 'admin_footer-profile.php', array( $this, 'handle_sales_data_via_js' ) );
+		add_action( 'admin_footer-user-edit.php', array( $this, 'handle_sales_data_via_js' ) );
+		add_action( 'wp_ajax_get_mppu_user_sales_data', array( $this, 'get_user_sales_data_html_ajax' ) );
+		add_action( 'admin_notices', array( $this, 'show_profile_update_notices' ) );
+
+		// Exports orders data.
+		add_action( 'admin_init', array( $this, 'export_orders_data' ) );
+
+		// Exports data.
 		add_action( 'admin_init', array( $this, 'export_orders_data_all_users' ) );
+
 		// Bkg Process.
 		$this->init_bkg_process();
-		// Notices.
-		add_action( 'admin_notices', array( $this, 'show_notices' ) );
+
+		// Manages user sales deletion.
+		add_filter( 'alg_wc_mppu_profile_page_table_row', array( $this, 'add_delete_user_sales_button' ), 10, 2 );
+		add_filter( 'admin_init', array( $this, 'delete_user_sales_data_on_btn_click' ), 10, 2 );
+		add_action( 'admin_notices', array( $this, 'show_user_sales_data_delete_notices' ) );
 	}
 
 	/**
-	 * show_notices.
+	 * show_user_sales_data_delete_notices.
 	 *
-	 * @version 3.8.1
+	 * @version 4.2.8
+	 * @since   4.2.8
+	 *
+	 * @return void
+	 */
+	function show_user_sales_data_delete_notices() {
+		if ( 'yes' !== alg_wc_mppu_get_option( 'alg_wc_mppu_editable_sales_data', 'no' ) ) {
+			return;
+		}
+		// Check if the transient is set.
+		$delete_result = get_user_meta( get_current_user_id(), 'alg_wc_mppu_delete_user_sales_notice', true );
+
+		if ( 'success' === $delete_result ) {
+			echo '<div class="notice notice-success is-dismissible"><p>' . __( 'User sales data has been successfully deleted.', 'your-textdomain' ) . '</p></div>';
+		}
+
+		// Delete the transient so it doesn't keep showing the message.
+		delete_user_meta( get_current_user_id(), 'alg_wc_mppu_delete_user_sales_notice' );
+	}
+
+	/**
+	 * add_delete_user_sales_button.
+	 *
+	 * @version 4.2.8
+	 * @since   4.2.8
+	 *
+	 * @param $table_row
+	 * @param $user
+	 *
+	 * @return string
+	 */
+	function add_delete_user_sales_button( $table_row, $user ) {
+		if (
+			'yes' !== alg_wc_mppu_get_option( 'alg_wc_mppu_delete_user_sales_btn_enabled', 'no' ) ||
+			'yes' !== alg_wc_mppu_get_option( 'alg_wc_mppu_editable_sales_data', 'no' )
+		) {
+			return $table_row;
+		}
+		$button_url = add_query_arg(
+			array(
+				'alg_wc_mppu_action' => 'delete_user_sales_data',
+				'nonce'              => wp_create_nonce( 'alg_wc_mppu_delete_user_sales_data' ),
+				'user_id'            => $user->ID,
+			),
+			''
+		);
+		$button     = '<a class="mppu-export-data button button-primary" href="' . esc_url( $button_url ) . '"><i class="dashicons dashicons-trash"></i>' . __( 'Delete sales data', 'maximum-products-per-user-for-woocommerce' ) . '</a>';
+		$table_row  .= '<tr><th>' . __( 'Delete sales data', 'maximum-products-per-user-for-woocommerce' ) . '</h2>' . '</th><td>' . $button . '</td></tr>';
+
+		return $table_row;
+	}
+
+	/**
+	 * delete_user_sales_data_on_btn_click.
+	 *
+	 * @version 4.2.8
+	 * @since   4.2.8
+	 *
+	 * @todo    Add Background processing to delete user sales data.
+	 *
+	 * @throws Exception
+	 * @return void
+	 */
+	function delete_user_sales_data_on_btn_click() {
+		if (
+			! isset( $_GET['alg_wc_mppu_action'] ) ||
+			! isset( $_GET['nonce'] ) ||
+			! isset( $_GET['user_id'] ) ||
+			empty( intval( $user_id = $_GET['user_id'] ) ) ||
+			'delete_user_sales_data' !== sanitize_text_field( $_GET['alg_wc_mppu_action'] ) ||
+			! wp_verify_nonce( $_GET['nonce'], 'alg_wc_mppu_delete_user_sales_data' ) ||
+			'yes' !== alg_wc_mppu_get_option( 'alg_wc_mppu_delete_user_sales_btn_enabled', 'no' ) ||
+			! $this->check_current_user( $user_id ) ||
+			'yes' !== alg_wc_mppu_get_option( 'alg_wc_mppu_editable_sales_data', 'no' )
+		) {
+			return;
+		}
+
+		// User email type option.
+		$user_email_type = alg_wc_mppu_get_option( 'alg_wc_mppu_delete_user_sales_email_type', 'user_email' );
+
+		// Gets customer.
+		$customer = new \WC_Customer( $user_id );
+
+		// Gets email.
+		$email = 'billing_email' === $user_email_type ? $customer->get_billing_email() : $customer->get_email();
+
+		// Gets orders.
+		$orderArg = array(
+			'customer' => $email,
+			'limit'    => - 1,
+			'return'   => 'ids',
+		);
+
+		// Delete sales from orders.
+		$orders = wc_get_orders( $orderArg );
+		if ( $orders ) {
+			foreach ( $orders as $order_id ) {
+				alg_wc_mppu()->core->data->delete_quantities( $order_id );
+			}
+		}
+
+		// Set a success flag and redirect.
+		update_user_meta( get_current_user_id(), 'alg_wc_mppu_delete_user_sales_notice', 'success', 30 );
+		wp_redirect( add_query_arg( array(
+			'user_id' => $user_id,
+		), remove_query_arg( array( 'alg_wc_mppu_action', 'nonce', 'user_id' ), wp_get_referer() ) ) );
+		exit;
+	}
+
+	/**
+	 * show_profile_update_notices.
+	 *
+	 * @version 4.2.8
 	 * @since   3.8.1
 	 */
-	function show_notices() {
+	function show_profile_update_notices() {
 		if (
 			! empty( $profile_updated = get_user_meta( get_current_user_id(), 'alg_wc_mppu_profile_updated', true ) ) &&
 			is_array( $profile_updated ) &&
+			'yes' === alg_wc_mppu_get_option( 'alg_wc_mppu_editable_sales_data', 'no' ) &&
 			'bkg_process' === $profile_updated['method']
 		) {
 			$class   = 'notice notice-info';
@@ -180,14 +293,17 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * export_orders_data.
 	 *
-	 * @version 3.4.0
+	 * @version 4.2.8
 	 * @since   3.4.0
 	 * @todo    [next] nonce (same for `export_orders_data_all_users()`)
 	 * @todo    [next] terms (same for `export_orders_data_all_users()`)
 	 * @todo    [next] `export_lifetime_data` (same for `export_orders_data_all_users()`)
 	 */
 	function export_orders_data() {
-		if ( isset( $_GET['alg_wc_mppu_export_single_user_orders_data'] ) ) {
+		if (
+			isset( $_GET['alg_wc_mppu_export_single_user_orders_data'] ) &&
+			'yes' === alg_wc_mppu_get_option( 'alg_wc_mppu_editable_sales_data', 'no' )
+		) {
 			$user_id = intval( $_GET['alg_wc_mppu_export_single_user_orders_data'] );
 			if ( ! $this->check_current_user( $user_id ) ) {
 				return false;
@@ -201,7 +317,7 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * export_orders_data_all_users.
 	 *
-	 * @version 3.4.0
+	 * @version 4.2.8
 	 * @since   3.4.0
 	 * @see     https://developer.wordpress.org/reference/classes/wp_user_query/prepare_query/
 	 * @todo    [next] `get_users`: `offset` + `number`?
@@ -211,7 +327,10 @@ class Alg_WC_MPPU_Users {
 	 */
 	function export_orders_data_all_users() {
 		if ( isset( $_GET['alg_wc_mppu_export_all_users_orders_data'] ) ) {
-			if ( ! $this->check_current_user() ) {
+			if (
+				! $this->check_current_user() ||
+				'yes' !== alg_wc_mppu_get_option( 'alg_wc_mppu_editable_sales_data', 'no' )
+			) {
 				return false;
 			}
 			$csv      = array();
@@ -282,13 +401,16 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * update_profile_fields.
 	 *
-	 * @version 3.8.6
+	 * @version 4.2.8
 	 * @since   2.2.0
 	 * @todo    [maybe] nonce?
 	 * @todo    [maybe] maybe `floatval` (instead `intval`?)
 	 */
 	function update_profile_fields( $user_id ) {
-		if ( ! $this->check_current_user( $user_id ) ) {
+		if (
+			! $this->check_current_user( $user_id ) ||
+			'yes' !== alg_wc_mppu_get_option( 'alg_wc_mppu_editable_sales_data', 'no' )
+		) {
 			return false;
 		}
 		// Totals data.
@@ -689,11 +811,14 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * show_extra_profile_fields.
 	 *
-	 * @version 4.2.3
+	 * @version 4.2.8
 	 * @since   2.2.0
 	 */
 	function show_extra_profile_fields( $user ) {
-		if ( ! $this->check_current_user( $user->ID ) ) {
+		if (
+			! $this->check_current_user( $user->ID ) ||
+			'yes' !== alg_wc_mppu_get_option( 'alg_wc_mppu_editable_sales_data', 'no' )
+		) {
 			return false;
 		}
 
@@ -713,10 +838,11 @@ class Alg_WC_MPPU_Users {
 		echo $style;
 		echo '<h2>' . __( 'Maximum Products per User', 'maximum-products-per-user-for-woocommerce' ) . '</h2>';
 		echo '<table class="form-table" id="mppu-products-data">' .
-		     '<tr><th>' . __( 'Export Data', 'maximum-products-per-user-for-woocommerce' ) . '</h2>' . '</th><td>' . $export_sales_data_html .  '</td></tr>' .
-		     '<tr><th>' . __( 'Products Data', 'maximum-products-per-user-for-woocommerce' ) . '</h2>' . '</th><td>' . $product_data_html . '</td></tr>' .
-		     $terms_data.
-		     '</table>';
+			 '<tr><th>' . __( 'Export Data', 'maximum-products-per-user-for-woocommerce' ) . '</h2>' . '</th><td>' . $export_sales_data_html . '</td></tr>' .
+			 apply_filters( 'alg_wc_mppu_profile_page_table_row', '', $user ) .
+			 '<tr><th>' . __( 'Products Data', 'maximum-products-per-user-for-woocommerce' ) . '</h2>' . '</th><td>' . $product_data_html . '</td></tr>' .
+			 $terms_data .
+			 '</table>';
 	}
 
 	/**
@@ -808,13 +934,16 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * handle_sales_data_via_js.
 	 *
-	 * @version 4.2.3
+	 * @version 4.2.8
 	 * @since   3.8.6
 	 *
 	 * @return void
 	 */
 	function handle_sales_data_via_js() {
-		if ( ! $this->show_extra_profile_fields_using_ajax() ) {
+		if (
+			! $this->show_extra_profile_fields_using_ajax() ||
+			'yes' !== alg_wc_mppu_get_option( 'alg_wc_mppu_editable_sales_data', 'no' )
+		) {
 			return;
 		}
 		$php_to_js = array(
@@ -846,13 +975,16 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * get_user_sales_data_html_ajax.
 	 *
-	 * @version 3.8.6
+	 * @version 4.2.8
 	 * @since   3.8.6
 	 *
      * @return void
 	 */
 	function get_user_sales_data_html_ajax() {
 		check_ajax_referer( 'mppu-get_user_sales_data', 'security' );
+		if ( 'yes' !== alg_wc_mppu_get_option( 'alg_wc_mppu_editable_sales_data', 'no' ) ) {
+			return;
+		}
 		$args      = wp_parse_args( $_POST, array(
 			'data_type' => 'product',
 			'user_id'   => get_current_user_id(),
@@ -876,7 +1008,7 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * get_item_data.
 	 *
-	 * @version 3.8.6
+	 * @version 4.2.8
 	 * @since   2.2.0
 	 * @todo    [next] use `alg_wc_mppu()->core->get_date_format()`
 	 */
@@ -888,11 +1020,12 @@ class Alg_WC_MPPU_Users {
 		$disable_lifetime_input = 'yes' === get_option( 'alg_wc_mppu_editable_sales_data_auto_update_lifetime', 'no' ) || $disable_orders_input;
 		$lifetime_input_disabled_str = $disable_lifetime_input ? 'disabled="disabled"' : '';
 		$orders_input_disabled_str = $disable_orders_input ? 'disabled="disabled"' : '';
-		if ( $this->do_add_empty_totals || isset( $totals_data[ $user->ID ] ) || isset( $orders_data[ $user->ID ] ) ) {
+		$do_add_empty_totals = ( 'yes' === alg_wc_mppu_get_option( 'alg_wc_mppu_editable_sales_data_empty_totals', 'no' ) );
+		if ( $do_add_empty_totals || isset( $totals_data[ $user->ID ] ) || isset( $orders_data[ $user->ID ] ) ) {
 			$output .= '<tr>';
 			$output .= '<td>' . $product_or_term_title . ' (#' . $product_or_term_id . ')' . '</td>';
 			$output .= '<td>';
-			if ( $this->do_add_empty_totals || isset( $totals_data[ $user->ID ] ) ) {
+			if ( $do_add_empty_totals || isset( $totals_data[ $user->ID ] ) ) {
 				$name  = 'alg_wc_mppu_totals_data[' . $product_or_term . '][' . $product_or_term_id . ']';
 				$value = ( isset( $totals_data[ $user->ID ] ) ? $totals_data[ $user->ID ] : 0 );
 				$output .= '<input type="number" name="' . $name . '" value="' . $value . '"' . $lifetime_input_disabled_str . '>';
