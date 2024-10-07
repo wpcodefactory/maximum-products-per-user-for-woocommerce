@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.2.8\n"
+"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.2.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-09-14T01:03:47+02:00\n"
+"POT-Creation-Date: 2024-10-07T23:01:14+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -128,7 +128,7 @@ msgid "Product limits"
 msgstr ""
 
 #: includes/class-alg-wc-mppu-reports.php:90
-#: includes/class-alg-wc-mppu-users.php:1004
+#: includes/class-alg-wc-mppu-users.php:1003
 msgid "There was en error. Please, try again later."
 msgstr ""
 
@@ -287,30 +287,30 @@ msgstr ""
 msgid "Export products data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:839
+#: includes/class-alg-wc-mppu-users.php:838
 #: includes/settings/class-alg-wc-mppu-settings-general.php:55
 #: includes/settings/class-alg-wc-mppu-settings-per-product.php:38
 #: includes/settings/class-alg-wc-mppu-settings.php:24
 msgid "Maximum Products per User"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:841
+#: includes/class-alg-wc-mppu-users.php:840
 msgid "Export Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:843
+#: includes/class-alg-wc-mppu-users.php:842
 msgid "Products Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:919
+#: includes/class-alg-wc-mppu-users.php:918
 msgid "Product Categories Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:919
+#: includes/class-alg-wc-mppu-users.php:918
 msgid "Product Tags Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:1042
+#: includes/class-alg-wc-mppu-users.php:1041
 msgid "Order #%d<br>(%s)"
 msgstr ""
 
@@ -342,7 +342,7 @@ msgstr ""
 msgid "Saturday"
 msgstr ""
 
-#: includes/class-alg-wc-mppu.php:197
+#: includes/class-alg-wc-mppu.php:241
 msgid "Go Pro"
 msgstr ""
 
@@ -352,7 +352,7 @@ msgstr ""
 msgid "Above limit"
 msgstr ""
 
-#: includes/pro/class-alg-wc-mppu-pro.php:286
+#: includes/pro/class-alg-wc-mppu-pro.php:294
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:112
 msgid "Login to purchase"
 msgstr ""

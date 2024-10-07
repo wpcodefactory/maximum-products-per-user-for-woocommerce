@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Users.
  *
- * @version 4.2.8
+ * @version 4.2.9
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -811,7 +811,7 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * show_extra_profile_fields.
 	 *
-	 * @version 4.2.8
+	 * @version 4.2.9
 	 * @since   2.2.0
 	 */
 	function show_extra_profile_fields( $user ) {
@@ -829,12 +829,11 @@ class Alg_WC_MPPU_Users {
 			'type'    => 'product'
 		) );
 
-        $style = $this->get_user_profile_styles();
+		$style                  = $this->get_user_profile_styles();
 		$get_html_using_ajax    = $this->show_extra_profile_fields_using_ajax();
-		$product_data_html = false === $get_html_using_ajax ? $this->get_user_products_data_html( $user ) : $sales_data_btn_html;
+		$product_data_html      = false === $get_html_using_ajax ? $this->get_user_products_data_html( $user ) : $sales_data_btn_html;
 		$terms_data             = $this->get_extra_profile_fields_terms_data_table_rows( $user );
-		$export_sales_data_html = '<a class="mppu-export-data button button-primary" href="' . add_query_arg( 'alg_wc_mppu_export_single_user_orders_data', $user->ID ) . '"><i class="dashicons dashicons-download"></i>' . __( 'Export products data', 'maximum-products-per-user-for-woocommerce' ) . '</a>';
-
+		$export_sales_data_html = '<a class="mppu-export-data button button-primary" href="' . esc_url( add_query_arg( 'alg_wc_mppu_export_single_user_orders_data', intval( $user->ID ) ) ) . '"><i class="dashicons dashicons-download"></i>' . __( 'Export products data', 'maximum-products-per-user-for-woocommerce' ) . '</a>';
 		echo $style;
 		echo '<h2>' . __( 'Maximum Products per User', 'maximum-products-per-user-for-woocommerce' ) . '</h2>';
 		echo '<table class="form-table" id="mppu-products-data">' .

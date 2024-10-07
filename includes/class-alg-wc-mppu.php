@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.1.7
+ * @version 4.2.9
  * @since   3.9.6
  * @author  WPFactory
  */
@@ -24,7 +24,7 @@ if ( ! class_exists( 'Alg_WC_MPPU' ) ) :
 		 * @since 1.0.0
 		 * @var   string
 		 */
-		public $version = '4.2.8';
+		public $version = '4.2.9';
 
 		/**
 		 * @since 1.0.0
@@ -85,7 +85,7 @@ if ( ! class_exists( 'Alg_WC_MPPU' ) ) :
 		/**
 		 * Initializer.
 		 *
-		 * @version 3.9.6
+		 * @version 4.2.9
 		 * @since   3.9.6
 		 * @access  public
 		 */
@@ -93,6 +93,12 @@ if ( ! class_exists( 'Alg_WC_MPPU' ) ) :
 
 			// Set up localisation
 			add_action( 'init', array( $this, 'localize' ) );
+
+			// Adds cross-selling library.
+			$this->add_cross_selling_library();
+
+			// Move WC Settings tab to WPFactory menu.
+			$this->move_wc_settings_tab_to_wpfactory_menu();
 
 			// Adds compatibility with HPOS.
 			add_action( 'before_woocommerce_init', function () {
@@ -114,6 +120,44 @@ if ( ! class_exists( 'Alg_WC_MPPU' ) ) :
 			if ( is_admin() ) {
 				$this->admin();
 			}
+		}
+
+		/**
+		 * add_cross_selling_library.
+		 *
+		 * @version 4.2.9
+		 * @since   4.2.9
+		 *
+		 * @return void
+		 */
+		function add_cross_selling_library(){
+			if ( ! is_admin() ) {
+				return;
+			}
+			// Cross-selling library.
+			$cross_selling = new \WPFactory\WPFactory_Cross_Selling\WPFactory_Cross_Selling();
+			$cross_selling->setup( array( 'plugin_file_path'   => $this->get_filesystem_path() ) );
+			$cross_selling->init();
+		}
+
+		/**
+		 * move_wc_settings_tab_to_wpfactory_submenu.
+		 *
+		 * @version 4.2.9
+		 * @since   4.2.9
+		 *
+		 * @return void
+		 */
+		function move_wc_settings_tab_to_wpfactory_menu() {
+			if ( ! is_admin() ) {
+				return;
+			}
+			// WC Settings tab as WPFactory submenu item.
+			$wpf_admin_menu = \WPFactory\WPFactory_Admin_Menu\WPFactory_Admin_Menu::get_instance();
+			$wpf_admin_menu->move_wc_settings_tab_to_wpfactory_menu( array(
+				'wc_settings_tab_id' => 'alg_wc_mppu',
+				'menu_title'         => __( 'Max Products per User', 'amount-left-free-shipping-woocommerce' ),
+			) );
 		}
 
 		/**
