@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.6
-Stable tag: 4.2.9
+Stable tag: 4.3.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -270,6 +270,10 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.3.0 - 14/10/2024 =
+* Dev - WPFactory admin menu removed from pro version.
+* Fix - WPFactory menu and submenus are now visible and accessible.
 
 = 4.2.9 - 07/10/2024 =
 * Fix - Vulnerability issue fixed.

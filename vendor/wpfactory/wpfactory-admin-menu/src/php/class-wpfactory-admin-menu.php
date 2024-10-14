@@ -2,7 +2,7 @@
 /**
  * WPFactory Admin Menu
  *
- * @version 1.0.1
+ * @version 1.0.3
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -30,7 +30,7 @@ if ( ! class_exists( 'WPFactory\WPFactory_Admin_Menu\WPFactory_Admin_Menu' ) ) {
 		 *
 		 * @var string
 		 */
-		protected $version = '1.0.1';
+		protected $version = '1.0.3';
 
 		/**
 		 * Menu slug.
@@ -66,7 +66,7 @@ if ( ! class_exists( 'WPFactory\WPFactory_Admin_Menu\WPFactory_Admin_Menu' ) ) {
 		 *
 		 * @var string
 		 */
-		protected $capability = 'manage_options';
+		protected $capability = '';
 
 		/**
 		 * Icon URL.
@@ -116,7 +116,7 @@ if ( ! class_exists( 'WPFactory\WPFactory_Admin_Menu\WPFactory_Admin_Menu' ) ) {
 		/**
 		 * Moves WooCommerce Settings tab to WPFactory menu as a submenu item.
 		 *
-		 * @version 1.0.1
+		 * @version 1.0.2
 		 * @since   1.0.0
 		 *
 		 * @param $args
@@ -129,11 +129,14 @@ if ( ! class_exists( 'WPFactory\WPFactory_Admin_Menu\WPFactory_Admin_Menu' ) ) {
 			}
 			$args                       = wp_parse_args( $args, array(
 				'wc_settings_tab_id' => '',
-				'page_title'         => __( 'WPFactory plugins settings', 'wpfactory-admin-menu' ),
+				'page_title'         => '',
 				'menu_title'         => '',
-				'capability'         => 'manage_options',
+				'capability'         => class_exists( 'WooCommerce' ) ? 'manage_woocommerce' : 'manage_options',
 				'position'           => 30,
 			) );
+			if ( empty( $args['page_title'] ) ) {
+				$args['page_title'] = $args['menu_title'];
+			}
 			$replacement_menu_item_slug = 'admin.php?page=wc-settings&tab=' . $args['wc_settings_tab_id'];
 			add_action( 'admin_menu', function () use ( $args, $replacement_menu_item_slug ) {
 				\add_submenu_page(
@@ -155,14 +158,45 @@ if ( ! class_exists( 'WPFactory\WPFactory_Admin_Menu\WPFactory_Admin_Menu' ) ) {
 		}
 
 		/**
+		 * add_submenu_page.
+		 *
+		 * @version 1.0.2
+		 * @since   1.0.2
+		 *
+		 * @param $page_title
+		 * @param $menu_title
+		 * @param $capability
+		 * @param $menu_slug
+		 * @param $callback
+		 * @param $position
+		 *
+		 * @return void
+		 */
+		function add_submenu_page( $page_title, $menu_title, $capability, $menu_slug, $callback = '', $position = null ) {
+			\add_submenu_page(
+				$this->menu_slug,
+				$page_title,
+				$menu_title,
+				$capability,
+				$menu_slug,
+				$callback,
+				$position
+			);
+		}
+
+		/**
 		 * Creates WPFactory admin menu.
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.3
 		 * @since   1.0.0
 		 *
 		 * @return void
 		 */
 		function create_wpfactory_admin_menu() {
+			// Set capability.
+			$this->set_capability( class_exists( 'WooCommerce' ) ? 'manage_woocommerce' : 'manage_options' );
+
+			// Menu page.
 			\add_menu_page(
 				$this->get_page_title(),
 				$this->get_menu_title(),
