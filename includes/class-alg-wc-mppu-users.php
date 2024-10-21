@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Users.
  *
- * @version 4.2.9
+ * @version 4.3.2
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -624,7 +624,7 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * get_order_products_by_term.
 	 *
-	 * @version 3.8.6
+	 * @version 4.3.2
 	 * @since   3.8.6
 	 *
 	 * @param $term
@@ -635,14 +635,17 @@ class Alg_WC_MPPU_Users {
 	function get_order_products_by_term( $term, $order_id ) {
 		$products = array();
 		$order    = wc_get_order( $order_id );
-		$items    = $order->get_items();
-		foreach ( $items as $item ) {
-			$product_id = $item->get_product_id();
-			$terms      = wp_get_post_terms( $product_id, $term->taxonomy, array( 'fields' => 'ids' ) );
-			if ( in_array( $term->term_id, $terms ) ) {
-				$products[] = $product_id;
+		if ( is_a( $order, 'WC_Order' ) ) {
+			$items = $order->get_items();
+			foreach ( $items as $item ) {
+				$product_id = $item->get_product_id();
+				$terms      = wp_get_post_terms( $product_id, $term->taxonomy, array( 'fields' => 'ids' ) );
+				if ( in_array( $term->term_id, $terms ) ) {
+					$products[] = $product_id;
+				}
 			}
 		}
+
 		return $products;
 	}
 

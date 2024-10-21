@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.3.1\n"
+"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.3.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-10-18T22:40:07+02:00\n"
+"POT-Creation-Date: 2024-10-21T16:52:47+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -128,7 +128,7 @@ msgid "Product limits"
 msgstr ""
 
 #: includes/class-alg-wc-mppu-reports.php:90
-#: includes/class-alg-wc-mppu-users.php:1003
+#: includes/class-alg-wc-mppu-users.php:1006
 msgid "There was en error. Please, try again later."
 msgstr ""
 
@@ -216,7 +216,7 @@ msgid "No"
 msgstr ""
 
 #: includes/class-alg-wc-mppu-shortcodes.php:361
-#: includes/class-alg-wc-mppu-users.php:754
+#: includes/class-alg-wc-mppu-users.php:757
 msgid "Product"
 msgstr ""
 
@@ -240,7 +240,7 @@ msgid "No data"
 msgstr ""
 
 #: includes/class-alg-wc-mppu-shortcodes.php:534
-#: includes/class-alg-wc-mppu-users.php:796
+#: includes/class-alg-wc-mppu-users.php:799
 msgid "Term"
 msgstr ""
 
@@ -270,47 +270,47 @@ msgstr ""
 msgid "Order value"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:755
-#: includes/class-alg-wc-mppu-users.php:797
+#: includes/class-alg-wc-mppu-users.php:758
+#: includes/class-alg-wc-mppu-users.php:800
 #: includes/settings/class-alg-wc-mppu-settings-admin.php:114
 #: includes/settings/class-alg-wc-mppu-settings-advanced.php:128
 #: includes/settings/class-alg-wc-mppu-settings-general.php:200
 msgid "Lifetime"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:756
-#: includes/class-alg-wc-mppu-users.php:798
+#: includes/class-alg-wc-mppu-users.php:759
+#: includes/class-alg-wc-mppu-users.php:801
 msgid "Orders"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:836
+#: includes/class-alg-wc-mppu-users.php:839
 msgid "Export products data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:838
+#: includes/class-alg-wc-mppu-users.php:841
 #: includes/settings/class-alg-wc-mppu-settings-general.php:55
 #: includes/settings/class-alg-wc-mppu-settings-per-product.php:38
 #: includes/settings/class-alg-wc-mppu-settings.php:24
 msgid "Maximum Products per User"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:840
+#: includes/class-alg-wc-mppu-users.php:843
 msgid "Export Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:842
+#: includes/class-alg-wc-mppu-users.php:845
 msgid "Products Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:918
+#: includes/class-alg-wc-mppu-users.php:921
 msgid "Product Categories Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:918
+#: includes/class-alg-wc-mppu-users.php:921
 msgid "Product Tags Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:1041
+#: includes/class-alg-wc-mppu-users.php:1044
 msgid "Order #%d<br>(%s)"
 msgstr ""
 
