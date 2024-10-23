@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.6
-Stable tag: 4.3.2
+Stable tag: 4.3.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -270,6 +270,10 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.3.3 - 23/10/2024 =
+* Fix - Frontend - Product limit message - Fixed error "Class optimistex\expression\MathExpression not found".
+* Dev - Updated `optimistex/math-expression` library.
 
 = 4.3.2 - 21/10/2024 =
 * Fix - Fixed php warning on `Alg_WC_MPPU_Users::get_order_products_by_term()`.

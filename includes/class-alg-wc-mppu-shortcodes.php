@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 4.1.9
+ * @version 4.3.3
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -132,7 +132,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * current_product_limit_shortcode.
 	 *
-	 * @version 4.1.7
+	 * @version 4.3.3
 	 * @since   2.5.1
 	 * @todo    [later] different (customizable) message depending on `$remaining`
 	 */
@@ -153,7 +153,7 @@ class Alg_WC_MPPU_Shortcodes {
 			return '';
 		}
 		$user_id    = $this->get_user_id( $atts );
-		$output_msg='';
+		$output_msg = '';
 		$placeholders=array();
 		if ( $product_id && $user_id ) {
 			$limit = alg_wc_mppu()->core->get_max_qty_for_product( $product_id );
@@ -210,8 +210,8 @@ class Alg_WC_MPPU_Shortcodes {
 			! empty( $atts['condition'] ) &&
 			! empty( $placeholders ) &&
 			! empty( $condition = str_replace( array_keys( $placeholders ), $placeholders, html_entity_decode( $atts['condition'] ) ) ) &&
-			is_a( $e = new \optimistex\expression\MathExpression(), 'optimistex\expression\MathExpression' ) &&
-			false === filter_var( $e->evaluate( $condition ), FILTER_VALIDATE_BOOLEAN )
+			( class_exists( '\optimistex\expression\Expression' ) && is_a( $e = new \optimistex\expression\Expression(), 'optimistex\expression\Expression' ) ) &&
+			false === @filter_var( $e->evaluate( $condition ), FILTER_VALIDATE_BOOLEAN )
 		) {
 			$output_msg = false;
 		}
