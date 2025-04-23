@@ -1,8 +1,8 @@
-=== Cost of Goods: Product Cost & Profit Calculator for WooCommerce ===
+=== Maximum Products per User for WooCommerce ===
 
 == Archived Changelog Entries ==
 This file contains older changelog entries, so we can keep the size of the standard WordPress readme.txt file reasonable.
-For the latest changes, please see the "Changelog" section of the [readme.txt file](https://wordpress.org/plugins/cost-of-goods-for-woocommerce/#developers).
+For the latest changes, please see the "Changelog" section of the [readme.txt file](https://wordpress.org/plugins/maximum-products-per-user-for-woocommerce/#developers).
 
 = 4.2.9 - 07/10/2024 =
 * Fix - Vulnerability issue fixed.
