@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 4.3.5
+ * @version 4.3.7
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -39,7 +39,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * customer_msg_shortcode.
 	 *
-	 * @version 3.5.3
+	 * @version 4.3.7
 	 * @since   3.5.3
 	 *
 	 * @param $atts
@@ -54,10 +54,11 @@ class Alg_WC_MPPU_Shortcodes {
 			'bought_msg_min' => 1
 		), $atts, 'alg_wc_mppu_customer_msg' );
 		if ( 0 === $atts['bought'] ) {
-			return $atts['not_bought_msg'];
+			return esc_html( $atts['not_bought_msg'] );
 		} elseif ( $atts['bought'] >= $atts['bought_msg_min'] ) {
-			return $atts['bought_msg'];
+			return esc_html( $atts['bought_msg'] );
 		}
+
 		return '';
 	}
 
@@ -74,7 +75,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * placeholder.
 	 *
-	 * @version 3.2.2
+	 * @version 4.3.7
 	 * @since   3.2.2
 	 * @todo    [maybe] add `$atts['on_zero']`?
 	 */
@@ -82,15 +83,16 @@ class Alg_WC_MPPU_Shortcodes {
 		if ( ! isset( $atts['key'], alg_wc_mppu()->core->placeholders, alg_wc_mppu()->core->placeholders[ '%' . $atts['key'] . '%' ] ) ) {
 			return '';
 		}
+
 		return ( '' == ( $value = alg_wc_mppu()->core->placeholders[ '%' . $atts['key'] . '%' ] ) ?
-			( isset( $atts['on_empty'] ) ? $atts['on_empty'] : '' ) :
-			( isset( $atts['before'] ) ? $atts['before'] : '' ) . $value . ( isset( $atts['after'] ) ? $atts['after'] : '' ) );
+			( isset( $atts['on_empty'] ) ? wp_kses_post( $atts['on_empty'] ) : '' ) :
+			( isset( $atts['before'] ) ? wp_kses_post( $atts['before'] ) : '' ) . $value . ( isset( $atts['after'] ) ? wp_kses_post( $atts['after'] ) : '' ) );
 	}
 
 	/**
 	 * term_limit_shortcode.
 	 *
-	 * @version 3.6.0
+	 * @version 4.3.7
 	 * @since   3.1.0
 	 * @todo    [next] `alg_wc_mppu()->core->get_notice_placeholders()`
 	 * @todo    [later] different (customizable) message depending on `$remaining`
@@ -118,7 +120,7 @@ class Alg_WC_MPPU_Shortcodes {
 							'%first_order_date_exp%'            => alg_wc_mppu()->core->get_first_order_date_exp( $bought_data['first_order_date'], $bought_data['date_range'] ),
 							'%first_order_date_exp_timeleft%'   => alg_wc_mppu()->core->get_first_order_date_exp( $bought_data['first_order_date'], $bought_data['date_range'], true ),
 						);
-						$template = ( isset( $atts['template'] ) ? $atts['template'] :
+						$template = ( isset( $atts['template'] ) ? wp_kses_post( $atts['template'] ) :
 							__( "The remaining amount is %remaining% (you've already bought %bought% out of %limit%).", 'maximum-products-per-user-for-woocommerce' ) );
 						$message = alg_wc_mppu()->core->apply_placeholders( $template );
 						return $message;
@@ -132,7 +134,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * current_product_limit_shortcode.
 	 *
-	 * @version 4.3.5
+	 * @version 4.3.7
 	 * @since   2.5.1
 	 * @todo    [later] different (customizable) message depending on `$remaining`
 	 */
@@ -146,6 +148,7 @@ class Alg_WC_MPPU_Shortcodes {
 			'empty_msg_removes_template' => false
 		), $atts, 'alg_wc_mppu_current_product_limit' );
 		$product_id = $atts['product_id'];
+
 		if (
 			is_admin() ||
 			! WC()->cart ||
@@ -200,7 +203,7 @@ class Alg_WC_MPPU_Shortcodes {
 					$placeholders = alg_wc_mppu()->core->get_notice_placeholders( $product_id, $limit, $bought_data, $cart_item_quantity, 0, false );
 				}
 				// Final message
-				$template = $atts['msg_template'];
+				$template = wp_kses_post( $atts['msg_template'] );
 				$message = alg_wc_mppu()->core->apply_placeholders( $template );
 				$output_msg = $message;
 			}
@@ -546,20 +549,21 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * language_shortcode.
 	 *
-	 * @version 2.0.0
+	 * @version 4.3.7
 	 * @since   2.0.0
 	 */
 	function language_shortcode( $atts, $content = '' ) {
 		// E.g.: `[alg_wc_mppu_translate lang="DE" lang_text="Message in German" not_lang_text="Message for all other languages"]`
 		if ( isset( $atts['lang_text'] ) && isset( $atts['not_lang_text'] ) && ! empty( $atts['lang'] ) ) {
 			return ( ! defined( 'ICL_LANGUAGE_CODE' ) || ! in_array( strtolower( ICL_LANGUAGE_CODE ), array_map( 'trim', explode( ',', strtolower( $atts['lang'] ) ) ) ) ) ?
-				$atts['not_lang_text'] : $atts['lang_text'];
+				esc_html( $atts['not_lang_text'] ) : esc_html( $atts['lang_text'] );
 		}
+
 		// E.g.: `[alg_wc_mppu_translate lang="DE"]Message in German[/alg_wc_mppu_translate][alg_wc_mppu_translate not_lang="DE"]Message for all other languages[/alg_wc_mppu_translate]`
 		return (
-			( ! empty( $atts['lang'] )     && ( ! defined( 'ICL_LANGUAGE_CODE' ) || ! in_array( strtolower( ICL_LANGUAGE_CODE ), array_map( 'trim', explode( ',', strtolower( $atts['lang'] ) ) ) ) ) ) ||
-			( ! empty( $atts['not_lang'] ) &&     defined( 'ICL_LANGUAGE_CODE' ) &&   in_array( strtolower( ICL_LANGUAGE_CODE ), array_map( 'trim', explode( ',', strtolower( $atts['not_lang'] ) ) ) ) )
-		) ? '' : $content;
+			( ! empty( $atts['lang'] ) && ( ! defined( 'ICL_LANGUAGE_CODE' ) || ! in_array( strtolower( ICL_LANGUAGE_CODE ), array_map( 'trim', explode( ',', strtolower( $atts['lang'] ) ) ) ) ) ) ||
+			( ! empty( $atts['not_lang'] ) && defined( 'ICL_LANGUAGE_CODE' ) && in_array( strtolower( ICL_LANGUAGE_CODE ), array_map( 'trim', explode( ',', strtolower( $atts['not_lang'] ) ) ) ) )
+		) ? '' : esc_html( $content );
 	}
 
 }
