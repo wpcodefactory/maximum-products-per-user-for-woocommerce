@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Admin Section Settings.
  *
- * @version 4.2.8
+ * @version 4.3.8
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -29,7 +29,7 @@ class Alg_WC_MPPU_Settings_Admin extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 4.2.8
+	 * @version 4.3.8
 	 * @since   2.2.0
 	 * @todo    [next] `alg_wc_mppu_user_export_sep`: separate for "single user export" and "all users export"?
 	 * @todo    [next] (desc) Extra meta: better desc
@@ -40,7 +40,7 @@ class Alg_WC_MPPU_Settings_Admin extends Alg_WC_MPPU_Settings_Section {
 				'title' => __( 'Product sales data', 'maximum-products-per-user-for-woocommerce' ),
 				'desc'  => sprintf( __( 'See sales data from products on the %s.', 'maximum-products-per-user-for-woocommerce' ), __( 'admin product page', 'maximum-products-per-user-for-woocommerce' ) ),
 				'type'  => 'title',
-				'id'    => 'alg_wc_mppu_sales_data_options',
+				'id'    => 'alg_wc_mppu_product_sales_data_options',
 			),
 			array(
 				'title'    => __( 'Sales data', 'maximum-products-per-user-for-woocommerce' ),
@@ -58,7 +58,34 @@ class Alg_WC_MPPU_Settings_Admin extends Alg_WC_MPPU_Settings_Section {
 			),
 			array(
 				'type' => 'sectionend',
-				'id'   => 'alg_wc_mppu_sales_data_options',
+				'id'   => 'alg_wc_mppu_product_sales_data_options',
+			),
+		);
+
+		$term_sales_data_opts = array(
+			array(
+				'title' => __( 'Term sales data', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'  => __( 'See sales data from categories and tags.', 'maximum-products-per-user-for-woocommerce' ),
+				'type'  => 'title',
+				'id'    => 'alg_wc_mppu_term_sales_data_options',
+			),
+			array(
+				'title'    => __( 'Sales data', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Enable sales data on term pages', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_enable_term_sales_data',
+				'default'  => 'yes',
+				'type'     => 'checkbox',
+			),
+			array(
+				'title'    => __( 'AJAX', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => __( 'Load sales data using AJAX', 'maximum-products-per-user-for-woocommerce' ),
+				'id'       => 'alg_wc_mppu_enable_term_sales_data_via_ajax',
+				'default'  => 'yes',
+				'type'     => 'checkbox',
+			),
+			array(
+				'type' => 'sectionend',
+				'id'   => 'alg_wc_mppu_term_sales_data_options',
 			),
 		);
 
@@ -188,6 +215,7 @@ class Alg_WC_MPPU_Settings_Admin extends Alg_WC_MPPU_Settings_Section {
 
 		return array_merge(
 			$product_sales_data_opts,
+			$term_sales_data_opts,
 			$users_editable_sales_data_opts,
 			$user_sales_data_export_opts,
 		);

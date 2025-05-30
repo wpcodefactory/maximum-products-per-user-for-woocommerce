@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.8
-Stable tag: 4.3.7
+Stable tag: 4.3.8
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -270,6 +270,10 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.3.8 - 30/05/2025 =
+* Dev - Admin - Added option to enable/disable sales data on term pages.
+* Dev - Admin - Added option to load sales data on term pages via AJAX.
 
 = 4.3.7 - 30/04/2025 =
 * Fix - Fixed vulnerability issue.

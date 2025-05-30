@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Reports.
  *
- * @version 4.2.3
+ * @version 4.3.8
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -16,54 +16,54 @@ class Alg_WC_MPPU_Reports {
 	/**
 	 * Constructor.
 	 *
-	 * @version 3.2.3
+	 * @version 4.3.8
 	 * @since   2.0.0
 	 */
 	function __construct() {
 		add_action( 'add_meta_boxes', array( $this, 'add_report_meta_box' ) );
-		if ( 'yes' === apply_filters( 'alg_wc_mppu_product_tag_enabled', 'no' ) ) {
-			add_action( 'product_tag_edit_form', array( $this, 'product_terms_show_data' ),   PHP_INT_MAX, 2 );
-		}
-		if ( 'yes' === apply_filters( 'alg_wc_mppu_product_cat_enabled', 'no' ) ) {
-			add_action( 'product_cat_edit_form', array( $this, 'product_terms_show_data' ),   PHP_INT_MAX, 2 );
-		}
+		add_action( 'product_tag_edit_form', array( $this, 'product_terms_show_data' ), PHP_INT_MAX, 2 );
+		add_action( 'product_cat_edit_form', array( $this, 'product_terms_show_data' ), PHP_INT_MAX, 2 );
 
-		// AJAX.
+		// Product sales data AJAX.
 		add_action( 'wp_ajax_get_mppu_product_sales_data', array( $this, 'get_product_sales_data_html_ajax' ) );
+
+		// Term sales data AJAX.
+		add_action( 'wp_ajax_get_mppu_term_sales_data', array( $this, 'get_term_sales_data_html_ajax' ) );
 	}
 
 	/**
 	 * handle_sales_data_via_js.
 	 *
-	 * @version 4.2.3
+	 * @version 4.3.8
 	 * @since   4.2.3
 	 *
 	 * @return void
 	 */
-	function handle_product_sales_data_via_js() {
-		$php_to_js = array(
+	function handle_product_sales_data_via_js( $args = null ) {
+		$php_to_js = wp_parse_args( $args, array(
 			'security' => wp_create_nonce( 'mppu-get_product_sales_data' ),
-			'action' =>'get_mppu_product_sales_data',
-		);
+			'action'   => 'get_mppu_product_sales_data',
+		) );
 		?>
 		<script>
-			jQuery(document).ready(function ($) {
+			jQuery( document ).ready( function ( $ ) {
 				let dynamicData = <?php echo wp_json_encode( $php_to_js );?>;
-				$('.button[data-action="get_mppu_product_sales_data"]').on('click', function (e) {
+				$( '.button[data-action="' + dynamicData.action + '"]' ).on( 'click', function ( e ) {
 					e.preventDefault();
-					let clickedBtn = $(this);
-					clickedBtn.find('.loading').removeClass('hide');
+					let clickedBtn = $( this );
+					clickedBtn.find( '.loading' ).removeClass( 'hide' );
 					let data = {
 						security: dynamicData.security,
 						action: dynamicData.action,
-						product_id: clickedBtn.attr('data-product_id'),
-						data_type: clickedBtn.attr('data-type'),
+						product_id: clickedBtn.attr( 'data-product_id' ),
+						term_id: clickedBtn.attr( 'data-term_id' ),
+						data_type: clickedBtn.attr( 'data-type' ),
 					};
-					jQuery.post(ajaxurl, data, function (response) {
+					jQuery.post( ajaxurl, data, function ( response ) {
 						clickedBtn.replaceWith( response.data.output );
-					});
-				});
-			});
+					} );
+				} );
+			} );
 		</script>
 		<?php
 	}
@@ -92,14 +92,58 @@ class Alg_WC_MPPU_Reports {
 	}
 
 	/**
+	 * get_term_sales_data_html_ajax.
+	 *
+	 * @version 4.3.8
+	 * @since   4.3.8
+	 *
+	 * @return void
+	 */
+	function get_term_sales_data_html_ajax() {
+		check_ajax_referer( 'mppu-get_term_sales_data', 'security' );
+		$args    = wp_parse_args( $_POST, array(
+			'data_type' => 'term',
+			'term_id'   => ''
+		) );
+		$term_id = intval( $args['term_id'] );
+		if ( ! empty( $term_id ) ) {
+			$output = $this->get_report_data_table( $term_id, false );
+			wp_send_json_success( array( 'output' => $output ) );
+		} else {
+			wp_send_json_error( array( 'output' => __( 'There was en error. Please, try again later.', 'maximum-products-per-user-for-woocommerce' ) ) );
+		}
+	}
+
+	/**
 	 * product_terms_show_data.
 	 *
-	 * @version 4.2.3
+	 * @version 4.3.8
 	 * @since   2.0.0
 	 */
 	function product_terms_show_data( $term, $taxonomy ) {
+		if ( 'yes' !== alg_wc_mppu_get_option( 'alg_wc_mppu_enable_term_sales_data', 'yes' ) ) {
+			return;
+		}
+
 		echo '<h2>' . __( 'Maximum Products per User: Sales Data', 'maximum-products-per-user-for-woocommerce' ) . '</h2>';
-		echo $this->get_report_data_table( $term->term_id, false );
+
+		if ( 'no' === alg_wc_mppu_get_option( 'alg_wc_mppu_enable_term_sales_data_via_ajax', 'yes' ) ) {
+			echo $this->get_report_data_table( $term->term_id, false );
+		} else {
+			$sales_data_btn      = new Alg_WC_MPPU_Sales_Data_Btn();
+			$sales_data_btn_html = $sales_data_btn->get_btn_html( array(
+				'style'   => 'margin-top:5px',
+				'term_id' => $term->term_id,
+				'action'  => 'get_mppu_term_sales_data',
+			) );
+			echo $sales_data_btn_html;
+			$this->handle_product_sales_data_via_js( array(
+				'security' => wp_create_nonce( 'mppu-get_term_sales_data' ),
+				'action'   => 'get_mppu_term_sales_data',
+			) );
+		}
+
+		echo $this->get_admin_product_page_styles();
 	}
 
 	/**
