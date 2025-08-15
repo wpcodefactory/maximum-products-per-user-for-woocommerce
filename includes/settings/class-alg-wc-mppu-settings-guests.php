@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Guests Settings.
  *
- * @version 3.6.7
+ * @version 4.3.9
  * @since   3.6.7
  * @author  WPFactory
  */
@@ -28,7 +28,7 @@ if ( ! class_exists( 'Alg_WC_MPPU_Settings_Guests' ) ) :
 		/**
 		 * get_settings.
 		 *
-		 * @version 3.8.8
+		 * @version 4.3.9
 		 * @since   3.6.7
 		 */
 		function get_settings() {
@@ -71,7 +71,7 @@ if ( ! class_exists( 'Alg_WC_MPPU_Settings_Guests' ) ) :
 					'desc_tip'          => sprintf( __( 'Choose "%s" if you want to block guests from buying specific products.', 'maximum-products-per-user-for-woocommerce' ), __( 'According to limit options', 'maximum-products-per-user-for-woocommerce' ) ) . '<br />' .
 					                       sprintf( __( 'In that case it will be necessary to enable the %s option on the product or taxonomy page after activating %s or %s options.', 'maximum-products-per-user-for-woocommerce' ), '"' . __( 'Block guests', 'maximum-products-per-user-for-woocommerce' ) . '"', '"' . __( 'Per product', 'maximum-products-per-user-for-woocommerce' ) . '"', '"' . __( 'Per product taxonomy', 'maximum-products-per-user-for-woocommerce' ) . '"' ),
 					'id'                => 'alg_wc_mppu_block_guests_method',
-					'default'           => array( 'all_products' ),
+					'default'           => 'all_products',
 					'type'              => 'select',
 					'class'             => 'chosen_select',
 					'options'           => array(
@@ -96,15 +96,16 @@ if ( ! class_exists( 'Alg_WC_MPPU_Settings_Guests' ) ) :
 					'id'                => 'alg_wc_mppu_block_guests_custom_add_to_cart_btn_txt_enable',
 					'custom_attributes' => apply_filters( 'alg_wc_mppu_settings', array( 'disabled' => 'disabled' ) ),
 					'default'           => 'no',
-					'checkboxgroup'    => 'start',
+					'checkboxgroup'     => 'start',
 					'type'              => 'checkbox',
 				),
 				array(
-					'desc'             => __( 'Change add to cart button text from blocked variations', 'maximum-products-per-user-for-woocommerce' ),
-					'id'               => 'alg_wc_mppu_block_guests_custom_add_to_cart_btn_txt_variations',
-					'default'          => 'no',
-					'checkboxgroup'    => 'end',
-					'type'             => 'checkbox',
+					'desc'              => __( 'Change add to cart button text from blocked variations', 'maximum-products-per-user-for-woocommerce' ),
+					'id'                => 'alg_wc_mppu_block_guests_custom_add_to_cart_btn_txt_variations',
+					'custom_attributes' => apply_filters( 'alg_wc_mppu_settings', array( 'disabled' => 'disabled' ) ),
+					'default'           => 'no',
+					'checkboxgroup'     => 'end',
+					'type'              => 'checkbox',
 				),
 				array(
 					'desc'     => __( 'Custom add to cart button text', 'maximum-products-per-user-for-woocommerce' ),

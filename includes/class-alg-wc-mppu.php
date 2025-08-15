@@ -24,7 +24,7 @@ if ( ! class_exists( 'Alg_WC_MPPU' ) ) :
 		 * @since 1.0.0
 		 * @var   string
 		 */
-		public $version = '4.3.8';
+		public $version = '4.3.9';
 
 		/**
 		 * @since 1.0.0
@@ -85,7 +85,7 @@ if ( ! class_exists( 'Alg_WC_MPPU' ) ) :
 		/**
 		 * Initializer.
 		 *
-		 * @version 4.2.9
+		 * @version 4.3.9
 		 * @since   3.9.6
 		 * @access  public
 		 */
@@ -98,7 +98,7 @@ if ( ! class_exists( 'Alg_WC_MPPU' ) ) :
 			$this->add_cross_selling_library();
 
 			// Move WC Settings tab to WPFactory menu.
-			$this->move_wc_settings_tab_to_wpfactory_menu();
+			add_action( 'init', array( $this, 'move_wc_settings_tab_to_wpfactory_menu' ) );
 
 			// Adds compatibility with HPOS.
 			add_action( 'before_woocommerce_init', function () {
@@ -143,7 +143,7 @@ if ( ! class_exists( 'Alg_WC_MPPU' ) ) :
 		/**
 		 * move_wc_settings_tab_to_wpfactory_submenu.
 		 *
-		 * @version 4.2.9
+		 * @version 4.3.9
 		 * @since   4.2.9
 		 *
 		 * @return void
@@ -156,7 +156,13 @@ if ( ! class_exists( 'Alg_WC_MPPU' ) ) :
 			$wpf_admin_menu = \WPFactory\WPFactory_Admin_Menu\WPFactory_Admin_Menu::get_instance();
 			$wpf_admin_menu->move_wc_settings_tab_to_wpfactory_menu( array(
 				'wc_settings_tab_id' => 'alg_wc_mppu',
-				'menu_title'         => __( 'Max Products per User', 'amount-left-free-shipping-woocommerce' ),
+				'menu_title'         => __( 'Max Products per User', 'maximum-products-per-user-for-woocommerce' ),
+				'page_title'         => __( 'Maximum Products per User for WooCommerce', 'maximum-products-per-user-for-woocommerce' ),
+				'plugin_icon' => array(
+					'get_url_method'    => 'wporg_plugins_api',
+					'wporg_plugin_slug' => 'maximum-products-per-user-for-woocommerce',
+					'style'             => 'margin-left:-4px',
+				)
 			) );
 		}
 

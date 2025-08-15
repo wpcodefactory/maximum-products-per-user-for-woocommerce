@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmu
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.8
-Stable tag: 4.3.8
+Stable tag: 4.3.9
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -270,6 +270,13 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.3.9 - 15/08/2025 =
+* Fix - Guests - Block method - Changed default value from array to string to prevent guests from buying products.
+* Dev - Updated Math Expression library to 2.2.3.
+* Dev - Updated WPFactory Admin Menu library to 1.0.8.
+* Dev - Updated WPFactory Key Manager library to 1.0.7.
+* WC tested up to: 10.1.
 
 = 4.3.8 - 30/05/2025 =
 * Dev - Admin - Added option to enable/disable sales data on term pages.
