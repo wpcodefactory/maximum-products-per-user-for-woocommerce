@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Sales data button.
  *
- * @version 4.3.8
+ * @version 4.4.0
  * @since   4.2.3
  * @author  WPFactory
  */
@@ -65,7 +65,7 @@ if ( ! class_exists( 'Alg_WC_MPPU_Sales_Data_Btn' ) ) {
 		/**
 		 * get_btn_html.
 		 *
-		 * @version 4.3.8
+		 * @version 4.4.0
 		 * @since   4.2.3
 		 *
 		 * @param $args
@@ -76,6 +76,7 @@ if ( ! class_exists( 'Alg_WC_MPPU_Sales_Data_Btn' ) ) {
 			$args = wp_parse_args( $args, array(
 				'user_id'    => '',
 				'product_id' => '',
+				'term_id'    => '',
 				'action'     => '',
 				'type'       => '',
 				'style'      => '',

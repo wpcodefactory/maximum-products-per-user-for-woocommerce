@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.3.9\n"
+"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-16T01:17:30+02:00\n"
+"POT-Creation-Date: 2025-09-11T03:16:17+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -66,20 +66,30 @@ msgstr ""
 msgid "Term \"%s\" updated from user %s."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1171
+#: includes/class-alg-wc-mppu-core.php:1180
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:89
 msgid "You need to register to buy products."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1653
-#: includes/class-alg-wc-mppu-shortcodes.php:51
+#: includes/class-alg-wc-mppu-core.php:1665
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:108
+msgid "You can only buy maximum %limit% of %term_name% (you've already bought %bought%)."
+msgstr ""
+
+#: includes/class-alg-wc-mppu-core.php:1666
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:109
+msgid "You can only buy maximum %limit% of %term_name%."
+msgstr ""
+
+#: includes/class-alg-wc-mppu-core.php:1672
+#: includes/class-alg-wc-mppu-shortcodes.php:51
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:130
 msgid "You can only buy maximum %limit% of %product_title% (you've already bought %bought%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1654
+#: includes/class-alg-wc-mppu-core.php:1673
 #: includes/class-alg-wc-mppu-shortcodes.php:52
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:109
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:131
 msgid "You can only buy maximum %limit% of %product_title%."
 msgstr ""
 
@@ -123,7 +133,7 @@ msgid "Task took %s second(s)."
 msgstr ""
 
 #: includes/class-alg-wc-mppu-my-account.php:116
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:228
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:250
 msgid "Product limits"
 msgstr ""
 
@@ -193,7 +203,7 @@ msgstr ""
 msgid "Orders Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-sales-data-btn.php:105
+#: includes/class-alg-wc-mppu-sales-data-btn.php:106
 msgid "Show sales data"
 msgstr ""
 
@@ -202,7 +212,7 @@ msgid "The remaining amount is %remaining% (you've already bought %bought% out o
 msgstr ""
 
 #: includes/class-alg-wc-mppu-shortcodes.php:145
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:178
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:200
 msgid "The remaining amount for %product_title% is %remaining% (you've already bought %bought% out of %limit%)."
 msgstr ""
 
@@ -462,7 +472,7 @@ msgid "Enable it if the results are taking too long to be retrieved or if you ar
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-admin.php:134
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:192
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:214
 msgid "Variations"
 msgstr ""
 
@@ -820,7 +830,7 @@ msgid "Validate on add to cart"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-formula.php:117
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:132
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:154
 #: includes/settings/class-alg-wc-mppu-settings-general.php:175
 msgid "Block checkout page"
 msgstr ""
@@ -876,7 +886,7 @@ msgid "Shows notice on the cart page."
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:82
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:167
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:189
 msgid "Disable"
 msgstr ""
 
@@ -893,7 +903,7 @@ msgid "Ignored unless \"%s\" option is set to \"%s\"."
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:96
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:168
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:190
 msgid "Notice"
 msgstr ""
 
@@ -906,158 +916,165 @@ msgid "Success"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:102
-msgid "Customer message"
+msgid "Customer message for each category and tag"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:103
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:175
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:244
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:125
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:197
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:266
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:85
 msgid "You can use HTML and/or shortcodes here."
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:104
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:176
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:226
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:245
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:126
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:198
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:248
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:267
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:86
 msgid "E.g.: %s."
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:113
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:135
 msgid "Available %s shortcode params:"
 msgstr ""
 
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:124
+msgid "Customer message for each product"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:146
 msgid "Multiple notices"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:125
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:147
 msgid "Display cart & checkout notices for each product"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:126
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:148
 msgid "If disabled, only one message will be displayed for the first product."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:133
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:155
 msgid "Stop customer from accessing the checkout page on exceeded limits"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:134
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:156
 msgid "Customer will be redirected to the cart page."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:140
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:162
 msgid "Additional validation actions."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:140
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:162
 msgid "For example, use %s to validate the limits on checkout update."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:141
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:163
 msgid "WordPress action hooks used to validate the limits."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:142
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:164
 msgid "Use one per line."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:154
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:160
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:176
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:182
 msgid "Product limit message"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:155
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:177
 msgid "Adds current product limit info to the single product page."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:161
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:183
 msgid "Adds current product limit info to the single product pages."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:169
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:191
 msgid "Text in product summary"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:170
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:192
 msgid "Text in product description"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:174
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:196
 msgid "Message content"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:184
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:206
 msgid "Condition"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:185
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:207
 msgid "The condition to display the message."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:186
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:208
 msgid "Ex:"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:193
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:215
 msgid "Show limit message for variations"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:194
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:216
 msgid "Probably you'd like to have %s option enabled."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:194
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:216
 msgid "General > Use variations"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:206
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:228
 msgid "My account tab"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:211
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:233
 msgid "Enable tab"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:212
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:234
 msgid "Add tab to \"My Account\" page"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:218
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:240
 msgid "Tab id"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:224
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:246
 msgid "Tab title"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:225
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:247
 msgid "You can use shortcodes here."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:233
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:255
 msgid "Tab icon"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:234
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:256
 msgid "You need to enter icon code here, e.g. %s. Icon codes are available on %s site."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:237
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:259
 msgid "Will use the default icon if empty."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:243
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:265
 msgid "Tab content"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:246
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:268
 msgid "You can use %s parameter as %s on %s shortcode in order to get tags."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:247
+#: includes/settings/class-alg-wc-mppu-settings-frontend.php:269
 msgid "Useful shortcodes:"
 msgstr ""
 

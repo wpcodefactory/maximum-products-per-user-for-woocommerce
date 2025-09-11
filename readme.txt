@@ -1,9 +1,9 @@
 === Maximum Products per User for WooCommerce ===
-Contributors: wpcodefactory, omardabbas, karzin, anbinder, algoritmika, kousikmukherjeeli
+Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.8
-Stable tag: 4.3.9
+Stable tag: 4.4.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -270,6 +270,11 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.4.0 - 10/09/2025 =
+* Fix - Product taxonomy limit issue resolved.
+* Fix - Undefined array key term_id on `\includes\class-alg-wc-mppu-sales-data-btn.php `.
+* Dev - Frontend - Customer message for each category and tag - field added.
 
 = 4.3.9 - 15/08/2025 =
 * Fix - Guests - Block method - Changed default value from array to string to prevent guests from buying products.
