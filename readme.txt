@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.8
-Stable tag: 4.4.0
+Stable tag: 4.4.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -270,6 +270,11 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.4.1 - 24/11/2025 =
+* Dev - Updated Cross-Selling library to version 1.0.6.
+* Dev - Background Processing library replaced from WooCommerce to DeliciousBrains.
+* WC tested up to: 10.3.
 
 = 4.4.0 - 10/09/2025 =
 * Fix - Product taxonomy limit issue resolved.

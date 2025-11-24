@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Background Process.
  *
- * @version 3.6.4
+ * @version 4.4.1
  * @since   3.6.4
  *
  * @see WC_Background_Process;
@@ -13,17 +13,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
-if ( ! class_exists( 'WP_Async_Request', false ) ) {
-	include_once dirname( WC_PLUGIN_FILE ) . '/includes/libraries/wp-async-request.php';
+if ( ! class_exists( 'Alg_WC_MPPU_DeliciousBrains_Async_Request', false ) ) {
+	require_once( alg_wc_mppu()->plugin_path() . '/includes/background-process/class-alg-wc-mppu-deliciousbrains-async-request.php' );
 }
 
-if ( ! class_exists( 'WP_Background_Process', false ) ) {
-	include_once dirname( WC_PLUGIN_FILE ) . '/includes/libraries/wp-background-process.php';
+if ( ! class_exists( 'Alg_WC_MPPU_DeliciousBrains_Background_Process', false ) ) {
+	require_once( alg_wc_mppu()->plugin_path() . '/includes/background-process/class-alg-wc-mppu-deliciousbrains-background-process.php' );
 }
 
 if ( ! class_exists( 'Alg_WC_MPPU_Bkg_Process' ) ) :
 
-	class Alg_WC_MPPU_Bkg_Process extends WP_Background_Process {
+	class Alg_WC_MPPU_Bkg_Process extends Alg_WC_MPPU_DeliciousBrains_Background_Process {
 
 		protected $email_sending_params = array();
 

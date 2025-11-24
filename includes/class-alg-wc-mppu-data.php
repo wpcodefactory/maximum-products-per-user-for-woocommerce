@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Data.
  *
- * @version 4.2.6
+ * @version 4.4.1
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -266,7 +266,7 @@ class Alg_WC_MPPU_Data extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
 	 * calculate_data.
 	 *
-	 * @version 4.1.4
+	 * @version 4.4.1
 	 * @since   1.0.0
 	 * @todo    [later] `delete_quantities`: on `$do_recalculate`?
 	 * @todo    [later] recheck `date_query` arg for `wc_get_orders()`
@@ -336,7 +336,7 @@ class Alg_WC_MPPU_Data extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 							! $this->recalculate_sales_bkg_process_running
 						) {
 							$this->recalculate_sales_bkg_process_running = true;
-							$this->recalculate_sales_bkg_process->cancel_process();
+							$this->recalculate_sales_bkg_process->cancel();
 							$this->recalculate_sales_bkg_process_used = true;
 						}
 						if ( ! $loop->have_posts() ) {
@@ -372,7 +372,7 @@ class Alg_WC_MPPU_Data extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 							! $this->recalculate_sales_bkg_process_running
 						) {
 							$this->recalculate_sales_bkg_process_running = true;
-							$this->recalculate_sales_bkg_process->cancel_process();
+							$this->recalculate_sales_bkg_process->cancel();
 							$this->recalculate_sales_bkg_process_used = true;
 						}
 						if ( empty( $orders ) ) {

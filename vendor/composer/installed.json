@@ -1,6 +1,59 @@
 {
     "packages": [
         {
+            "name": "deliciousbrains/wp-background-processing",
+            "version": "1.4.0",
+            "version_normalized": "1.4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deliciousbrains/wp-background-processing.git",
+                "reference": "7ca7cc3504333db3a291bbab7f1917124fba4816"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deliciousbrains/wp-background-processing/zipball/7ca7cc3504333db3a291bbab7f1917124fba4816",
+                "reference": "7ca7cc3504333db3a291bbab7f1917124fba4816",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "phpcompatibility/phpcompatibility-wp": "*",
+                "phpunit/phpunit": "^8.0",
+                "spryker/code-sniffer": "^0.17.18",
+                "wp-coding-standards/wpcs": "^2.3",
+                "yoast/phpunit-polyfills": "^1.0"
+            },
+            "suggest": {
+                "coenjacobs/mozart": "Easily wrap this library with your own prefix, to prevent collisions when multiple plugins use this library"
+            },
+            "time": "2024-12-17T14:04:30+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "classes/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Delicious Brains",
+                    "email": "nom@deliciousbrains.com"
+                }
+            ],
+            "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks.",
+            "support": {
+                "issues": "https://github.com/deliciousbrains/wp-background-processing/issues",
+                "source": "https://github.com/deliciousbrains/wp-background-processing/tree/1.4.0"
+            },
+            "install-path": "../deliciousbrains/wp-background-processing"
+        },
+        {
             "name": "optimistex/math-expression",
             "version": "2.2.3",
             "version_normalized": "2.2.3.0",
@@ -117,17 +170,17 @@
         },
         {
             "name": "wpfactory/wpfactory-cross-selling",
-            "version": "v1.0.3",
-            "version_normalized": "1.0.3.0",
+            "version": "v1.0.6",
+            "version_normalized": "1.0.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wpcodefactory/wpfactory-cross-selling.git",
-                "reference": "d37c73013e897d3ce3db05b97046b30fdd2fd403"
+                "reference": "a371556ebb9bdadc8e5aa0f19bf7ecb5c69636c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wpcodefactory/wpfactory-cross-selling/zipball/d37c73013e897d3ce3db05b97046b30fdd2fd403",
-                "reference": "d37c73013e897d3ce3db05b97046b30fdd2fd403",
+                "url": "https://api.github.com/repos/wpcodefactory/wpfactory-cross-selling/zipball/a371556ebb9bdadc8e5aa0f19bf7ecb5c69636c5",
+                "reference": "a371556ebb9bdadc8e5aa0f19bf7ecb5c69636c5",
                 "shasum": ""
             },
             "require": {
@@ -136,7 +189,7 @@
             "require-dev": {
                 "wp-cli/wp-cli-bundle": "*"
             },
-            "time": "2024-10-31T15:55:35+00:00",
+            "time": "2025-08-19T04:45:09+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -164,7 +217,7 @@
                 ]
             },
             "support": {
-                "source": "https://github.com/wpcodefactory/wpfactory-cross-selling/tree/v1.0.3",
+                "source": "https://github.com/wpcodefactory/wpfactory-cross-selling/tree/v1.0.6",
                 "issues": "https://github.com/wpcodefactory/wpfactory-cross-selling/issues"
             },
             "install-path": "../wpfactory/wpfactory-cross-selling"

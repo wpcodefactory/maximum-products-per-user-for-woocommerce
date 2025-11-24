@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Users.
  *
- * @version 4.3.2
+ * @version 4.4.1
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -401,7 +401,7 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * update_profile_fields.
 	 *
-	 * @version 4.2.8
+	 * @version 4.4.1
 	 * @since   2.2.0
 	 * @todo    [maybe] nonce?
 	 * @todo    [maybe] maybe `floatval` (instead `intval`?)
@@ -446,7 +446,7 @@ class Alg_WC_MPPU_Users {
 					}
 				}
 			} else {
-				$this->update_user_sales_bkg_process->cancel_process();
+				$this->update_user_sales_bkg_process->cancel();
 				foreach ( $_POST['alg_wc_mppu_orders_data'] as $product_or_term => $data ) {
 					foreach ( $data as $product_or_term_id => $order_data ) {
 						$this->update_user_sales_bkg_process->push_to_queue( array(
@@ -469,7 +469,7 @@ class Alg_WC_MPPU_Users {
 	/**
 	 * calculate_terms_data_from_products_data.
 	 *
-	 * @version 3.8.6
+	 * @version 4.4.1
 	 * @since   3.8.6
 	 *
 	 * @param $user_id
@@ -484,7 +484,7 @@ class Alg_WC_MPPU_Users {
 			false !== get_user_by( 'ID', $user_id )
 		) {
 			if ( true === $this->need_to_update_terms_with_bkg_process() ) {
-				$this->update_user_terms_bkg_process->cancel_process();
+				$this->update_user_terms_bkg_process->cancel();
 			}
 			foreach ( array( 'product_cat', 'product_tag' ) as $taxonomy ) {
 				$terms = $this->get_terms_query( $taxonomy );
