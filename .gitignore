@@ -4,6 +4,5 @@ composer.json
 composer.lock
 vendor/optimistex/math-expression/tests
 vendor/optimistex/math-expression/README.md
-vendor/deliciousbrains
 includes/pro/composer.lock
 includes/pro/composer.json
