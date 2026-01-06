@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 4.3.7
+ * @version 4.4.4
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -134,7 +134,7 @@ class Alg_WC_MPPU_Shortcodes {
 	/**
 	 * current_product_limit_shortcode.
 	 *
-	 * @version 4.3.7
+	 * @version 4.4.4
 	 * @since   2.5.1
 	 * @todo    [later] different (customizable) message depending on `$remaining`
 	 */
@@ -220,9 +220,9 @@ class Alg_WC_MPPU_Shortcodes {
 		}
 		// Return message.
 		if ( empty( $output_msg ) && $atts['empty_msg_removes_template'] ) {
-			return $output_msg;
+			return wp_kses_post( $output_msg );
 		} else {
-			return str_replace( '{msg_template}', $output_msg, $atts['output_template'] );
+			return str_replace( '{msg_template}', wp_kses_post( $output_msg ), wp_kses_post( $atts['output_template'] ) );
 		}
 	}
 
