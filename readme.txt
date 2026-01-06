@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.9
-Stable tag: 4.4.2
+Stable tag: 4.4.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -245,6 +245,9 @@ WPFactory has a diverse range of plugins tailored to enhance your experience, so
 = Is it possible that the limits could work for different products at the same time instead of the same ones?
 Yes, it's possible, but it's a bit of a workaround. You'll need to assign all your products to some category or tag. After that you need to enable "**Limits > Per product category**" (or "**Limits > Per product tag**"), and then set "**Limit per user**" option for that category (or tag) in "**Products > Categories > Your category > Edit**".
 
+= Where do I report security bugs found in this plugin? =
+Please report security bugs found in the source code of the plugin through the [Patchstack Vulnerability Disclosure  Program](https://patchstack.com/database/vdp/9e5fc117-4208-4864-8cde-7cbf9ebffa56). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
+
 == Installation ==
 
 **Follow these simplified steps to get your plugin up and running:**
@@ -270,6 +273,11 @@ Yes, it's possible, but it's a bit of a workaround. You'll need to assign all yo
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.4.3 - 06/01/2026 =
+* Dev - Updated Cross-Selling library from 1.0.6 to version 1.0.9.
+* Updated readme.
+* WC tested up to: 10.4.
 
 = 4.4.2 - 08/12/2025 =
 * Fix - Fixed possible problem with the Background Processing library.

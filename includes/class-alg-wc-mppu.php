@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.3.3
+ * @version 4.4.3
  * @since   3.9.6
  * @author  WPFactory
  */
@@ -24,7 +24,7 @@ if ( ! class_exists( 'Alg_WC_MPPU' ) ) :
 		 * @since 1.0.0
 		 * @var   string
 		 */
-		public $version = '4.4.2';
+		public $version = '4.4.3';
 
 		/**
 		 * @since 1.0.0
@@ -125,7 +125,7 @@ if ( ! class_exists( 'Alg_WC_MPPU' ) ) :
 		/**
 		 * add_cross_selling_library.
 		 *
-		 * @version 4.2.9
+		 * @version 4.4.3
 		 * @since   4.2.9
 		 *
 		 * @return void
@@ -136,7 +136,13 @@ if ( ! class_exists( 'Alg_WC_MPPU' ) ) :
 			}
 			// Cross-selling library.
 			$cross_selling = new \WPFactory\WPFactory_Cross_Selling\WPFactory_Cross_Selling();
-			$cross_selling->setup( array( 'plugin_file_path'   => $this->get_filesystem_path() ) );
+			$cross_selling->setup( array(
+				'plugin_file_path'   => $this->get_filesystem_path(),
+				'recommendations_box' => array(
+					'enable'             => true,
+					'wc_settings_tab_id' => 'alg_wc_mppu',
+				),
+			) );
 			$cross_selling->init();
 		}
 
