@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.9
-Stable tag: 4.4.4
+Stable tag: 4.4.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -273,6 +273,9 @@ Please report security bugs found in the source code of the plugin through the [
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.4.5 - 05/02/2026 =
+* Fix - General - Date range - Fixed Date - Fixed Date range limits were not applied correctly.
 
 = 4.4.4 - 06/01/2026 =
 * Fix - Fixed vulnerability.

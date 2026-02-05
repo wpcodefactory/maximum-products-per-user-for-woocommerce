@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.4.0
+ * @version 4.4.5
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -1257,7 +1257,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
 	 * get_date_to_check.
 	 *
-	 * @version 4.1.5
+	 * @version 4.4.5
 	 * @since   2.4.0
 	 * @todo    [maybe] add `alg_wc_mppu_date_to_check_custom` filter
 	 * @todo    [maybe] add more predefined ranges, e.g. `last_14_days`, `last_45_days`, `last_60_days`, `MINUTE_IN_SECONDS`
@@ -1322,7 +1322,10 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 				break;
 			case 'fixed_date':
 				$fixed_date    = get_option( 'alg_wc_mppu_date_range_fixed_date', '' );
-				$date_to_check = ! empty( $fixed_date ) ? strtotime( $fixed_date ) : 0;
+
+				if ( ! empty( $fixed_date ) && $datetime_to_compare > strtotime( $fixed_date ) ) {
+					$date_to_check = $datetime_to_compare;
+				}
 				break;
 			case 'monthly':
 				$datetime_to_compare_info         = getdate( $this->get_monthly_range_origin_date( $args ) );
