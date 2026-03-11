@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.4.5
+ * @version 4.4.6
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -1257,7 +1257,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
 	 * get_date_to_check.
 	 *
-	 * @version 4.4.5
+	 * @version 4.4.6
 	 * @since   2.4.0
 	 * @todo    [maybe] add `alg_wc_mppu_date_to_check_custom` filter
 	 * @todo    [maybe] add more predefined ranges, e.g. `last_14_days`, `last_45_days`, `last_60_days`, `MINUTE_IN_SECONDS`
@@ -1321,10 +1321,9 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 				$date_to_check = ( $datetime_to_compare - $this->get_custom_date_range_in_seconds() );
 				break;
 			case 'fixed_date':
-				$fixed_date    = get_option( 'alg_wc_mppu_date_range_fixed_date', '' );
-
+				$fixed_date = get_option( 'alg_wc_mppu_date_range_fixed_date', '' );
 				if ( ! empty( $fixed_date ) && $datetime_to_compare > strtotime( $fixed_date ) ) {
-					$date_to_check = $datetime_to_compare;
+					$date_to_check = strtotime( $fixed_date );
 				}
 				break;
 			case 'monthly':
@@ -1523,7 +1522,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
 	 * get_first_order_date_exp.
 	 *
-	 * @version 3.5.7
+	 * @version 4.4.6
 	 * @since   3.2.0
 	 * @todo    [maybe] customizable date/time format
 	 * @todo    [maybe] alternative to `human_time_diff()`?
@@ -1570,8 +1569,12 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 					case 'custom':
 						$offset = $this->get_custom_date_range_in_seconds();
 						break;
+					case 'fixed_date':
+						$fixed_date = get_option( 'alg_wc_mppu_date_range_fixed_date', '' );
+						$offset     = $fixed_date ? strtotime( $fixed_date ) : 0;
+						break;
 				}
-				$offset += $first_order_date;
+				$offset += ( 'fixed_date' !== $date_range ? $first_order_date : 0 );
 			}
 			return apply_filters( 'alg_wc_mppu_get_first_order_date_exp', ( $do_timeleft ? human_time_diff( $offset, $current_time ) : date_i18n( $this->get_date_format(), $offset ) ),
 				$first_order_date, $date_range, $do_timeleft, $offset, $current_time );
