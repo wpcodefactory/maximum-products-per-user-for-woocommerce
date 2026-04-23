@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.4.6
+ * @version 4.4.7
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -133,7 +133,7 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 	/**
 	 * Constructor.
 	 *
-	 * @version 4.2.0
+	 * @version 4.4.7
 	 * @since   1.0.0
 	 * @todo    [next] split file
 	 * @todo    [next] `alg_wc_mppu_cart_notice`: `text`: customizable (and maybe multiple) positions (i.e. hooks)
@@ -209,6 +209,8 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 			add_filter( 'shortcode_atts_' . 'alg_wc_mppu_customer_msg', array( $this, 'filter_customer_message_shortcode' ) );
 			// Set bought data to zero if guest option is set as "Do nothing and block guests from purchasing products beyond the limits"
 			add_filter( 'alg_wc_mppu_user_already_bought', array( $this, 'set_guest_user_bought_to_zero' ) );
+			// Optionally use date_to_check as primary validation through the validation hook.
+			add_filter( 'alg_wc_mppu_user_already_bought_validation', array( $this, 'validate_user_already_bought_date_to_check_primary' ), 999, 2 );
 			// Last month day check.
 			add_filter( 'alg_wc_mppu_user_already_bought_validation', array( $this, 'validate_user_already_bought_monthly_range' ), 10, 2 );
 			// Manages max attribute from quantity field.
@@ -486,6 +488,34 @@ class Alg_WC_MPPU_Core extends Alg_WC_MPPU_Dynamic_Properties_Obj {
 			$validation = false;
 		}
 		return $validation;
+	}
+
+	/**
+	 * validate_user_already_bought_date_to_check_primary.
+	 *
+	 * @version 4.4.7
+	 * @since   4.4.7
+	 *
+	 * @param bool  $validation
+	 * @param array $args
+	 *
+	 * @return bool
+	 */
+	function validate_user_already_bought_date_to_check_primary( $validation, $args ) {
+		if ( 'yes' !== get_option( 'alg_wc_mppu_date_to_check_primary_validation', 'no' ) ) {
+			return $validation;
+		}
+		if ( empty( $args['date_range'] ) ) {
+			return $validation;
+		}
+		// Get the cutoff date using get_date_to_check with the actual date_range from args
+		$date_to_check = $this->get_date_to_check( array(
+			'date_range'         => $args['date_range'],
+			'product_or_term_id' => ( isset( $args['product_or_term_id'] ) ? $args['product_or_term_id'] : null ),
+			'current_user_id'    => ( isset( $args['current_user_id'] ) ? $args['current_user_id'] : null ),
+			'is_product'         => ( isset( $args['is_product'] ) ? $args['is_product'] : null ),
+		) );
+		return ( isset( $args['order_date'] ) && $args['order_date'] >= $date_to_check );
 	}
 
 	/**

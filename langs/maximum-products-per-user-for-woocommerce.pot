@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.4.6\n"
+"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.4.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-03-11T20:48:20+01:00\n"
+"POT-Creation-Date: 2026-04-23T21:56:42+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -66,28 +66,28 @@ msgstr ""
 msgid "Term \"%s\" updated from user %s."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1180
+#: includes/class-alg-wc-mppu-core.php:1210
 #: includes/settings/class-alg-wc-mppu-settings-guests.php:89
 msgid "You need to register to buy products."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1671
+#: includes/class-alg-wc-mppu-core.php:1701
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:108
 msgid "You can only buy maximum %limit% of %term_name% (you've already bought %bought%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1672
+#: includes/class-alg-wc-mppu-core.php:1702
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:109
 msgid "You can only buy maximum %limit% of %term_name%."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1678
+#: includes/class-alg-wc-mppu-core.php:1708
 #: includes/class-alg-wc-mppu-shortcodes.php:51
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:130
 msgid "You can only buy maximum %limit% of %product_title% (you've already bought %bought%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1679
+#: includes/class-alg-wc-mppu-core.php:1709
 #: includes/class-alg-wc-mppu-shortcodes.php:52
 #: includes/settings/class-alg-wc-mppu-settings-frontend.php:131
 msgid "You can only buy maximum %limit% of %product_title%."
@@ -367,7 +367,7 @@ msgstr ""
 
 #: includes/pro/class-alg-wc-mppu-orders-above-limits.php:107
 #: includes/pro/class-alg-wc-mppu-orders-above-limits.php:130
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:230
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:247
 msgid "Above limit"
 msgstr ""
 
@@ -677,73 +677,97 @@ msgstr ""
 msgid "Count by current payment method"
 msgstr ""
 
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:138
+msgid "Date to check"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:139
+msgid "Apply %s filter as primary validation"
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:141
+msgid "When enabled, the %s filter might be used to override the %s option."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:143
+msgid "Date Range"
+msgstr ""
+
 #: includes/settings/class-alg-wc-mppu-settings-advanced.php:145
+msgid "Note: "
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:147
+msgid "The filter needs to be used with priority at least %s."
+msgstr ""
+
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:162
 msgid "Background processing"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:150
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:167
 msgid "Minimum amount"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:151
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:168
 msgid "The minimum amount of results from a query in order to trigger a background processing."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:157
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:174
 msgid "Send email"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:158
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:175
 msgid "Send email when a background processing is complete"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:164
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:181
 msgid "Email to."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:165
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:182
 msgid "The email address that is going to receive the email when a background processing task is complete."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:165
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:182
 msgid "Requires the \"Send email\" option enabled in order to work."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:193
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:199
 #: includes/settings/class-alg-wc-mppu-settings-advanced.php:210
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:216
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:227
 msgid "Orders above limits"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:195
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:212
 msgid "Let users place orders that do not respect the limits."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:200
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:217
 msgid "Allow users to place orders with exceeding limits"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:201
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:218
 msgid "Notices regarding limit issues will not be displayed as errors on checkout."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:208
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:225
 msgid "Order status"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:209
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:226
 msgid "Change status from newly placed orders above limits"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:210
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:227
 msgid "Order status will only be changed if %s option is enabled."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:220
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:237
 msgid "Status used on orders above limits."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:228
+#: includes/settings/class-alg-wc-mppu-settings-advanced.php:245
 msgid "Custom order status label."
 msgstr ""
 

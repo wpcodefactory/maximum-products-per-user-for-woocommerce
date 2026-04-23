@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Advanced Section Settings.
  *
- * @version 4.1.8
+ * @version 4.4.7
  * @since   2.3.1
  * @author  WPFactory
  */
@@ -61,7 +61,7 @@ class Alg_WC_MPPU_Settings_Advanced extends Alg_WC_MPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 4.1.8
+	 * @version 4.4.7
 	 * @since   2.3.1
 	 * @todo    [maybe] `alg_wc_mppu_time_func`: remove option (i.e. always use local time)?
 	 */
@@ -131,6 +131,23 @@ class Alg_WC_MPPU_Settings_Advanced extends Alg_WC_MPPU_Settings_Section {
 						__( 'Count by current payment method', 'maximum-products-per-user-for-woocommerce' ),
 						$this->get_section_link( 'general' ) ),
 				'id'       => 'alg_wc_mppu_get_lifetime_from_totals',
+				'default'  => 'no',
+				'type'     => 'checkbox',
+			),
+			array(
+				'title'    => __( 'Date to check', 'maximum-products-per-user-for-woocommerce' ),
+				'desc'     => sprintf( __( 'Apply %s filter as primary validation', 'maximum-products-per-user-for-woocommerce' ), '<code>alg_wc_mppu_date_to_check</code>' ),
+				'desc_tip' => sprintf(
+					              __( 'When enabled, the %s filter might be used to override the %s option.', 'maximum-products-per-user-for-woocommerce' ),
+					              '<code>alg_wc_mppu_date_to_check</code>',
+					              '<strong>' . __( 'Date Range', 'maximum-products-per-user-for-woocommerce' ) . '</strong>'
+				              )
+				              . ' ' .'<strong>'.__( 'Note: ', 'maximum-products-per-user-for-woocommerce' ).'</strong>'.
+				              sprintf(
+					              __( 'The filter needs to be used with priority at least %s.', 'maximum-products-per-user-for-woocommerce' ),
+					              '<code>1000</code>',
+				              ),
+				'id'       => 'alg_wc_mppu_date_to_check_primary_validation',
 				'default'  => 'no',
 				'type'     => 'checkbox',
 			),

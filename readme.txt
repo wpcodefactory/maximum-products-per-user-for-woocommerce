@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 4.4
 Tested up to: 6.9
-Stable tag: 4.4.6
+Stable tag: 4.4.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -273,6 +273,10 @@ Please report security bugs found in the source code of the plugin through the [
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.4.7 - 23/04/2026 =
+* Dev - Advanced - Added new option "Date to check" so the "alg_wc_mppu_date_to_check" filter may be used to override date range.
+* WC tested up to: 10.7.
 
 = 4.4.6 - 11/03/2026 =
 * Fix - Frontend - Placeholders %first_order_date_exp% and %first_order_date_exp_timeleft% now show the correct time when using Fixed Date.
