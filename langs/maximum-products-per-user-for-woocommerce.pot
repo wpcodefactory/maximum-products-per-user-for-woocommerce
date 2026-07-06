@@ -2,20 +2,20 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.4.7\n"
+"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-23T21:56:42+02:00\n"
+"POT-Creation-Date: 2026-07-06T21:30:51+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
 
 #. Plugin Name of the plugin
-#: includes/settings/class-alg-wc-mppu-settings.php:104
+#: includes/settings/class-wpfmppu-settings.php:104
 msgid "Maximum Products per User for WooCommerce Pro"
 msgstr ""
 
@@ -24,7 +24,7 @@ msgid "https://wpfactory.com/item/maximum-products-per-user-for-woocommerce/"
 msgstr ""
 
 #. Description of the plugin
-#: includes/settings/class-alg-wc-mppu-settings-general.php:57
+#: includes/settings/class-wpfmppu-settings-general.php:61
 msgid "Limit number of items your WooCommerce customers can buy (lifetime or in selected date range)."
 msgstr ""
 
@@ -36,1718 +36,1855 @@ msgstr ""
 msgid "https://wpfactory.com"
 msgstr ""
 
-#: includes/background-process/class-alg-wc-mppu-delete-sales-async-request.php:45
+#. Translators: %d: Number of metadata items.
+#: includes/background-process/class-wpfmppu-delete-sales-async-request.php:46
 msgid "%d meta deleted."
 msgid_plural "%d metas deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/background-process/class-alg-wc-mppu-recalculate-sales-bkg-process.php:36
+#: includes/background-process/class-wpfmppu-deliciousbrains-background-process.php:780
+msgid "Every Minute"
+msgstr ""
+
+#. Translators: %d: Minutes.
+#: includes/background-process/class-wpfmppu-deliciousbrains-background-process.php:784
+msgid "Every %d Minutes"
+msgstr ""
+
+#: includes/background-process/class-wpfmppu-recalculate-sales-bkg-process.php:34
 msgid "Maximum Products per User - Recalculate sales data"
 msgstr ""
 
-#: includes/background-process/class-alg-wc-mppu-recalculate-sales-bkg-process.php:53
+#. Translators: %d: Order ID.
+#: includes/background-process/class-wpfmppu-recalculate-sales-bkg-process.php:53
 msgid "Order processed: %d."
 msgstr ""
 
-#: includes/background-process/class-alg-wc-mppu-update-user-sales-data-bkg-process.php:36
+#: includes/background-process/class-wpfmppu-update-user-sales-data-bkg-process.php:34
 msgid "Maximum Products per User - Update user sales data"
 msgstr ""
 
-#: includes/background-process/class-alg-wc-mppu-update-user-sales-data-bkg-process.php:53
+#. Translators: %s: Order IDs.
+#: includes/background-process/class-wpfmppu-update-user-sales-data-bkg-process.php:53
 msgid "Orders processed: %s."
 msgstr ""
 
-#: includes/background-process/class-alg-wc-mppu-update-user-terms-data-bkg-process.php:35
+#: includes/background-process/class-wpfmppu-update-user-terms-data-bkg-process.php:33
 msgid "Maximum Products per User - Update user terms data"
 msgstr ""
 
-#: includes/background-process/class-alg-wc-mppu-update-user-terms-data-bkg-process.php:52
-msgid "Term \"%s\" updated from user %s."
+#. Translators: %1$s: Term name, %2$s: User display name.
+#: includes/background-process/class-wpfmppu-update-user-terms-data-bkg-process.php:53
+msgid "Term \"%1$s\" updated from user %2$s."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1210
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:89
+#. Translators: %s: URL.
+#: includes/class-wpfmppu-core.php:1181
+#: includes/settings/class-wpfmppu-settings-guests.php:109
+msgid "Login"
+msgstr ""
+
+#: includes/class-wpfmppu-core.php:1182
+#: includes/settings/class-wpfmppu-settings-guests.php:112
 msgid "You need to register to buy products."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1701
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:108
+#. Translators: %limit%: Maximum limit, %term_name%: Term name, %bought%: Bought quantity.
+#. Translators: %limit%: Maximum limit quantity, %term_name%: Product term name, %bought%: Bought quantity.
+#: includes/class-wpfmppu-core.php:1675
+#: includes/settings/class-wpfmppu-settings-frontend.php:121
 msgid "You can only buy maximum %limit% of %term_name% (you've already bought %bought%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1702
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:109
+#. Translators: %limit%: Limit,  %term_name%: Term name.
+#. Translators: %limit%: Maximum limit quantity, %term_name%: Product term name.
+#: includes/class-wpfmppu-core.php:1677
+#: includes/settings/class-wpfmppu-settings-frontend.php:123
 msgid "You can only buy maximum %limit% of %term_name%."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1708
-#: includes/class-alg-wc-mppu-shortcodes.php:51
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:130
+#. Translators: %limit%: Maximum limit, %product_title%: Product title, %bought%: Bought quantity.
+#. Translators: %limit%: Limit quantity, %product_title%: Product title, %bought%: Bought quantity.
+#. Translators: %limit%: Maximum limit quantity, %product_title%: Product title.
+#: includes/class-wpfmppu-core.php:1684
+#: includes/class-wpfmppu-shortcodes.php:53
+#: includes/settings/class-wpfmppu-settings-frontend.php:154
 msgid "You can only buy maximum %limit% of %product_title% (you've already bought %bought%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-core.php:1709
-#: includes/class-alg-wc-mppu-shortcodes.php:52
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:131
+#. Translators: %limit%: Maximum limit,  %product_title%: Product title.
+#. Translators: %limit%: Maximum limit quantity, %product_title%: Product title.
+#: includes/class-wpfmppu-core.php:1686
+#: includes/class-wpfmppu-shortcodes.php:54
+#: includes/settings/class-wpfmppu-settings-frontend.php:156
 msgid "You can only buy maximum %limit% of %product_title%."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-data.php:173
+#. Translators: %s: Number of orders.
+#: includes/class-wpfmppu-data.php:175
 msgid "%s order processed."
 msgid_plural "%s orders processed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-alg-wc-mppu-data.php:176
+#: includes/class-wpfmppu-data.php:179
 msgid "Task running in background."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-data.php:177
+#. Translators: %s: Email address.
+#: includes/class-wpfmppu-data.php:183
 msgid "When it is complete an e-mail is going to be sent to %s."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-data.php:178
+#. Translators: %s: Number of orders.
+#: includes/class-wpfmppu-data.php:189
 msgid "%s order being processed."
 msgid_plural "%s orders being processed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-alg-wc-mppu-data.php:184
+#. Translators: %s: Number of metadata items.
+#: includes/class-wpfmppu-data.php:199
 msgid "%s meta deleted."
 msgid_plural "%s metas deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-alg-wc-mppu-data.php:189
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:118
+#: includes/class-wpfmppu-data.php:208
+#: includes/settings/class-wpfmppu-settings-tools.php:130
 msgid "Debug"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-data.php:190
+#. Translators: %s: Order IDs.
+#: includes/class-wpfmppu-data.php:211
 msgid "Orders: %s."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-data.php:193
+#. Translators: %s: Seconds.
+#: includes/class-wpfmppu-data.php:217
 msgid "Task took %s second(s)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-my-account.php:116
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:250
+#: includes/class-wpfmppu-my-account.php:120
+#: includes/settings/class-wpfmppu-settings-frontend.php:298
 msgid "Product limits"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:90
-#: includes/class-alg-wc-mppu-reports.php:113
-#: includes/class-alg-wc-mppu-users.php:1006
+#: includes/class-wpfmppu-reports.php:90
+#: includes/class-wpfmppu-reports.php:113
+#: includes/class-wpfmppu-users.php:1061
 msgid "There was en error. Please, try again later."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:128
-#: includes/class-alg-wc-mppu-reports.php:159
+#: includes/class-wpfmppu-reports.php:128
+#: includes/class-wpfmppu-reports.php:159
 msgid "Maximum Products per User: Sales Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:243
+#: includes/class-wpfmppu-reports.php:239
 msgid "Guest"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:245
+#: includes/class-wpfmppu-reports.php:241
 msgid "Guest by billing email id"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:247
+#: includes/class-wpfmppu-reports.php:243
 msgid "Guest by IP"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:264
+#. Translators: %d: Product ID.
+#: includes/class-wpfmppu-reports.php:262
 msgid "Product #%d"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:271
-#: includes/class-alg-wc-mppu-reports.php:293
-#: includes/class-alg-wc-mppu-users.php:380
+#: includes/class-wpfmppu-reports.php:271
+#: includes/class-wpfmppu-reports.php:293
+#: includes/class-wpfmppu-users.php:398
 msgid "User ID"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:272
-#: includes/class-alg-wc-mppu-reports.php:294
+#: includes/class-wpfmppu-reports.php:272
+#: includes/class-wpfmppu-reports.php:294
 msgid "User Name"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:275
-#: includes/class-alg-wc-mppu-reports.php:297
-#: includes/class-alg-wc-mppu-shortcodes.php:366
-#: includes/class-alg-wc-mppu-shortcodes.php:539
+#: includes/class-wpfmppu-reports.php:275
+#: includes/class-wpfmppu-reports.php:297
+#: includes/class-wpfmppu-shortcodes.php:382
+#: includes/class-wpfmppu-shortcodes.php:555
 msgid "Bought"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:280
+#: includes/class-wpfmppu-reports.php:280
 msgid "Lifetime Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:286
+#: includes/class-wpfmppu-reports.php:286
 msgid "No data."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:295
-#: includes/class-alg-wc-mppu-users.php:383
+#: includes/class-wpfmppu-reports.php:295
+#: includes/class-wpfmppu-users.php:401
 msgid "Order ID"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:296
+#: includes/class-wpfmppu-reports.php:296
 msgid "Order Date"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-reports.php:310
+#: includes/class-wpfmppu-reports.php:310
 msgid "Orders Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-sales-data-btn.php:106
+#: includes/class-wpfmppu-sales-data-btn.php:104
 msgid "Show sales data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:124
+#. Translators: %remaining%: Remaining quantity, %bought%: Bought quantity, %limit%: Limit quantity.
+#: includes/class-wpfmppu-shortcodes.php:131
 msgid "The remaining amount is %remaining% (you've already bought %bought% out of %limit%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:145
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:200
+#. Translators: %product_title%: Product title, %remaining%: Remaining quantity, %bought%: Bought quantity, %limit%: Limit quantity.
+#: includes/class-wpfmppu-shortcodes.php:155
+#: includes/settings/class-wpfmppu-settings-frontend.php:240
 msgid "The remaining amount for %product_title% is %remaining% (you've already bought %bought% out of %limit%)."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:257
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:204
+#: includes/class-wpfmppu-shortcodes.php:268
+#: includes/pro/settings/class-wpfmppu-settings-per-product.php:257
 msgid "Yes"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:258
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:205
+#: includes/class-wpfmppu-shortcodes.php:269
+#: includes/pro/settings/class-wpfmppu-settings-per-product.php:258
 msgid "No"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:364
-#: includes/class-alg-wc-mppu-users.php:757
+#: includes/class-wpfmppu-shortcodes.php:380
+#: includes/class-wpfmppu-users.php:798
 msgid "Product"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:365
-#: includes/class-alg-wc-mppu-shortcodes.php:538
+#: includes/class-wpfmppu-shortcodes.php:381
+#: includes/class-wpfmppu-shortcodes.php:554
 msgid "Remaining"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:367
-#: includes/class-alg-wc-mppu-shortcodes.php:540
+#: includes/class-wpfmppu-shortcodes.php:383
+#: includes/class-wpfmppu-shortcodes.php:556
 msgid "Max"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:371
+#: includes/class-wpfmppu-shortcodes.php:387
 msgid "Restrictions"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:389
-#: includes/class-alg-wc-mppu-shortcodes.php:545
+#: includes/class-wpfmppu-shortcodes.php:405
+#: includes/class-wpfmppu-shortcodes.php:561
 msgid "No data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-shortcodes.php:537
-#: includes/class-alg-wc-mppu-users.php:799
+#: includes/class-wpfmppu-shortcodes.php:553
+#: includes/class-wpfmppu-users.php:840
 msgid "Term"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:134
-#: includes/class-alg-wc-mppu-users.php:135
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:59
+#: includes/class-wpfmppu-users.php:102
+msgid "User sales data has been successfully deleted."
+msgstr ""
+
+#: includes/class-wpfmppu-users.php:136
+#: includes/class-wpfmppu-users.php:137
+#: includes/settings/class-wpfmppu-settings-tools.php:59
 msgid "Delete sales data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:212
+#: includes/class-wpfmppu-users.php:230
 msgid "The data is being processed in background. Please, reload the page in order to see the info refreshed completely."
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:381
+#: includes/class-wpfmppu-users.php:399
 msgid "Product ID"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:382
+#: includes/class-wpfmppu-users.php:400
 msgid "Product title"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:384
+#: includes/class-wpfmppu-users.php:402
 msgid "Order date"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:385
+#: includes/class-wpfmppu-users.php:403
 msgid "Order value"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:758
-#: includes/class-alg-wc-mppu-users.php:800
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:141
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:128
-#: includes/settings/class-alg-wc-mppu-settings-general.php:200
+#: includes/class-wpfmppu-users.php:799
+#: includes/class-wpfmppu-users.php:841
+#: includes/settings/class-wpfmppu-settings-admin.php:153
+#: includes/settings/class-wpfmppu-settings-advanced.php:154
+#: includes/settings/class-wpfmppu-settings-general.php:207
 msgid "Lifetime"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:759
-#: includes/class-alg-wc-mppu-users.php:801
+#: includes/class-wpfmppu-users.php:800
+#: includes/class-wpfmppu-users.php:842
 msgid "Orders"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:839
+#: includes/class-wpfmppu-users.php:880
 msgid "Export products data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:841
-#: includes/settings/class-alg-wc-mppu-settings-general.php:55
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:38
-#: includes/settings/class-alg-wc-mppu-settings.php:24
+#: includes/class-wpfmppu-users.php:882
+#: includes/pro/settings/class-wpfmppu-settings-per-product.php:38
+#: includes/settings/class-wpfmppu-settings-general.php:59
+#: includes/settings/class-wpfmppu-settings.php:24
 msgid "Maximum Products per User"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:843
+#: includes/class-wpfmppu-users.php:886
 msgid "Export Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:845
+#: includes/class-wpfmppu-users.php:893
 msgid "Products Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:921
+#: includes/class-wpfmppu-users.php:976
 msgid "Product Categories Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:921
+#: includes/class-wpfmppu-users.php:976
 msgid "Product Tags Data"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-users.php:1044
-msgid "Order #%d<br>(%s)"
+#. Translators: %1$d: Order ID, %2$s: Order date.
+#: includes/class-wpfmppu-users.php:1102
+msgid "Order #%1$d<br>(%2$s)"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-week-days.php:62
+#: includes/class-wpfmppu-week-days.php:60
 msgid "Sunday"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-week-days.php:63
+#: includes/class-wpfmppu-week-days.php:61
 msgid "Monday"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-week-days.php:64
+#: includes/class-wpfmppu-week-days.php:62
 msgid "Tuesday"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-week-days.php:65
+#: includes/class-wpfmppu-week-days.php:63
 msgid "Wednesday"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-week-days.php:66
+#: includes/class-wpfmppu-week-days.php:64
 msgid "Thursday"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-week-days.php:67
+#: includes/class-wpfmppu-week-days.php:65
 msgid "Friday"
 msgstr ""
 
-#: includes/class-alg-wc-mppu-week-days.php:68
+#: includes/class-wpfmppu-week-days.php:66
 msgid "Saturday"
 msgstr ""
 
-#: includes/class-alg-wc-mppu.php:165
+#: includes/class-wpfmppu.php:164
 msgid "Max Products per User"
 msgstr ""
 
-#: includes/class-alg-wc-mppu.php:166
+#: includes/class-wpfmppu.php:165
 msgid "Maximum Products per User for WooCommerce"
 msgstr ""
 
-#: includes/class-alg-wc-mppu.php:253
+#: includes/class-wpfmppu.php:237
+#: includes/class-wpfmppu.php:238
+msgid "Settings"
+msgstr ""
+
+#: includes/class-wpfmppu.php:242
 msgid "Go Pro"
 msgstr ""
 
-#: includes/pro/class-alg-wc-mppu-orders-above-limits.php:107
-#: includes/pro/class-alg-wc-mppu-orders-above-limits.php:130
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:247
+#: includes/pro/class-wpfmppu-orders-above-limits.php:107
+#: includes/pro/class-wpfmppu-orders-above-limits.php:130
+#: includes/settings/class-wpfmppu-settings-advanced.php:286
 msgid "Above limit"
 msgstr ""
 
-#: includes/pro/class-alg-wc-mppu-pro.php:294
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:113
+#: includes/pro/class-wpfmppu-pro.php:323
+#: includes/settings/class-wpfmppu-settings-guests.php:136
 msgid "Login to purchase"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:25
-#: includes/settings/class-alg-wc-mppu-settings-section.php:81
-msgid "Admin"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:40
-msgid "Product sales data"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:41
-msgid "See sales data from products on the %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:41
-msgid "admin product page"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:46
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:73
-msgid "Sales data"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:47
-msgid "Enable sales data on product page"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:53
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:80
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:126
-msgid "AJAX"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:54
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:81
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:127
-msgid "Load sales data using AJAX"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:67
-msgid "Term sales data"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:68
-msgid "See sales data from categories and tags."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:74
-msgid "Enable sales data on term pages"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:94
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:100
-msgid "User's sales data"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:95
-msgid "Manage sales data from users on the %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:95
-msgid "profile page"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:101
-msgid "Display user's sales data"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:102
-msgid "This option is necessary for all of the options below."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:108
-msgid "Delete sales button"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:109
-msgid "Add a button to delete user's sales data"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:115
-msgid "User email type used to delete the user's sales."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:119
-msgid "User email"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:120
-msgid "Customer billing email"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:128
-msgid "Enable it if the results are taking too long to be retrieved or if you are experiencing timeout errors."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:134
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:214
-msgid "Variations"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:135
-msgid "Show variations even if %s option is disabled"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:135
-msgid "Use Variations"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:142
-msgid "Automatically update lifetime column from orders column"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:143
-msgid "Lifetime column won't be editable anymore."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:150
-msgid "Empty items"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:151
-msgid "Add \"Lifetime\" column for products/terms with no sales data"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:158
-msgid "Terms data"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:159
-msgid "Automatically calculate terms data from products data"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:160
-msgid "Tags and categories data won't be editable anymore."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:173
-msgid "User sales data export options"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:175
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:189
-msgid "Export sales data for all users"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:180
-msgid "Export"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:181
-msgid "Column separator"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:187
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:196
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:204
-msgid "Merge user"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:188
-msgid "Output all user's data in a single line"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:189
-msgid "Used in \"%s\" tool."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:195
-msgid "Data separator"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:196
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:204
-msgid "Ignored unless \"%s\" option is enabled."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:202
-msgid "Extra meta"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-admin.php:203
-msgid "Use comma separated values."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:24
-#: includes/settings/class-alg-wc-mppu-settings-section.php:83
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:70
-msgid "Advanced"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:72
-msgid "Advanced Options"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:77
-msgid "Time function"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:83
-msgid "Coordinated Universal Time (UTC)"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:84
-msgid "Local (WordPress) time"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:88
-msgid "Time offset"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:89
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:97
-msgid "Use a <a href=\"%s\" target=\"_blank\">date/time</a> string."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:89
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:97
-msgid "Examples:"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:90
-msgid "Compensates the date used on the Date Range option. It's used on the %s filter."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:96
-msgid "Current time offset"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:98
-msgid "Compensates the current time. It's used on the %s filter."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:99
-msgid "If used with the %s option, it should reflect the difference of days starting on Monday."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:99
-msgid "General > Weeks starts on"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:100
-msgid "Example: If the %s is set as Thursday, it should be set as %s"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:100
-msgid "Weeks starts on"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:100
-msgid "- 3 days"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:106
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:107
-msgid "Exclude products"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:116
-msgid "Duplicate product"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:117
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:125
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:47
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:83
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:90
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:45
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:88
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:109
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:118
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:119
-msgid "Enable"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:118
-msgid "Enable this if you want to copy plugin's product meta data on product \"Duplicate\"."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:124
-msgid "Lifetime from totals"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:126
-msgid "Ignored unless \"%s\" is set to \"%s\" in \"%s\" section."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:127
-#: includes/settings/class-alg-wc-mppu-settings-general.php:194
-msgid "Date range"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:130
-msgid "Enabling this may make \"user already bought\" data calculations faster, however, it will also disable some functionality, like \"%s\" option in \"%s\" section."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:131
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:112
-#: includes/settings/class-alg-wc-mppu-settings-general.php:171
-msgid "Count by current payment method"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:138
-msgid "Date to check"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:139
-msgid "Apply %s filter as primary validation"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:141
-msgid "When enabled, the %s filter might be used to override the %s option."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:143
-msgid "Date Range"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:145
-msgid "Note: "
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:147
-msgid "The filter needs to be used with priority at least %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:162
-msgid "Background processing"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:167
-msgid "Minimum amount"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:168
-msgid "The minimum amount of results from a query in order to trigger a background processing."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:174
-msgid "Send email"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:175
-msgid "Send email when a background processing is complete"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:181
-msgid "Email to."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:182
-msgid "The email address that is going to receive the email when a background processing task is complete."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:182
-msgid "Requires the \"Send email\" option enabled in order to work."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:210
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:216
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:227
-msgid "Orders above limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:212
-msgid "Let users place orders that do not respect the limits."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:217
-msgid "Allow users to place orders with exceeding limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:218
-msgid "Notices regarding limit issues will not be displayed as errors on checkout."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:225
-msgid "Order status"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:226
-msgid "Change status from newly placed orders above limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:227
-msgid "Order status will only be changed if %s option is enabled."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:237
-msgid "Status used on orders above limits."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-advanced.php:245
-msgid "Custom order status label."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:24
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:54
-#: includes/settings/class-alg-wc-mppu-settings-section.php:79
-msgid "Formula"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:40
-msgid "Limits by Formula"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:41
-msgid "This section introduces an alternative method for setting limits."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:46
-msgid "Limits by formula"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:55
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:71
-msgid "One shortcode per line."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:66
-msgid "Notes"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:68
-msgid "You need to use %s shortcode here."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:73
-msgid "Algorithm stops when first matching shortcode is found (from top to bottom)."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:75
-msgid "Available shortcode attributes: %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:93
-msgid "%s attribute is required."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:96
-msgid "You need to enable \"%s\" checkbox in \"%s\" section to use %s attributes."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:97
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:72
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:87
-msgid "Per product"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:106
-msgid "You need to enable \"%s\" and/or \"%s\" checkbox in \"%s\" section to use %s attribute."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:107
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:117
-msgid "Per product category"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:107
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:108
-msgid "Per product tag"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:111
-msgid "You need to enable \"%s\" checkbox in \"%s\" section to use %s attribute."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:115
-#: includes/settings/class-alg-wc-mppu-settings-general.php:173
-msgid "You may also want to disable \"%s\" and \"%s\" options in the \"%s\" section, so your customer could change the payment method on exceeded limits."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:116
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:68
-#: includes/settings/class-alg-wc-mppu-settings-general.php:174
-msgid "Validate on add to cart"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:117
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:154
-#: includes/settings/class-alg-wc-mppu-settings-general.php:175
-msgid "Block checkout page"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:120
-msgid "You can not use %s (or %s) and %s simultaneously in one shortcode."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:125
-msgid "You can set shortcode effective date(s) with %s (and %s) attributes."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:129
-msgid "You can only use %s combined with %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:141
-msgid "Examples"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:144
-msgid "Sets maximum limit to %s for users %s and %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-formula.php:147
-msgid "Sets maximum limit to %s for products %s and %s for users %s and %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:24
-#: includes/settings/class-alg-wc-mppu-settings-section.php:80
-msgid "Frontend"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:44
-msgid "Frontend Options"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:65
-msgid "Available message placeholders: %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:69
-msgid "Validate limits immediately when \"add to cart\" button is pressed"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:75
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:90
-msgid "Cart notice"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:76
-msgid "Shows notice on the cart page."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:82
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:189
-msgid "Disable"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:84
-msgid "As text"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:88
-msgid "Cart notice type"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:89
-msgid "Ignored unless \"%s\" option is set to \"%s\"."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:96
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:190
-msgid "Notice"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:97
-msgid "Error"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:98
-msgid "Success"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:102
-msgid "Customer message for each category and tag"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:103
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:125
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:197
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:266
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:85
-msgid "You can use HTML and/or shortcodes here."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:104
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:126
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:198
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:248
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:267
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:86
-msgid "E.g.: %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:113
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:135
-msgid "Available %s shortcode params:"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:124
-msgid "Customer message for each product"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:146
-msgid "Multiple notices"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:147
-msgid "Display cart & checkout notices for each product"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:148
-msgid "If disabled, only one message will be displayed for the first product."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:155
-msgid "Stop customer from accessing the checkout page on exceeded limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:156
-msgid "Customer will be redirected to the cart page."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:162
-msgid "Additional validation actions."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:162
-msgid "For example, use %s to validate the limits on checkout update."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:163
-msgid "WordPress action hooks used to validate the limits."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:164
-msgid "Use one per line."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:176
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:182
-msgid "Product limit message"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:177
-msgid "Adds current product limit info to the single product page."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:183
-msgid "Adds current product limit info to the single product pages."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:191
-msgid "Text in product summary"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:192
-msgid "Text in product description"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:196
-msgid "Message content"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:206
-msgid "Condition"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:207
-msgid "The condition to display the message."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:208
-msgid "Ex:"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:215
-msgid "Show limit message for variations"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:216
-msgid "Probably you'd like to have %s option enabled."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:216
-msgid "General > Use variations"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:228
-msgid "My account tab"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:233
-msgid "Enable tab"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:234
-msgid "Add tab to \"My Account\" page"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:240
-msgid "Tab id"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:246
-msgid "Tab title"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:247
-msgid "You can use shortcodes here."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:255
-msgid "Tab icon"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:256
-msgid "You need to enter icon code here, e.g. %s. Icon codes are available on %s site."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:259
-msgid "Will use the default icon if empty."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:265
-msgid "Tab content"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:268
-msgid "You can use %s parameter as %s on %s shortcode in order to get tags."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-frontend.php:269
-msgid "Useful shortcodes:"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:24
-#: includes/settings/class-alg-wc-mppu-settings-section.php:77
-msgid "General"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:46
-msgid "General options"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:48
-msgid "While data is recalculated automatically (but only after the plugin was enabled), you can also force manual recalculation by running %s tool."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:49
-#: includes/settings/class-alg-wc-mppu-settings-section.php:133
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:45
-msgid "Recalculate sales data"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:50
-msgid "This is useful on initial plugin install (i.e. to calculate sales data from before the plugin was enabled)."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:56
-msgid "Enable plugin"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:63
-#: includes/settings/class-alg-wc-mppu-settings-general.php:64
-msgid "Mode"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:70
-msgid "Product quantities"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:71
-msgid "Product orders"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:72
-msgid "Product prices (incl. tax)"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:73
-msgid "Product prices (excl. tax)"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:74
-msgid "Product weights"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:75
-msgid "Product volumes"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:79
-#: includes/settings/class-alg-wc-mppu-settings-general.php:82
-msgid "Order statuses"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:80
-msgid "Choose order statuses when product data should be updated."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:81
-msgid "If you select multiple order statuses, data is updated only once, on whichever status change occurs first."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:90
-msgid "Order statuses: Delete"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:91
-msgid "Choose order statuses when product data should be deleted."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:92
-msgid "If you select multiple order statuses, data is deleted only once, on whichever status change occurs first."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:100
-#: includes/settings/class-alg-wc-mppu-settings-general.php:103
-msgid "Payment gateways"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:101
-msgid "Choose payment gateways when product data should be updated."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:102
-msgid "Leave empty to update data for all payment gateways."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:111
-msgid "Refunds"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:112
-msgid "Deduct partial refunds from user limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:118
-msgid "Quantity input"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:119
-msgid "Set a maximum value for the product quantity field based on its current limit"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:125
-msgid "Add to cart button"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:126
-msgid "Disable product purchase if its limit has been reached for the current user"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:132
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:196
-msgid "Use variations"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:133
-msgid "Use variations in \"All products\" and \"Per product\" calculations."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:134
-msgid "If \"Limits > Per Product\" section is enabled, you will be able to (optionally) override this option for each individual product."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:140
-msgid "User roles"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:141
-msgid "Set different limits for different user roles"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:147
-msgid "Enabled user roles"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:148
-msgid "Select user roles for which you want to set different limits. If empty, then all user roles will be added to the settings."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:156
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:131
-msgid "Hide products"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:157
-msgid "Hide products with exceeded limits from the catalog"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:164
-msgid "Hide products with exceeded limits from search and direct links"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:172
-msgid "Count \"user already bought\" data for current (i.e. chosen) payment method only"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:189
-msgid "Date range options"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:201
-msgid "This hour"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:202
-msgid "This day"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:203
-#: includes/settings/class-alg-wc-mppu-settings-general.php:263
-msgid "This week"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:204
-msgid "This month"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:205
-msgid "This year"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:206
-msgid "Last hour"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:207
-msgid "Last 24 hours"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:208
-msgid "Last 7 days"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:209
-msgid "Last 30 days"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:210
-msgid "Last 365 days"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:211
-msgid "Custom range"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:212
-#: includes/settings/class-alg-wc-mppu-settings-general.php:242
-msgid "Fixed date"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:213
-#: includes/settings/class-alg-wc-mppu-settings-general.php:250
-msgid "Monthly"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:217
-#: includes/settings/class-alg-wc-mppu-settings-general.php:227
-msgid "Custom date range"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:218
-msgid "In %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:219
-msgid "Used when \"Custom\" option is selected in \"Date range\"."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:226
-msgid "Custom date range unit."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:227
-msgid "Used for the \"%s\" option."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:233
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:97
-msgid "seconds"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:234
-msgid "minutes"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:235
-msgid "hours"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:236
-msgid "days"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:237
-msgid "weeks"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:241
-msgid "Fixed date range"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:242
-#: includes/settings/class-alg-wc-mppu-settings-general.php:250
-#: includes/settings/class-alg-wc-mppu-settings-general.php:263
-msgid "Used with the \"%s\" date range option."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:249
-msgid "Origin date"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:251
-msgid "If the user register date is %s, the limits would be reset monthly, like: %s and so on, always on day 15th."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:252
-msgid "The free version will only work with the \"User register date\" option."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:256
-msgid "User register date"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:257
-msgid "MemberPress subscription date"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:262
-msgid "Week starts on"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:264
-msgid "Should be used along with the \"%s\" option."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:264
-msgid "Advanced > Current time offset"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:278
-#: includes/settings/class-alg-wc-mppu-settings-general.php:283
-#: includes/settings/class-alg-wc-mppu-settings-general.php:285
-msgid "Multi-language"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:284
-msgid "Use the default language product/term ID instead of the translated one."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:291
-msgid "Disabled"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:292
-msgid "WPML"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:293
-msgid "Polylang"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:297
-msgid "Limit checking"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-general.php:298
-msgid "Use product ID from default language when checking product limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:24
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:44
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:66
-msgid "Guests"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:38
-msgid "Guest users options"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:40
-msgid "Options regarding how non-logged users (i.e. guests) should be handled by the plugin."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:49
-msgid "Do nothing (i.e. do not track guests sales)"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:50
-msgid "Do nothing but block guests from purchasing products beyond the limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:51
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:64
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:66
-msgid "Block guests from buying products"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:52
-msgid "Identify guests by IP address"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:53
-msgid "Identify guests by checkout billing email address ( N.B: It will work at the time of checkout )"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:66
-msgid "This whole section will only make sense if %s option is set as %s."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:70
-msgid "Block method"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:71
-msgid "Choose \"%s\" if you want to block guests from buying specific products."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:71
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:79
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:173
-#: includes/settings/class-alg-wc-mppu-settings-per-term.php:54
-msgid "According to limit options"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:72
-msgid "In that case it will be necessary to enable the %s option on the product or taxonomy page after activating %s or %s options."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:72
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:167
-#: includes/settings/class-alg-wc-mppu-settings-per-term.php:54
-msgid "Block guests"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:72
-msgid "Per product taxonomy"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:78
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:39
-msgid "All Products"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:84
-msgid "Block message"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:94
-msgid "Add to cart text"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:95
-msgid "Change add to cart button text from blocked products"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:103
-msgid "Change add to cart button text from blocked variations"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:111
-msgid "Custom add to cart button text"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:117
-msgid "Add to cart redirect"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:118
-msgid "Redirect after clicking on an add to cart button from a blocked product"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:125
-msgid "Redirect URL"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:132
-msgid "Hides products from the catalog and search results. Products will still be accessible via the direct links."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-guests.php:133
-msgid "Hide products blocked from guest users"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:24
-#: includes/settings/class-alg-wc-mppu-settings-section.php:78
-msgid "Limits"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:44
-msgid "All products"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:51
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:63
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:157
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:180
-#: includes/settings/class-alg-wc-mppu-settings-per-term.php:48
-#: includes/settings/class-alg-wc-mppu-settings-per-term.php:76
+#: includes/pro/settings/class-wpfmppu-settings-per-product.php:205
+#: includes/pro/settings/class-wpfmppu-settings-per-product.php:233
+#: includes/pro/settings/class-wpfmppu-settings-per-term.php:50
+#: includes/pro/settings/class-wpfmppu-settings-per-term.php:100
+#: includes/settings/class-wpfmppu-settings-limits.php:51
+#: includes/settings/class-wpfmppu-settings-limits.php:63
 msgid "Limit per user"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:52
-msgid "Maximum allowed each product's limit per user."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:64
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:186
-msgid "If set to zero - \"Limit per user\" option will be used."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:82
-msgid "Per Product"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:89
-msgid "This will add new meta box to each product's edit page."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:103
-msgid "Per Product Taxonomy"
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:110
-msgid "This will add new meta box to each product tag term's edit page."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-limits.php:119
-msgid "This will add new meta box to each product category term's edit page."
-msgstr ""
-
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:162
+#: includes/pro/settings/class-wpfmppu-settings-per-product.php:210
 msgid "If set to zero, and \"All Products\" section is enabled - global limit will be used; in case if \"All Products\" section is disabled - no limit will be used."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:172
-#: includes/settings/class-alg-wc-mppu-settings-per-term.php:64
+#: includes/pro/settings/class-wpfmppu-settings-per-product.php:215
+#: includes/pro/settings/class-wpfmppu-settings-per-term.php:62
+#: includes/settings/class-wpfmppu-settings-guests.php:84
+msgid "Block guests"
+msgstr ""
+
+#: includes/pro/settings/class-wpfmppu-settings-per-product.php:220
+#: includes/pro/settings/class-wpfmppu-settings-per-term.php:84
 msgid "Block guests from purchasing"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:173
-#: includes/settings/class-alg-wc-mppu-settings-per-term.php:54
-msgid "It's necessary to set %s option as %s"
+#. Translators: %1$s: Option name, %2$s: Option value.
+#. Translators: %1$s: option name, %2$s: option value.
+#: includes/pro/settings/class-wpfmppu-settings-per-product.php:223
+#: includes/pro/settings/class-wpfmppu-settings-per-term.php:66
+msgid "It's necessary to set %1$s option as %2$s"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:173
-#: includes/settings/class-alg-wc-mppu-settings-per-term.php:54
+#: includes/pro/settings/class-wpfmppu-settings-per-product.php:224
+#: includes/pro/settings/class-wpfmppu-settings-per-term.php:67
 msgid "General > Block method"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:203
+#: includes/pro/settings/class-wpfmppu-settings-per-product.php:225
+#: includes/pro/settings/class-wpfmppu-settings-per-term.php:68
+#: includes/settings/class-wpfmppu-settings-guests.php:79
+#: includes/settings/class-wpfmppu-settings-guests.php:94
+msgid "According to limit options"
+msgstr ""
+
+#: includes/pro/settings/class-wpfmppu-settings-per-product.php:239
+#: includes/settings/class-wpfmppu-settings-limits.php:64
+msgid "If set to zero - \"Limit per user\" option will be used."
+msgstr ""
+
+#: includes/pro/settings/class-wpfmppu-settings-per-product.php:249
+#: includes/settings/class-wpfmppu-settings-general.php:136
+msgid "Use variations"
+msgstr ""
+
+#: includes/pro/settings/class-wpfmppu-settings-per-product.php:256
 msgid "Default"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-per-product.php:207
+#: includes/pro/settings/class-wpfmppu-settings-per-product.php:260
 msgid "\"Update\" the product after you change this option."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-section.php:82
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:24
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:39
+#: includes/settings/class-wpfmppu-settings-admin.php:25
+#: includes/settings/class-wpfmppu-settings-section.php:88
+msgid "Admin"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:40
+msgid "Product sales data"
+msgstr ""
+
+#. Translators: %s: Admin Product page text.
+#: includes/settings/class-wpfmppu-settings-admin.php:43
+msgid "See sales data from products on the %s."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:44
+msgid "admin product page"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:50
+#: includes/settings/class-wpfmppu-settings-admin.php:77
+msgid "Sales data"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:51
+msgid "Enable sales data on product page"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:57
+#: includes/settings/class-wpfmppu-settings-admin.php:84
+#: includes/settings/class-wpfmppu-settings-admin.php:134
+msgid "AJAX"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:58
+#: includes/settings/class-wpfmppu-settings-admin.php:85
+#: includes/settings/class-wpfmppu-settings-admin.php:135
+msgid "Load sales data using AJAX"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:71
+msgid "Term sales data"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:72
+msgid "See sales data from categories and tags."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:78
+msgid "Enable sales data on term pages"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:98
+#: includes/settings/class-wpfmppu-settings-admin.php:108
+msgid "User's sales data"
+msgstr ""
+
+#. Translators: %s: Link.
+#: includes/settings/class-wpfmppu-settings-admin.php:101
+msgid "Manage sales data from users on the %s."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:102
+msgid "profile page"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:109
+msgid "Display user's sales data"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:110
+msgid "This option is necessary for all of the options below."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:116
+msgid "Delete sales button"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:117
+msgid "Add a button to delete user's sales data"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:123
+msgid "User email type used to delete the user's sales."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:127
+msgid "User email"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:128
+msgid "Customer billing email"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:136
+msgid "Enable it if the results are taking too long to be retrieved or if you are experiencing timeout errors."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:142
+#: includes/settings/class-wpfmppu-settings-frontend.php:254
+msgid "Variations"
+msgstr ""
+
+#. Translators: %s: Option name.
+#: includes/settings/class-wpfmppu-settings-admin.php:145
+msgid "Show variations even if %s option is disabled"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:146
+msgid "Use Variations"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:154
+msgid "Automatically update lifetime column from orders column"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:155
+msgid "Lifetime column won't be editable anymore."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:162
+msgid "Empty items"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:163
+msgid "Add \"Lifetime\" column for products/terms with no sales data"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:170
+msgid "Terms data"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:171
+msgid "Automatically calculate terms data from products data"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:172
+msgid "Tags and categories data won't be editable anymore."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:185
+msgid "User sales data export options"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:187
+#: includes/settings/class-wpfmppu-settings-admin.php:204
+msgid "Export sales data for all users"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:192
+msgid "Export"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:193
+msgid "Column separator"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:199
+#: includes/settings/class-wpfmppu-settings-admin.php:215
+#: includes/settings/class-wpfmppu-settings-admin.php:227
+msgid "Merge user"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:200
+msgid "Output all user's data in a single line"
+msgstr ""
+
+#. Translators: %s: Export button text.
+#: includes/settings/class-wpfmppu-settings-admin.php:203
+msgid "Used in \"%s\" tool."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:211
+msgid "Data separator"
+msgstr ""
+
+#. Translators: %s: Option name.
+#: includes/settings/class-wpfmppu-settings-admin.php:214
+#: includes/settings/class-wpfmppu-settings-admin.php:226
+msgid "Ignored unless \"%s\" option is enabled."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:222
+msgid "Extra meta"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-admin.php:223
+msgid "Use comma separated values."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:24
+#: includes/settings/class-wpfmppu-settings-section.php:90
+#: includes/settings/class-wpfmppu-settings-tools.php:70
+msgid "Advanced"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:72
+msgid "Advanced Options"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:77
+msgid "Time function"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:83
+msgid "Coordinated Universal Time (UTC)"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:84
+msgid "Local (WordPress) time"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:88
+msgid "Time offset"
+msgstr ""
+
+#. Translators: %s: URL.
+#: includes/settings/class-wpfmppu-settings-advanced.php:91
+#: includes/settings/class-wpfmppu-settings-advanced.php:107
+msgid "Use a <a href=\"%s\" target=\"_blank\">date/time</a> string."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:93
+#: includes/settings/class-wpfmppu-settings-advanced.php:109
+msgid "Examples:"
+msgstr ""
+
+#. Translators: %s: Filter hook.
+#: includes/settings/class-wpfmppu-settings-advanced.php:96
+msgid "Compensates the date used on the Date Range option. It's used on the %s filter."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:104
+msgid "Current time offset"
+msgstr ""
+
+#. Translators: %s: Filter hook.
+#: includes/settings/class-wpfmppu-settings-advanced.php:112
+msgid "Compensates the current time. It's used on the %s filter."
+msgstr ""
+
+#. Translators: %s: Option name.
+#: includes/settings/class-wpfmppu-settings-advanced.php:116
+msgid "If used with the %s option, it should reflect the difference of days starting on Monday."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:117
+msgid "General > Weeks starts on"
+msgstr ""
+
+#. Translators: %1$s: Option name, %2$s: Option value.
+#: includes/settings/class-wpfmppu-settings-advanced.php:121
+msgid "Example: If the %1$s is set as Thursday, it should be set as %2$s"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:122
+msgid "Weeks starts on"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:123
+msgid "- 3 days"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:130
+#: includes/settings/class-wpfmppu-settings-advanced.php:131
+msgid "Exclude products"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:140
+msgid "Duplicate product"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:141
+#: includes/settings/class-wpfmppu-settings-advanced.php:149
+#: includes/settings/class-wpfmppu-settings-formula.php:47
+#: includes/settings/class-wpfmppu-settings-frontend.php:86
+#: includes/settings/class-wpfmppu-settings-frontend.php:96
+#: includes/settings/class-wpfmppu-settings-limits.php:45
+#: includes/settings/class-wpfmppu-settings-limits.php:88
+#: includes/settings/class-wpfmppu-settings-limits.php:109
+#: includes/settings/class-wpfmppu-settings-limits.php:118
+#: includes/settings/class-wpfmppu-settings-tools.php:131
+msgid "Enable"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:142
+msgid "Enable this if you want to copy plugin's product meta data on product \"Duplicate\"."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:148
+msgid "Lifetime from totals"
+msgstr ""
+
+#. Translators: %1$s: Option name, %2$s: Option value, %3$s: Link.
+#: includes/settings/class-wpfmppu-settings-advanced.php:152
+msgid "Ignored unless \"%1$s\" is set to \"%2$s\" in \"%3$s\" section."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:153
+#: includes/settings/class-wpfmppu-settings-general.php:201
+msgid "Date range"
+msgstr ""
+
+#. Translators: %1$s: Option name, %2$s: Link.
+#: includes/settings/class-wpfmppu-settings-advanced.php:159
+msgid "Enabling this may make \"user already bought\" data calculations faster, however, it will also disable some functionality, like \"%1$s\" option in \"%2$s\" section."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:160
+#: includes/settings/class-wpfmppu-settings-formula.php:130
+#: includes/settings/class-wpfmppu-settings-general.php:175
+msgid "Count by current payment method"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:168
+msgid "Date to check"
+msgstr ""
+
+#. Translators: %s: Filter hook.
+#: includes/settings/class-wpfmppu-settings-advanced.php:171
+msgid "Apply %s filter as primary validation"
+msgstr ""
+
+#. Translators: %1$s: Filter hook, %2$s: Option name.
+#: includes/settings/class-wpfmppu-settings-advanced.php:176
+msgid "When enabled, the %1$s filter might be used to override the %2$s option."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:178
+msgid "Date Range"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:179
+msgid "Note: "
+msgstr ""
+
+#. Translators: %s: Priority.
+#: includes/settings/class-wpfmppu-settings-advanced.php:182
+msgid "The filter needs to be used with priority at least %s."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:197
+msgid "Background processing"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:202
+msgid "Minimum amount"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:203
+msgid "The minimum amount of results from a query in order to trigger a background processing."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:209
+msgid "Send email"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:210
+msgid "Send email when a background processing is complete"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:216
+msgid "Email to."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:217
+msgid "The email address that is going to receive the email when a background processing task is complete."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:217
+msgid "Requires the \"Send email\" option enabled in order to work."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:245
+#: includes/settings/class-wpfmppu-settings-advanced.php:251
+#: includes/settings/class-wpfmppu-settings-advanced.php:265
+msgid "Orders above limits"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:247
+msgid "Let users place orders that do not respect the limits."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:252
+msgid "Allow users to place orders with exceeding limits"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:253
+msgid "Notices regarding limit issues will not be displayed as errors on checkout."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:260
+msgid "Order status"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:261
+msgid "Change status from newly placed orders above limits"
+msgstr ""
+
+#. Translators: %s: Option name.
+#: includes/settings/class-wpfmppu-settings-advanced.php:264
+msgid "Order status will only be changed if %s option is enabled."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:276
+msgid "Status used on orders above limits."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-advanced.php:284
+msgid "Custom order status label."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-compatibility.php:25
+msgid "Compatibility"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-compatibility.php:38
+#: includes/settings/class-wpfmppu-settings-compatibility.php:47
+msgid "Point of Sale for WooCommerce"
+msgstr ""
+
+#. Translators: %s: Plugin URL.
+#. Translators: %s: Link.
+#: includes/settings/class-wpfmppu-settings-compatibility.php:42
+#: includes/settings/class-wpfmppu-settings-compatibility.php:71
+msgid "Compatibility with %s plugin."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-compatibility.php:53
+msgid "Registers"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-compatibility.php:54
+msgid "Check limits when creating orders via registers"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-compatibility.php:67
+msgid "WPC Composite Products"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-compatibility.php:76
+msgid "WPC Composite Products for WooCommerce"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-compatibility.php:82
+#: includes/settings/class-wpfmppu-settings-guests.php:117
+msgid "Add to cart text"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-compatibility.php:83
+msgid "Change add to cart button text from blocked guest user products"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-formula.php:24
+#: includes/settings/class-wpfmppu-settings-formula.php:54
+#: includes/settings/class-wpfmppu-settings-section.php:86
+msgid "Formula"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-formula.php:40
+msgid "Limits by Formula"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-formula.php:41
+msgid "This section introduces an alternative method for setting limits."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-formula.php:46
+msgid "Limits by formula"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-formula.php:55
+#: includes/settings/class-wpfmppu-settings-formula.php:74
+msgid "One shortcode per line."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-formula.php:66
+msgid "Notes"
+msgstr ""
+
+#. Translators: %s: Shortcode.
+#: includes/settings/class-wpfmppu-settings-formula.php:70
+msgid "You need to use %s shortcode here."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-formula.php:76
+msgid "Algorithm stops when first matching shortcode is found (from top to bottom)."
+msgstr ""
+
+#. Translators: %s: Shortcode attributes.
+#: includes/settings/class-wpfmppu-settings-formula.php:80
+msgid "Available shortcode attributes: %s."
+msgstr ""
+
+#. Translators: %s: Shortcode attribute.
+#: includes/settings/class-wpfmppu-settings-formula.php:101
+msgid "%s attribute is required."
+msgstr ""
+
+#. Translators: %1$s: Option name, %2$s: Link, %3$s: Shortcode attributes.
+#: includes/settings/class-wpfmppu-settings-formula.php:107
+msgid "You need to enable \"%1$s\" checkbox in \"%2$s\" section to use %3$s attributes."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-formula.php:108
+#: includes/settings/class-wpfmppu-settings-guests.php:85
+#: includes/settings/class-wpfmppu-settings-limits.php:87
+msgid "Per product"
+msgstr ""
+
+#. Translators: %1$s: Option name, %2$s: Option name, %3$s: Link, %4$s: Shortcode attribute.
+#: includes/settings/class-wpfmppu-settings-formula.php:120
+msgid "You need to enable \"%1$s\" and/or \"%2$s\" checkbox in \"%3$s\" section to use %4$s attribute."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-formula.php:121
+#: includes/settings/class-wpfmppu-settings-limits.php:117
+msgid "Per product category"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-formula.php:122
+#: includes/settings/class-wpfmppu-settings-limits.php:108
+msgid "Per product tag"
+msgstr ""
+
+#. Translators: %1$s: Option label, %2$s: Link, %3$s: Shortcode attribute.
+#: includes/settings/class-wpfmppu-settings-formula.php:129
+msgid "You need to enable \"%1$s\" checkbox in \"%2$s\" section to use %3$s attribute."
+msgstr ""
+
+#. Translators: %1$s: Option name, %2$s: Option name, %3$s: Link.
+#: includes/settings/class-wpfmppu-settings-formula.php:136
+#: includes/settings/class-wpfmppu-settings-general.php:179
+msgid "You may also want to disable \"%1$s\" and \"%2$s\" options in the \"%3$s\" section, so your customer could change the payment method on exceeded limits."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-formula.php:137
+#: includes/settings/class-wpfmppu-settings-frontend.php:71
+#: includes/settings/class-wpfmppu-settings-general.php:180
+msgid "Validate on add to cart"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-formula.php:138
+#: includes/settings/class-wpfmppu-settings-frontend.php:184
+#: includes/settings/class-wpfmppu-settings-general.php:181
+msgid "Block checkout page"
+msgstr ""
+
+#. Translators: %1$s: Shortcode attribute, %2$s: Shortcode attributes, %3$s: Shortcode attribute.
+#: includes/settings/class-wpfmppu-settings-formula.php:144
+msgid "You can not use %1$s (or %2$s) and %3$s simultaneously in one shortcode."
+msgstr ""
+
+#. Translators: %1$s: Shortcode attributes, %2$s: Shortcode attribute.
+#: includes/settings/class-wpfmppu-settings-formula.php:152
+msgid "You can set shortcode effective date(s) with %1$s (and %2$s) attributes."
+msgstr ""
+
+#. Translators: %1$s: Shortcode attribute, %2$s: Shortcode attribute.
+#: includes/settings/class-wpfmppu-settings-formula.php:159
+msgid "You can only use %1$s combined with %2$s."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-formula.php:172
+msgid "Examples"
+msgstr ""
+
+#. Translators: %1$s: Limit value, %2$s: User ID, %3$s: User ID.
+#: includes/settings/class-wpfmppu-settings-formula.php:178
+msgid "Sets maximum limit to %1$s for users %2$s and %3$s."
+msgstr ""
+
+#. Translators: %1$s: Limit value, %2$s: Product ID, %3$s: Product ID, %4$s: User ID, %5$s: User ID.
+#: includes/settings/class-wpfmppu-settings-formula.php:187
+msgid "Sets maximum limit to %1$s for products %2$s and %3$s for users %4$s and %5$s."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:24
+#: includes/settings/class-wpfmppu-settings-section.php:87
+msgid "Frontend"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:44
+msgid "Frontend Options"
+msgstr ""
+
+#. Translators: %1$s: Placeholders.
+#: includes/settings/class-wpfmppu-settings-frontend.php:68
+msgid "Available message placeholders: %s."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:72
+msgid "Validate limits immediately when \"add to cart\" button is pressed"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:78
+#: includes/settings/class-wpfmppu-settings-frontend.php:95
+msgid "Cart notice"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:79
+msgid "Shows notice on the cart page."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:85
+#: includes/settings/class-wpfmppu-settings-frontend.php:224
+msgid "Disable"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:87
+msgid "As text"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:91
+msgid "Cart notice type"
+msgstr ""
+
+#. Translators: %1$s: Option name, %2$s: Option value.
+#: includes/settings/class-wpfmppu-settings-frontend.php:94
+msgid "Ignored unless \"%1$s\" option is set to \"%2$s\"."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:103
+#: includes/settings/class-wpfmppu-settings-frontend.php:225
+msgid "Notice"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:104
+msgid "Error"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:105
+msgid "Success"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:109
+msgid "Customer message for each category and tag"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:110
+#: includes/settings/class-wpfmppu-settings-frontend.php:143
+#: includes/settings/class-wpfmppu-settings-frontend.php:232
+#: includes/settings/class-wpfmppu-settings-frontend.php:317
+#: includes/settings/class-wpfmppu-settings-guests.php:100
+msgid "You can use HTML and/or shortcodes here."
+msgstr ""
+
+#. Translators: %s: Shortcode.
+#: includes/settings/class-wpfmppu-settings-frontend.php:113
+#: includes/settings/class-wpfmppu-settings-frontend.php:146
+#: includes/settings/class-wpfmppu-settings-frontend.php:235
+#: includes/settings/class-wpfmppu-settings-frontend.php:294
+#: includes/settings/class-wpfmppu-settings-frontend.php:320
+#: includes/settings/class-wpfmppu-settings-guests.php:103
+msgid "E.g.: %s."
+msgstr ""
+
+#. Translators: %s: Shortcode attributes.
+#. Translators: %s: Shortcode.
+#: includes/settings/class-wpfmppu-settings-frontend.php:129
+#: includes/settings/class-wpfmppu-settings-frontend.php:162
+msgid "Available %s shortcode params:"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:142
+msgid "Customer message for each product"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:176
+msgid "Multiple notices"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:177
+msgid "Display cart & checkout notices for each product"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:178
+msgid "If disabled, only one message will be displayed for the first product."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:185
+msgid "Stop customer from accessing the checkout page on exceeded limits"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:186
+msgid "Customer will be redirected to the cart page."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:192
+msgid "Additional validation actions."
+msgstr ""
+
+#. Translators: %s: Hook name.
+#: includes/settings/class-wpfmppu-settings-frontend.php:195
+msgid "For example, use %s to validate the limits on checkout update."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:198
+msgid "WordPress action hooks used to validate the limits."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:199
+msgid "Use one per line."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:211
+#: includes/settings/class-wpfmppu-settings-frontend.php:217
+msgid "Product limit message"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:212
+msgid "Adds current product limit info to the single product page."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:218
+msgid "Adds current product limit info to the single product pages."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:226
+msgid "Text in product summary"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:227
+msgid "Text in product description"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:231
+msgid "Message content"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:246
+msgid "Condition"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:247
+msgid "The condition to display the message."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:248
+msgid "Ex:"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:255
+msgid "Show limit message for variations"
+msgstr ""
+
+#. Translators: %s: Option name.
+#: includes/settings/class-wpfmppu-settings-frontend.php:258
+msgid "Probably you'd like to have %s option enabled."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:259
+msgid "General > Use variations"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:272
+msgid "My account tab"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:277
+msgid "Enable tab"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:278
+msgid "Add tab to \"My Account\" page"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:284
+msgid "Tab id"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:290
+msgid "Tab title"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:291
+msgid "You can use shortcodes here."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:303
+msgid "Tab icon"
+msgstr ""
+
+#. Translators: %1$s: Icon code, %2$s: Link.
+#: includes/settings/class-wpfmppu-settings-frontend.php:306
+msgid "You need to enter icon code here, e.g. %1$s. Icon codes are available on %2$s site."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:310
+msgid "Will use the default icon if empty."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:316
+msgid "Tab content"
+msgstr ""
+
+#. Translators: %1$s: Shortcode attribute, %2$s: Attribute value, %3$s: Shortcode.
+#: includes/settings/class-wpfmppu-settings-frontend.php:325
+msgid "You can use %1$s parameter as %2$s on %3$s shortcode in order to get tags."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-frontend.php:329
+msgid "Useful shortcodes:"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:24
+#: includes/settings/class-wpfmppu-settings-section.php:84
+msgid "General"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:46
+msgid "General options"
+msgstr ""
+
+#. Translators: %s: Link.
+#: includes/settings/class-wpfmppu-settings-general.php:51
+msgid "While data is recalculated automatically (but only after the plugin was enabled), you can also force manual recalculation by running %s tool."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:52
+#: includes/settings/class-wpfmppu-settings-section.php:145
+#: includes/settings/class-wpfmppu-settings-tools.php:45
+msgid "Recalculate sales data"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:54
+msgid "This is useful on initial plugin install (i.e. to calculate sales data from before the plugin was enabled)."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:60
+msgid "Enable plugin"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:67
+#: includes/settings/class-wpfmppu-settings-general.php:68
+msgid "Mode"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:74
+msgid "Product quantities"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:75
+msgid "Product orders"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:76
+msgid "Product prices (incl. tax)"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:77
+msgid "Product prices (excl. tax)"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:78
+msgid "Product weights"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:79
+msgid "Product volumes"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:83
+#: includes/settings/class-wpfmppu-settings-general.php:86
+msgid "Order statuses"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:84
+msgid "Choose order statuses when product data should be updated."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:85
+msgid "If you select multiple order statuses, data is updated only once, on whichever status change occurs first."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:94
+msgid "Order statuses: Delete"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:95
+msgid "Choose order statuses when product data should be deleted."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:96
+msgid "If you select multiple order statuses, data is deleted only once, on whichever status change occurs first."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:104
+#: includes/settings/class-wpfmppu-settings-general.php:107
+msgid "Payment gateways"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:105
+msgid "Choose payment gateways when product data should be updated."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:106
+msgid "Leave empty to update data for all payment gateways."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:115
+msgid "Refunds"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:116
+msgid "Deduct partial refunds from user limits"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:122
+msgid "Quantity input"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:123
+msgid "Set a maximum value for the product quantity field based on its current limit"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:129
+msgid "Add to cart button"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:130
+msgid "Disable product purchase if its limit has been reached for the current user"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:137
+msgid "Use variations in \"All products\" and \"Per product\" calculations."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:138
+msgid "If \"Limits > Per Product\" section is enabled, you will be able to (optionally) override this option for each individual product."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:144
+msgid "User roles"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:145
+msgid "Set different limits for different user roles"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:151
+msgid "Enabled user roles"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:152
+msgid "Select user roles for which you want to set different limits. If empty, then all user roles will be added to the settings."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:160
+#: includes/settings/class-wpfmppu-settings-guests.php:154
+msgid "Hide products"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:161
+msgid "Hide products with exceeded limits from the catalog"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:168
+msgid "Hide products with exceeded limits from search and direct links"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:176
+msgid "Count \"user already bought\" data for current (i.e. chosen) payment method only"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:196
+msgid "Date range options"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:208
+msgid "This hour"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:209
+msgid "This day"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:210
+#: includes/settings/class-wpfmppu-settings-general.php:293
+msgid "This week"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:211
+msgid "This month"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:212
+msgid "This year"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:213
+msgid "Last hour"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:214
+msgid "Last 24 hours"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:215
+msgid "Last 7 days"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:216
+msgid "Last 30 days"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:217
+msgid "Last 365 days"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:218
+msgid "Custom range"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:219
+#: includes/settings/class-wpfmppu-settings-general.php:260
+msgid "Fixed date"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:220
+#: includes/settings/class-wpfmppu-settings-general.php:272
+msgid "Monthly"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:224
+#: includes/settings/class-wpfmppu-settings-general.php:241
+msgid "Custom date range"
+msgstr ""
+
+#. Translators: %s: Date range unit.
+#: includes/settings/class-wpfmppu-settings-general.php:227
+msgid "In %s."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:230
+msgid "Used when \"Custom\" option is selected in \"Date range\"."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:237
+msgid "Custom date range unit."
+msgstr ""
+
+#. Translators: %s: Option name.
+#: includes/settings/class-wpfmppu-settings-general.php:240
+msgid "Used for the \"%s\" option."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:248
+#: includes/settings/class-wpfmppu-settings-tools.php:97
+msgid "seconds"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:249
+msgid "minutes"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:250
+msgid "hours"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:251
+msgid "days"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:252
+msgid "weeks"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:256
+msgid "Fixed date range"
+msgstr ""
+
+#. Translators: %s: Option value.
+#: includes/settings/class-wpfmppu-settings-general.php:259
+#: includes/settings/class-wpfmppu-settings-general.php:271
+#: includes/settings/class-wpfmppu-settings-general.php:292
+msgid "Used with the \"%s\" date range option."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:268
+msgid "Origin date"
+msgstr ""
+
+#. Translators: %1$s: Option value, %2$s: Date example.
+#: includes/settings/class-wpfmppu-settings-general.php:276
+msgid "If the user register date is %1$s, the limits would be reset monthly, like: %2$s and so on, always on day 15th."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:279
+msgid "The free version will only work with the \"User register date\" option."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:283
+msgid "User register date"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:284
+msgid "MemberPress subscription date"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:289
+msgid "Week starts on"
+msgstr ""
+
+#. Translators: %s: Option name.
+#: includes/settings/class-wpfmppu-settings-general.php:297
+msgid "Should be used along with the \"%s\" option."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:298
+msgid "Advanced > Current time offset"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:313
+#: includes/settings/class-wpfmppu-settings-general.php:318
+#: includes/settings/class-wpfmppu-settings-general.php:320
+msgid "Multi-language"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:319
+msgid "Use the default language product/term ID instead of the translated one."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:326
+msgid "Disabled"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:327
+msgid "WPML"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:328
+msgid "Polylang"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:332
+msgid "Limit checking"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-general.php:333
+msgid "Use product ID from default language when checking product limits"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:24
+#: includes/settings/class-wpfmppu-settings-guests.php:44
+#: includes/settings/class-wpfmppu-settings-guests.php:69
+msgid "Guests"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:38
+msgid "Guest users options"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:40
+msgid "Options regarding how non-logged users (i.e. guests) should be handled by the plugin."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:49
+msgid "Do nothing (i.e. do not track guests sales)"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:50
+msgid "Do nothing but block guests from purchasing products beyond the limits"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:51
+#: includes/settings/class-wpfmppu-settings-guests.php:64
+#: includes/settings/class-wpfmppu-settings-guests.php:70
+msgid "Block guests from buying products"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:52
+msgid "Identify guests by IP address"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:53
+msgid "Identify guests by checkout billing email address ( N.B: It will work at the time of checkout )"
+msgstr ""
+
+#. Translators: %1$s: Option name, %2$s: Option value.
+#: includes/settings/class-wpfmppu-settings-guests.php:68
+msgid "This whole section will only make sense if %1$s option is set as %2$s."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:75
+msgid "Block method"
+msgstr ""
+
+#. Translators: %s: Option name.
+#: includes/settings/class-wpfmppu-settings-guests.php:78
+msgid "Choose \"%s\" if you want to block guests from buying specific products."
+msgstr ""
+
+#. Translators: %1$s: Option name, %2$s: Option name, %3$s: Option name.
+#: includes/settings/class-wpfmppu-settings-guests.php:83
+msgid "In that case it will be necessary to enable the %1$s option on the product or taxonomy page after activating %2$s or %3$s options."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:86
+msgid "Per product taxonomy"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:93
+#: includes/settings/class-wpfmppu-settings-limits.php:39
+msgid "All Products"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:99
+msgid "Block message"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:118
+msgid "Change add to cart button text from blocked products"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:126
+msgid "Change add to cart button text from blocked variations"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:134
+msgid "Custom add to cart button text"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:140
+msgid "Add to cart redirect"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:141
+msgid "Redirect after clicking on an add to cart button from a blocked product"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:148
+msgid "Redirect URL"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:155
+msgid "Hides products from the catalog and search results. Products will still be accessible via the direct links."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-guests.php:156
+msgid "Hide products blocked from guest users"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-limits.php:24
+#: includes/settings/class-wpfmppu-settings-section.php:85
+msgid "Limits"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-limits.php:44
+msgid "All products"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-limits.php:52
+msgid "Maximum allowed each product's limit per user."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-limits.php:82
+msgid "Per Product"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-limits.php:89
+msgid "This will add new meta box to each product's edit page."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-limits.php:103
+msgid "Per Product Taxonomy"
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-limits.php:110
+msgid "This will add new meta box to each product tag term's edit page."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-limits.php:119
+msgid "This will add new meta box to each product category term's edit page."
+msgstr ""
+
+#: includes/settings/class-wpfmppu-settings-section.php:89
+#: includes/settings/class-wpfmppu-settings-tools.php:24
+#: includes/settings/class-wpfmppu-settings-tools.php:39
 msgid "Tools"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-section.php:120
+#. Translators: %s: Placeholders.
+#: includes/settings/class-wpfmppu-settings-section.php:129
 msgid "Placeholders: %s."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-section.php:132
-msgid "You will need to %s after changing \"%s\" option."
+#. Translators: %1$s: Link, %2$s: Option name.
+#: includes/settings/class-wpfmppu-settings-section.php:144
+msgid "You will need to %1$s after changing \"%2$s\" option."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:40
+#: includes/settings/class-wpfmppu-settings-tools.php:40
 msgid "Check the box and save settings to run the tool. Please note that there is no undo for this action."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:46
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:53
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:60
+#: includes/settings/class-wpfmppu-settings-tools.php:46
+#: includes/settings/class-wpfmppu-settings-tools.php:53
+#: includes/settings/class-wpfmppu-settings-tools.php:60
 msgid "Run"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:52
+#: includes/settings/class-wpfmppu-settings-tools.php:52
 msgid "Delete & recalculate sales data"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:71
+#: includes/settings/class-wpfmppu-settings-tools.php:71
 msgid "Advanced options for both recalculation tools."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:72
+#: includes/settings/class-wpfmppu-settings-tools.php:72
 msgid "Leave the default values if not sure."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:77
+#: includes/settings/class-wpfmppu-settings-tools.php:77
 msgid "Orders date range"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:83
+#: includes/settings/class-wpfmppu-settings-tools.php:83
 msgid "All orders"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:84
+#: includes/settings/class-wpfmppu-settings-tools.php:84
 msgid "Only orders in \"General > Date range\""
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:88
+#: includes/settings/class-wpfmppu-settings-tools.php:88
 msgid "Query block size"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:89
+#: includes/settings/class-wpfmppu-settings-tools.php:89
 msgid "How many orders to process in a single query."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:96
+#: includes/settings/class-wpfmppu-settings-tools.php:96
 msgid "Time limit"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:98
+#: includes/settings/class-wpfmppu-settings-tools.php:98
 msgid "The maximum execution time, in seconds."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:99
+#: includes/settings/class-wpfmppu-settings-tools.php:99
 msgid "If set to zero, no time limit is imposed."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:100
+#. Translators: %s: Server time limit.
+#: includes/settings/class-wpfmppu-settings-tools.php:102
 msgid "If set to minus one, server time limit (%s seconds) is used."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:107
+#: includes/settings/class-wpfmppu-settings-tools.php:111
 msgid "Loop function"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:113
+#. Translators: %s: WP_Query.
+#: includes/settings/class-wpfmppu-settings-tools.php:119
 msgid "WordPress standard (%s)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:114
+#. Translators: %s: wc_get_orders.
+#: includes/settings/class-wpfmppu-settings-tools.php:124
 msgid "WooCommerce specific (%s)"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:125
+#: includes/settings/class-wpfmppu-settings-tools.php:137
 msgid "Sales deletion options"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:126
+#: includes/settings/class-wpfmppu-settings-tools.php:138
 msgid "Delete sales using Async request"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings-tools.php:127
+#: includes/settings/class-wpfmppu-settings-tools.php:139
 msgid "Enable if you want to try to lower the time of the meta data removal by running it in a background process."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:105
+#: includes/settings/class-wpfmppu-settings.php:105
 msgid "Disabled options can be unlocked using <a href=\"%pro_version_url%\" target=\"_blank\"><strong>%pro_version_title%</strong></a>"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:106
+#: includes/settings/class-wpfmppu-settings.php:106
 msgid "Upgrade to Pro version"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:134
+#: includes/settings/class-wpfmppu-settings.php:136
 msgid "Reset Settings"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:139
+#: includes/settings/class-wpfmppu-settings.php:141
 msgid "Reset section settings"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:140
+#: includes/settings/class-wpfmppu-settings.php:142
 msgid "Reset"
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:141
+#: includes/settings/class-wpfmppu-settings.php:143
 msgid "Check the box and save changes to reset."
 msgstr ""
 
-#: includes/settings/class-alg-wc-mppu-settings.php:169
-#: includes/settings/class-alg-wc-mppu-settings.php:184
+#: includes/settings/class-wpfmppu-settings.php:172
+#: includes/settings/class-wpfmppu-settings.php:187
 msgid "Your settings have been reset."
 msgstr ""

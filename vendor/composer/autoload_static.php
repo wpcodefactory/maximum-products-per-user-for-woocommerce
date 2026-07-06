@@ -42,8 +42,6 @@ class ComposerStaticInitWPFactoryMaximumProductsPerUserForWooCommerce
         'WPFactory\\WPFactory_Cross_Selling\\Singleton' => __DIR__ . '/..' . '/wpfactory/wpfactory-cross-selling/src/php/trait-singleton.php',
         'WPFactory\\WPFactory_Cross_Selling\\WPFactory_Cross_Selling' => __DIR__ . '/..' . '/wpfactory/wpfactory-cross-selling/src/php/class-wpfactory-cross-selling.php',
         'WPFactory\\WPFactory_Cross_Selling\\WPFactory_Cross_Selling_Injector' => __DIR__ . '/..' . '/wpfactory/wpfactory-cross-selling/src/php/trait-wpfactory-cross-selling-injector.php',
-        'WP_Async_Request' => __DIR__ . '/..' . '/deliciousbrains/wp-background-processing/classes/wp-async-request.php',
-        'WP_Background_Process' => __DIR__ . '/..' . '/deliciousbrains/wp-background-processing/classes/wp-background-process.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

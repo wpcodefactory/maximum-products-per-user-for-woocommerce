@@ -1,9 +1,9 @@
 === Maximum Products per User for WooCommerce ===
 Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
-Requires at least: 4.4
+Requires at least: 5.7
 Tested up to: 7.0
-Stable tag: 4.4.8
+Stable tag: 4.5.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -273,6 +273,23 @@ Please report security bugs found in the source code of the plugin through the [
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.5.0 - 06/07/2026 =
+* Dev - Security - Improved output escaping.
+* Dev - Security - Improved input sanitization.
+* Dev - Security - Added nonce verification.
+* Dev - `wpfmppu_is_product_blocked_for_guests_by_limit_options` filter added.
+* Dev - `wpfmppu_check_quantities_guest_limits` filter added.
+* Dev - `wpfmppu_get_max_qty_for_product` filter added.
+* Dev - `wpfmppu_check_quantities_for_product_valid` filter added.
+* Dev - `wpfmppu_skip_all_products_for_product` filter added.
+* Dev - Coding standards improved.
+* Dev - Added `composer.json` file.
+* Dev - WPFactory Cross-Selling - Library updated (to v1.1.2).
+* Dev - WPFactory Admin Menu - Library updated (to v1.1.1).
+* Dev - WPFactory Key Manager - Library updated (to v1.0.8).
+* WC tested up to: 10.9.
+* Requires at least: 5.7.
 
 = 4.4.8 - 22/05/2026 =
 * Tested up to: 7.0.
