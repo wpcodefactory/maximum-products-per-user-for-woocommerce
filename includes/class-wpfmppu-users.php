@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Users.
  *
- * @version 4.5.0
+ * @version 4.5.1
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -50,7 +50,7 @@ class WPFMPPU_Users {
 	/**
 	 * Constructor.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.1
 	 * @since   2.2.0
 	 * @todo    [next] rename export functions, variables etc.
 	 * @todo    [maybe] validation: `add_action( 'user_profile_update_errors', 'user_profile_update_errors', PHP_INT_MAX, 3 ); function user_profile_update_errors( $errors, $update, $user ) {}`
@@ -64,7 +64,7 @@ class WPFMPPU_Users {
 		add_action( 'edit_user_profile_update', array( $this, 'update_profile_fields' ) );
 		add_action( 'admin_footer-profile.php', array( $this, 'handle_sales_data_via_js' ) );
 		add_action( 'admin_footer-user-edit.php', array( $this, 'handle_sales_data_via_js' ) );
-		add_action( 'wp_ajax_get_mppu_user_sales_data', array( $this, 'get_user_sales_data_html_ajax' ) );
+		add_action( 'wp_ajax_' . 'wpfmppu_get_user_sales_data', array( $this, 'get_user_sales_data_html_ajax' ) );
 		add_action( 'admin_notices', array( $this, 'show_profile_update_notices' ) );
 
 		// Exports orders data.
@@ -855,7 +855,7 @@ class WPFMPPU_Users {
 	/**
 	 * show_extra_profile_fields.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.1
 	 * @since   2.2.0
 	 */
 	function show_extra_profile_fields( $user ) {
@@ -869,7 +869,7 @@ class WPFMPPU_Users {
 		$sales_data_btn = new WPFMPPU_Sales_Data_Btn();
 		$sales_data_btn_html = $sales_data_btn->get_btn_html( array(
 			'user_id' => $user->ID,
-			'action'  => 'get_mppu_user_sales_data',
+			'action'  => 'wpfmppu_get_user_sales_data',
 			'type'    => 'product'
 		) );
 
@@ -961,7 +961,7 @@ class WPFMPPU_Users {
 	/**
 	 * get_extra_profile_fields_terms_data_table_rows.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.1
 	 * @since   3.8.6
 	 *
 	 * @param $user
@@ -977,7 +977,7 @@ class WPFMPPU_Users {
 				$sales_data_btn = new WPFMPPU_Sales_Data_Btn();
 				$sales_data_btn_html = $sales_data_btn->get_btn_html( array(
 					'user_id' => $user->ID,
-					'action'  => 'get_mppu_user_sales_data',
+					'action'  => 'wpfmppu_get_user_sales_data',
 					'type'    => $taxonomy
 				) );
 				$data_html  = false === $get_html_using_ajax ? $this->get_user_terms_data_html( $user, $taxonomy ) : $sales_data_btn_html;
@@ -991,7 +991,7 @@ class WPFMPPU_Users {
 	/**
 	 * handle_sales_data_via_js.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.1
 	 * @since   3.8.6
 	 *
 	 * @return void
@@ -1010,13 +1010,13 @@ class WPFMPPU_Users {
         <script>
             jQuery(document).ready(function ($) {
                 let data_from_php = <?php echo json_encode( $php_to_js );?>;
-                $('.button[data-action="get_mppu_user_sales_data"]').on('click', function (e) {
+                $('.button[data-action="wpfmppu_get_user_sales_data"]').on('click', function (e) {
                     e.preventDefault();
                     let clickedBtn = $(this);
                     clickedBtn.find('.loading').removeClass('hide');
                     let data = {
                         security: data_from_php.security,
-                        'action': 'get_mppu_user_sales_data',
+                        'action': 'wpfmppu_get_user_sales_data',
                         'user_id': clickedBtn.attr('data-user_id'),
                         'data_type': clickedBtn.attr('data-type'),
                     };

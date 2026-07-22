@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.5.0\n"
+"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.5.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-06T21:30:51+02:00\n"
+"POT-Creation-Date: 2026-07-23T01:11:20+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -80,26 +80,26 @@ msgid "Term \"%1$s\" updated from user %2$s."
 msgstr ""
 
 #. Translators: %s: URL.
-#: includes/class-wpfmppu-core.php:1181
+#: includes/class-wpfmppu-core.php:1203
 #: includes/settings/class-wpfmppu-settings-guests.php:109
 msgid "Login"
 msgstr ""
 
-#: includes/class-wpfmppu-core.php:1182
+#: includes/class-wpfmppu-core.php:1204
 #: includes/settings/class-wpfmppu-settings-guests.php:112
 msgid "You need to register to buy products."
 msgstr ""
 
 #. Translators: %limit%: Maximum limit, %term_name%: Term name, %bought%: Bought quantity.
 #. Translators: %limit%: Maximum limit quantity, %term_name%: Product term name, %bought%: Bought quantity.
-#: includes/class-wpfmppu-core.php:1675
+#: includes/class-wpfmppu-core.php:1704
 #: includes/settings/class-wpfmppu-settings-frontend.php:121
 msgid "You can only buy maximum %limit% of %term_name% (you've already bought %bought%)."
 msgstr ""
 
 #. Translators: %limit%: Limit,  %term_name%: Term name.
 #. Translators: %limit%: Maximum limit quantity, %term_name%: Product term name.
-#: includes/class-wpfmppu-core.php:1677
+#: includes/class-wpfmppu-core.php:1706
 #: includes/settings/class-wpfmppu-settings-frontend.php:123
 msgid "You can only buy maximum %limit% of %term_name%."
 msgstr ""
@@ -107,7 +107,7 @@ msgstr ""
 #. Translators: %limit%: Maximum limit, %product_title%: Product title, %bought%: Bought quantity.
 #. Translators: %limit%: Limit quantity, %product_title%: Product title, %bought%: Bought quantity.
 #. Translators: %limit%: Maximum limit quantity, %product_title%: Product title.
-#: includes/class-wpfmppu-core.php:1684
+#: includes/class-wpfmppu-core.php:1713
 #: includes/class-wpfmppu-shortcodes.php:53
 #: includes/settings/class-wpfmppu-settings-frontend.php:154
 msgid "You can only buy maximum %limit% of %product_title% (you've already bought %bought%)."
@@ -115,7 +115,7 @@ msgstr ""
 
 #. Translators: %limit%: Maximum limit,  %product_title%: Product title.
 #. Translators: %limit%: Maximum limit quantity, %product_title%: Product title.
-#: includes/class-wpfmppu-core.php:1686
+#: includes/class-wpfmppu-core.php:1715
 #: includes/class-wpfmppu-shortcodes.php:54
 #: includes/settings/class-wpfmppu-settings-frontend.php:156
 msgid "You can only buy maximum %limit% of %product_title%."

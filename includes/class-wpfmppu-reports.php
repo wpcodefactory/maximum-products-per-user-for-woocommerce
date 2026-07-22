@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Reports.
  *
- * @version 4.5.0
+ * @version 4.5.1
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -16,7 +16,7 @@ class WPFMPPU_Reports {
 	/**
 	 * Constructor.
 	 *
-	 * @version 4.3.8
+	 * @version 4.5.1
 	 * @since   2.0.0
 	 */
 	function __construct() {
@@ -25,24 +25,24 @@ class WPFMPPU_Reports {
 		add_action( 'product_cat_edit_form', array( $this, 'product_terms_show_data' ), PHP_INT_MAX, 2 );
 
 		// Product sales data AJAX.
-		add_action( 'wp_ajax_get_mppu_product_sales_data', array( $this, 'get_product_sales_data_html_ajax' ) );
+		add_action( 'wp_ajax_' . 'wpfmppu_get_mppu_product_sales_data', array( $this, 'get_product_sales_data_html_ajax' ) );
 
 		// Term sales data AJAX.
-		add_action( 'wp_ajax_get_mppu_term_sales_data', array( $this, 'get_term_sales_data_html_ajax' ) );
+		add_action( 'wp_ajax_' . 'wpfmppu_get_mppu_term_sales_data', array( $this, 'get_term_sales_data_html_ajax' ) );
 	}
 
 	/**
 	 * handle_sales_data_via_js.
 	 *
-	 * @version 4.3.8
+	 * @version 4.5.1
 	 * @since   4.2.3
 	 *
 	 * @return void
 	 */
 	function handle_product_sales_data_via_js( $args = null ) {
 		$php_to_js = wp_parse_args( $args, array(
-			'security' => wp_create_nonce( 'mppu-get_product_sales_data' ),
-			'action'   => 'get_mppu_product_sales_data',
+			'security' => wp_create_nonce( 'wpfmppu_get_product_sales_data' ),
+			'action'   => 'wpfmppu_get_mppu_product_sales_data',
 		) );
 		?>
 		<script>
@@ -71,13 +71,13 @@ class WPFMPPU_Reports {
 	/**
 	 * get_user_sales_data_html_ajax.
 	 *
-	 * @version 4.2.3
+	 * @version 4.5.1
 	 * @since   4.2.3
 	 *
 	 * @return void
 	 */
 	function get_product_sales_data_html_ajax() {
-		check_ajax_referer( 'mppu-get_product_sales_data', 'security' );
+		check_ajax_referer( 'wpfmppu_get_product_sales_data', 'security' );
 		$args       = wp_parse_args( $_POST, array(
 			'data_type'  => 'product',
 			'product_id' => ''
@@ -94,13 +94,13 @@ class WPFMPPU_Reports {
 	/**
 	 * get_term_sales_data_html_ajax.
 	 *
-	 * @version 4.3.8
+	 * @version 4.5.1
 	 * @since   4.3.8
 	 *
 	 * @return void
 	 */
 	function get_term_sales_data_html_ajax() {
-		check_ajax_referer( 'mppu-get_term_sales_data', 'security' );
+		check_ajax_referer( 'wpfmppu_get_term_sales_data', 'security' );
 		$args    = wp_parse_args( $_POST, array(
 			'data_type' => 'term',
 			'term_id'   => ''
@@ -117,7 +117,7 @@ class WPFMPPU_Reports {
 	/**
 	 * product_terms_show_data.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.1
 	 * @since   2.0.0
 	 */
 	function product_terms_show_data( $term, $taxonomy ) {
@@ -134,12 +134,12 @@ class WPFMPPU_Reports {
 			$sales_data_btn_html = $sales_data_btn->get_btn_html( array(
 				'style'   => 'margin-top:5px',
 				'term_id' => $term->term_id,
-				'action'  => 'get_mppu_term_sales_data',
+				'action'  => 'wpfmppu_get_mppu_term_sales_data',
 			) );
 			echo wp_kses_post( $sales_data_btn_html );
 			$this->handle_product_sales_data_via_js( array(
-				'security' => wp_create_nonce( 'mppu-get_term_sales_data' ),
-				'action'   => 'get_mppu_term_sales_data',
+				'security' => wp_create_nonce( 'wpfmppu_get_term_sales_data' ),
+				'action'   => 'wpfmppu_get_mppu_term_sales_data',
 			) );
 		}
 
@@ -187,7 +187,7 @@ class WPFMPPU_Reports {
 	/**
 	 * render_product_sales_data_meta_box.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.1
 	 * @since   4.2.3
 	 */
 	function render_product_sales_data_meta_box() {
@@ -199,7 +199,7 @@ class WPFMPPU_Reports {
 			$sales_data_btn_html = $sales_data_btn->get_btn_html( array(
 				'style'      => 'margin-top:5px',
 				'product_id' => $product_id,
-				'action'     => 'get_mppu_product_sales_data',
+				'action'     => 'wpfmppu_get_mppu_product_sales_data',
 			) );
 			echo wp_kses_post( $sales_data_btn_html );
 			$this->handle_product_sales_data_via_js();

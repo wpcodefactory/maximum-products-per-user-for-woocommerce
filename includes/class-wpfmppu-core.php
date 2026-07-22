@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Core Class.
  *
- * @version 4.5.0
+ * @version 4.5.1
  * @since   1.0.0
  * @author  WPFactory
  */
@@ -382,7 +382,7 @@ class WPFMPPU_Core extends WPFMPPU_Dynamic_Properties_Obj {
 	/**
      * get_product_remaining_qty.
      *
-	 * @version 4.5.0
+	 * @version 4.5.1
 	 * @since   3.9.9
      *
 	 * @param $args
@@ -393,24 +393,28 @@ class WPFMPPU_Core extends WPFMPPU_Dynamic_Properties_Obj {
 		$args            = wp_parse_args( $args, array(
 			'product' => ''
 		) );
-		$cached_obj_name = md5( maybe_serialize( $args ) );
+		$current_user_id = $this->get_current_user_id();
+		$product         = $args['product'];
+		$product_id      = ( is_a( $product, 'WC_Product' ) ? $product->get_id() : 0 );
+		$cached_obj_name = md5( maybe_serialize( array(
+			'product_id'      => $product_id,
+			'current_user_id' => $current_user_id,
+		) ) );
 		if ( isset( $this->products_remaining_qty[ $cached_obj_name ] ) ) {
 			return $this->products_remaining_qty[ $cached_obj_name ];
 		}
-		$product = $args['product'];
 		if ( ! is_a( $product, 'WC_Product' ) ) {
 			$this->products_remaining_qty[ $cached_obj_name ] = 0;
 
 			return 0;
 		}
-		$product_id      = $product->get_id();
-		$limit           = wpfmppu()->core->get_max_qty_for_product( $product_id );
-		$bought_data     = wpfmppu()->core->get_user_already_bought_qty( $product_id, $this->get_current_user_id(), true );
+		$limit           = $this->get_max_qty_for_product( $product_id );
+		$bought_data     = $this->get_user_already_bought_qty( $product_id, $current_user_id, true );
 		$final_remaining = 0;
 		if ( is_array( $limit ) ) {
 			$_remaining = PHP_INT_MAX;
 			foreach ( $limit as $_max_qty ) {
-				$bought_data         = wpfmppu()->core->get_user_already_bought_qty( $_max_qty['term_id'], $this->get_current_user_id(), false );
+				$bought_data         = $this->get_user_already_bought_qty( $_max_qty['term_id'], $current_user_id, false );
 				$user_already_bought = $bought_data['bought'];
 				$remaining           = $_max_qty['max_qty'] - $user_already_bought;
 				if ( $remaining < $_remaining ) {
@@ -1024,9 +1028,27 @@ class WPFMPPU_Core extends WPFMPPU_Dynamic_Properties_Obj {
 	}
 
 	/**
+	 * get_block_guests_method.
+	 *
+	 * Normalizes the option value in case it was stored as an array by chosen_select.
+	 *
+	 * @version 4.5.1
+	 * @since   4.5.1
+	 *
+	 * @return string
+	 */
+	function get_block_guests_method() {
+		$method = get_option( 'alg_wc_mppu_block_guests_method', 'all_products' );
+		if ( is_array( $method ) ) {
+			$method = reset( $method );
+		}
+		return (string) $method;
+	}
+
+	/**
 	 * is_product_blocked_for_guests.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.1
 	 * @since   3.5.1
 	 *
 	 * @param $product_id
@@ -1044,7 +1066,7 @@ class WPFMPPU_Core extends WPFMPPU_Dynamic_Properties_Obj {
 			$is_blocked = $this->product_blocked_for_guests[ $product_id ] = apply_filters( 'wpfmppu_is_product_blocked_for_guests', false, $product_id, $args );
 			return $is_blocked;
 		}
-		if ( 'all_products' === $block_method = get_option( 'alg_wc_mppu_block_guests_method', 'all_products' ) ) {
+		if ( 'all_products' === ( $block_method = $this->get_block_guests_method() ) ) {
 			$is_blocked = $this->product_blocked_for_guests[ $product_id ] = apply_filters( 'wpfmppu_is_product_blocked_for_guests', true, $product_id, $args );
 			return $is_blocked;
 		}
@@ -1397,7 +1419,7 @@ class WPFMPPU_Core extends WPFMPPU_Dynamic_Properties_Obj {
 	/**
 	 * get_user_already_bought_qty.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.1
 	 * @since   2.0.0
 	 * @todo    [next] completely remove separate `lifetime` calculation (i.e. `$this->do_get_lifetime_from_totals` always `false`)
 	 * @todo    [maybe] add option to use e.g. order date completed (instead of `date_created`)
@@ -1405,11 +1427,11 @@ class WPFMPPU_Core extends WPFMPPU_Dynamic_Properties_Obj {
 	function get_user_already_bought_qty( $product_or_term_id, $current_user_id, $is_product, $date_range = false ) {
 
 		// check if guest user register himself also.
-		
+
 		$current_user_email = '';
-		if(is_user_logged_in()){
+		if ( is_user_logged_in() ) {
 			$user = get_user_by( 'id', $current_user_id );
-			if($user){
+			if ( $user ) {
 				$current_user_email = $user->user_email;
 			}
 		}
@@ -1426,81 +1448,88 @@ class WPFMPPU_Core extends WPFMPPU_Dynamic_Properties_Obj {
 			'date_range'         => $date_range,
 		) ) );
 		if ( ! isset( $this->user_already_bought_qty_cache[ $cached_obj_name ] ) ) {
-			if ( $this->do_get_lifetime_from_totals && 'lifetime' === $date_range ) {
-				$users_quantities = $this->get_post_or_term_meta( ( $is_product ? 'product' : 'term' ), $product_or_term_id, '_alg_wc_mppu_totals_data' );
-				if ( $users_quantities && isset( $users_quantities[ $current_user_id ] ) ) {
-					$user_already_bought = $users_quantities[ $current_user_id ];
-				}
+			// Skip data lookup for unidentified guests (user_id = 0).
+			// Data stored under key 0 belongs to other unidentified guests and
+			// should not be attributed to the current guest, as there is no way
+			// to tell them apart without IP or email identification enabled.
+			if ( 0 !== $current_user_id || ( is_string( $current_user_id ) && '0' !== $current_user_id ) ) {
+				if ( $this->do_get_lifetime_from_totals && 'lifetime' === $date_range ) {
+					$users_quantities = $this->get_post_or_term_meta( ( $is_product ? 'product' : 'term' ), $product_or_term_id, '_alg_wc_mppu_totals_data' );
+					if ( $users_quantities && isset( $users_quantities[ $current_user_id ] ) ) {
+						$user_already_bought = $users_quantities[ $current_user_id ];
+					}
 
-				// check if guest user register himself also.
-				if ( $users_quantities && !empty($current_user_email) && isset( $users_quantities[ $current_user_email ] ) ) {
-					$user_already_bought = $user_already_bought + $users_quantities[ $current_user_email ];
-				}
+					// check if guest user register himself also.
+					if ( $users_quantities && ! empty( $current_user_email ) && isset( $users_quantities[ $current_user_email ] ) ) {
+						$user_already_bought = $user_already_bought + $users_quantities[ $current_user_email ];
+					}
 
-			} else {
-				$users_quantities = $this->get_post_or_term_meta( ( $is_product ? 'product' : 'term' ), $product_or_term_id, '_alg_wc_mppu_orders_data' );
-				if ( $users_quantities && isset( $users_quantities[ $current_user_id ] ) ) {
-					foreach ( $users_quantities[ $current_user_id ] as $order_id => $order_data ) {
-						$order_date = $this->get_order_date( $order_data['date_created'] );
-						if (
-							true === apply_filters( 'wpfmppu_user_already_bought_validation', true, array(
-								'order_date'         => $order_date,
-								'date_range'         => $date_range,
-								'product_or_term_id' => $product_or_term_id,
-								'current_user_id'    => $current_user_id,
-								'is_product'         => $is_product
-							) ) &&
-							$order_date >= $this->get_date_to_check( array(
-								'date_range'         => $date_range,
-								'product_or_term_id' => $product_or_term_id,
-								'current_user_id'    => $current_user_id,
-								'is_product'         => $is_product
-							) ) &&
-							apply_filters( 'wpfmppu_user_already_bought_do_count_order', true, $order_id, $order_data )
-						) {
-							$user_already_bought += $order_data['qty'];
-							if ( false === $first_order_date || $order_date < $first_order_date ) {
-								$first_order_date   = $order_date;
-								$first_order_amount = $order_data['qty'];
+				} else {
+					$users_quantities = $this->get_post_or_term_meta( ( $is_product ? 'product' : 'term' ), $product_or_term_id, '_alg_wc_mppu_orders_data' );
+					if ( $users_quantities && isset( $users_quantities[ $current_user_id ] ) ) {
+						foreach ( $users_quantities[ $current_user_id ] as $order_id => $order_data ) {
+							$order_date = $this->get_order_date( $order_data['date_created'] );
+							if (
+								true === apply_filters( 'wpfmppu_user_already_bought_validation', true, array(
+									'order_date'         => $order_date,
+									'date_range'         => $date_range,
+									'product_or_term_id' => $product_or_term_id,
+									'current_user_id'    => $current_user_id,
+									'is_product'         => $is_product
+								) ) &&
+								$order_date >= $this->get_date_to_check( array(
+									'date_range'         => $date_range,
+									'product_or_term_id' => $product_or_term_id,
+									'current_user_id'    => $current_user_id,
+									'is_product'         => $is_product
+								) ) &&
+								apply_filters( 'wpfmppu_user_already_bought_do_count_order', true, $order_id, $order_data )
+							) {
+								$user_already_bought += $order_data['qty'];
+								if ( false === $first_order_date || $order_date < $first_order_date ) {
+									$first_order_date   = $order_date;
+									$first_order_amount = $order_data['qty'];
+								}
 							}
 						}
 					}
-				}
 
-				// check if guest user register himself also.
-				if ( $users_quantities && !empty($current_user_email) && isset( $users_quantities[ $current_user_email ] ) ) {
-					foreach ( $users_quantities[ $current_user_email ] as $order_id => $order_data ) {
-						$order_date = $this->get_order_date( $order_data['date_created'] );
-						if (
-							true === apply_filters( 'wpfmppu_user_already_bought_validation', true, array(
-								'order_date'         => $order_date,
-								'date_range'         => $date_range,
-								'product_or_term_id' => $product_or_term_id,
-								'current_user_id'    => $current_user_email,
-								'is_product'         => $is_product
-							) ) &&
-							$order_date >= $this->get_date_to_check( array(
-								'date_range'         => $date_range,
-								'product_or_term_id' => $product_or_term_id,
-								'current_user_id'    => $current_user_email,
-								'is_product'         => $is_product
-							) ) &&
-							apply_filters( 'wpfmppu_user_already_bought_do_count_order', true, $order_id, $order_data )
-						) {
-							$user_already_bought += $order_data['qty'];
-							if ( false === $first_order_date || $order_date < $first_order_date ) {
-								$first_order_date   = $order_date;
-								$first_order_amount = $order_data['qty'];
+					// check if guest user register himself also.
+					if ( $users_quantities && ! empty( $current_user_email ) && isset( $users_quantities[ $current_user_email ] ) ) {
+						foreach ( $users_quantities[ $current_user_email ] as $order_id => $order_data ) {
+							$order_date = $this->get_order_date( $order_data['date_created'] );
+							if (
+								true === apply_filters( 'wpfmppu_user_already_bought_validation', true, array(
+									'order_date'         => $order_date,
+									'date_range'         => $date_range,
+									'product_or_term_id' => $product_or_term_id,
+									'current_user_id'    => $current_user_email,
+									'is_product'         => $is_product
+								) ) &&
+								$order_date >= $this->get_date_to_check( array(
+									'date_range'         => $date_range,
+									'product_or_term_id' => $product_or_term_id,
+									'current_user_id'    => $current_user_email,
+									'is_product'         => $is_product
+								) ) &&
+								apply_filters( 'wpfmppu_user_already_bought_do_count_order', true, $order_id, $order_data )
+							) {
+								$user_already_bought += $order_data['qty'];
+								if ( false === $first_order_date || $order_date < $first_order_date ) {
+									$first_order_date   = $order_date;
+									$first_order_amount = $order_data['qty'];
+								}
 							}
 						}
 					}
-				}
 
-			}
+				}
+			} // End unidentified guest check.
 			$this->user_already_bought_qty_cache[ $cached_obj_name ] = $user_already_bought;
 		} else {
 			$user_already_bought = $this->user_already_bought_qty_cache[ $cached_obj_name ];
 		}
+
 		return apply_filters( 'wpfmppu_user_already_bought', array(
 			'bought'             => ( $user_already_bought ? $user_already_bought : 0 ),
 			'first_order_date'   => $first_order_date,
@@ -1938,7 +1967,7 @@ class WPFMPPU_Core extends WPFMPPU_Dynamic_Properties_Obj {
 		if ( ! ( $current_user_id = $this->get_current_user_id() ) ) {
 			if (
 				'yes' === ( $block_guests_opt = get_option( 'alg_wc_mppu_block_guests', 'no' ) )
-				&& 'all_products' === get_option( 'alg_wc_mppu_block_guests_method', 'all_products' )
+				&& 'all_products' === $this->get_block_guests_method()
 			) {
 				if ( $do_add_notices ) {
 					$this->output_guest_notice( $is_cart );

@@ -3,7 +3,7 @@ Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 5.7
 Tested up to: 7.0
-Stable tag: 4.5.0
+Stable tag: 4.5.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -273,6 +273,12 @@ Please report security bugs found in the source code of the plugin through the [
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.5.1 - 22/07/2026 =
+* Fix - Guests - Fixed possible error with "Block guests from buying products" on some sites where the value is stored as array.
+* Fix - Guests - Fixed unidentified guests sharing purchase limits.
+* Fix - Core - `get_product_remaining_qty()` cache key now includes user ID to prevent cross-user result leaking.
+* Dev - Added prefix to AJAX action.
 
 = 4.5.0 - 06/07/2026 =
 * Dev - Security - Improved output escaping.
