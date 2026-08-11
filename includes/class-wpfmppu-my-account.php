@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - My Account.
  *
- * @version 4.5.0
+ * @version 4.5.2
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -190,16 +190,17 @@ class WPFMPPU_My_Account {
 	/**
 	 * endpoint_title.
 	 *
-	 * @version 4.0.0
+	 * @version 4.5.2
 	 * @since   2.5.0
 	 */
 	function endpoint_title( $title ) {
 		global $wp_query;
 		$is_endpoint = isset( $wp_query->query_vars[ $this->get_product_limits_tab_id() ] );
 		if ( $is_endpoint && ! is_admin() && is_main_query() && in_the_loop() && is_account_page() ) {
-			$title = $this->get_tab_title();
+			$title = esc_html( $this->get_tab_title() );
 			remove_filter( 'the_title', array( $this, 'endpoint_title' ) );
 		}
+
 		return $title;
 	}
 

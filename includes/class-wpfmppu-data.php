@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Data.
  *
- * @version 4.5.0
+ * @version 4.5.2
  * @since   2.0.0
  * @author  WPFactory
  */
@@ -310,7 +310,7 @@ class WPFMPPU_Data extends WPFMPPU_Dynamic_Properties_Obj {
 	/**
 	 * calculate_data.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.2
 	 * @since   1.0.0
 	 * @todo    [later] `delete_quantities`: on `$do_recalculate`?
 	 * @todo    [later] recheck `date_query` arg for `wc_get_orders()`
@@ -380,7 +380,9 @@ class WPFMPPU_Data extends WPFMPPU_Dynamic_Properties_Obj {
 							! $this->recalculate_sales_bkg_process_running
 						) {
 							$this->recalculate_sales_bkg_process_running = true;
-							$this->recalculate_sales_bkg_process->cancel();
+							if ( $this->recalculate_sales_bkg_process->is_active() ) {
+								$this->recalculate_sales_bkg_process->cancel();
+							}
 							$this->recalculate_sales_bkg_process_used = true;
 						}
 						if ( ! $loop->have_posts() ) {
@@ -416,7 +418,9 @@ class WPFMPPU_Data extends WPFMPPU_Dynamic_Properties_Obj {
 							! $this->recalculate_sales_bkg_process_running
 						) {
 							$this->recalculate_sales_bkg_process_running = true;
-							$this->recalculate_sales_bkg_process->cancel();
+							if ( $this->recalculate_sales_bkg_process->is_active() ) {
+								$this->recalculate_sales_bkg_process->cancel();
+							}
 							$this->recalculate_sales_bkg_process_used = true;
 						}
 						if ( empty( $orders ) ) {
@@ -448,7 +452,7 @@ class WPFMPPU_Data extends WPFMPPU_Dynamic_Properties_Obj {
 			$this->admin_notice_data['order_num'] = $total_orders;
 			$this->admin_notice_data['order_ids'] = $order_ids;
 			$this->admin_notice_data['meta_num']  = $delete_counter_meta;
-			add_action( 'woocommerce_sections_alg_wc_mppu', array( $this, 'calculate_data_notice' ) );
+			add_action( 'woocommerce_sections_' . 'wpfmppu', array( $this, 'calculate_data_notice' ) );
 		}
 	}
 

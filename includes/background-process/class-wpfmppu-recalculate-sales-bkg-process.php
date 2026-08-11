@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Background Process - Recalculate sales.
  *
- * @version 4.5.0
+ * @version 4.5.2
  * @since   3.6.4
  * @author  WPFactory
  */
@@ -20,7 +20,16 @@ if ( ! class_exists( 'WPFMPPU_Recalculate_Sales_Bkg_Process' ) ) {
 		 *
 		 * @var string
 		 */
-		protected $action = 'alg_wc_mppu_recalculate_sales_bkg_process';
+		protected $action = 'recalculate_sales_bkg_process';
+
+		/**
+		 * Prefix.
+		 *
+		 * @since 4.5.2.
+		 *
+		 * @var string
+		 */
+		protected $prefix = 'alg_wc_mppu';
 
 		/**
 		 * get_action_label.

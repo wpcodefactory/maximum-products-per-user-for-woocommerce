@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Users.
  *
- * @version 4.5.1
+ * @version 4.5.2
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -142,7 +142,7 @@ class WPFMPPU_Users {
 	/**
 	 * delete_user_sales_data_on_btn_click.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.2
 	 * @since   4.2.8
 	 *
 	 * @todo    Add Background processing to delete user sales data.
@@ -151,15 +151,11 @@ class WPFMPPU_Users {
 	 * @return void
 	 */
 	function delete_user_sales_data_on_btn_click() {
+		$user_id = isset( $_GET['user_id'] ) ? absint( $_GET['user_id'] ) : 0;
 		if (
 			! isset( $_GET['wpfmppu_action'] ) ||
 			! isset( $_GET['nonce'] ) ||
-			! isset( $_GET['user_id'] ) ||
-			! wp_verify_nonce(
-				sanitize_text_field( wp_unslash( $_GET['nonce'] ) ),
-				'wpfmppu_delete_user_sales_data'
-			) ||
-			empty( intval( $user_id = $_GET['user_id'] ) ) ||
+			empty( $user_id ) ||
 			'delete_user_sales_data' !== sanitize_text_field( wp_unslash( $_GET['wpfmppu_action'] ) ) ||
 			'yes' !== wpfmppu_get_option( 'alg_wc_mppu_delete_user_sales_btn_enabled', 'no' ) ||
 			! $this->check_current_user( $user_id ) ||
@@ -167,6 +163,7 @@ class WPFMPPU_Users {
 		) {
 			return;
 		}
+		check_admin_referer( 'wpfmppu_delete_user_sales_data', 'nonce' );
 
 		// User email type option.
 		$user_email_type = wpfmppu_get_option( 'alg_wc_mppu_delete_user_sales_email_type', 'user_email' );
@@ -311,7 +308,7 @@ class WPFMPPU_Users {
 	/**
 	 * export_orders_data.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.2
 	 * @since   3.4.0
 	 * @todo    [next] nonce (same for `export_orders_data_all_users()`)
 	 * @todo    [next] terms (same for `export_orders_data_all_users()`)
@@ -319,23 +316,27 @@ class WPFMPPU_Users {
 	 */
 	function export_orders_data() {
 		if (
-			isset( $_GET['wpfmppu_export_single_user_orders_data'] ) && // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			'yes' === wpfmppu_get_option( 'alg_wc_mppu_editable_sales_data', 'no' )
+			! isset( $_GET['wpfmppu_export_single_user_orders_data'] ) ||
+			'yes' !== wpfmppu_get_option( 'alg_wc_mppu_editable_sales_data', 'no' )
 		) {
-			$user_id = intval( $_GET['wpfmppu_export_single_user_orders_data'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			if ( ! $this->check_current_user( $user_id ) ) {
-				return false;
-			}
-			$sep = get_option( 'alg_wc_mppu_user_export_sep', ',' );
-			$csv = $this->get_export_orders_data( $user_id, $sep );
-			$this->get_file( 'maximum-products-per-user-orders-data-' . $user_id, $csv, $sep );
+			return;
 		}
+		check_admin_referer( 'wpfmppu_export_nonce' );
+
+		$user_id = absint( wp_unslash( $_GET['wpfmppu_export_single_user_orders_data'] ) );
+
+		if ( ! $this->check_current_user( $user_id ) ) {
+			return false;
+		}
+		$sep = get_option( 'alg_wc_mppu_user_export_sep', ',' );
+		$csv = $this->get_export_orders_data( $user_id, $sep );
+		$this->get_file( 'maximum-products-per-user-orders-data-' . $user_id, $csv, $sep );
 	}
 
 	/**
 	 * export_orders_data_all_users.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.2
 	 * @since   3.4.0
 	 * @see     https://developer.wordpress.org/reference/classes/wp_user_query/prepare_query/
 	 * @todo    [next] `get_users`: `offset` + `number`?
@@ -344,45 +345,48 @@ class WPFMPPU_Users {
 	 * @todo    [maybe] include data for `identify_by_ip` in result?
 	 */
 	function export_orders_data_all_users() {
-		if ( isset( $_GET['wpfmppu_export_all_users_orders_data'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			if (
-				! $this->check_current_user() ||
-				'yes' !== wpfmppu_get_option( 'alg_wc_mppu_editable_sales_data', 'no' )
-			) {
-				return false;
-			}
-			$csv      = array();
-			$sep      = get_option( 'alg_wc_mppu_user_export_sep', ',' );
-			$meta     = ( '' !== ( $_meta = get_option( 'alg_wc_mppu_user_export_meta', '' ) ) ? array_map( 'trim', explode( ',', $_meta ) ) : false );
-			$do_merge = ( 'yes' === get_option( 'alg_wc_mppu_user_export_merge_user', 'no' ) );
-			$args     = array( 'number' => -1, 'orderby' => 'ID', 'order' => 'ASC', 'count_total' => false, 'fields' => 'ID' );
-			if ( $do_merge ) {
-				$data_sep = get_option( 'alg_wc_mppu_user_export_data_sep', ';' );
-				foreach ( get_users( $args ) as $user_id ) {
-					$data = $this->get_export_orders_data( $user_id, $data_sep, true );
-					if ( ! empty( $data ) ) {
-						if ( $meta ) {
-							$user_meta = array();
-							foreach ( $meta as $key ) {
-								$user_meta[] = get_user_meta( $user_id, $key, true );
-							}
-							$user_meta = implode( $sep, $user_meta );
-							if ( '' !== $user_meta ) {
-								$user_meta .= $sep;
-							}
-						} else {
-							$user_meta = '';
-						}
-						$csv[] = $user_id . $sep . $user_meta . implode( $sep, $data );
-					}
-				}
-			} else {
-				foreach ( get_users( $args ) as $user_id ) {
-					$csv = array_merge( $csv, $this->get_export_orders_data( $user_id, $sep ) );
-				}
-			}
-			$this->get_file( 'maximum-products-per-user-orders-data', $csv, $sep, ( ! $do_merge ) );
+		if ( ! isset( $_GET['wpfmppu_export_all_users_orders_data'] ) ) {
+			return;
 		}
+		check_admin_referer( 'wpfmppu_export_nonce' );
+
+		if (
+			! $this->check_current_user() ||
+			'yes' !== wpfmppu_get_option( 'alg_wc_mppu_editable_sales_data', 'no' )
+		) {
+			return false;
+		}
+		$csv      = array();
+		$sep      = get_option( 'alg_wc_mppu_user_export_sep', ',' );
+		$meta     = ( '' !== ( $_meta = get_option( 'alg_wc_mppu_user_export_meta', '' ) ) ? array_map( 'trim', explode( ',', $_meta ) ) : false );
+		$do_merge = ( 'yes' === get_option( 'alg_wc_mppu_user_export_merge_user', 'no' ) );
+		$args     = array( 'number' => -1, 'orderby' => 'ID', 'order' => 'ASC', 'count_total' => false, 'fields' => 'ID' );
+		if ( $do_merge ) {
+			$data_sep = get_option( 'alg_wc_mppu_user_export_data_sep', ';' );
+			foreach ( get_users( $args ) as $user_id ) {
+				$data = $this->get_export_orders_data( $user_id, $data_sep, true );
+				if ( ! empty( $data ) ) {
+					if ( $meta ) {
+						$user_meta = array();
+						foreach ( $meta as $key ) {
+							$user_meta[] = get_user_meta( $user_id, $key, true );
+						}
+						$user_meta = implode( $sep, $user_meta );
+						if ( '' !== $user_meta ) {
+							$user_meta .= $sep;
+						}
+					} else {
+						$user_meta = '';
+					}
+					$csv[] = $user_id . $sep . $user_meta . implode( $sep, $data );
+				}
+			}
+		} else {
+			foreach ( get_users( $args ) as $user_id ) {
+				$csv = array_merge( $csv, $this->get_export_orders_data( $user_id, $sep ) );
+			}
+		}
+		$this->get_file( 'maximum-products-per-user-orders-data', $csv, $sep, ( ! $do_merge ) );
 	}
 
 	/**
@@ -419,9 +423,8 @@ class WPFMPPU_Users {
 	/**
 	 * update_profile_fields.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.2
 	 * @since   2.2.0
-	 * @todo    [maybe] nonce?
 	 * @todo    [maybe] maybe `floatval` (instead `intval`?)
 	 */
 	function update_profile_fields( $user_id ) {
@@ -445,12 +448,14 @@ class WPFMPPU_Users {
 			$post_totals_data = wp_unslash( $_POST['wpfmppu_totals_data'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			foreach ( $post_totals_data as $product_or_term => $data ) {
 				foreach ( $data as $product_or_term_id => $qty ) {
-					$this->update_totals_data( array(
-						'user_id'            => $user_id,
-						'product_or_term'    => $product_or_term,
-						'product_or_term_id' => $product_or_term_id,
-						'qty'                => $qty,
-					) );
+					$this->update_totals_data(
+						array(
+							'user_id'            => $user_id,
+							'product_or_term'    => sanitize_key( $product_or_term ),
+							'product_or_term_id' => absint( $product_or_term_id ),
+							'qty'                => sanitize_text_field( $qty ),
+						)
+					);
 				}
 			}
 		}
@@ -466,28 +471,38 @@ class WPFMPPU_Users {
 			if ( $iteration_count < get_option( 'alg_wc_mppu_bkg_process_min_amount', 50 ) ) {
 				foreach ( $post_orders_data as $product_or_term => $data ) {
 					foreach ( $data as $product_or_term_id => $order_data ) {
-						$this->update_orders_data( array(
-							'user_id'            => $user_id,
-							'product_or_term'    => $product_or_term,
-							'product_or_term_id' => $product_or_term_id,
-							'order_data'         => $order_data
-						) );
+						$this->update_orders_data(
+							array(
+								'user_id'            => $user_id,
+								'product_or_term'    => sanitize_key( $product_or_term ),
+								'product_or_term_id' => absint( $product_or_term_id ),
+								'order_data'         => array_map( 'sanitize_text_field', $order_data ),
+							)
+						);
 					}
 				}
 			} else {
-				$this->update_user_sales_bkg_process->cancel();
+				if ( $this->update_user_sales_bkg_process->is_active() ) {
+					$this->update_user_sales_bkg_process->cancel();
+				}
 				foreach ( $post_orders_data as $product_or_term => $data ) {
 					foreach ( $data as $product_or_term_id => $order_data ) {
-						$this->update_user_sales_bkg_process->push_to_queue( array(
-							'user_id'            => $user_id,
-							'product_or_term'    => $product_or_term,
-							'product_or_term_id' => $product_or_term_id,
-							'order_data'         => $order_data
-						) );
+						$this->update_user_sales_bkg_process->push_to_queue(
+							array(
+								'user_id'            => $user_id,
+								'product_or_term'    => sanitize_key( $product_or_term ),
+								'product_or_term_id' => absint( $product_or_term_id ),
+								'order_data'         => array_map( 'sanitize_text_field', $order_data ),
+							)
+						);
 					}
 				}
 				$this->update_user_sales_bkg_process->save()->dispatch();
-				update_user_meta( get_current_user_id(), 'alg_wc_mppu_profile_updated', array( 'method' => 'bkg_process' ) );
+				update_user_meta(
+					get_current_user_id(),
+					'alg_wc_mppu_profile_updated',
+					array( 'method' => 'bkg_process' )
+				);
 			}
 
 		}
@@ -498,7 +513,7 @@ class WPFMPPU_Users {
 	/**
 	 * calculate_terms_data_from_products_data.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.2
 	 * @since   3.8.6
 	 *
 	 * @param $user_id
@@ -523,9 +538,14 @@ class WPFMPPU_Users {
 			false !== get_user_by( 'ID', $user_id )
 		) {
 			if ( true === $this->need_to_update_terms_with_bkg_process() ) {
-				$this->update_user_terms_bkg_process->cancel();
+				if ( $this->update_user_sales_bkg_process->is_active() ) {
+					$this->update_user_sales_bkg_process->cancel();
+				}
 			}
-			$product = isset( $_POST['wpfmppu_orders_data']['product'] ) ?
+			$product = (
+				isset( $_POST['wpfmppu_orders_data']['product'] ) &&
+				is_array( $_POST['wpfmppu_orders_data']['product'] )
+			) ?
 				map_deep( wp_unslash( $_POST['wpfmppu_orders_data']['product'] ), 'sanitize_text_field' ) :
 				array();
 			foreach ( array( 'product_cat', 'product_tag' ) as $taxonomy ) {
@@ -855,7 +875,7 @@ class WPFMPPU_Users {
 	/**
 	 * show_extra_profile_fields.
 	 *
-	 * @version 4.5.1
+	 * @version 4.5.2
 	 * @since   2.2.0
 	 */
 	function show_extra_profile_fields( $user ) {
@@ -867,17 +887,29 @@ class WPFMPPU_Users {
 		}
 
 		$sales_data_btn = new WPFMPPU_Sales_Data_Btn();
-		$sales_data_btn_html = $sales_data_btn->get_btn_html( array(
-			'user_id' => $user->ID,
-			'action'  => 'wpfmppu_get_user_sales_data',
-			'type'    => 'product'
-		) );
+		$sales_data_btn_html = $sales_data_btn->get_btn_html(
+			array(
+				'user_id' => $user->ID,
+				'action'  => 'wpfmppu_get_user_sales_data',
+				'type'    => 'product'
+			)
+		);
 
 		$style                  = $this->get_user_profile_styles();
 		$get_html_using_ajax    = $this->show_extra_profile_fields_using_ajax();
 		$product_data_html      = false === $get_html_using_ajax ? $this->get_user_products_data_html( $user ) : $sales_data_btn_html;
 		$terms_data             = $this->get_extra_profile_fields_terms_data_table_rows( $user );
-		$export_sales_data_html = '<a class="mppu-export-data button button-primary" href="' . esc_url( add_query_arg( 'wpfmppu_export_single_user_orders_data', intval( $user->ID ) ) ) . '"><i class="dashicons dashicons-download"></i>' . __( 'Export products data', 'maximum-products-per-user-for-woocommerce' ) . '</a>';
+		$url = wp_nonce_url(
+				add_query_arg( 'wpfmppu_export_single_user_orders_data', intval( $user->ID ) ),
+				'wpfmppu_export_nonce'
+			);
+
+		$export_sales_data_html = sprintf(
+			'<a class="mppu-export-data button button-primary" href="%s"><i class="dashicons dashicons-download"></i>%s</a>',
+			esc_url( $url ),
+			esc_html__( 'Export products data', 'maximum-products-per-user-for-woocommerce' )
+		);
+
 		echo wp_kses( $style, wpfmppu()->core->get_allowed_style() );
 		echo '<h2>' . esc_html__( 'Maximum Products per User', 'maximum-products-per-user-for-woocommerce' ) . '</h2>';
 		echo '<table class="form-table" id="mppu-products-data">' .
@@ -961,7 +993,7 @@ class WPFMPPU_Users {
 	/**
 	 * get_extra_profile_fields_terms_data_table_rows.
 	 *
-	 * @version 4.5.1
+	 * @version 4.5.2
 	 * @since   3.8.6
 	 *
 	 * @param $user
@@ -973,7 +1005,9 @@ class WPFMPPU_Users {
 		$terms_data          = '';
 		foreach ( array( 'product_cat', 'product_tag' ) as $taxonomy ) {
 			if ( 'yes' === apply_filters( 'wpfmppu_' . $taxonomy . '_enabled', 'no' ) ) {
-				$term_name  = 'product_cat' === $taxonomy ? __( 'Product Categories Data', 'maximum-products-per-user-for-woocommerce' ) : __( 'Product Tags Data', 'maximum-products-per-user-for-woocommerce' );
+				$term_name  = 'product_cat' === $taxonomy ?
+					__( 'Product Categories Data', 'maximum-products-per-user-for-woocommerce' ) :
+					__( 'Product Tags Data', 'maximum-products-per-user-for-woocommerce' );
 				$sales_data_btn = new WPFMPPU_Sales_Data_Btn();
 				$sales_data_btn_html = $sales_data_btn->get_btn_html( array(
 					'user_id' => $user->ID,
@@ -991,7 +1025,7 @@ class WPFMPPU_Users {
 	/**
 	 * handle_sales_data_via_js.
 	 *
-	 * @version 4.5.1
+	 * @version 4.5.2
 	 * @since   3.8.6
 	 *
 	 * @return void
@@ -1004,7 +1038,7 @@ class WPFMPPU_Users {
 			return;
 		}
 		$php_to_js = array(
-			'security' => wp_create_nonce( 'mppu-get_user_sales_data' ),
+			'security' => wp_create_nonce( 'wpfmppu_get_user_sales_data' ),
 		);
 		?>
         <script>
@@ -1032,23 +1066,32 @@ class WPFMPPU_Users {
 	/**
 	 * get_user_sales_data_html_ajax.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.2
 	 * @since   3.8.6
 	 *
      * @return void
 	 */
 	function get_user_sales_data_html_ajax() {
-		check_ajax_referer( 'mppu-get_user_sales_data', 'security' );
-		if ( 'yes' !== wpfmppu_get_option( 'alg_wc_mppu_editable_sales_data', 'no' ) ) {
+		check_ajax_referer( 'wpfmppu_get_user_sales_data', 'security' );
+		if (
+			'yes' !== wpfmppu_get_option( 'alg_wc_mppu_editable_sales_data', 'no' )
+		) {
 			return;
 		}
-		$args      = wp_parse_args( $_POST, array(
-			'data_type' => 'product',
-			'user_id'   => get_current_user_id(),
-		) );
-		$user_id   = intval( $args['user_id'] );
-		$data_type = $args['data_type'];
-		$output    = '';
+		$args = wp_parse_args(
+			$_POST,
+			array(
+				'data_type' => 'product',
+				'user_id'   => get_current_user_id(),
+			)
+		);
+		$user_id   = absint( $args['user_id'] );
+		$data_type = sanitize_key( $args['data_type'] );
+
+		if ( ! in_array( $data_type, array( 'product', 'product_tag', 'product_cat' ), true ) ) {
+			$data_type = 'product';
+		}
+
 		if ( ! empty( $user_id ) ) {
 			$user = get_user_by( 'ID', $user_id );
 			if ( 'product' === $data_type ) {

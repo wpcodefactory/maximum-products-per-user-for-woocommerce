@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Background Process - Update user terms data.
  *
- * @version 4.5.0
+ * @version 4.5.2
  * @since   3.8.6
  * @author  WPFactory
  */
@@ -19,7 +19,16 @@ if ( ! class_exists( 'WPFMPPU_Update_User_Terms_data_Bkg_Process' ) ) {
 		 *
 		 * @var string
 		 */
-		protected $action = 'alg_wc_mppu_update_user_terms_data_bkg_process';
+		protected $action = 'update_user_terms_data_bkg_process';
+
+		/**
+		 * Prefix.
+		 *
+		 * @since 4.5.2.
+		 *
+		 * @var string
+		 */
+		protected $prefix = 'alg_wc_mppu';
 
 		/**
 		 * get_action_label.

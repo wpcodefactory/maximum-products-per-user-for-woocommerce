@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Shortcodes.
  *
- * @version 4.5.0
+ * @version 4.5.2
  * @since   2.5.0
  * @author  WPFactory
  */
@@ -80,34 +80,59 @@ class WPFMPPU_Shortcodes {
 	/**
 	 * placeholder.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.2
 	 * @since   3.2.2
 	 * @todo    [maybe] add `$atts['on_zero']`?
 	 */
 	function placeholder( $atts, $content = '' ) {
-		if ( ! isset( $atts['key'], wpfmppu()->core->placeholders, wpfmppu()->core->placeholders[ '%' . $atts['key'] . '%' ] ) ) {
+		$key = isset( $atts['key'] ) ? sanitize_key( $atts['key'] ) : '';
+
+		if ( '' === $key || ! isset( wpfmppu()->core->placeholders[ '%' . $key . '%' ] ) ) {
 			return '';
 		}
 
-		return ( '' == ( $value = wpfmppu()->core->placeholders[ '%' . $atts['key'] . '%' ] ) ?
-			( isset( $atts['on_empty'] ) ? wp_kses_post( $atts['on_empty'] ) : '' ) :
-			( isset( $atts['before'] ) ? wp_kses_post( $atts['before'] ) : '' ) . $value . ( isset( $atts['after'] ) ? wp_kses_post( $atts['after'] ) : '' ) );
+		$value = wpfmppu()->core->placeholders[ '%' . $key . '%' ];
+
+		if ( '' === $value ) {
+			return isset( $atts['on_empty'] ) ? wp_kses_post( $atts['on_empty'] ) : '';
+		}
+
+		$before = isset( $atts['before'] ) ? wp_kses_post( $atts['before'] ) : '';
+		$after  = isset( $atts['after'] ) ? wp_kses_post( $atts['after'] ) : '';
+
+		return $before . wp_kses_post( $value ) . $after;
 	}
 
 	/**
 	 * term_limit_shortcode.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.2
 	 * @since   3.1.0
 	 * @todo    [next] `wpfmppu()->core->get_notice_placeholders()`
 	 * @todo    [later] different (customizable) message depending on `$remaining`
 	 */
 	function term_limit_shortcode( $atts, $content = '' ) {
+		$atts = shortcode_atts(
+			array(
+				'user_id'   => wpfmppu()->core->get_current_user_id(),
+				'taxonomy'  => '',
+				'term_id'   => '',
+				'term_slug' => '',
+				'template'  => '',
+			),
+			$atts,
+			'wpfmppu_term_limit'
+		);
+
+		$taxonomy  = sanitize_key( $atts['taxonomy'] );
+		$term_id   = absint( $atts['term_id'] );
+		$term_slug = sanitize_title( $atts['term_slug'] );
+
 		if (
-			! empty( $atts['taxonomy'] ) && ( 'yes' === apply_filters( 'wpfmppu_' . $atts['taxonomy'] . '_enabled', 'no' ) ) &&
-			( ! empty( $atts['term_id'] ) || ! empty( $atts['term_slug'] ) )
+			! empty( $taxonomy ) && ( 'yes' === apply_filters( 'wpfmppu_' . $taxonomy . '_enabled', 'no' ) ) &&
+			( ! empty( $term_id ) || ! empty( $term_slug ) )
 		) {
-			$term = ( ! empty( $atts['term_id'] ) ? get_term_by( 'id', $atts['term_id'], $atts['taxonomy'] ) : get_term_by( 'slug', $atts['term_slug'], $atts['taxonomy'] ) );
+			$term = ( ! empty( $term_id ) ? get_term_by( 'id', $term_id, $taxonomy ) : get_term_by( 'slug', $term_slug, $taxonomy ) );
 			if ( $term ) {
 				$user_id = $this->get_user_id( $atts );
 				if ( $user_id ) {
@@ -116,14 +141,20 @@ class WPFMPPU_Shortcodes {
 						$bought       = $bought_data['bought'];
 						$remaining    = $max_qty - $bought;
 						wpfmppu()->core->placeholders = array(
-							'%limit%'                           => $max_qty,
-							'%bought%'                          => $bought,
-							'%remaining%'                       => ( $remaining > 0 ? $remaining : 0 ),
-							'%term_name%'                       => $term->name,
-							'%first_order_date%'                => ( false !== $bought_data['first_order_date'] ? date_i18n( wpfmppu()->core->get_date_format(), $bought_data['first_order_date'] ) : '' ),
-							'%first_order_amount%'              => ( false !== $bought_data['first_order_amount'] ? $bought_data['first_order_amount'] : '' ),
-							'%first_order_date_exp%'            => wpfmppu()->core->get_first_order_date_exp( $bought_data['first_order_date'], $bought_data['date_range'] ),
-							'%first_order_date_exp_timeleft%'   => wpfmppu()->core->get_first_order_date_exp( $bought_data['first_order_date'], $bought_data['date_range'], true ),
+							'%limit%'                           => esc_html( $max_qty ),
+							'%bought%'                          => esc_html( $bought ),
+							'%remaining%'                       => esc_html( $remaining > 0 ? $remaining : 0 ),
+							'%term_name%'                       => esc_html( $term->name ),
+							'%first_order_date%'                => ( false !== $bought_data['first_order_date'] ?
+								esc_html( date_i18n( wpfmppu()->core->get_date_format(), $bought_data['first_order_date'] ) ) :
+								''
+							),
+							'%first_order_amount%'              => ( false !== $bought_data['first_order_amount'] ?
+								esc_html( $bought_data['first_order_amount'] ) :
+								''
+							),
+							'%first_order_date_exp%'            => esc_html( wpfmppu()->core->get_first_order_date_exp( $bought_data['first_order_date'], $bought_data['date_range'] ) ),
+							'%first_order_date_exp_timeleft%'   => esc_html( wpfmppu()->core->get_first_order_date_exp( $bought_data['first_order_date'], $bought_data['date_range'], true ) ),
 						);
 						$template = ( isset( $atts['template'] ) ?
 							wp_kses_post( $atts['template'] ) :
@@ -240,7 +271,7 @@ class WPFMPPU_Shortcodes {
 	/**
 	 * user_product_limits_shortcode.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.2
 	 * @since   2.5.0
 	 * @todo    [later] customizable content: use `wpfmppu()->core->get_notice_placeholders()`
 	 * @todo    [later] customizable: columns, column order, column titles, table styling, "No data" text, (maybe) sorting
@@ -257,7 +288,7 @@ class WPFMPPU_Shortcodes {
 			'show_restrictions_col'      => 'true',
 			'show_only_limited_products' => 'false'
 		), $atts, 'wpfmppu_user_product_limits' );
-		
+
 		$posts_per_page = intval( $atts['per_page'] );
 		$off_page_nav = $atts['off_page_nav'];
 		$show_only_limited_products = $atts['show_only_limited_products'];
@@ -268,14 +299,16 @@ class WPFMPPU_Shortcodes {
 			'column_val_yes'  => __( 'Yes', 'maximum-products-per-user-for-woocommerce' ),
 			'column_val_no'   => __( 'No', 'maximum-products-per-user-for-woocommerce' )
 		);
+
 		// Get user ID
 		$user_id = $this->get_user_id( $atts );
 		if ( ! $user_id ) {
 			return;
 		}
-		$output     = '';
-		$pagination_html='';
-		$_output    = '';
+
+		$output          = '';
+		$pagination_html = '';
+		$row_output      = '';
 		$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 		if ( 1 === $paged ) {
 			global $wp_query;
@@ -298,10 +331,10 @@ class WPFMPPU_Shortcodes {
 				'',
 		);
 
-		if ( $show_only_limited_products == 'true' ) {
-			$query_args['meta_query'][0]['key'] 	= '_wpjup_wc_maximum_products_per_user_qty';
-			$query_args['meta_query'][0]['value'] 	= 0;
-			$query_args['meta_query'][0]['type'] 	= 'numeric';
+		if ( 'true' === $show_only_limited_products ) {
+			$query_args['meta_query'][0]['key']     = '_wpjup_wc_maximum_products_per_user_qty';
+			$query_args['meta_query'][0]['value']   = 0;
+			$query_args['meta_query'][0]['type']    = 'numeric';
 			$query_args['meta_query'][0]['compare'] = '>=';
 		}
 
@@ -309,7 +342,7 @@ class WPFMPPU_Shortcodes {
 			'sc_atts' => $atts,
 			'user_id' => $user_id,
 		) );
-		$loop = new WP_Query( $query_args );
+		$loop       = new WP_Query( $query_args );
 		if ( $loop->have_posts() ) :
 			foreach ( $loop->posts as $product_id ) {
 				$max_qty = wpfmppu()->core->get_max_qty_for_product( $product_id );
@@ -324,9 +357,17 @@ class WPFMPPU_Shortcodes {
 							$remaining           = $_max_qty['max_qty'] - $user_already_bought;
 							if ( $remaining < $_remaining ) {
 								$_remaining = $remaining;
-								$_output    = sprintf( '<td>%s</td><td>%s</td><td>%s</td>', max( $remaining, 0 ), $user_already_bought, max( $_max_qty['max_qty'], 0 ) );
+								$row_output    = sprintf(
+									'<td>%s</td><td>%s</td><td>%s</td>',
+									esc_html( max( $remaining, 0 ) ),
+									esc_html( $user_already_bought ),
+									esc_html( max( $_max_qty['max_qty'], 0 ) )
+								);
 								if ( $show_restrictions_column ) {
-									$_output .= sprintf( $restrictions_column_data['column_template'], $restrictions_column_data['column_val_yes'] );
+									$row_output .= sprintf(
+										$restrictions_column_data['column_template'],
+										esc_html( $restrictions_column_data['column_val_yes'] )
+									);
 								}
 							}
 						}
@@ -336,9 +377,17 @@ class WPFMPPU_Shortcodes {
 						$user_already_bought = $bought_data['bought'];
 						$max_qty             = is_array( $max_qty ) ? min( wp_list_pluck( $max_qty, 'max_qty' ) ) : $max_qty;
 						$remaining           = $max_qty - $user_already_bought;
-						$_output             = sprintf( '<td>%s</td><td>%s</td><td>%s</td>', max( $remaining, 0 ), $user_already_bought, max( $max_qty, 0 ) );
+						$row_output             = sprintf(
+							'<td>%s</td><td>%s</td><td>%s</td>',
+							esc_html( max( $remaining, 0 ) ),
+							esc_html( $user_already_bought ),
+							esc_html( max( $max_qty, 0 ) )
+						);
 						if ( $show_restrictions_column ) {
-							$_output .= sprintf( $restrictions_column_data['column_template'], $restrictions_column_data['column_val_yes'] );
+							$row_output .= sprintf(
+								$restrictions_column_data['column_template'],
+								esc_html( $restrictions_column_data['column_val_yes'] )
+							);
 						}
 					}
 					if ( apply_filters( 'wpfmppu_user_product_limits_item_validation', true, array(
@@ -348,23 +397,27 @@ class WPFMPPU_Shortcodes {
 						'bought_data' => $bought_data,
 						'max_qty'     => $max_qty
 					) ) ) {
-						$output .= '<tr><td>' . '<a href="' . get_the_permalink( $product_id ) . '">' . get_the_title( $product_id ) . '</a>' . '</td>' . $_output . '</tr>';
+						$output .= '<tr><td>' .
+						           '<a href="' . esc_url( get_permalink( $product_id ) ) . '">' . esc_html( get_the_title( $product_id ) ) . '</a>' .
+						           '</td>' . $row_output . '</tr>';
 					}
 				} else {
 
 					if ( $show_restrictions_column ) {
-						$output .= '<tr class="alg-wc-mppu-no-restrictions"><td>' . '<a href="' . get_the_permalink( $product_id ) . '">' . get_the_title( $product_id ) . '</a>' . '</td><td>-</td><td>-</td><td>-</td><td>' . $restrictions_column_data['column_val_no'] . '</td></tr>';
+						$output .= '<tr class="alg-wc-mppu-no-restrictions"><td>' .
+						           '<a href="' . esc_url( get_permalink( $product_id ) ) . '">' . esc_html( get_the_title( $product_id ) ) . '</a>' . '</td><td>-</td><td>-</td><td>-</td><td>' . esc_html( $restrictions_column_data['column_val_no'] ) . '</td></tr>';
 					}else{
-						$output .= '<tr class="alg-wc-mppu-no-restrictions"><td>' . '<a href="' . get_the_permalink( $product_id ) . '">' . get_the_title( $product_id ) . '</a>' . '</td><td>-</td><td>-</td><td>-</td></tr>';
+						$output .= '<tr class="alg-wc-mppu-no-restrictions"><td>' .
+						           '<a href="' . esc_url( get_permalink( $product_id ) ) . '">' . esc_html( get_the_title( $product_id ) ) . '</a>' . '</td><td>-</td><td>-</td><td>-</td></tr>';
 					}
 				}
 			}
 			$total_pages = $loop->max_num_pages;
-			if ( $total_pages > 1 && $off_page_nav != 'true' ) {
+			if ( $total_pages > 1 && 'true' !== $off_page_nav ) {
 				$current_page    = max( 1, $paged );
 				$pagination_html .= '<nav class="woocommerce-pagination">';
 				$pagination_html .= paginate_links( array(
-					'base'      => get_pagenum_link( 1 ) . '%_%',
+					'base'      => esc_url( get_pagenum_link( 1 ) ) . '%_%',
 					'format'    => 'page/%#%',
 					'current'   => $current_page,
 					'total'     => $total_pages,
@@ -377,14 +430,14 @@ class WPFMPPU_Shortcodes {
 		endif;
 		wp_reset_postdata();
 		if ( ! empty( $output ) ) {
-			$thead = '<th>' . __( 'Product', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
-			         '<th>' . __( 'Remaining', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
-			         '<th>' . __( 'Bought', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
-			         '<th>' . __( 'Max', 'maximum-products-per-user-for-woocommerce' ) . '</th>';
+			$thead = '<th>' . esc_html__( 'Product', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
+			         '<th>' . esc_html__( 'Remaining', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
+			         '<th>' . esc_html__( 'Bought', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
+			         '<th>' . esc_html__( 'Max', 'maximum-products-per-user-for-woocommerce' ) . '</th>';
 
 			if ( $show_restrictions_column ) {
 				$thead .=
-					'<th>' . __( 'Restrictions', 'maximum-products-per-user-for-woocommerce' ) . '</th>';
+					'<th>' . esc_html__( 'Restrictions', 'maximum-products-per-user-for-woocommerce' ) . '</th>';
 
 			}
 
@@ -402,7 +455,7 @@ class WPFMPPU_Shortcodes {
 			$final_output.='<style>.alg-wc-mppu-no-restrictions td{opacity:0.5}</style>';
 			return $final_output;
 		} else {
-			return __( 'No data', 'maximum-products-per-user-for-woocommerce' );
+			return esc_html__( 'No data', 'maximum-products-per-user-for-woocommerce' );
 		}
 	}
 
@@ -481,7 +534,7 @@ class WPFMPPU_Shortcodes {
 	/**
 	 * user_terms_limits_shortcode.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.2
 	 * @since   3.5.7
 	 *
 	 * @param $atts
@@ -490,24 +543,26 @@ class WPFMPPU_Shortcodes {
 	 * @return string|void
 	 */
 	function user_terms_limits_shortcode( $atts, $content = '' ) {
-		if ( ! $atts ) {
-			$atts = array();
-		}
-		$atts = shortcode_atts( array(
-			'taxonomy'      => 'product_cat',
-			'show_unbought' => 'true'
-		), $atts, 'wpfmppu_user_terms_limits' );
-		$taxonomy = $atts['taxonomy'];
+		$atts = shortcode_atts(
+			array(
+				'user_id'       => wpfmppu()->core->get_current_user_id(),
+				'taxonomy'      => 'product_cat',
+				'show_unbought' => 'true'
+			),
+			$atts,
+			'wpfmppu_user_terms_limits'
+		);
+		$taxonomy = sanitize_key( $atts['taxonomy'] );
 		// Get user ID
 		$user_id = $this->get_user_id( $atts );
 		if ( ! $user_id ) {
 			return;
 		}
-		if ( 'yes' !== apply_filters( 'wpfmppu_' . $atts['taxonomy'] . '_enabled', 'no' ) ) {
+		if ( 'yes' !== apply_filters( 'wpfmppu_' . $taxonomy . '_enabled', 'no' ) ) {
 			return;
 		}
 		// Products
-		$output     = $_output = '';
+		$output     = '';
 		$block_size = 1024;
 		$offset     = 0;
 		while ( true ) {
@@ -520,7 +575,7 @@ class WPFMPPU_Shortcodes {
 				'fields'   => 'all',
 			);
 			$terms = new WP_Term_Query( $args );
-			if ( empty( $terms ) || is_wp_error( $terms ) || empty($terms->terms) ) {
+			if ( empty( $terms ) || is_wp_error( $terms ) || empty( $terms->terms ) ) {
 				break;
 			}
 
@@ -532,7 +587,12 @@ class WPFMPPU_Shortcodes {
 					$bought_data         = wpfmppu()->core->get_user_already_bought_qty( $term_id, $user_id, false );
 					$user_already_bought = $bought_data['bought'];
 					$remaining           = $max_qty - $user_already_bought;
-					$_output             = sprintf( '<td>%s</td><td>%s</td><td>%s</td>', max( $remaining, 0 ), $user_already_bought, max( $max_qty, 0 ) );
+					$row_output             = sprintf(
+						'<td>%s</td><td>%s</td><td>%s</td>',
+						esc_html( max( $remaining, 0 ) ),
+						esc_html( $user_already_bought ),
+						esc_html( max( $max_qty, 0 ) )
+					);
 					if ( apply_filters( 'wpfmppu_user_terms_limits_item_validation', true, array(
 						'sc_atts'     => $atts,
 						'taxonomy'    => $taxonomy,
@@ -541,7 +601,9 @@ class WPFMPPU_Shortcodes {
 						'bought_data' => $bought_data,
 						'max_qty'     => $max_qty
 					) ) ) {
-						$output .= '<tr><td>' . '<a href="' . get_term_link( $term_id, $taxonomy ) . '">' . $term->name . '</a>' . '</td>' . $_output . '</tr>';
+						$output .= '<tr><td>' .
+						           '<a href="' . esc_url( get_term_link( $term_id, $taxonomy ) ) . '">' . esc_html( $term->name ) . '</a>' .
+						           '</td>' . $row_output . '</tr>';
 					}
 				}
 			}
@@ -550,15 +612,15 @@ class WPFMPPU_Shortcodes {
 		if ( ! empty( $output ) ) {
 			return '<table class="alg_wc_mppu_products_data_my_account">' .
 			       '<tr>' .
-			       '<th>' . __( 'Term', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
-			       '<th>' . __( 'Remaining', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
-			       '<th>' . __( 'Bought', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
-			       '<th>' . __( 'Max', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
+			       '<th>' . esc_html__( 'Term', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
+			       '<th>' . esc_html__( 'Remaining', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
+			       '<th>' . esc_html__( 'Bought', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
+			       '<th>' . esc_html__( 'Max', 'maximum-products-per-user-for-woocommerce' ) . '</th>' .
 			       '</tr>' .
 			       $output .
 			       '</table>';
 		} else {
-			return __( 'No data', 'maximum-products-per-user-for-woocommerce' );
+			return esc_html__( 'No data', 'maximum-products-per-user-for-woocommerce' );
 		}
 	}
 

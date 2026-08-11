@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Async request - Delete sales.
  *
- * @version 4.5.0
+ * @version 4.5.2
  * @since   3.6.4
  * @author  WPFactory
  */
@@ -28,7 +28,16 @@ if ( ! class_exists( 'WPFMPPU_Delete_Sales_Async_Request' ) ) {
 		 *
 		 * @var string
 		 */
-		protected $action = 'alg_wc_mppu_delete_sales_async_request';
+		protected $action = 'delete_sales_async_request';
+
+		/**
+		 * Prefix.
+		 *
+		 * @since 4.5.2.
+		 *
+		 * @var string
+		 */
+		protected $prefix = 'alg_wc_mppu';
 
 		/**
 		 * Handle.

@@ -2,7 +2,7 @@
 /**
  * Maximum Products per User for WooCommerce - Admin Section Settings.
  *
- * @version 4.5.0
+ * @version 4.5.2
  * @since   2.2.0
  * @author  WPFactory
  */
@@ -29,7 +29,7 @@ class WPFMPPU_Settings_Admin extends WPFMPPU_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 4.3.8
+	 * @version 4.5.2
 	 * @since   2.2.0
 	 * @todo    [next] `alg_wc_mppu_user_export_sep`: separate for "single user export" and "all users export"?
 	 * @todo    [next] (desc) Extra meta: better desc
@@ -183,8 +183,16 @@ class WPFMPPU_Settings_Admin extends WPFMPPU_Settings_Section {
 		$user_sales_data_export_opts = array(
 			array(
 				'title'    => __( 'User sales data export options', 'maximum-products-per-user-for-woocommerce' ),
-				'desc'     => '<a class="button" href="' . add_query_arg( 'wpfmppu_export_all_users_orders_data', true ). '">' .
-				              __( 'Export sales data for all users', 'maximum-products-per-user-for-woocommerce' ) . '</a>',
+				'desc' => sprintf(
+					'<a class="button" href="%s">%s</a>',
+					esc_url(
+						wp_nonce_url(
+							add_query_arg( 'wpfmppu_export_all_users_orders_data', true ),
+							'wpfmppu_export_nonce'
+						)
+					),
+					esc_html__( 'Export sales data for all users', 'maximum-products-per-user-for-woocommerce' )
+				),
 				'type'     => 'title',
 				'id'       => 'alg_wc_mppu_sales_data_export_options',
 			),

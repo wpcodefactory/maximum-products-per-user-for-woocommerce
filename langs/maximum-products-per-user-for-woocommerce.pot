@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.5.1\n"
+"Project-Id-Version: maximum-products-per-user-for-woocommerce 4.5.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/maximum-products-per-user-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-23T01:11:20+02:00\n"
+"POT-Creation-Date: 2026-08-11T21:15:31+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: maximum-products-per-user-for-woocommerce\n"
@@ -37,7 +37,7 @@ msgid "https://wpfactory.com"
 msgstr ""
 
 #. Translators: %d: Number of metadata items.
-#: includes/background-process/class-wpfmppu-delete-sales-async-request.php:46
+#: includes/background-process/class-wpfmppu-delete-sales-async-request.php:55
 msgid "%d meta deleted."
 msgid_plural "%d metas deleted."
 msgstr[0] ""
@@ -52,30 +52,30 @@ msgstr ""
 msgid "Every %d Minutes"
 msgstr ""
 
-#: includes/background-process/class-wpfmppu-recalculate-sales-bkg-process.php:34
+#: includes/background-process/class-wpfmppu-recalculate-sales-bkg-process.php:43
 msgid "Maximum Products per User - Recalculate sales data"
 msgstr ""
 
 #. Translators: %d: Order ID.
-#: includes/background-process/class-wpfmppu-recalculate-sales-bkg-process.php:53
+#: includes/background-process/class-wpfmppu-recalculate-sales-bkg-process.php:62
 msgid "Order processed: %d."
 msgstr ""
 
-#: includes/background-process/class-wpfmppu-update-user-sales-data-bkg-process.php:34
+#: includes/background-process/class-wpfmppu-update-user-sales-data-bkg-process.php:43
 msgid "Maximum Products per User - Update user sales data"
 msgstr ""
 
 #. Translators: %s: Order IDs.
-#: includes/background-process/class-wpfmppu-update-user-sales-data-bkg-process.php:53
+#: includes/background-process/class-wpfmppu-update-user-sales-data-bkg-process.php:62
 msgid "Orders processed: %s."
 msgstr ""
 
-#: includes/background-process/class-wpfmppu-update-user-terms-data-bkg-process.php:33
+#: includes/background-process/class-wpfmppu-update-user-terms-data-bkg-process.php:42
 msgid "Maximum Products per User - Update user terms data"
 msgstr ""
 
 #. Translators: %1$s: Term name, %2$s: User display name.
-#: includes/background-process/class-wpfmppu-update-user-terms-data-bkg-process.php:53
+#: includes/background-process/class-wpfmppu-update-user-terms-data-bkg-process.php:62
 msgid "Term \"%1$s\" updated from user %2$s."
 msgstr ""
 
@@ -173,7 +173,7 @@ msgstr ""
 
 #: includes/class-wpfmppu-reports.php:90
 #: includes/class-wpfmppu-reports.php:113
-#: includes/class-wpfmppu-users.php:1061
+#: includes/class-wpfmppu-users.php:1104
 msgid "There was en error. Please, try again later."
 msgstr ""
 
@@ -201,7 +201,7 @@ msgstr ""
 
 #: includes/class-wpfmppu-reports.php:271
 #: includes/class-wpfmppu-reports.php:293
-#: includes/class-wpfmppu-users.php:398
+#: includes/class-wpfmppu-users.php:402
 msgid "User ID"
 msgstr ""
 
@@ -212,8 +212,8 @@ msgstr ""
 
 #: includes/class-wpfmppu-reports.php:275
 #: includes/class-wpfmppu-reports.php:297
-#: includes/class-wpfmppu-shortcodes.php:382
-#: includes/class-wpfmppu-shortcodes.php:555
+#: includes/class-wpfmppu-shortcodes.php:435
+#: includes/class-wpfmppu-shortcodes.php:617
 msgid "Bought"
 msgstr ""
 
@@ -226,7 +226,7 @@ msgid "No data."
 msgstr ""
 
 #: includes/class-wpfmppu-reports.php:295
-#: includes/class-wpfmppu-users.php:401
+#: includes/class-wpfmppu-users.php:405
 msgid "Order ID"
 msgstr ""
 
@@ -243,52 +243,52 @@ msgid "Show sales data"
 msgstr ""
 
 #. Translators: %remaining%: Remaining quantity, %bought%: Bought quantity, %limit%: Limit quantity.
-#: includes/class-wpfmppu-shortcodes.php:131
+#: includes/class-wpfmppu-shortcodes.php:162
 msgid "The remaining amount is %remaining% (you've already bought %bought% out of %limit%)."
 msgstr ""
 
 #. Translators: %product_title%: Product title, %remaining%: Remaining quantity, %bought%: Bought quantity, %limit%: Limit quantity.
-#: includes/class-wpfmppu-shortcodes.php:155
+#: includes/class-wpfmppu-shortcodes.php:186
 #: includes/settings/class-wpfmppu-settings-frontend.php:240
 msgid "The remaining amount for %product_title% is %remaining% (you've already bought %bought% out of %limit%)."
 msgstr ""
 
-#: includes/class-wpfmppu-shortcodes.php:268
+#: includes/class-wpfmppu-shortcodes.php:299
 #: includes/pro/settings/class-wpfmppu-settings-per-product.php:257
 msgid "Yes"
 msgstr ""
 
-#: includes/class-wpfmppu-shortcodes.php:269
+#: includes/class-wpfmppu-shortcodes.php:300
 #: includes/pro/settings/class-wpfmppu-settings-per-product.php:258
 msgid "No"
 msgstr ""
 
-#: includes/class-wpfmppu-shortcodes.php:380
-#: includes/class-wpfmppu-users.php:798
+#: includes/class-wpfmppu-shortcodes.php:433
+#: includes/class-wpfmppu-users.php:818
 msgid "Product"
 msgstr ""
 
-#: includes/class-wpfmppu-shortcodes.php:381
-#: includes/class-wpfmppu-shortcodes.php:554
+#: includes/class-wpfmppu-shortcodes.php:434
+#: includes/class-wpfmppu-shortcodes.php:616
 msgid "Remaining"
 msgstr ""
 
-#: includes/class-wpfmppu-shortcodes.php:383
-#: includes/class-wpfmppu-shortcodes.php:556
+#: includes/class-wpfmppu-shortcodes.php:436
+#: includes/class-wpfmppu-shortcodes.php:618
 msgid "Max"
 msgstr ""
 
-#: includes/class-wpfmppu-shortcodes.php:387
+#: includes/class-wpfmppu-shortcodes.php:440
 msgid "Restrictions"
 msgstr ""
 
-#: includes/class-wpfmppu-shortcodes.php:405
-#: includes/class-wpfmppu-shortcodes.php:561
+#: includes/class-wpfmppu-shortcodes.php:458
+#: includes/class-wpfmppu-shortcodes.php:623
 msgid "No data"
 msgstr ""
 
-#: includes/class-wpfmppu-shortcodes.php:553
-#: includes/class-wpfmppu-users.php:840
+#: includes/class-wpfmppu-shortcodes.php:615
+#: includes/class-wpfmppu-users.php:860
 msgid "Term"
 msgstr ""
 
@@ -302,68 +302,68 @@ msgstr ""
 msgid "Delete sales data"
 msgstr ""
 
-#: includes/class-wpfmppu-users.php:230
+#: includes/class-wpfmppu-users.php:227
 msgid "The data is being processed in background. Please, reload the page in order to see the info refreshed completely."
 msgstr ""
 
-#: includes/class-wpfmppu-users.php:399
+#: includes/class-wpfmppu-users.php:403
 msgid "Product ID"
 msgstr ""
 
-#: includes/class-wpfmppu-users.php:400
+#: includes/class-wpfmppu-users.php:404
 msgid "Product title"
 msgstr ""
 
-#: includes/class-wpfmppu-users.php:402
+#: includes/class-wpfmppu-users.php:406
 msgid "Order date"
 msgstr ""
 
-#: includes/class-wpfmppu-users.php:403
+#: includes/class-wpfmppu-users.php:407
 msgid "Order value"
 msgstr ""
 
-#: includes/class-wpfmppu-users.php:799
-#: includes/class-wpfmppu-users.php:841
+#: includes/class-wpfmppu-users.php:819
+#: includes/class-wpfmppu-users.php:861
 #: includes/settings/class-wpfmppu-settings-admin.php:153
 #: includes/settings/class-wpfmppu-settings-advanced.php:154
 #: includes/settings/class-wpfmppu-settings-general.php:207
 msgid "Lifetime"
 msgstr ""
 
-#: includes/class-wpfmppu-users.php:800
-#: includes/class-wpfmppu-users.php:842
+#: includes/class-wpfmppu-users.php:820
+#: includes/class-wpfmppu-users.php:862
 msgid "Orders"
 msgstr ""
 
-#: includes/class-wpfmppu-users.php:880
+#: includes/class-wpfmppu-users.php:910
 msgid "Export products data"
 msgstr ""
 
-#: includes/class-wpfmppu-users.php:882
+#: includes/class-wpfmppu-users.php:914
 #: includes/pro/settings/class-wpfmppu-settings-per-product.php:38
 #: includes/settings/class-wpfmppu-settings-general.php:59
 #: includes/settings/class-wpfmppu-settings.php:24
 msgid "Maximum Products per User"
 msgstr ""
 
-#: includes/class-wpfmppu-users.php:886
+#: includes/class-wpfmppu-users.php:918
 msgid "Export Data"
 msgstr ""
 
-#: includes/class-wpfmppu-users.php:893
+#: includes/class-wpfmppu-users.php:925
 msgid "Products Data"
 msgstr ""
 
-#: includes/class-wpfmppu-users.php:976
+#: includes/class-wpfmppu-users.php:1009
 msgid "Product Categories Data"
 msgstr ""
 
-#: includes/class-wpfmppu-users.php:976
+#: includes/class-wpfmppu-users.php:1010
 msgid "Product Tags Data"
 msgstr ""
 
 #. Translators: %1$d: Order ID, %2$s: Order date.
-#: includes/class-wpfmppu-users.php:1102
+#: includes/class-wpfmppu-users.php:1145
 msgid "Order #%1$d<br>(%2$s)"
 msgstr ""
 
@@ -627,49 +627,49 @@ msgstr ""
 msgid "User sales data export options"
 msgstr ""
 
-#: includes/settings/class-wpfmppu-settings-admin.php:187
-#: includes/settings/class-wpfmppu-settings-admin.php:204
+#: includes/settings/class-wpfmppu-settings-admin.php:194
+#: includes/settings/class-wpfmppu-settings-admin.php:212
 msgid "Export sales data for all users"
 msgstr ""
 
-#: includes/settings/class-wpfmppu-settings-admin.php:192
+#: includes/settings/class-wpfmppu-settings-admin.php:200
 msgid "Export"
 msgstr ""
 
-#: includes/settings/class-wpfmppu-settings-admin.php:193
+#: includes/settings/class-wpfmppu-settings-admin.php:201
 msgid "Column separator"
 msgstr ""
 
-#: includes/settings/class-wpfmppu-settings-admin.php:199
-#: includes/settings/class-wpfmppu-settings-admin.php:215
-#: includes/settings/class-wpfmppu-settings-admin.php:227
+#: includes/settings/class-wpfmppu-settings-admin.php:207
+#: includes/settings/class-wpfmppu-settings-admin.php:223
+#: includes/settings/class-wpfmppu-settings-admin.php:235
 msgid "Merge user"
 msgstr ""
 
-#: includes/settings/class-wpfmppu-settings-admin.php:200
+#: includes/settings/class-wpfmppu-settings-admin.php:208
 msgid "Output all user's data in a single line"
 msgstr ""
 
 #. Translators: %s: Export button text.
-#: includes/settings/class-wpfmppu-settings-admin.php:203
+#: includes/settings/class-wpfmppu-settings-admin.php:211
 msgid "Used in \"%s\" tool."
 msgstr ""
 
-#: includes/settings/class-wpfmppu-settings-admin.php:211
+#: includes/settings/class-wpfmppu-settings-admin.php:219
 msgid "Data separator"
 msgstr ""
 
 #. Translators: %s: Option name.
-#: includes/settings/class-wpfmppu-settings-admin.php:214
-#: includes/settings/class-wpfmppu-settings-admin.php:226
+#: includes/settings/class-wpfmppu-settings-admin.php:222
+#: includes/settings/class-wpfmppu-settings-admin.php:234
 msgid "Ignored unless \"%s\" option is enabled."
 msgstr ""
 
-#: includes/settings/class-wpfmppu-settings-admin.php:222
+#: includes/settings/class-wpfmppu-settings-admin.php:230
 msgid "Extra meta"
 msgstr ""
 
-#: includes/settings/class-wpfmppu-settings-admin.php:223
+#: includes/settings/class-wpfmppu-settings-admin.php:231
 msgid "Use comma separated values."
 msgstr ""
 
