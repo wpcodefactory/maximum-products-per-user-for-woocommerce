@@ -2,8 +2,8 @@
 Contributors: wpcodefactory, omardabbas, karzin, anbinder, kousikmukherjeeli
 Tags: woocommerce, product quantity, limits, quantity restriction, order restriction
 Requires at least: 5.7
-Tested up to: 7.0
-Stable tag: 4.5.2
+Tested up to: 7.1
+Stable tag: 4.5.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -273,6 +273,13 @@ Please report security bugs found in the source code of the plugin through the [
 Once activated, access the plugin's settings by navigating to "WooCommerce > Settings" and look for the relevant tab.
 
 == Changelog ==
+
+= 4.5.3 - 20/11/2026 =
+* Dev - WPFactory Cross-Selling - Library updated (to v1.1.7).
+* Dev - WPFactory Admin Menu - Library updated (to v1.1.4).
+* Dev - WPFactory Key Manager - Library updated (to v1.1.1).
+* Tested up to: 7.1.
+* WC tested up to: 11.3.
 
 = 4.5.2 - 11/08/2026 =
 * Fix - Tools > Fixed data recalculation.

@@ -26,7 +26,7 @@ if ( ! class_exists( 'WPFMPPU' ) ) :
 		 * @since 1.0.0
 		 * @var   string
 		 */
-		public $version = '4.5.2';
+		public $version = '4.5.3';
 
 		/**
 		 * @since 1.0.0
